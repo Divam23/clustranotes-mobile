@@ -1,0 +1,64 @@
+# Miscellaneous
+*.class
+*.log
+*.pyc
+*.swp
+.DS_Store
+Thumbs.db
+Desktop.ini
+.atom/
+.buildlog/
+.history/
+.svn/
+migrate_working_dir/
+
+# IntelliJ related
+*.iml
+*.ipr
+*.iws
+.idea/
+
+# Visual Studio Code related
+.vscode/
+
+# Flutter/Dart/Pub related
+.dart_tool/
+.flutter-plugins
+.flutter-plugins-dependencies
+.packages
+.pub-cache/
+.pub/
+build/
+coverage/
+**/doc/api/
+**/ios/Flutter/.last_build_id
+
+# Symbolication related
+app.*.symbols
+
+# Obfuscation related
+app.*.map.json
+
+# Android Studio will place build artifacts here.
+/android/app/debug/
+/android/app/profile/
+/android/app/release/
+
+# Environment files
+.env
+.env.*
+*.env
+
+# Firebase logs
+firebase-debug.log
+firebase-debug.*.log
+flutterfire-debug.log
+
+# Android signing keys
+*.jks
+*.keystore
+android/key.properties
+
+# Secrets
+secrets/
+credentials/
