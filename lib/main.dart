@@ -1,6 +1,5 @@
 import 'package:clustranotes_mobile/app/theme/app_theme.dart';
 import 'package:clustranotes_mobile/core/navigation/app_navigation_shell.dart';
-import 'package:clustranotes_mobile/features/home/presentation/pages/home_screen.dart';
 import 'package:flutter/material.dart';
 
 void main() {
