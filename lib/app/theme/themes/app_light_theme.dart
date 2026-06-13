@@ -16,12 +16,14 @@ class AppLightTheme {
 
       colorScheme: const ColorScheme.light(
         primary: AppColors.primary,
+        primaryFixed: AppColors.primarySky,
         surface: AppColors.lightSurface,
         error: AppColors.error,
         onPrimary: Colors.white,
         onSurface: AppColors.lightInk,
         onError: Colors.white,
-        onSecondary: AppColors.lightInkSecondary
+        onSecondary: AppColors.lightInkSecondary,
+        surfaceDim: AppColors.lightNavBackground
       ),
 
       textTheme: TextTheme(

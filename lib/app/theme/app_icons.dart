@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class AppIcons {
@@ -6,7 +7,7 @@ class AppIcons {
   static const IconData home = Icons.home_rounded;
   static const IconData explore = Icons.explore_rounded;
   static const IconData upload = Icons.add_circle_rounded;
-  static const IconData saved = Icons.bookmark_rounded;
+  static const IconData library = Icons.my_library_books_rounded;
   static const IconData profile = Icons.person_rounded;
   static const IconData search = Icons.search_rounded;
   static const IconData notifications = Icons.notifications_none_rounded;
@@ -35,6 +36,6 @@ class AppIcons {
   static const IconData assignment = Icons.description_rounded; 
   static const IconData rightArrow = Icons.chevron_right_rounded; 
   static const IconData leftArrow = Icons.chevron_left_rounded; 
-  static const IconData clock = Icons.access_time_filled_rounded;
-  
+  static const IconData clock = Icons.access_time;
+  static const IconData history = Icons.history_rounded;
 }

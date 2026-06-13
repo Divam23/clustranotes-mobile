@@ -22,7 +22,13 @@ class AppRadius {
   static const BorderRadius chip =
   BorderRadius.all(Radius.circular(full));
 
+  static const BorderRadius searchBarSharp =
+  BorderRadius.all(Radius.circular(sm));
+
   static const BorderRadius searchBar =
+  BorderRadius.all(Radius.circular(xl));
+  
+  static const BorderRadius searchBarRounded =
   BorderRadius.all(Radius.circular(full));
 
   static const BorderRadius dialog =

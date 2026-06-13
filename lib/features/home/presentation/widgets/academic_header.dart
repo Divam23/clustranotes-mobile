@@ -39,9 +39,20 @@ class AcademicHeader extends StatelessWidget{
           ),          
           child: Stack(
             children: [
-              IconButton(
-                onPressed: () {},
-                icon: const Icon(AppIcons.notifications,),
+              Material(
+                color: Colors.transparent,
+                child: InkWell(
+                  borderRadius: AppRadius.button,
+                  onTap: () {},
+                  child: const SizedBox(
+                    child: Center(
+                      child: Icon(
+                        AppIcons.notifications,
+                        
+                      ),
+                    ),
+                  ),
+                ),
               ),
               Positioned(
                 top: 9,

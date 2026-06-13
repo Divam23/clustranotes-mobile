@@ -7,6 +7,7 @@ class AppColors {
   static const Color primary = Color(0xFF2563EB);
   static const Color primaryLight = Color(0xFFEFF6FF);
   static const Color primaryDark = Color(0xFF1D4ED8);
+  static const Color primarySky = Color(0xFF60A5FA);
 
   // Light Mode Specific
   static const Color lightBackground = Color(0xFFF8FAFC);
@@ -14,6 +15,7 @@ class AppColors {
   static const Color lightInk = Color(0xFF0F172A);
   static const Color lightInkSecondary = Color(0xFF6B7280);
   static const Color border = Color(0xFFE5E7EB);
+  static const Color lightNavBackground = Color(0xFFF8FAFC);
 
   // Dark Mode Specific
   static const Color darkBackground = Color(0xFF000000);
@@ -21,6 +23,7 @@ class AppColors {
   static const Color darkInk = Color(0xFFF8FAFC);
   static const Color darkInkSecondary = Color(0xFFCBD5E1);
   static const Color darkBorder = Color(0xFF334155);
+  static const Color darkNavBackground = Color(0xFF0F172A);
 
   // General Typography & Elements
   static const Color surfaceRaised = Color(0xFFF3F4F6);

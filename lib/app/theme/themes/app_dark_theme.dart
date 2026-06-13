@@ -17,13 +17,14 @@ class AppDarkTheme {
 
       colorScheme: const ColorScheme.dark(
         primary: AppColors.primary,
+        primaryFixed: AppColors.primarySky,
         surface: AppColors.darkSurface,
         error: AppColors.error,
         onPrimary: Colors.white,
         onSurface: AppColors.darkInk,
         onError: Colors.white,
         onSecondary: AppColors.darkInkSecondary,
-        
+        surfaceDim: AppColors.darkNavBackground
       ),
 
       textTheme: TextTheme(
