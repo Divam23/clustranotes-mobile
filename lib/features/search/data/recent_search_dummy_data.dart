@@ -1,4 +1,5 @@
-import 'package:clustranotes_mobile/features/search/presentation/widgets/single_recent_search.dart';
+
+import 'package:clustranotes_mobile/features/search/presentation/widgets/empty_search/recent_search/single_recent_search.dart';
 
 final recentSearches= [
   RecentSearchItem(

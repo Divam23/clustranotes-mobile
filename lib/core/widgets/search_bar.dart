@@ -7,12 +7,14 @@ class AppSearchBar extends StatelessWidget {
   final ValueChanged<String>? onChanged;
   final bool readOnly;
   final bool autoFocus;
+  final ValueChanged<String>? onSubmitted;
 
   const AppSearchBar({
     super.key,
     this.onTap,
     this.controller,
     this.onChanged,
+    this.onSubmitted,
     this.readOnly = false,
     this.autoFocus = false,
   });
@@ -31,6 +33,7 @@ class AppSearchBar extends StatelessWidget {
           autofocus: autoFocus,
           controller: controller,
           onChanged: onChanged,
+          onSubmitted: onSubmitted,
           textInputAction: TextInputAction.search,
           decoration: InputDecoration(
             hintText: "Search notes, books, PYQs...",
@@ -38,7 +41,7 @@ class AppSearchBar extends StatelessWidget {
               color: theme.disabledColor,
             ),
             prefixIcon: Icon(AppIcons.search),
-            prefixIconColor: Theme.of(context).disabledColor,
+            prefixIconColor: theme.colorScheme.primary,
             border: theme.inputDecorationTheme.disabledBorder,
           ),
       )),

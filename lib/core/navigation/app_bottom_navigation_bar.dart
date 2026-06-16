@@ -21,7 +21,7 @@ class AppBottomNavigationBar extends StatelessWidget{
       child: Container(
         height: 70,
         decoration: BoxDecoration(
-            color: theme.colorScheme.surfaceDim,
+            color: theme.scaffoldBackgroundColor,
             border: Border(
               top: BorderSide(
                 color: theme.dividerColor.withValues(

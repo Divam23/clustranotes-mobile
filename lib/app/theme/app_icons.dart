@@ -38,4 +38,9 @@ class AppIcons {
   static const IconData leftArrow = Icons.chevron_left_rounded; 
   static const IconData clock = Icons.access_time;
   static const IconData history = Icons.history_rounded;
+  static const IconData trending = Icons.trending_up_rounded;
+  static const IconData putUp = CupertinoIcons.arrow_up_left;
+  static const IconData sort = Icons.sort_rounded;
+  static const IconData filter = Icons.filter_alt_rounded;
+  
 }

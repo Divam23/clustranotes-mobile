@@ -1,8 +1,9 @@
 
 import 'package:clustranotes_mobile/app/theme/app_spacing.dart';
 import 'package:clustranotes_mobile/features/search/data/recent_search_dummy_data.dart';
-import 'package:clustranotes_mobile/features/search/presentation/widgets/single_recent_search.dart';
+import 'package:clustranotes_mobile/features/search/presentation/widgets/empty_search/recent_search/single_recent_search.dart';
 import 'package:flutter/material.dart';
+
 
 class RecentSearchSection extends StatelessWidget{
   const RecentSearchSection({super.key});

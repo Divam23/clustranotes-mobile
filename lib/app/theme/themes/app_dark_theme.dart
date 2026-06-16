@@ -14,7 +14,6 @@ class AppDarkTheme {
 
       scaffoldBackgroundColor:
       AppColors.darkBackground,
-
       colorScheme: const ColorScheme.dark(
         primary: AppColors.primary,
         primaryFixed: AppColors.primarySky,

@@ -37,9 +37,7 @@ class LatestUploadCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
-    return InkWell(
-      onTap: () {},
-      borderRadius: AppRadius.card,
+    return GestureDetector(
       child: Container(
         height: 290,
         width: double.infinity,
@@ -89,16 +87,16 @@ class LatestUploadCard extends StatelessWidget {
             Container(
               padding: EdgeInsets.symmetric(horizontal: AppSpacing.md),
               child: Row(
-                spacing: 10,
+                spacing: AppSpacing.md,
                 children: [
                   Column(
-                    spacing: 3,
+                    spacing: AppSpacing.xxs,
                     crossAxisAlignment: CrossAxisAlignment.start,
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: [
                       Text(item.title, style: theme.textTheme.titleLarge),
                       Row(
-                        spacing: 5,
+                        spacing: AppSpacing.xs,
                         children: [
                           Text(
                             item.semester,
@@ -112,7 +110,7 @@ class LatestUploadCard extends StatelessWidget {
                             decoration: BoxDecoration(
                               shape: BoxShape.circle,
                               color: theme.colorScheme.primary,
-                            ),
+                            ),  
                           ),
                           Text(
                             item.subject,
@@ -138,14 +136,14 @@ class LatestUploadCard extends StatelessWidget {
                       ),
                       const SizedBox(height: AppSpacing.sm),
                       Wrap(
-                        spacing: 10,
+                        spacing: AppSpacing.md,
                         crossAxisAlignment: WrapCrossAlignment.center,
                         children: [
                           Row(
-                            spacing: 10,
+                            spacing: AppSpacing.md,
                             children: [
                               Row(
-                                spacing: 5,
+                                spacing: AppSpacing.xs,
                                 children: [
                                   Icon(
                                     AppIcons.download,
@@ -162,7 +160,7 @@ class LatestUploadCard extends StatelessWidget {
                                 ],
                               ),
                               Row(
-                                spacing: 5,
+                                spacing: AppSpacing.xs,
                                 children: [
                                   Icon(
                                     AppIcons.clock,
@@ -184,7 +182,7 @@ class LatestUploadCard extends StatelessWidget {
                       ),
                       const SizedBox(height: AppSpacing.sm),
                       Wrap(
-                        spacing: 10,
+                        spacing: AppSpacing.md,
                         crossAxisAlignment: WrapCrossAlignment.center,
                         children: [
                           Container(

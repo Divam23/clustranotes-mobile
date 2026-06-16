@@ -1,41 +1,77 @@
 import 'package:clustranotes_mobile/app/theme/theme.dart';
-import 'package:clustranotes_mobile/features/search/presentation/widgets/recent_search_section.dart';
+import 'package:clustranotes_mobile/features/search/presentation/widgets/empty_search/empty_search_view.dart';
+import 'package:clustranotes_mobile/features/search/presentation/widgets/result_search/fillter_section.dart';
+import 'package:clustranotes_mobile/features/search/presentation/widgets/result_search/result_search_view.dart';
 import 'package:clustranotes_mobile/features/search/presentation/widgets/search_header.dart';
+import 'package:clustranotes_mobile/features/search/presentation/widgets/suggestion_search/suggestion_search_view.dart';
 import 'package:flutter/material.dart';
 
-enum SearchState {
+enum SearchViewState {
   empty,
-  suggestion,
-  result,
+  suggestions,
+  results,
 }
 
-class SearchScreen extends StatelessWidget{
-  const SearchScreen({super.key});
-  
+class SearchScreen extends StatefulWidget{
+  const SearchScreen({
+    super.key
+  });
+
   @override
+  State<SearchScreen> createState() => _SearchScreenState();
+}
+
+class _SearchScreenState extends State<SearchScreen> {
+  SearchViewState _searchViewState = SearchViewState.empty;
+  final TextEditingController _searchController = TextEditingController();
+  @override 
   Widget build(BuildContext context){
     return Scaffold(
       body: SafeArea(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              SearchHeader(),
+              SearchHeader(
+                controller: _searchController,
+                onChanged: (value){
+                  setState(() {
+                    if(value.trim().isEmpty){
+                      _searchViewState = SearchViewState.empty;
+                    }
+                    else{
+                      _searchViewState = SearchViewState.suggestions;
+                    }
+                  });
+                },
+                onSubmitted: (value){
+                  setState(() {
+                    if(value.trim().isNotEmpty){
+                      _searchViewState = SearchViewState.results;
+                    }
+                  });
+                },
+              ),
+              if (_searchViewState ==
+                  SearchViewState.results)
+                FilterSection(),
               Expanded(
-                child: Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: AppSpacing.screenPadding),
-                  child: SingleChildScrollView(
-                    child: Column(
-                      children: [
-                        RecentSearchSection(),
-                      ],
-                    ),
-                  ),
-                )
-              )
+                child: switch(_searchViewState){
+                  SearchViewState.empty => const EmptySearchView(),
+                  SearchViewState.suggestions => const SuggestionSearchView(),
+                  SearchViewState.results => const ResultSearchView(),
+                }
+              ),
+              
             ],
           )
         
       ),
     );
+  }
+
+  @override
+  void dispose() {
+    _searchController.dispose();
+    super.dispose();
   }
 }

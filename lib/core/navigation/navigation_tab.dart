@@ -30,7 +30,7 @@ class NavigationTab extends StatelessWidget{
             size: isSelected ? 30 : 25,
             color: isSelected
                 ? theme.colorScheme.primary
-                : theme.colorScheme.primaryFixed,
+                : theme.colorScheme.onSurface,
           ),
 
           const SizedBox(height: 2),
