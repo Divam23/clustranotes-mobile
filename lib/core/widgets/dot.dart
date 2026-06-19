@@ -1,4 +1,3 @@
-import 'package:clustranotes_mobile/app/theme/app_colors.dart';
 import 'package:flutter/material.dart';
 
 class Dot extends StatelessWidget{

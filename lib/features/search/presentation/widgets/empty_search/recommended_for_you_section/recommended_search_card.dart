@@ -1,7 +1,6 @@
 import 'package:clustranotes_mobile/app/theme/theme.dart';
 import 'package:clustranotes_mobile/core/widgets/bookmark_button.dart';
 import 'package:clustranotes_mobile/core/widgets/resource_chips/chip_item.dart';
-import 'package:clustranotes_mobile/core/widgets/resource_chips/filetype_chip.dart';
 import 'package:clustranotes_mobile/core/widgets/resource_chips/resource_chip.dart';
 import 'package:flutter/material.dart';
 
@@ -32,7 +31,6 @@ class RecommendedSearchCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final categoryChipConfig = AppCategoryChips.allCategories[item.category] ?? AppCategoryChips.others;
-    final fileTypeChipConfig = AppFileTypeChips.allFileTypes[item.fileType] ?? AppFileTypeChips.pdf;
     final theme = Theme.of(context);
     return InkWell(
       onTap: () {},

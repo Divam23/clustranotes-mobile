@@ -1,4 +1,3 @@
-import 'package:clustranotes_mobile/app/theme/app_spacing.dart';
 import 'package:clustranotes_mobile/features/notes/data/note_details_dummy_data.dart';
 import 'package:clustranotes_mobile/features/notes/presentation/widgets/note_action_section/note_action_section.dart';
 import 'package:clustranotes_mobile/features/notes/presentation/widgets/note_desc_section/note_description_section.dart';

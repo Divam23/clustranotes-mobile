@@ -1,4 +1,4 @@
-import 'package:clustranotes_mobile/app/theme/theme.dart';
+
 import 'package:clustranotes_mobile/features/search/presentation/widgets/empty_search/empty_search_view.dart';
 import 'package:clustranotes_mobile/features/search/presentation/widgets/result_search/fillter_section.dart';
 import 'package:clustranotes_mobile/features/search/presentation/widgets/result_search/result_search_view.dart';
