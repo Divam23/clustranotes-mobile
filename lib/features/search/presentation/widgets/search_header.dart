@@ -1,4 +1,5 @@
 import 'package:clustranotes_mobile/app/theme/theme.dart';
+import 'package:clustranotes_mobile/core/widgets/app_back_button.dart';
 import 'package:clustranotes_mobile/core/widgets/search_bar.dart';
 import 'package:flutter/material.dart';
 
@@ -36,18 +37,7 @@ class SearchHeader extends StatelessWidget{
         spacing: AppSpacing.xs,
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          SizedBox(
-            height: 40,
-            width: 40,
-            child: IconButton(
-              padding: EdgeInsets.zero,
-              constraints: const BoxConstraints(),
-              onPressed: () {
-                Navigator.pop(context);
-              },
-              icon: const Icon(AppIcons.back),
-            ),
-          ),
+          AppBackButton(),
           Expanded(
             child: AppSearchBar(
               readOnly: false,

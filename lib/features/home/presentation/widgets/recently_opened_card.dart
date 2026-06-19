@@ -65,8 +65,10 @@ class RecentlyOpenedCard extends StatelessWidget {
                 ),
               ),
               AppButton(
-                  text: "Continue",
-                  onPressed: (){})
+                text: "Continue",
+                variant: AppButtonVariant.filled,
+                onPressed: (){}
+              )
             ],
           ),
         ),

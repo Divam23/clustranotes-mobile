@@ -1,5 +1,8 @@
 import 'package:clustranotes_mobile/core/widgets/bookmark_button.dart';
 import 'package:clustranotes_mobile/core/widgets/dot.dart';
+import 'package:clustranotes_mobile/core/widgets/resource_chips/chip_item.dart';
+import 'package:clustranotes_mobile/core/widgets/resource_chips/filetype_chip.dart';
+import 'package:clustranotes_mobile/core/widgets/resource_chips/resource_chip.dart';
 import 'package:flutter/material.dart';
 import 'package:clustranotes_mobile/app/theme/theme.dart';
 
@@ -36,11 +39,13 @@ class SearchResultNoteCard extends StatelessWidget{
   
   @override
   Widget build(BuildContext context){
+    final categoryConfig = AppCategoryChips.allCategories[item.category] ?? AppCategoryChips.others;
+    final fileTypeConfig = AppFileTypeChips.allFileTypes[item.fileType] ?? AppFileTypeChips.pdf;
     final theme = Theme.of(context);
     return GestureDetector(
       onTap: (){},
       child: Container(
-        height: 100,
+        height: 115,
         width: double.infinity,
         decoration: BoxDecoration(
           color: theme.colorScheme.surface,
@@ -174,62 +179,18 @@ class SearchResultNoteCard extends StatelessWidget{
                             ],
                           ),
                         ],
-                      ),
-                      const SizedBox(width: AppSpacing.md),
-                      Wrap(
-                          spacing: AppSpacing.sm,
-                          crossAxisAlignment: WrapCrossAlignment.center,
-                          children: [
-                            Container(
-                              padding: EdgeInsets.all(AppSpacing.xxs),
-                              height: 20,
-                              width: 40,
-                              decoration: BoxDecoration(
-                                color: theme.colorScheme.primary,
-                                borderRadius: AppRadius.button,
-                              ),
-                              child: Center(
-                                child: FittedBox(
-                                  fit: BoxFit.scaleDown,
-                                  child: Text(
-                                    textAlign: TextAlign.center,
-                                    item.category,
-                                    maxLines: 1,
-                                    style: theme.textTheme.labelSmall?.copyWith(
-                                      color: theme.colorScheme.onPrimary,
-                                      overflow: TextOverflow.ellipsis,
-                                    ),
-                                  ),
-                                ),
-                              ),
-                            ),
-                            Container(
-                              padding: EdgeInsets.all(AppSpacing.xxs),
-                              height: 20,
-                              width: 40,
-                              decoration: BoxDecoration(
-                                color: AppColors.warning,
-                                borderRadius: AppRadius.chip,
-                              ),
-                              child: Center(
-                                child: FittedBox(
-                                  fit: BoxFit.scaleDown,
-                                  child: Text(
-                                    textAlign: TextAlign.center,
-                                    item.fileType,
-                                    style: theme.textTheme.labelSmall?.copyWith(
-                                      color: theme.colorScheme.onPrimary,
-                                      fontWeight: FontWeight.w700
-                                    ),
-                                  ),
-                                ),
-                              ),
-                            ),
-                          ],
-                        ),
+                      ), 
                       ]
-                      
-                    )
+                    ),
+                    const SizedBox(height: 5,),
+                    Row(
+                      spacing: AppSpacing.sm,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        AppChip(item: categoryConfig),
+                        AppChip(item: fileTypeConfig),
+                      ],
+                    ),
                   ],
                 ),
               ),

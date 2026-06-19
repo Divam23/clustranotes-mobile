@@ -42,5 +42,11 @@ class AppIcons {
   static const IconData putUp = CupertinoIcons.arrow_up_left;
   static const IconData sort = Icons.sort_rounded;
   static const IconData filter = Icons.filter_alt_rounded;
+  static const IconData like = Icons.favorite_outline_rounded;
+  static const IconData likeFilled = Icons.favorite_rounded;
+  static const IconData comment = CupertinoIcons.chat_bubble_text;
+  static const IconData views = Icons.remove_red_eye;
+  
+  
   
 }

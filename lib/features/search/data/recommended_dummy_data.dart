@@ -8,7 +8,7 @@ final recommendedSearchItems = [
     semester: "Semester 5",
     subject: "DBMS",
     collegeName: "IIT Bombay",
-    category: "Notes",
+    category: "lecture_notes",
     fileType: "PPTX",
   ),
   RecommendedSearchItem(
@@ -17,7 +17,7 @@ final recommendedSearchItems = [
     semester: "Semester 5",
     subject: "DBMS",
     collegeName: "IIT Bombay",
-    category: "Notes",
+    category: "lecture_notes",
     fileType: "PPTX",
   ),
   RecommendedSearchItem(
@@ -26,7 +26,7 @@ final recommendedSearchItems = [
     semester: "Semester 5",
     subject: "DBMS",
     collegeName: "IIT Bombay",
-    category: "Notes",
+    category: "lecture_notes",
     fileType: "PPTX",
   ),
   RecommendedSearchItem(
@@ -35,7 +35,7 @@ final recommendedSearchItems = [
     semester: "Semester 5",
     subject: "DBMS",
     collegeName: "IIT Bombay",
-    category: "Notes",
+    category: "lecture_notes",
     fileType: "PPTX",
   ),
   RecommendedSearchItem(
@@ -44,7 +44,7 @@ final recommendedSearchItems = [
     semester: "Semester 5",
     subject: "DBMS",
     collegeName: "IIT Bombay",
-    category: "Notes",
+    category: "assignment",
     fileType: "PPTX",
   ),
   

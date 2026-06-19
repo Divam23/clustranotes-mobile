@@ -49,7 +49,7 @@ class AppBottomNavigationBar extends StatelessWidget{
                     isSelected: currentIndex == index,
                     onTap: () async{
                       if(!isSelected){
-                        await HapticFeedback.vibrate();
+                        await HapticFeedback.lightImpact();
                         onTap(index);
                       }
                       

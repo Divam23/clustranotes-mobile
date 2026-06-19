@@ -1,5 +1,8 @@
 import 'package:clustranotes_mobile/app/theme/theme.dart';
 import 'package:clustranotes_mobile/core/widgets/bookmark_button.dart';
+import 'package:clustranotes_mobile/core/widgets/resource_chips/chip_item.dart';
+import 'package:clustranotes_mobile/core/widgets/resource_chips/filetype_chip.dart';
+import 'package:clustranotes_mobile/core/widgets/resource_chips/resource_chip.dart';
 import 'package:flutter/material.dart';
 
 class RecommendedSearchItem {
@@ -28,6 +31,8 @@ class RecommendedSearchCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final categoryChipConfig = AppCategoryChips.allCategories[item.category] ?? AppCategoryChips.others;
+    final fileTypeChipConfig = AppFileTypeChips.allFileTypes[item.fileType] ?? AppFileTypeChips.pdf;
     final theme = Theme.of(context);
     return InkWell(
       onTap: () {},
@@ -77,24 +82,7 @@ class RecommendedSearchCard extends StatelessWidget {
                 Positioned(
                   bottom: AppSpacing.sm,
                   left: AppSpacing.sm,
-                  child: Container(
-                    padding: EdgeInsets.all(AppSpacing.xxs),
-                    height: 25,
-                    width: 50,
-                    decoration: BoxDecoration(
-                      color: theme.colorScheme.primary,
-                      borderRadius: AppRadius.chip,
-                    ),
-                    child: Center(
-                      child: Text(
-                        textAlign: TextAlign.center,
-                        item.category,
-                        style: theme.textTheme.labelSmall?.copyWith(
-                          color: theme.colorScheme.onPrimary,
-                        ),
-                      ),
-                    ),
-                  ),
+                  child: AppChip(item: categoryChipConfig)
                 ),
               ],
             ),

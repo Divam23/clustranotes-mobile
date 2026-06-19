@@ -30,6 +30,9 @@ class AppRadius {
   
   static const BorderRadius searchBarRounded =
   BorderRadius.all(Radius.circular(full));
+  
+  static const BorderRadius avatar =
+  BorderRadius.all(Radius.circular(full));
 
   static const BorderRadius dialog =
   BorderRadius.all(Radius.circular(xl));

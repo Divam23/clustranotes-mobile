@@ -1,4 +1,5 @@
 import 'package:clustranotes_mobile/app/theme/theme.dart';
+import 'package:clustranotes_mobile/features/notes/presentation/pages/note_details_screen.dart';
 import 'package:flutter/material.dart';
 
 class RecommendedItem {
@@ -35,7 +36,9 @@ class RecommendedCard extends StatelessWidget{
   Widget build(BuildContext context){
   final theme = Theme.of(context);
     return InkWell(
-      onTap: () {},
+      onTap: () {
+        Navigator.push(context, MaterialPageRoute(builder: (context)=> const NoteDetailsScreen()));
+      },
       borderRadius: AppRadius.card,
       child: Container(
         height: 275,
