@@ -1,12 +1,8 @@
 class NoteStats {
   final int viewsCount;
-
   final int downloadCount;
-
   final int likesCount;
-
   final int bookmarksCount;
-
   final int commentsCount;
 
   const NoteStats({

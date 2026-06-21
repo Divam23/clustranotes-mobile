@@ -16,6 +16,7 @@ class Note {
   final List<String> tags;
 
   final String? course;
+  final String? collegeName;
   final String? university;
   final int? semester;
 
@@ -47,6 +48,7 @@ class Note {
     required this.contentType,
     required this.tags,
     this.course,
+    this.collegeName,
     this.university,
     this.semester,
     required this.language,

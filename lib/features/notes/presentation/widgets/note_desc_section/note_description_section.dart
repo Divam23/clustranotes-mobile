@@ -21,26 +21,38 @@ class _NoteDescriptionSectionState extends State<NoteDescriptionSection> {
     final theme = Theme.of(context);
 
     return Container(
-      padding: EdgeInsets.symmetric(horizontal: AppSpacing.screenPadding),
+      padding: const EdgeInsets.symmetric(vertical: AppSpacing.sm, horizontal: AppSpacing.screenPadding),
       decoration: BoxDecoration(),
       child: Column(
+        spacing: AppSpacing.md,
+        crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
           Text(
-            widget.description,
-            maxLines: _isExpanded ? null : 3,
-            overflow: _isExpanded
-                ? TextOverflow.visible
-                : TextOverflow.ellipsis,
-            style: theme.textTheme.bodyMedium?.copyWith(
+            'DESCRIPTION',
+            style: theme.textTheme.titleSmall?.copyWith(
               color: theme.colorScheme.onSecondary,
             ),
           ),
-          ?widget.description.length > 120
-              ? TextButton(
-                  onPressed: _toggleExpandedDescription,
-                  child: Text(_isExpanded ? "Show less" : "Show more"),
-                )
-              : null,
+          Column(
+            children: [
+              Text(
+                widget.description,
+                maxLines: _isExpanded ? null : 3,
+                overflow: _isExpanded
+                    ? TextOverflow.visible
+                    : TextOverflow.ellipsis,
+                style: theme.textTheme.bodyMedium?.copyWith(
+                  color: theme.colorScheme.onSecondary,
+                ),
+              ),
+              ?widget.description.length > 120
+                ? TextButton(
+                    onPressed: _toggleExpandedDescription,
+                      child: Text(_isExpanded ? "Show less" : "Show more"),
+                    )
+                : null,
+            ],
+          ),
         ],
       ),
     );

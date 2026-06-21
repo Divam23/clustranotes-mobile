@@ -1,14 +1,17 @@
 import 'package:clustranotes_mobile/app/theme/theme.dart';
+import 'package:clustranotes_mobile/core/utils/formatters/formatter.dart';
 import 'package:flutter/material.dart';
 
 class AppLike extends StatelessWidget {
   final bool isLiked;
   final VoidCallback onTap;
   final int? count;
+  final double? size;
 
   const AppLike({
     required this.isLiked,
     required this.onTap,
+    this.size = 20,
     this.count,
     super.key,
   });
@@ -27,9 +30,10 @@ class AppLike extends StatelessWidget {
                 ? AppIcons.likeFilled
                 : AppIcons.like,
               color: AppColors.error,
+            size: size,
             ),
           if (count != null) ...[
-            Text('$count'),
+            Text(NumberFormatter.compact(count!)),
           ],
         ],
       ),

@@ -7,11 +7,11 @@ final List<Note> dummyNotes = [
     id: '1',
     title: 'Database Management Systems Complete Notes',
     description:
-    'Comprehensive notes covering ER Models, SQL, Transactions and Normalization. Comprehensive notes covering ER Models, SQL, Transactions and Normalization.Comprehensive notes covering ER Models, SQL, Transactions and Normalization.Comprehensive notes covering ER Models, SQL, Transactions and Normalization.Comprehensive notes covering ER Models, SQL, Transactions and Normalization.Comprehensive notes covering ER Models, SQL, Transactions and Normalization.Comprehensive notes covering ER Models, SQL, Transactions and Normalization.Comprehensive notes covering ER Models, SQL, Transactions and Normalization.Comprehensive notes covering ER Models, SQL, Transactions and Normalization.Comprehensive notes covering ER Models, SQL, Transactions and Normalization.Comprehensive notes covering ER Models, SQL, Transactions and Normalization.Comprehensive notes covering ER Models, SQL, Transactions and Normalization.Comprehensive notes covering ER Models, SQL, Transactions and Normalization.Comprehensive notes covering ER Models, SQL, Transactions and Normalization.Comprehensive notes covering ER Models, SQL, Transactions and Normalization.Comprehensive notes covering ER Models, SQL, Transactions and Normalization.',
+    'Comprehensive notes covering ER Models, SQL, Transactions and Normalization.',
     subject: 'DBMS',
     category: 'lecture_notes',
     contentType: 'pdf',
-    tags: ['DBMS', 'Semester 5', 'Notes'],
+    tags: ['DBMS', 'Semester 5', 'Notes',],
     course: 'B.Tech CSE',
     university: 'IIT Dhanbad',
     semester: 5,

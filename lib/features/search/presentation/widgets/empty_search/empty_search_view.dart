@@ -10,7 +10,7 @@ class EmptySearchView extends StatelessWidget{
   @override
   Widget build(BuildContext context){
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: AppSpacing.screenPadding),
+      padding: const EdgeInsets.only(left: AppSpacing.screenPadding, right: AppSpacing.screenPadding, bottom: AppSpacing.screenPadding),
       child: SingleChildScrollView(
         child: Column(
           children: [

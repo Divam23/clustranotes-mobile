@@ -1,4 +1,5 @@
 import 'package:clustranotes_mobile/app/theme/theme.dart';
+import 'package:clustranotes_mobile/core/utils/formatters/formatter.dart';
 import 'package:clustranotes_mobile/core/widgets/comment.dart';
 import 'package:clustranotes_mobile/core/widgets/like.dart';
 import 'package:clustranotes_mobile/core/widgets/views.dart';

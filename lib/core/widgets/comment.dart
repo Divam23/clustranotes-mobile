@@ -1,4 +1,5 @@
 import 'package:clustranotes_mobile/app/theme/theme.dart';
+import 'package:clustranotes_mobile/core/utils/formatters/formatter.dart';
 import 'package:flutter/material.dart';
 
 class AppComment extends StatelessWidget {
@@ -26,7 +27,7 @@ class AppComment extends StatelessWidget {
             color: theme.colorScheme.onSecondary,
           ),
           if (count != null) ...[
-            Text('$count'),
+            Text(NumberFormatter.compact(count!)),
           ],
         ],
       ),

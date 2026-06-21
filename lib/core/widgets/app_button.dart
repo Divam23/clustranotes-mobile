@@ -24,35 +24,37 @@ class AppButton extends StatelessWidget {
 
     final contentColor = isOutlined
         ? theme.colorScheme.primary
-        : theme.colorScheme.onSecondary;
+        : theme.colorScheme.onPrimary;
 
     final buttonContent = Row(
       spacing: AppSpacing.xxs,
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        if (icon != null)
+        if (icon != null) ...[
           Icon(
             icon,
             weight: 700,
             color: contentColor,
           ),
-        Text(
-          text,
-          style: theme.textTheme.titleLarge?.copyWith(
-            color: contentColor,
-          ),
-        )
+        ],
+          Text(
+            text,
+            style: theme.textTheme.titleLarge?.copyWith(
+              color: contentColor,
+            ),
+          )
       ],
     );
 
     if (isOutlined) {
       return OutlinedButton(
         onPressed: onPressed,
-        
         style: OutlinedButton.styleFrom(
+          padding: EdgeInsets.symmetric(vertical: AppSpacing.md, horizontal: AppSpacing.xl),
           side: BorderSide(
             color: theme.colorScheme.primary,
             width: 2,
+            
           ),
           enabledMouseCursor: MouseCursor.defer,
         ),
@@ -61,8 +63,13 @@ class AppButton extends StatelessWidget {
     }
 
     return ElevatedButton(
-      onPressed: onPressed,
-      style: const ButtonStyle(),
+      onPressed: onPressed, 
+      style: ElevatedButton.styleFrom(
+        backgroundColor: theme.colorScheme.primary,
+        foregroundColor: theme.colorScheme.onPrimary,
+        padding: EdgeInsets.symmetric(vertical: AppSpacing.md, horizontal: AppSpacing.xl),
+      ),
+      
       child: buttonContent,
     );
   }

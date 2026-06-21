@@ -1,4 +1,5 @@
 import 'package:clustranotes_mobile/app/theme/theme.dart';
+import 'package:clustranotes_mobile/core/utils/formatters/file_size_formatter.dart';
 import 'package:clustranotes_mobile/core/widgets/dot.dart';
 import 'package:clustranotes_mobile/core/widgets/fallback_user_avatar.dart';
 import 'package:clustranotes_mobile/core/widgets/user_avatar.dart';
@@ -20,7 +21,7 @@ class NoteInfoSection extends StatelessWidget{
       padding: const EdgeInsets.symmetric(vertical: AppSpacing.lg,horizontal: AppSpacing.screenPadding),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
-        spacing: 5,
+        spacing: AppSpacing.xs,
         children: [
           Text(
             note.title,
@@ -72,7 +73,7 @@ class NoteInfoSection extends StatelessWidget{
               ),
               Dot(radius: 2, color: AppColors.primary),
               Text(
-                '${note.file.sizeInBytes} MB',
+                FileSizeFormatter.format(note.file.sizeInBytes!),
                 style: theme.textTheme.bodyMedium?.copyWith(
                     color: theme.colorScheme.onSecondary
                 ),
@@ -89,7 +90,7 @@ class NoteInfoSection extends StatelessWidget{
               FallbackUserAvatar(firstName: note.uploaderName),
               Text(
                 note.uploaderName,
-                style: theme.textTheme.labelLarge?.copyWith(
+                style: theme.textTheme.titleSmall?.copyWith(
                   fontWeight: FontWeight.w700
                 ),
               ),
