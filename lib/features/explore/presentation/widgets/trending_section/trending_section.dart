@@ -1,4 +1,6 @@
-import 'package:clustranotes_mobile/features/explore/presentation/widegts/trending_section/explore_trending_card.dart';
+import 'package:clustranotes_mobile/app/theme/app_icons.dart';
+import 'package:clustranotes_mobile/features/explore/presentation/widgets/trending_section/explore_trending_card.dart';
+
 import 'package:clustranotes_mobile/features/notes/models/note_card_model.dart';
 import 'package:flutter/material.dart';
 import 'package:clustranotes_mobile/app/theme/app_spacing.dart';
@@ -13,19 +15,33 @@ class TrendingSection extends StatelessWidget {
     return Column(
       spacing: AppSpacing.itemGap,
       children: [
-        Column(
-          spacing: AppSpacing.xs,
-          mainAxisAlignment: MainAxisAlignment.start,
-          crossAxisAlignment: CrossAxisAlignment.stretch,
+        Row(
           children: [
-            Text(
-              "Trending in BIT Mesra",
-              style: theme.textTheme.headlineLarge?.copyWith(),
+            Expanded(
+              child: Column(
+                spacing: AppSpacing.xs,
+                mainAxisAlignment: MainAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.stretch,
+                children: [
+                  Text(
+                    "🔥Trending in BIT Mesra",
+                    style: theme.textTheme.headlineMedium?.copyWith(),
+                    maxLines: 2,
+                    overflow: TextOverflow.ellipsis,
+                  ),
+                  Text(
+                    "Most downloaded this week",
+                    style: theme.textTheme.labelMedium?.copyWith(
+                      color: theme.colorScheme.onSecondary,
+                    ),
+                  ),
+                ],
+              ),
             ),
-            Text(
-              "Most downloaded this week",
-              style: theme.textTheme.labelMedium?.copyWith(
-                color: theme.colorScheme.onSecondary,
+            TextButton(
+              onPressed: () {},
+              child: Row(
+                children: [Text("See All"), Icon(AppIcons.rightArrow)],
               ),
             ),
           ],

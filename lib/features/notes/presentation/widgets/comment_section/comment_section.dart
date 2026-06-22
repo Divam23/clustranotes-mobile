@@ -1,12 +1,13 @@
 import 'package:clustranotes_mobile/app/theme/app_spacing.dart';
 import 'package:clustranotes_mobile/core/utils/formatters/formatter.dart';
 import 'package:clustranotes_mobile/features/comments/models/comment_model.dart';
-import 'package:clustranotes_mobile/features/comments/presentation/widgets/comment_card.dart';
+import 'package:clustranotes_mobile/features/comments/presentation/widgets/comment_card/comment_card.dart';
 import 'package:flutter/material.dart';
 
 class CommentSection extends StatelessWidget {
   final List<Comment> comments;
-  const CommentSection({required this.comments, super.key});
+  final ValueChanged<Comment> onReply;
+  const CommentSection({required this.comments, required this.onReply, super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -48,7 +49,7 @@ class CommentSection extends StatelessWidget {
               AppSpacing.xs,
               AppSpacing.sm,
               AppSpacing.xs,
-              AppSpacing.screenPadding,
+              AppSpacing.sm,
             ),
             itemCount: parentComments.length,
             itemBuilder: (context, index) {
@@ -57,6 +58,7 @@ class CommentSection extends StatelessWidget {
               return CommentCard(
                 parentComment: parentComment,
                 replies: replies,
+                onReply: onReply
               );
             },
             separatorBuilder: (_, __) =>

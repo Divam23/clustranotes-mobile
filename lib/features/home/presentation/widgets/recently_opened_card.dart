@@ -1,7 +1,7 @@
 import 'package:clustranotes_mobile/app/theme/app_icons.dart';
 import 'package:clustranotes_mobile/app/theme/app_radius.dart';
 import 'package:clustranotes_mobile/app/theme/app_spacing.dart';
-import 'package:clustranotes_mobile/core/widgets/app_button.dart';
+import 'package:clustranotes_mobile/core/widgets/button/app_button.dart';
 import 'package:flutter/material.dart';
 
 class RecentlyOpenedCard extends StatelessWidget {

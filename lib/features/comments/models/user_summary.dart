@@ -11,7 +11,7 @@ class UserSummary{
    required this.id,
    required this.firstName,
    required this.lastName,
-    required this.userName,
+   required this.userName,
    this.avatarUrl,
    required this.isEmailVerified,
    required this.verificationStatus 

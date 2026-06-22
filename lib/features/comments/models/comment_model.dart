@@ -4,6 +4,7 @@ class Comment {
   final String id;
   final String noteId;
   final UserSummary user;
+  final UserSummary? replyingToUser;
   final String content;
   final String? parentCommentId;
   final bool isLiked;
@@ -16,6 +17,7 @@ class Comment {
     required this.id,
     required this.noteId,
     required this.user,
+    this.replyingToUser,
     required this.content,
     this.parentCommentId,
     required this.likesCount,

@@ -1,3 +1,4 @@
+import 'package:clustranotes_mobile/features/comments/models/user_summary.dart';
 import 'package:clustranotes_mobile/features/notes/models/note_file.dart';
 import 'package:clustranotes_mobile/features/notes/models/note_stats.dart';
 
@@ -9,25 +10,17 @@ class Note {
   final String title;
   final String description;
   final String subject;
-
   final String category;
   final String contentType;
-
   final List<String> tags;
-
   final String? course;
+  final String? branch;
   final String? collegeName;
   final String? university;
   final int? semester;
-
   final String language;
-
   final NoteFile file;
-
-  final String uploaderId;
-  final String uploaderName;
-  final String? uploaderAvatar;
-
+  final UserSummary user;
   final bool isPublic;
   final String status;
   final bool isVerifiedNote;
@@ -45,6 +38,7 @@ class Note {
     required this.description,
     required this.subject,
     required this.category,
+    this.branch,
     required this.contentType,
     required this.tags,
     this.course,
@@ -53,9 +47,7 @@ class Note {
     this.semester,
     required this.language,
     required this.file,
-    required this.uploaderId,
-    required this.uploaderName,
-    this.uploaderAvatar,
+    required this.user,
     required this.isPublic,
     required this.status,
     required this.isVerifiedNote,

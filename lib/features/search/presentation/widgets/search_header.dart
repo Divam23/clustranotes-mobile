@@ -1,5 +1,5 @@
 import 'package:clustranotes_mobile/app/theme/theme.dart';
-import 'package:clustranotes_mobile/core/widgets/app_back_button.dart';
+import 'package:clustranotes_mobile/core/widgets/button/app_back_button.dart';
 import 'package:clustranotes_mobile/core/widgets/search_bar.dart';
 import 'package:flutter/material.dart';
 

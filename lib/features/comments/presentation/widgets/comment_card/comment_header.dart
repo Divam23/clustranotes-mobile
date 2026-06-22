@@ -1,7 +1,7 @@
 import 'package:clustranotes_mobile/app/theme/theme.dart';
 import 'package:clustranotes_mobile/core/utils/formatters/datetime_formatter.dart';
-import 'package:clustranotes_mobile/core/widgets/fallback_user_avatar.dart';
-import 'package:clustranotes_mobile/core/widgets/user_avatar.dart';
+import 'package:clustranotes_mobile/core/widgets/avatar/fallback_user_avatar.dart';
+import 'package:clustranotes_mobile/core/widgets/avatar/user_avatar.dart';
 import 'package:clustranotes_mobile/core/widgets/verified_tick.dart';
 import 'package:clustranotes_mobile/features/comments/models/comment_model.dart';
 import 'package:flutter/material.dart';

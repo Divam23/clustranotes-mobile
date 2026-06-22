@@ -5,24 +5,20 @@ import 'package:clustranotes_mobile/features/comments/presentation/widgets/comme
 import 'package:flutter/material.dart';
 import 'package:clustranotes_mobile/app/theme/theme.dart';
 
-class ReplyCard extends StatefulWidget{
+class ReplyCard extends StatelessWidget{
   final Comment reply;
-  const ReplyCard({required this.reply, super.key});
+  final ValueChanged<Comment>? onReply;
+  const ReplyCard({required this.reply, this.onReply, super.key});
 
-  @override
-  State<ReplyCard> createState() => _ReplyCardState();
-}
-
-class _ReplyCardState extends State<ReplyCard> {
   @override
   Widget build(BuildContext context){
     return Column(
       children: [
-        CommentHeader(comment: widget.reply),
+        CommentHeader(comment: reply),
         const SizedBox(height: AppSpacing.sm,),
-        CommentContent(comment: widget.reply),
+        CommentContent(comment: reply),
         const SizedBox(height: AppSpacing.md,),
-        CommentActions(comment: widget.reply),
+        CommentActions(comment: reply, onReply: (){onReply?.call(reply);}),
         const SizedBox(height: AppSpacing.md,),
       ],
     );

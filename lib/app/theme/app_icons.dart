@@ -46,7 +46,8 @@ class AppIcons {
   static const IconData likeFilled = Icons.favorite_rounded;
   static const IconData comment = CupertinoIcons.chat_bubble_text;
   static const IconData views = Icons.remove_red_eye;
-  
-  
+  static const IconData send = Icons.send;
+  static const IconData fire = Icons.local_fire_department_outlined;
+  static const IconData star = Icons.star_border_rounded;
   
 }

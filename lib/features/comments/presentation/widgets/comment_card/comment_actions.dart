@@ -1,18 +1,18 @@
 import 'package:clustranotes_mobile/app/theme/theme.dart';
-import 'package:clustranotes_mobile/core/widgets/like.dart';
+import 'package:clustranotes_mobile/core/widgets/button/social_engagement_buttons/like.dart';
 import 'package:clustranotes_mobile/features/comments/models/comment_model.dart';
 import 'package:flutter/material.dart';
 
 class CommentActions extends StatefulWidget{
   final Comment comment;
-  const CommentActions({required this.comment, super.key});
+  final VoidCallback? onReply;
+  const CommentActions({required this.comment, this.onReply, super.key});
   
   @override
   State<CommentActions> createState() => _CommentActionState();
 }
 
 class _CommentActionState extends State<CommentActions> {
-
   late bool _isLiked = widget.comment.isLiked;
   _toggleIsLiked(){
     setState(() {
@@ -34,7 +34,6 @@ class _CommentActionState extends State<CommentActions> {
             count: widget.comment.likesCount,
             size: 15,
           ),
-          if(widget.comment.parentCommentId == null) ...[
             TextButton(
               style: TextButton.styleFrom(
                   padding: EdgeInsets.zero,
@@ -43,7 +42,7 @@ class _CommentActionState extends State<CommentActions> {
                   overlayColor: Colors.transparent,
                   splashFactory: NoSplash.splashFactory,
               ),
-              onPressed: (){},
+              onPressed: widget.onReply,
               child: Text(
                 'Reply',
                   style: theme.textTheme.bodySmall?.copyWith(
@@ -51,7 +50,7 @@ class _CommentActionState extends State<CommentActions> {
                 ),
               )
             )
-          ]
+          
           
         ],
       ),

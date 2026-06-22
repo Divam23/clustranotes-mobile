@@ -1,9 +1,9 @@
 import 'package:clustranotes_mobile/app/theme/theme.dart';
-import 'package:clustranotes_mobile/core/utils/formatters/formatter.dart';
-import 'package:clustranotes_mobile/core/widgets/comment.dart';
-import 'package:clustranotes_mobile/core/widgets/like.dart';
+import 'package:clustranotes_mobile/core/widgets/button/social_engagement_buttons/comment.dart';
+import 'package:clustranotes_mobile/core/widgets/button/social_engagement_buttons/like.dart';
 import 'package:clustranotes_mobile/core/widgets/views.dart';
 import 'package:clustranotes_mobile/features/notes/models/note_model.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
@@ -37,10 +37,13 @@ class NoteEngagementSection extends StatelessWidget{
               child: AppLike(
                 isLiked: false, 
                 onTap: ()async{
-                  print("Liked");
+                  if (kDebugMode) {
+                    print("Liked");
+                  }
                   await HapticFeedback.lightImpact();
                 }, 
-                count: note.stats.likesCount
+                count: note.stats.likesCount,
+                size: 25,
               ),
             ),
           ),

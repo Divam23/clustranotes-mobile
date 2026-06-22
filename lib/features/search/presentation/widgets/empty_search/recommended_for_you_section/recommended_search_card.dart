@@ -1,5 +1,5 @@
 import 'package:clustranotes_mobile/app/theme/theme.dart';
-import 'package:clustranotes_mobile/core/widgets/bookmark_button.dart';
+import 'package:clustranotes_mobile/core/widgets/button/bookmark_button.dart';
 import 'package:clustranotes_mobile/core/widgets/resource_chips/chip_item.dart';
 import 'package:clustranotes_mobile/core/widgets/resource_chips/resource_chip.dart';
 import 'package:flutter/material.dart';

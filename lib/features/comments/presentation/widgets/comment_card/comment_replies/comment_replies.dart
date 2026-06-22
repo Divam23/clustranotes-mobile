@@ -5,7 +5,8 @@ import 'package:clustranotes_mobile/app/theme/theme.dart';
 
 class CommentReplies extends StatefulWidget {
   final List<Comment> replies;
-  const CommentReplies({required this.replies, super.key});
+  final ValueChanged<Comment>? onReply;
+  const CommentReplies({required this.replies, required this.onReply, super.key});
 
   @override
   State<CommentReplies> createState() => _CommentRepliesState();
@@ -28,7 +29,7 @@ class _CommentRepliesState extends State<CommentReplies> {
                 .map(
                   (reply) => Padding(
                     padding: const EdgeInsets.only(left: AppSpacing.xxl),
-                    child: ReplyCard(reply: reply),
+                    child: ReplyCard(reply: reply, onReply: widget.onReply),
                   ),
                 )
                 .toList(),

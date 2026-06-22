@@ -1,8 +1,8 @@
 import 'package:clustranotes_mobile/app/theme/theme.dart';
 import 'package:clustranotes_mobile/core/utils/formatters/file_size_formatter.dart';
 import 'package:clustranotes_mobile/core/widgets/dot.dart';
-import 'package:clustranotes_mobile/core/widgets/fallback_user_avatar.dart';
-import 'package:clustranotes_mobile/core/widgets/user_avatar.dart';
+import 'package:clustranotes_mobile/core/widgets/avatar/fallback_user_avatar.dart';
+import 'package:clustranotes_mobile/core/widgets/avatar/user_avatar.dart';
 import 'package:clustranotes_mobile/core/widgets/verified_tick.dart';
 import 'package:clustranotes_mobile/features/notes/models/note_model.dart';
 import 'package:flutter/material.dart';
@@ -85,11 +85,11 @@ class NoteInfoSection extends StatelessWidget{
             spacing: AppSpacing.sm,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              note.uploaderAvatar != null ? 
-              UserAvatar(avatar: note.uploaderAvatar!) : 
-              FallbackUserAvatar(firstName: note.uploaderName),
+              note.user.avatarUrl != null ? 
+              UserAvatar(avatar: note.user.avatarUrl!) : 
+              FallbackUserAvatar(firstName: note.user.firstName),
               Text(
-                note.uploaderName,
+                note.user.firstName,
                 style: theme.textTheme.titleSmall?.copyWith(
                   fontWeight: FontWeight.w700
                 ),

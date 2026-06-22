@@ -1,4 +1,4 @@
-import 'package:clustranotes_mobile/core/widgets/bookmark_button.dart';
+import 'package:clustranotes_mobile/core/widgets/button/bookmark_button.dart';
 import 'package:clustranotes_mobile/core/widgets/dot.dart';
 import 'package:clustranotes_mobile/core/widgets/resource_chips/chip_item.dart';
 import 'package:clustranotes_mobile/core/widgets/resource_chips/filetype_chip.dart';

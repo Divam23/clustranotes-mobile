@@ -1,5 +1,6 @@
 import 'package:clustranotes_mobile/features/comments/models/comment_model.dart';
 import 'package:clustranotes_mobile/features/comments/models/user_summary.dart';
+import 'package:clustranotes_mobile/features/user/data/dummy_user_data.dart';
 
 final dummyComments = [
   Comment(
@@ -75,6 +76,7 @@ final dummyComments = [
       isEmailVerified: true,
       verificationStatus: VerificationStatus.verified,
     ),
+    
     content: 'Excellent explanation.',
     likesCount: 8,
     isLiked: false,
@@ -93,6 +95,7 @@ final dummyComments = [
       userName: 'amansharma12',
       avatarUrl: null,
       isEmailVerified: true,
+      
       verificationStatus: VerificationStatus.verified,
     ),
     content: 'Excellent explanation.',
@@ -116,6 +119,7 @@ final dummyComments = [
       verificationStatus: VerificationStatus.verified,
     ),
     content: 'Excellent explanation.',
+    replyingToUser: divam,
     likesCount: 8,
     isLiked: false,
     repliesCount: 0,

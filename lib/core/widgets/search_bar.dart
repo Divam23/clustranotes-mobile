@@ -23,28 +23,25 @@ class AppSearchBar extends StatelessWidget {
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     return Container(
-      decoration: BoxDecoration(
-        borderRadius: AppRadius.searchBar
-      ),
-      child: (
-        TextField(
-          readOnly: readOnly,
-          onTap: onTap,
-          autofocus: autoFocus,
-          controller: controller,
-          onChanged: onChanged,
-          onSubmitted: onSubmitted,
-          textInputAction: TextInputAction.search,
-          decoration: InputDecoration(
-            hintText: "Search notes, books, PYQs...",
-            hintStyle: theme.textTheme.bodyMedium?.copyWith(
-              color: theme.disabledColor,
-            ),
-            prefixIcon: Icon(AppIcons.search),
-            prefixIconColor: theme.colorScheme.primary,
-            border: theme.inputDecorationTheme.disabledBorder,
+      decoration: BoxDecoration(borderRadius: AppRadius.searchBar),
+      child: TextField(
+        readOnly: readOnly,
+        onTap: onTap,
+        autofocus: autoFocus,
+        controller: controller,
+        onChanged: onChanged,
+        onSubmitted: onSubmitted,
+        textInputAction: TextInputAction.search,
+        decoration: InputDecoration(
+          hintText: "Search notes, books, PYQs...",
+          hintStyle: theme.textTheme.bodyMedium?.copyWith(
+            color: theme.disabledColor,
           ),
-      )),
+          prefixIcon: Icon(AppIcons.search),
+          prefixIconColor: theme.colorScheme.primary,
+          border: theme.inputDecorationTheme.disabledBorder,
+        ),
+      ),
     );
   }
 }

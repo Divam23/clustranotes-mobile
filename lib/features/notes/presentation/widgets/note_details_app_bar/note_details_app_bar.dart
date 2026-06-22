@@ -1,4 +1,4 @@
-import 'package:clustranotes_mobile/core/widgets/bookmark_button.dart';
+import 'package:clustranotes_mobile/core/widgets/button/bookmark_button.dart';
 import 'package:flutter/material.dart';
 import 'package:clustranotes_mobile/app/theme/theme.dart';
 

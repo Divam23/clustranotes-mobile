@@ -1,5 +1,5 @@
 import 'package:clustranotes_mobile/app/theme/theme.dart';
-import 'package:clustranotes_mobile/core/widgets/app_button.dart';
+import 'package:clustranotes_mobile/core/widgets/button/app_button.dart';
 import 'package:flutter/material.dart';
 
 class NoteActionSection extends StatelessWidget {
