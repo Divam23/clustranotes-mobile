@@ -1,7 +1,11 @@
 import 'package:clustranotes_mobile/core/widgets/button/app_back_button.dart';
+import 'package:clustranotes_mobile/features/upload/presentation/widgets/upload_guidelines_section/upload_guidelines_section.dart';
 import 'package:clustranotes_mobile/features/upload/presentation/widgets/upload_guidelines_section/upload_guidelines_sheet.dart';
+import 'package:clustranotes_mobile/features/upload/services/images_to_pdf_service.dart';
 import 'package:flutter/material.dart';
 import 'package:clustranotes_mobile/app/theme/theme.dart';
+import 'package:image_picker/image_picker.dart';
+import 'package:open_filex/open_filex.dart';
 
 class UploadNoteScreen extends StatelessWidget {
   const UploadNoteScreen({super.key});
@@ -26,10 +30,7 @@ class UploadNoteScreen extends StatelessWidget {
         actions: [
           IconButton(
             onPressed: () {
-              showModalBottomSheet(
-                context: context,
-                builder: (_) => const UploadGuidelinesSheet(),
-              );
+              showUploadGuidelines(context);
             },
             icon: Icon(AppIcons.info),
           ),
@@ -39,6 +40,23 @@ class UploadNoteScreen extends StatelessWidget {
         padding: const EdgeInsets.symmetric(
           horizontal: AppSpacing.screenPadding,
           vertical: AppSpacing.md,
+        ),
+        child: Center(
+          child: FilledButton(
+            onPressed: () async {
+              final images = await ImagePicker().pickMultiImage();
+
+              if (images.isEmpty) return;
+
+              final pdf = await ImagesToPdfService().generate(images);
+
+              await OpenFilex.open(pdf.path);
+
+              debugPrint(pdf.path);
+              debugPrint("${await pdf.length()} bytes");
+            },
+            child: const Text("Test Images"),
+          ),
         ),
       ),
     );

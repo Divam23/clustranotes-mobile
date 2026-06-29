@@ -22,6 +22,7 @@ class AppFloatingActionButton extends StatelessWidget{
           child: Icon(
             AppIcons.plus,
             size: 35,
+            color: Theme.of(context).colorScheme.onPrimary,
           ),
         ),
       ),

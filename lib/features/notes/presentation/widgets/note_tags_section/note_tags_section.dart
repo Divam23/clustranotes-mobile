@@ -3,9 +3,9 @@ import 'package:clustranotes_mobile/core/widgets/note_tags.dart';
 import 'package:flutter/material.dart';
 
 class NoteTagsSection extends StatelessWidget{
-  final List<String> tags;
+  final List<String>? tags;
   const NoteTagsSection({
-    required this.tags, super.key
+    this.tags, super.key
   });
   
   @override
@@ -23,18 +23,20 @@ class NoteTagsSection extends StatelessWidget{
                 color: theme.colorScheme.onSecondary
             ),
           ),
+          tags!.isNotEmpty ? 
           Wrap(
             spacing: AppSpacing.sm,
             runSpacing: AppSpacing.sm,
             runAlignment: WrapAlignment.start,
             children: [
-              ...tags.map(
+              ...?tags?.map(
                 (String tag){
                   return NoteTag(tag: tag);    
                 }
               )
             ],
-          ),
+          )
+          : Text("No tags provided")
         ],
       ),
     );

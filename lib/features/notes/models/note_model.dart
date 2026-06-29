@@ -11,7 +11,7 @@ class Note {
   final String? branch;
   final NoteCategory category;
   final NoteContentType contentType;
-  final List<String> tags;
+  final List<String>? tags;
   final String course;
   final String? collegeName;
   final String? university;
@@ -43,7 +43,7 @@ class Note {
     this.branch,
     required this.category,
     required this.contentType,
-    required this.tags,
+    this.tags,
     required this.course,
     this.collegeName,
     this.university,
