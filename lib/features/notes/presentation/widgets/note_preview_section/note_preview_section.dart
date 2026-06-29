@@ -2,17 +2,18 @@ import 'package:clustranotes_mobile/app/theme/theme.dart';
 import 'package:clustranotes_mobile/core/widgets/resource_chips/chip_item.dart';
 import 'package:clustranotes_mobile/core/widgets/resource_chips/filetype_chip.dart';
 import 'package:clustranotes_mobile/core/widgets/resource_chips/resource_chip.dart';
+import 'package:clustranotes_mobile/features/notes/models/note_details.dart';
 import 'package:flutter/material.dart';
 import 'package:clustranotes_mobile/features/notes/models/note_model.dart';
 
 class NotePreviewSection extends StatelessWidget{
-  final Note note;
+  final NoteDetails note;
   const NotePreviewSection({required this.note, super.key});
 
   @override
   Widget build(BuildContext context){
-    final categoryConfig = AppCategoryChips.allCategories[note.category] ?? AppCategoryChips.others;
-    final fileTypeConfig = AppFileTypeChips.allFileTypes[note.contentType] ?? AppFileTypeChips.pdf;
+    final categoryConfig = AppCategoryChips.allCategories[note.note.category] ?? AppCategoryChips.others;
+    final fileTypeConfig = AppFileTypeChips.allFileTypes[note.note.contentType] ?? AppFileTypeChips.pdf;
     final theme = Theme.of(context);
     return Stack(
       children: [
@@ -43,7 +44,7 @@ class NotePreviewSection extends StatelessWidget{
             ),
             child: Center(
               child: Text(
-                '${note.stats.downloadCount} downloads',
+                '${note.note.stats.downloadCount} downloads',
                 style: theme.textTheme.labelSmall?.copyWith(
                   fontWeight: FontWeight.w700,
                   color: theme.colorScheme.onPrimary

@@ -1,10 +1,11 @@
 import 'package:clustranotes_mobile/app/theme/app_radius.dart';
+import 'package:clustranotes_mobile/features/notes/models/note_enums.dart';
 import 'package:flutter/material.dart';
 
 class DefaultNoteThumbnail extends StatelessWidget {
-  final String contentType;
+  final NoteContentType contentType;
   final BorderRadius? borderRadius;
-
+  
   const DefaultNoteThumbnail({
     required this.contentType,
     this.borderRadius,
@@ -32,38 +33,34 @@ class DefaultNoteThumbnail extends StatelessWidget {
   }
 
   IconData _getIcon() {
-    switch (contentType.toLowerCase()) {
-      case 'pdf':
+    switch (contentType) {
+      case NoteContentType.pdf:
         return Icons.picture_as_pdf;
 
-      case 'docx':
-      case 'doc':
+      case NoteContentType.docx:
+      case NoteContentType.doc:
         return Icons.description;
 
-      case 'pptx':
-      case 'ppt':
+      case NoteContentType.pptx:
+      case NoteContentType.ppt:
         return Icons.slideshow;
 
-      default:
-        return Icons.insert_drive_file;
     }
   }
 
   Color _getColor(BuildContext context) {
-    switch (contentType.toLowerCase()) {
-      case 'pdf':
+    switch (contentType) {
+      case NoteContentType.pdf:
         return Colors.red;
 
-      case 'docx':
-      case 'doc':
+      case NoteContentType.docx:
+      case NoteContentType.doc:
         return Colors.blue;
 
-      case 'pptx':
-      case 'ppt':
+      case NoteContentType.pptx:
+      case NoteContentType.ppt:
         return Colors.orange;
 
-      default:
-        return Theme.of(context).colorScheme.primary;
     }
   }
 }

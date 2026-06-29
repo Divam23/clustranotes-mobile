@@ -1,11 +1,11 @@
-import 'package:clustranotes_mobile/features/notes/models/note_model.dart';
+import 'package:clustranotes_mobile/features/notes/models/note_details.dart';
 import 'package:clustranotes_mobile/features/notes/presentation/widgets/related_notes_section/related_note_card.dart';
 import 'package:flutter/material.dart';
 import 'package:clustranotes_mobile/app/theme/theme.dart';
 
 
 class RelatedNotesSection extends StatelessWidget{
-  final List<Note> notes;
+  final List<NoteDetails> notes;
   const RelatedNotesSection({
     required this.notes,
     super.key
@@ -27,7 +27,7 @@ class RelatedNotesSection extends StatelessWidget{
             ),
           ),
           SizedBox(
-            height: 200,
+            height: 230,
             child: ListView.separated(
               scrollDirection: Axis.horizontal,
               itemCount: notes.length,

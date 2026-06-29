@@ -1,3 +1,5 @@
+import 'package:clustranotes_mobile/features/user/models/user_enums.dart';
+
 class UserSummary{
   final String id;
   final String firstName;
@@ -18,11 +20,4 @@ class UserSummary{
   });
   
   bool get isIdentityVerified => userVerificationStatus == UserVerificationStatus.verified;
-}
-
-enum UserVerificationStatus{
-  notVerified,
-  verified,
-  underVerification,
-  verificationFailed
 }

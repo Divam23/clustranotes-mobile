@@ -1,4 +1,5 @@
-import 'package:clustranotes_mobile/features/comments/models/user_summary.dart';
+import 'package:clustranotes_mobile/features/user/models/user_enums.dart';
+import 'package:clustranotes_mobile/features/user/models/user_summary.dart';
 
 final dummyUsers = [
   UserSummary(
@@ -8,7 +9,7 @@ final dummyUsers = [
     userName: 'divamdubey',
     isEmailVerified: true,
     avatarUrl: null,
-    verificationStatus: VerificationStatus.verified,
+    userVerificationStatus: UserVerificationStatus.verified,
   ),
   UserSummary(
     id: '2',
@@ -17,7 +18,7 @@ final dummyUsers = [
     userName: 'aryaaryan',
     isEmailVerified: false,
     avatarUrl: null,
-    verificationStatus: VerificationStatus.notVerified,
+    userVerificationStatus: UserVerificationStatus.notVerified,
   ),
   UserSummary(
     id: '3',
@@ -26,7 +27,7 @@ final dummyUsers = [
     userName: 'anshuanmol',
     isEmailVerified: false,
     avatarUrl: null,
-    verificationStatus: VerificationStatus.notVerified,
+    userVerificationStatus: UserVerificationStatus.notVerified,
   ),
   UserSummary(
     id: '4',
@@ -35,7 +36,7 @@ final dummyUsers = [
     userName: 'adityasushant',
     isEmailVerified: true,
     avatarUrl: null,
-    verificationStatus: VerificationStatus.verified,
+    userVerificationStatus: UserVerificationStatus.verified,
   ),
   UserSummary(
     id: '5',
@@ -44,7 +45,7 @@ final dummyUsers = [
     userName: 'nishantkumar',
     isEmailVerified: true,
     avatarUrl: null,
-    verificationStatus: VerificationStatus.verificationFailed,
+    userVerificationStatus: UserVerificationStatus.verificationFailed,
   ),
   UserSummary(
     id: '6',
@@ -53,7 +54,7 @@ final dummyUsers = [
     userName: 'harshraj',
     isEmailVerified: true,
     avatarUrl: null,
-    verificationStatus: VerificationStatus.underVerification,
+    userVerificationStatus: UserVerificationStatus.underVerification,
   ),
   UserSummary(
     id: '7',
@@ -62,7 +63,7 @@ final dummyUsers = [
     userName: 'akanshkumar',
     isEmailVerified: true,
     avatarUrl: null,
-    verificationStatus: VerificationStatus.verified,
+    userVerificationStatus: UserVerificationStatus.verified,
   ),
   UserSummary(
     id: '8',
@@ -71,7 +72,7 @@ final dummyUsers = [
     userName: 'kumarrahul',
     isEmailVerified: false,
     avatarUrl: null,
-    verificationStatus: VerificationStatus.notVerified,
+    userVerificationStatus: UserVerificationStatus.notVerified,
   ),
   
 ];
@@ -83,7 +84,7 @@ const divam = UserSummary(
   userName: 'divam',
   avatarUrl: null,
   isEmailVerified: true,
-  verificationStatus: VerificationStatus.verified,
+  userVerificationStatus: UserVerificationStatus.verified,
 );
 
 const harsh = UserSummary(
@@ -93,5 +94,5 @@ const harsh = UserSummary(
   userName: 'harsh',
   avatarUrl: null,
   isEmailVerified: true,
-  verificationStatus: VerificationStatus.notVerified,
+  userVerificationStatus: UserVerificationStatus.notVerified,
 );

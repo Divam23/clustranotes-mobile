@@ -1,6 +1,6 @@
 import 'package:clustranotes_mobile/features/comments/data/dummy_comment_data.dart';
 import 'package:clustranotes_mobile/features/comments/models/comment_model.dart';
-import 'package:clustranotes_mobile/features/comments/models/user_summary.dart';
+import 'package:clustranotes_mobile/features/user/models/user_summary.dart';
 import 'package:clustranotes_mobile/features/notes/data/note_details_dummy_data.dart';
 import 'package:clustranotes_mobile/features/notes/presentation/widgets/comment_input_bar/comment_input_bar.dart';
 import 'package:clustranotes_mobile/features/notes/presentation/widgets/comment_section/comment_section.dart';
@@ -55,8 +55,8 @@ class _NoteDetailsScreenState extends State<NoteDetailsScreen> {
   final UserSummary currentUser = dummyUsers.first;
   @override
   Widget build(BuildContext context){
-    final note = dummyNotes[0];
-    final noteComments = dummyComments.where((comment)=> comment.noteId == note.id).toList();
+    final note = dummyNoteDetails[0];
+    final noteComments = dummyComments.where((comment)=> comment.noteId == note.note.id).toList();
     final theme = Theme.of(context);
     return Scaffold(
       resizeToAvoidBottomInset: true,
@@ -77,9 +77,9 @@ class _NoteDetailsScreenState extends State<NoteDetailsScreen> {
                       NoteInfoSection(note: note),
                       NoteEngagementSection(note: note),
                       NoteActionSection(),
-                      NoteDescriptionSection(description: note.description),
-                      NoteTagsSection(tags: note.tags),
-                      RelatedNotesSection(notes: dummyNotes),
+                      NoteDescriptionSection(description: note.note.description),
+                      NoteTagsSection(tags: note.note.tags),
+                      RelatedNotesSection(notes: dummyNoteDetails),
                       CommentSection(comments: noteComments, onReply: _onReply,),
                     ],
                   ),

@@ -1,4 +1,4 @@
-import 'package:clustranotes_mobile/features/comments/models/user_summary.dart';
+import 'package:clustranotes_mobile/features/user/models/user_summary.dart';
 
 class NoteSummary {
   final String id;

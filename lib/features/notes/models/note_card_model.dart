@@ -1,14 +1,13 @@
-import 'package:clustranotes_mobile/features/notes/models/note_model.dart';
+import 'package:clustranotes_mobile/features/notes/models/note_enums.dart';
 
 class NoteCardModel{
   final String id;
   final String title;
-  final String? description;
   final String subject;
   final String? branch;
   final String course;
-  final String category;
-  final String contentType;
+  final NoteCategory category;
+  final NoteContentType contentType;
   final int? semester;
   final List<String>? tags;
   final String? collegeName;
@@ -21,15 +20,13 @@ class NoteCardModel{
   final int viewCount;
   final bool isBookmarked;
   final bool isPublic;
-  final bool isVerifiedNote;
-  final NoteVerificationStatus noteVerificationStatus;
+  final NoteVerificationPublicStatus noteVerificationStatus;
   final DateTime createdAt;
   final String uploaderId;
   
   const NoteCardModel({
     required this.id,
     required this.title,
-    this.description,
     required this.subject,
     this.branch,
     required this.course,
@@ -47,7 +44,6 @@ class NoteCardModel{
     required this.viewCount,
     required this.isBookmarked,
     required this.isPublic,
-    required this.isVerifiedNote,
     required this.noteVerificationStatus,
     required this.createdAt,
     required this.uploaderId

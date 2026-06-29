@@ -2,13 +2,13 @@ import 'package:clustranotes_mobile/app/theme/theme.dart';
 import 'package:clustranotes_mobile/core/widgets/button/social_engagement_buttons/comment.dart';
 import 'package:clustranotes_mobile/core/widgets/button/social_engagement_buttons/like.dart';
 import 'package:clustranotes_mobile/core/widgets/views.dart';
-import 'package:clustranotes_mobile/features/notes/models/note_model.dart';
+import 'package:clustranotes_mobile/features/notes/models/note_details.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
 class NoteEngagementSection extends StatelessWidget{
-  final Note note;
+  final NoteDetails note;
   const NoteEngagementSection({
     required this.note,
     super.key
@@ -42,7 +42,7 @@ class NoteEngagementSection extends StatelessWidget{
                   }
                   await HapticFeedback.lightImpact();
                 }, 
-                count: note.stats.likesCount,
+                count: note.note.stats.likesCount,
                 size: 25,
               ),
             ),
@@ -59,7 +59,7 @@ class NoteEngagementSection extends StatelessWidget{
                   width: 1.5
                 ),
               ),
-              child: AppComment(onTap: (){}, count: note.stats.commentsCount),
+              child: AppComment(onTap: (){}, count: note.note.stats.commentsCount),
             ),
           ),
           Expanded(
@@ -74,7 +74,7 @@ class NoteEngagementSection extends StatelessWidget{
                   width: 1.5
                 ),
               ),
-              child: AppViews(count: note.stats.viewsCount),
+              child: AppViews(count: note.note.stats.viewsCount),
             ),
           ),
         ],

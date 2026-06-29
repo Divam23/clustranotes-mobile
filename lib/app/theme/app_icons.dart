@@ -49,5 +49,8 @@ class AppIcons {
   static const IconData send = Icons.send;
   static const IconData fire = Icons.local_fire_department_outlined;
   static const IconData star = Icons.star_border_rounded;
+  static const IconData plus = CupertinoIcons.plus;
+  static const IconData info = CupertinoIcons.info_circle;
+  
   
 }

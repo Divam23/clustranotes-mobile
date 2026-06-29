@@ -24,7 +24,7 @@ class AppChip extends StatelessWidget {
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     return Container(
-      padding: EdgeInsets.symmetric(vertical:AppSpacing.xxs,horizontal:AppSpacing.xs),
+      padding: EdgeInsets.symmetric(vertical:AppSpacing.xxs,horizontal:AppSpacing.sm),
       height: 20,
       decoration: BoxDecoration(
         color: item.color,

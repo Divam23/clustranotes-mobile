@@ -3,7 +3,7 @@ import 'package:clustranotes_mobile/features/explore/presentation/pages/explore_
 import 'package:clustranotes_mobile/features/home/presentation/pages/home_screen.dart';
 import 'package:clustranotes_mobile/features/library/presentation/pages/library_screen.dart';
 import 'package:clustranotes_mobile/features/profile/presentation/pages/profile_screen.dart';
-import 'package:clustranotes_mobile/features/upload/presentation/pages/upload_screen.dart';
+import 'package:clustranotes_mobile/features/upload/presentation/pages/upload_dashboard_screen.dart';
 import 'package:flutter/material.dart';
 
 class AppNavigationShell extends StatefulWidget{
@@ -20,7 +20,7 @@ class _AppNavigationShellState extends State<AppNavigationShell> {
   final pages = [
     HomeScreen(),
     ExploreScreen(),
-    UploadScreen(),
+    UploadDashboardScreen(),
     LibraryScreen(),
     ProfileScreen()
   ];
@@ -34,6 +34,7 @@ class _AppNavigationShellState extends State<AppNavigationShell> {
       ),
       
       bottomNavigationBar: AppBottomNavigationBar(
+        
         currentIndex: currentIndex,
         onTap: (index){
           setState(() {

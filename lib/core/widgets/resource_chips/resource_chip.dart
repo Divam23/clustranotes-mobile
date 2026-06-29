@@ -1,14 +1,27 @@
 import 'package:clustranotes_mobile/app/theme/theme.dart';
 import 'package:clustranotes_mobile/core/widgets/resource_chips/chip_item.dart';
+import 'package:clustranotes_mobile/features/notes/models/note_enums.dart';
 import 'package:flutter/material.dart';
 
 class AppCategoryChips {
-  
   AppCategoryChips._();
+
   static final lectureNotes = AppChipItem(
     chipName: "Notes",
     radius: AppRadius.chip,
     color: const Color(0xFF2196F3),
+  );
+  
+  static final handwritten = AppChipItem(
+    chipName: "Handwritten",
+    radius: AppRadius.chip,
+    color: const Color(0xFF03A9F4),
+  );
+
+  static final revisionNotes = AppChipItem(
+    chipName: "Revision Notes",
+    radius: AppRadius.chip,
+    color: const Color(0xFF3F51B5),
   );
 
   static final previousYearQuestions = AppChipItem(
@@ -50,7 +63,7 @@ class AppCategoryChips {
   static final presentation = AppChipItem(
     chipName: "Presentation",
     radius: AppRadius.chip,
-    color: const Color(0x73000000),
+    color: const Color(0x43000000),
   );
 
   static final ebook = AppChipItem(
@@ -89,20 +102,29 @@ class AppCategoryChips {
     color: const Color(0xFF9E9E9E),
   );
 
-  static final Map<String, AppChipItem> allCategories = {
-    'lecture_notes': lectureNotes,
-    'previous_year_questions': previousYearQuestions,
-    'assignment': assignment,
-    'lab_manual': labManual,
-    'lab_record': labRecord,
-    'summary': summary,
-    'cheat_sheet': cheatSheet,
-    'presentation': presentation,
-    'ebook': ebook,
-    'syllabus': syllabus,
-    'question_bank': questionBank,
-    'practice_set': practiceSet,
-    'project_report': projectReport,
-    'others': others,
+  static final Map<NoteCategory, AppChipItem> allCategories = {
+    NoteCategory.lectureNotes: lectureNotes,
+    NoteCategory.handwritten: handwritten,
+    NoteCategory.revisionNotes: revisionNotes,
+    NoteCategory.previousYearQuestions: previousYearQuestions,
+    NoteCategory.assignment: assignment,
+    NoteCategory.labManual: labManual,
+    NoteCategory.labRecord: labRecord,
+    NoteCategory.summary: summary,
+    NoteCategory.cheatSheet: cheatSheet,
+    NoteCategory.presentation: presentation,
+    NoteCategory.ebook: ebook,
+    NoteCategory.syllabus: syllabus,
+    NoteCategory.questionBank: questionBank,
+    NoteCategory.practiceSet: practiceSet,
+    NoteCategory.projectReport: projectReport,
+    NoteCategory.others: others,
   };
+}
+
+
+extension NoteCategoryExtension on NoteCategory {
+  AppChipItem get chip {
+    return AppCategoryChips.allCategories[this] ?? AppCategoryChips.others;
+  }
 }

@@ -25,22 +25,33 @@ class ExploreScreen extends StatelessWidget {
               ),
               child: Column(
                 children: [
-                  ExploreHeader(),
-                  SizedBox(height: AppSpacing.itemGap,),
+                  const ExploreHeader(),
+                  const SizedBox(height: AppSpacing.itemGap),
                   AppSearchBar(
                     readOnly: true,
                     onTap: () {
                       Navigator.push(
-                          context,
-                          MaterialPageRoute(builder: (context)=> const SearchScreen())
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => const SearchScreen(),
+                        ),
                       );
                     },
                   ),
-                  const SizedBox(height: AppSpacing.sectionGap,),
-                  TrendingSection(notes: [...dummyNoteCards],),
-                  const SizedBox(height: AppSpacing.sectionGap,),
-                  
-                ]
+                  const SizedBox(height: AppSpacing.sectionGap),
+                  TrendingSection(notes: [...notes]),
+                  const SizedBox(height: AppSpacing.sectionGap),
+                  SizedBox(
+                    height: 80,
+                    width: double.infinity,
+                    child: Text(
+                      textAlign: TextAlign.center,
+                      'More explore features coming soon...',
+                      style: Theme.of(context).textTheme.headlineLarge
+                          ?.copyWith(color: Theme.of(context).disabledColor),
+                    ),
+                  ),
+                ],
               ),
             ),
           ),

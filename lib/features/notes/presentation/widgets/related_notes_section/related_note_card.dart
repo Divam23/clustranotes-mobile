@@ -2,12 +2,13 @@ import 'package:clustranotes_mobile/app/theme/theme.dart';
 import 'package:clustranotes_mobile/core/widgets/dot.dart';
 import 'package:clustranotes_mobile/core/widgets/resource_chips/chip_item.dart';
 import 'package:clustranotes_mobile/core/widgets/resource_chips/resource_chip.dart';
-import 'package:clustranotes_mobile/features/notes/models/note_model.dart';
+import 'package:clustranotes_mobile/core/widgets/thumbnail/note_thumbnail.dart';
+import 'package:clustranotes_mobile/features/notes/models/note_details.dart';
 import 'package:flutter/material.dart';
 
 
 class RelatedNoteCard extends StatelessWidget{
-  final Note note;
+  final NoteDetails note;
   const RelatedNoteCard({
     required this.note,
     super.key
@@ -15,14 +16,14 @@ class RelatedNoteCard extends StatelessWidget{
   
   @override
   Widget build(BuildContext context){
-    final categoryChipConfig = AppCategoryChips.allCategories[note.category] ?? AppCategoryChips.others;
+    final categoryChipConfig = AppCategoryChips.allCategories[note.note.category] ?? AppCategoryChips.others;
     final theme = Theme.of(context);
     return InkWell(
       onTap: () {},
       borderRadius: AppRadius.card,
       child: Container(
-        height: 200,
-        width: 200,
+        height: 230,
+        width: 230,
         decoration: BoxDecoration(
           color: theme.colorScheme.surface,
           borderRadius: AppRadius.card,
@@ -43,19 +44,10 @@ class RelatedNoteCard extends StatelessWidget{
                       ),
                     ),
                   ),
-                  child: ClipRRect(
-                    borderRadius: AppRadius.card.copyWith(
-                      bottomLeft: Radius.zero,
-                      bottomRight: Radius.zero,
-                    ),
-
-                    child: Image.network(
-                      note.file.thumbnailUrl!,
-                      fit: BoxFit.cover,
-                      width: double.infinity,
-                      height: double.infinity,
-                    ),
-                  ),
+                  child: NoteThumbnail(contentType: note.note.contentType, thumbnailUrl: note.note.file.thumbnailUrl, borderRadius: AppRadius.card?.copyWith(
+                    bottomLeft: Radius.zero,
+                    bottomRight: Radius.zero
+                  ),) 
                 ),
                 Positioned(
                     bottom: AppSpacing.sm,
@@ -74,7 +66,7 @@ class RelatedNoteCard extends StatelessWidget{
                 spacing: 0,
                 children: [
                   Text(
-                    note.title, 
+                    note.note.title, 
                     style: theme.textTheme.titleMedium,
                     maxLines: 1,
                     overflow: TextOverflow.ellipsis,
@@ -83,14 +75,14 @@ class RelatedNoteCard extends StatelessWidget{
                     spacing: AppSpacing.xs,
                     children: [
                       Text(
-                        'Sem ${note.semester}',
+                        'Sem ${note.note.semester}',
                         style: theme.textTheme.labelMedium?.copyWith(
                           color: theme.colorScheme.onSecondary,
                         ),
                       ),
                       Dot(radius: AppRadius.xxs, color: theme.colorScheme.primary),
                       Text(
-                        note.subject,
+                        note.note.subject,
                         style: theme.textTheme.labelMedium?.copyWith(
                           color: theme.colorScheme.onSecondary,
                         ),
@@ -99,7 +91,17 @@ class RelatedNoteCard extends StatelessWidget{
                   ),
                   
                   Text(
-                    note.university!,
+                    note.note.collegeName!,
+                    maxLines: 2,
+                    overflow: TextOverflow.ellipsis,
+                    style: theme.textTheme.labelMedium?.copyWith(
+                      color: theme.disabledColor,
+                    ),
+                  ),
+                  Text(
+                    note.note.university!,
+                    maxLines: 1,
+                    overflow: TextOverflow.ellipsis,
                     style: theme.textTheme.labelMedium?.copyWith(
                       color: theme.colorScheme.primary,
                     ),

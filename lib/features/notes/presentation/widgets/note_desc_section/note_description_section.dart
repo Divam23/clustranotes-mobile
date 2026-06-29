@@ -34,6 +34,7 @@ class _NoteDescriptionSectionState extends State<NoteDescriptionSection> {
             ),
           ),
           Column(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
               Text(
                 widget.description,

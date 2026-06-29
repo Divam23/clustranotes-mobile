@@ -1,20 +1,11 @@
 import 'package:clustranotes_mobile/features/comments/models/comment_model.dart';
-import 'package:clustranotes_mobile/features/comments/models/user_summary.dart';
 import 'package:clustranotes_mobile/features/user/data/dummy_user_data.dart';
 
 final dummyComments = [
   Comment(
     id: 'c1',
-    noteId: '1',
-    user: UserSummary(
-      id: 'u1',
-      firstName: 'Rahul',
-      lastName: 'Singh',
-      userName: 'singhrahul1233',
-      avatarUrl: null,
-      isEmailVerified: true,
-      verificationStatus: VerificationStatus.verified,
-    ),
+    noteId: 'note_001',
+    user: dummyUsers[0],
     content: 'Very helpful notes. Very helpful notes.Very helpful notes.Very helpful notes.Very helpful notes.Very helpful notes.Very helpful notes.Very helpful notes.Very helpful notes.Very helpful notes.Very helpful notes.Very helpful notes.Very helpful notes.Very helpful notes.Very helpful notes.Very helpful notes.Very helpful notes.Very helpful notes.Very helpful notes.Very helpful notes.Very helpful notes.Very helpful notes.Very helpful notes.Very helpful notes.Very helpful notes.',
     likesCount: 5,
     isLiked: true,
@@ -25,16 +16,8 @@ final dummyComments = [
 
   Comment(
     id: 'c2',
-    noteId: '1',
-    user: UserSummary(
-      id: 'u2',
-      firstName: 'Priya',
-      lastName: 'Mittal',
-      userName: 'priyam43',
-      avatarUrl: null,
-      isEmailVerified: true,
-      verificationStatus: VerificationStatus.verified,
-    ),
+    noteId: 'note_001',
+    user: dummyUsers[1],
     content: 'Thanks for uploading.',
     likesCount: 2,
     repliesCount: 0,
@@ -45,16 +28,8 @@ final dummyComments = [
 
   Comment(
     id: 'c3',
-    noteId: '2',
-    user: UserSummary(
-      id: 'u3',
-      firstName: 'Aman',
-      lastName: 'Sharma',
-      userName: 'amansharma12',
-      avatarUrl: null,
-      isEmailVerified: true,
-      verificationStatus: VerificationStatus.verified,
-    ),
+    noteId: 'note_001',
+    user: dummyUsers[2],
     content: 'Excellent explanation.',
     likesCount: 8,
     isLiked: false,
@@ -65,17 +40,9 @@ final dummyComments = [
   
   Comment(
     id: 'c4',
-    noteId: '1',
+    noteId: 'note_001',
     parentCommentId: 'c1',
-    user: UserSummary(
-      id: 'u3',
-      firstName: 'Aman',
-      lastName: 'Sharma',
-      userName: 'amansharma12',
-      avatarUrl: null,
-      isEmailVerified: true,
-      verificationStatus: VerificationStatus.verified,
-    ),
+    user: dummyUsers[3],
     
     content: 'Excellent explanation.',
     likesCount: 8,
@@ -86,18 +53,9 @@ final dummyComments = [
   ),
   Comment(
     id: 'c5',
-    noteId: '1',
+    noteId: 'note_001',
     parentCommentId: 'c1',
-    user: UserSummary(
-      id: 'u3',
-      firstName: 'Aman',
-      lastName: 'Sharma',
-      userName: 'amansharma12',
-      avatarUrl: null,
-      isEmailVerified: true,
-      
-      verificationStatus: VerificationStatus.verified,
-    ),
+    user: dummyUsers[4],
     content: 'Excellent explanation.',
     likesCount: 8,
     isLiked: false,
@@ -107,17 +65,9 @@ final dummyComments = [
   ),
   Comment(
     id: 'c6',
-    noteId: '1',
+    noteId: 'note_001',
     parentCommentId: 'c1',
-    user: UserSummary(
-      id: 'u3',
-      firstName: 'Aman',
-      lastName: 'Sharma',
-      userName: 'amansharma12',
-      avatarUrl: null,
-      isEmailVerified: true,
-      verificationStatus: VerificationStatus.verified,
-    ),
+    user: dummyUsers[5],
     content: 'Excellent explanation.',
     replyingToUser: divam,
     likesCount: 8,
@@ -128,17 +78,9 @@ final dummyComments = [
   ),
   Comment(
     id: 'c7',
-    noteId: '1',
+    noteId: 'note_001',
     parentCommentId: 'c1',
-    user: UserSummary(
-      id: 'u3',
-      firstName: 'Aman',
-      lastName: 'Sharma',
-      userName: 'amansharma12',
-      avatarUrl: null,
-      isEmailVerified: true,
-      verificationStatus: VerificationStatus.verified,
-    ),
+    user: dummyUsers[6],
     content: 'Excellent explanation.',
     likesCount: 8,
     isLiked: false,
@@ -148,37 +90,9 @@ final dummyComments = [
   ),
   Comment(
     id: 'c8',
-    noteId: '1',
+    noteId: 'note_001',
     parentCommentId: 'c1',
-    user: UserSummary(
-      id: 'u3',
-      firstName: 'Aman',
-      lastName: 'Sharma',
-      userName: 'amansharma12',
-      avatarUrl: null,
-      isEmailVerified: true,
-      verificationStatus: VerificationStatus.verified,
-    ),
-    content: 'Excellent explanation.',
-    likesCount: 8,
-    isLiked: false,
-    repliesCount: 0,
-    isEdited: false,
-    createdAt: DateTime.now(),
-  ),
-  Comment(
-    id: 'c9',
-    noteId: '1',
-    parentCommentId: 'c1',
-    user: UserSummary(
-      id: 'u3',
-      firstName: 'Aman',
-      lastName: 'Sharma',
-      userName: 'amansharma12',
-      avatarUrl: null,
-      isEmailVerified: true,
-      verificationStatus: VerificationStatus.verified,
-    ),
+    user: dummyUsers[7],
     content: 'Excellent explanation.',
     likesCount: 8,
     isLiked: false,

@@ -1,107 +1,167 @@
-import 'package:clustranotes_mobile/features/comments/models/user_summary.dart';
+import 'package:clustranotes_mobile/features/notes/models/note_details.dart';
+import 'package:clustranotes_mobile/features/user/data/dummy_user_data.dart';
 import 'package:clustranotes_mobile/features/notes/models/note_model.dart';
-import '../models/note_file.dart';
-import '../models/note_stats.dart';
+import 'package:clustranotes_mobile/features/notes/models/note_enums.dart';
+import 'package:clustranotes_mobile/features/notes/models/note_file_metadata.dart';
+import 'package:clustranotes_mobile/features/notes/models/note_stats.dart';
+import 'package:clustranotes_mobile/features/notes/models/moderation_info.dart';
 
-final List<Note> dummyNotes = [
-  Note(
-    id: '1',
-    title: 'Database Management Systems Complete Notes',
-    description:
-        'Comprehensive notes covering ER Models, SQL, Transactions and Normalization.',
-    subject: 'DBMS',
-    category: 'lecture_notes',
-    contentType: 'pdf',
-    tags: ['DBMS', 'Semester 5', 'Notes'],
-    course: 'B.Tech CSE',
-    university: 'IIT Dhanbad',
-    semester: 5,
-    language: 'English',
-
-    file: NoteFile(
-      url: 'https://example.com/dbms.pdf',
-      mimeType: 'application/pdf',
-      thumbnailUrl:
-          'https://images.unsplash.com/photo-1516321318423-f06f85e504b3',
-      pageCount: 45,
-      readingTime: 120,
-      sizeInBytes: 2457600,
+final dummyNoteDetails = [
+  NoteDetails(
+    note: Note(
+      id: 'note_001',
+      title: 'Thermodynamics Complete Notes',
+      description: 'Covers all laws of thermodynamics with solved examples.Organic Chemistry Reaction MechanismsOrganic Chemistry Reaction MechanismsOrganic Chemistry Reaction MechanismsOrganic Chemistry Reaction MechanismsOrganic Chemistry Reaction MechanismsOrganic Chemistry Reaction MechanismsOrganic Chemistry Reaction MechanismsOrganic Chemistry Reaction MechanismsOrganic Chemistry Reaction MechanismsOrganic Chemistry Reaction MechanismsOrganic Chemistry Reaction MechanismsOrganic Chemistry Reaction MechanismsOrganic Chemistry Reaction MechanismsOrganic Chemistry Reaction MechanismsOrganic Chemistry Reaction MechanismsOrganic Chemistry Reaction MechanismsOrganic Chemistry Reaction MechanismsOrganic Chemistry Reaction MechanismsOrganic Chemistry Reaction MechanismsOrganic Chemistry Reaction MechanismsOrganic Chemistry Reaction MechanismsOrganic Chemistry Reaction MechanismsOrganic Chemistry Reaction MechanismsOrganic Chemistry Reaction MechanismsOrganic Chemistry Reaction MechanismsOrganic Chemistry Reaction MechanismsOrganic Chemistry Reaction MechanismsOrganic Chemistry Reaction MechanismsOrganic Chemistry Reaction MechanismsOrganic Chemistry Reaction MechanismsOrganic Chemistry Reaction MechanismsOrganic Chemistry Reaction MechanismsOrganic Chemistry Reaction MechanismsOrganic Chemistry Reaction MechanismsOrganic Chemistry Reaction MechanismsOrganic Chemistry Reaction MechanismsOrganic Chemistry Reaction MechanismsOrganic Chemistry Reaction MechanismsOrganic Chemistry Reaction MechanismsOrganic Chemistry Reaction MechanismsOrganic Chemistry Reaction MechanismsOrganic Chemistry Reaction MechanismsOrganic Chemistry Reaction MechanismsOrganic Chemistry Reaction MechanismsOrganic Chemistry Reaction MechanismsOrganic Chemistry Reaction MechanismsOrganic Chemistry Reaction MechanismsOrganic Chemistry Reaction MechanismsOrganic Chemistry Reaction MechanismsOrganic Chemistry Reaction MechanismsOrganic Chemistry Reaction MechanismsOrganic Chemistry Reaction MechanismsOrganic Chemistry Reaction MechanismsOrganic Chemistry Reaction MechanismsOrganic Chemistry Reaction MechanismsOrganic Chemistry Reaction Mechanismsv',
+      subject: 'Physics',
+      branch: 'Mechanical Engineering',
+      category: NoteCategory.lectureNotes,
+      contentType: NoteContentType.pdf,
+      tags: const ['thermodynamics', 'physics', 'mechanical'],
+      course: 'B.Tech',
+      collegeName: 'IIT Delhi',
+      university: 'Indian Institute of Technology Delhi',
+      semester: 4,
+      language: 'en',
+      file: const NoteFileMetadata(
+        url: 'https://storage.clustranotes.com/files/note_001.pdf',
+        storagePath: 'notes/note_001.pdf',
+        mimeType: 'application/pdf',
+        sizeInBytes: 4500000,
+        thumbnailUrl: 'https://images.unsplash.com/photo-1517842645767-c639042777db?w=400',
+        pageCount: 42,
+        readingTime: 18,
+      ),
+      extractedText: null,
+      uploaderId: 'user_101',
+      isPublic: true,
+      publishStatus: NotePublishStatus.published,
+      publishedAt: DateTime(2026, 2, 14),
+      submittedForReviewAt: DateTime(2026, 2, 15),
+      approvedAt: DateTime(2026, 2, 16),
+      rejectedAt: null,
+      rejectionReason: null,
+      noteVerificationStatus: NoteVerificationPublicStatus.verified,
+      stats: NoteStats(
+        viewsCount: 5200,
+        downloadCount: 1280,
+        likesCount: 340,
+        bookmarksCount: 210,
+        commentsCount: 8,
+        lastViewedAt: DateTime(2026, 6, 23),
+      ),
+      moderation: const ModerationInfo(
+        reportCount: 0,
+        moderationFlags: [],
+      ),
+      createdAt: DateTime(2026, 2, 14),
+      updatedAt: DateTime(2026, 2, 16),
     ),
-    user: UserSummary(
-      id: 'u1',
-      firstName: 'Divam',
-      lastName: 'Dubey',
-      userName: 'divamdubey',
-      isEmailVerified: true,
-      verificationStatus: VerificationStatus.verified,
-      avatarUrl: 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e',
-    ),
-
-    isPublic: true,
-    status: 'published',
-    isVerifiedNote: true,
-    noteVerificationStatus: NoteVerificationStatus.verified,
-
-    stats: NoteStats(
-      viewsCount: 2500,
-      downloadCount: 1200,
-      likesCount: 340,
-      bookmarksCount: 85,
-      commentsCount: 26,
-    ),
-
-    publishedAt: DateTime.now(),
-    createdAt: DateTime.now(),
-    updatedAt: DateTime.now(),
+    user: dummyUsers[0],
   ),
 
-  Note(
-    id: '2',
-    title: 'Computer Networks Mid Semester Notes',
-    description:
-        'Important concepts for mid semester examinations including OSI and TCP/IP.',
-    subject: 'Computer Networks',
-    category: 'assignment',
-    contentType: 'pptx',
-    tags: ['CN', 'Semester 5'],
-
-    course: 'B.Tech CSE',
-    university: 'IIT Dhanbad',
-    semester: 5,
-    language: 'English',
-
-    file: NoteFile(
-      url: 'https://example.com/cn.pdf',
-      mimeType: 'application/pdf',
-      thumbnailUrl:
-          'https://images.unsplash.com/photo-1515879218367-8466d910aaa4',
-      pageCount: 32,
-      readingTime: 90,
+  NoteDetails(
+    note: Note(
+      id: 'note_002',
+      title: 'Organic Chemistry Reaction Mechanisms',
+      description: '',
+      subject: 'Chemistry',
+      branch: null,
+      category: NoteCategory.lectureNotes,
+      contentType: NoteContentType.docx,
+      tags: const ['organic chemistry', 'reactions'],
+      course: 'B.Sc.',
+      collegeName: 'Hindu College',
+      university: 'University of Delhi',
+      semester: 2,
+      language: 'en',
+      file: const NoteFileMetadata(
+        url: 'https://storage.clustranotes.com/files/note_002.docx',
+        storagePath: 'notes/note_002.docx',
+        mimeType: 'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
+        sizeInBytes: 2100000,
+        thumbnailUrl: null,
+        pageCount: 18,
+        readingTime: 8,
+      ),
+      extractedText: null,
+      uploaderId: 'user_202',
+      isPublic: true,
+      publishStatus: NotePublishStatus.published,
+      publishedAt: DateTime(2026, 4, 18),
+      submittedForReviewAt: null,
+      approvedAt: null,
+      rejectedAt: null,
+      rejectionReason: null,
+      noteVerificationStatus: NoteVerificationPublicStatus.community,
+      stats: NoteStats(
+        viewsCount: 890,
+        downloadCount: 210,
+        likesCount: 45,
+        bookmarksCount: 30,
+        commentsCount: 3,
+        lastViewedAt: DateTime(2026, 6, 20),
+      ),
+      moderation: const ModerationInfo(
+        reportCount: 0,
+        moderationFlags: [],
+      ),
+      createdAt: DateTime(2026, 4, 18),
+      updatedAt: DateTime(2026, 4, 18),
     ),
+    user: dummyUsers[1],
+  ),
 
-    user: UserSummary(
-      id: 'u2',
-      firstName: 'Ujjwal',
-      lastName: 'Kumar',
-      userName: 'kumarujjwal',
-      isEmailVerified: false,
-      verificationStatus: VerificationStatus.notVerified,
+  NoteDetails(
+    note: Note(
+      id: 'note_003',
+      title: 'Linear Algebra Assignment Solutions',
+      description: 'Eigenvalues, eigenvectors and matrix diagonalization',
+      subject: 'Mathematics',
+      branch: null,
+      category: NoteCategory.assignment,
+      contentType: NoteContentType.pdf,
+      tags: const ['linear algebra', 'matrices'],
+      course: 'B.Sc. Mathematics',
+      collegeName: "St. Stephen's College",
+      university: 'University of Delhi',
+      semester: 3,
+      language: 'en',
+      file: const NoteFileMetadata(
+        url: 'https://storage.clustranotes.com/files/note_003.pdf',
+        storagePath: 'notes/note_003.pdf',
+        mimeType: 'application/pdf',
+        sizeInBytes: 1750000,
+        thumbnailUrl: null,
+        pageCount: 22,
+        readingTime: 10,
+      ),
+      extractedText: null,
+      uploaderId: 'user_303',
+      // rejected, but still public — matches our reject() design:
+      // verification rejection never hides the note, only affects the badge
+      isPublic: true,
+      publishStatus: NotePublishStatus.published,
+      publishedAt: DateTime(2026, 6, 10),
+      submittedForReviewAt: DateTime(2026, 6, 11),
+      approvedAt: null,
+      rejectedAt: DateTime(2026, 6, 12),
+      rejectionReason: 'Content overlaps significantly with an existing verified note.',
+      noteVerificationStatus: NoteVerificationPublicStatus.community,
+      stats: NoteStats(
+        viewsCount: 1100,
+        downloadCount: 320,
+        likesCount: 78,
+        bookmarksCount: 40,
+        commentsCount: 6,
+        lastViewedAt: DateTime(2026, 6, 22),
+      ),
+      moderation: const ModerationInfo(
+        reportCount: 1,
+        moderationFlags: ['repetitive'],
+      ),
+      createdAt: DateTime(2026, 6, 10),
+      updatedAt: DateTime(2026, 6, 12),
     ),
-
-    isPublic: true,
-    status: 'published',
-    noteVerificationStatus: NoteVerificationStatus.community,
-    isVerifiedNote: true,
-
-    stats: NoteStats(
-      viewsCount: 1800,
-      downloadCount: 650,
-      likesCount: 140,
-      bookmarksCount: 44,
-      commentsCount: 12,
-    ),
-
-    createdAt: DateTime.now(),
-    updatedAt: DateTime.now(),
+    user: dummyUsers[2],
   ),
 ];

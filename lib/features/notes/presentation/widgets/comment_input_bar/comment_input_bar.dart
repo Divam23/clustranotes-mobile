@@ -1,7 +1,7 @@
 import 'package:clustranotes_mobile/app/theme/theme.dart';
 import 'package:clustranotes_mobile/core/widgets/avatar/avatar.dart';
 import 'package:clustranotes_mobile/features/comments/models/comment_model.dart';
-import 'package:clustranotes_mobile/features/comments/models/user_summary.dart';
+import 'package:clustranotes_mobile/features/user/models/user_summary.dart';
 import 'package:clustranotes_mobile/features/comments/presentation/widgets/comment_card/comment_input_field.dart';
 import 'package:flutter/material.dart';
 

@@ -4,11 +4,11 @@ import 'package:clustranotes_mobile/core/widgets/dot.dart';
 import 'package:clustranotes_mobile/core/widgets/avatar/fallback_user_avatar.dart';
 import 'package:clustranotes_mobile/core/widgets/avatar/user_avatar.dart';
 import 'package:clustranotes_mobile/core/widgets/verified_tick.dart';
-import 'package:clustranotes_mobile/features/notes/models/note_model.dart';
+import 'package:clustranotes_mobile/features/notes/models/note_details.dart';
 import 'package:flutter/material.dart';
 
 class NoteInfoSection extends StatelessWidget{
-  final Note note;
+  final NoteDetails note;
   const NoteInfoSection({
     required this.note,
     super.key
@@ -24,7 +24,7 @@ class NoteInfoSection extends StatelessWidget{
         spacing: AppSpacing.xs,
         children: [
           Text(
-            note.title,
+            note.note.title,
             style: theme.textTheme.headlineLarge?.copyWith(
               fontWeight: FontWeight.bold
             ),
@@ -34,46 +34,49 @@ class NoteInfoSection extends StatelessWidget{
             crossAxisAlignment: WrapCrossAlignment.center,
             children: [
               Text(
-                'Semester ${note.semester}',
+                'Semester ${note.note.semester}',
                 style: theme.textTheme.bodyMedium?.copyWith(
                     color: theme.colorScheme.onSecondary
                 ),
               ),
               Dot(radius: 2, color: AppColors.primary),
               Text(
-                note.subject,
+                note.note.subject,
                 style: theme.textTheme.bodyMedium?.copyWith(
                     color: theme.colorScheme.onSecondary
                 ),
               ),
               Dot(radius: 2, color: AppColors.primary),
-              if(note.course != null) Text(
-                note.course!,
+              Text(
+                note.note.course,
                 style: theme.textTheme.bodyMedium?.copyWith(
                     color: theme.colorScheme.onSecondary
                 ),
               )
             ],
           ),
-          Row(
+          Wrap(
+            crossAxisAlignment: WrapCrossAlignment.center,
             spacing: AppSpacing.xs,
             children: [
-              if(note.university != null) Text(
-                note.university!,
+              if(note.note.university != null) Text(
+                note.note.university!,
+                maxLines: 2,
+                overflow: TextOverflow.ellipsis,
                 style: theme.textTheme.bodyMedium?.copyWith(
                     color: theme.colorScheme.onSecondary
                 ),
               ),
               Dot(radius: 2, color: AppColors.primary),
               Text(
-                '${note.file.pageCount} page(s)',
+                '${note.note.file.pageCount} page(s)',
                 style: theme.textTheme.bodyMedium?.copyWith(
                     color: theme.colorScheme.onSecondary
                 ),
               ),
               Dot(radius: 2, color: AppColors.primary),
               Text(
-                FileSizeFormatter.format(note.file.sizeInBytes!),
+                FileSizeFormatter.format(note.note.file.sizeInBytes),
                 style: theme.textTheme.bodyMedium?.copyWith(
                     color: theme.colorScheme.onSecondary
                 ),

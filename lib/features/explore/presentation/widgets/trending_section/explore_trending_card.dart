@@ -38,7 +38,7 @@ class TrendingCard extends StatelessWidget {
             Stack(
               children: [
                 Container(
-                  height: 130,
+                  height: 135,
                   width: double.infinity,
                   decoration: BoxDecoration(
                     border: Border(
