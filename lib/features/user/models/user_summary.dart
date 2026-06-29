@@ -5,7 +5,7 @@ class UserSummary{
   final String userName;
   final String? avatarUrl;
   final bool isEmailVerified;
-  final VerificationStatus verificationStatus;
+  final UserVerificationStatus userVerificationStatus;
   
   const UserSummary({
    required this.id,
@@ -14,13 +14,13 @@ class UserSummary{
    required this.userName,
    this.avatarUrl,
    required this.isEmailVerified,
-   required this.verificationStatus 
+   required this.userVerificationStatus 
   });
   
-  bool get isIdentityVerified => verificationStatus == VerificationStatus.verified;
+  bool get isIdentityVerified => userVerificationStatus == UserVerificationStatus.verified;
 }
 
-enum VerificationStatus{
+enum UserVerificationStatus{
   notVerified,
   verified,
   underVerification,
