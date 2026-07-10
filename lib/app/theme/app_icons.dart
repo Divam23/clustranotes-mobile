@@ -6,12 +6,14 @@ class AppIcons {
 
   static const IconData home = Icons.home_rounded;
   static const IconData explore = Icons.explore_rounded;
-  static const IconData upload = Icons.add_circle_rounded;
+  static const IconData upload = Icons.add_circle_outline_rounded;
+  static const IconData uploadCloud = CupertinoIcons.cloud_upload;
   static const IconData library = Icons.my_library_books_rounded;
   static const IconData profile = Icons.person_rounded;
   static const IconData search = Icons.search_rounded;
   static const IconData notifications = Icons.notifications_none_rounded;
   static const IconData close = Icons.close_rounded;
+  static const IconData closeWithCircle = CupertinoIcons.clear_circled_solid;
   static const IconData back = Icons.arrow_back_rounded;
   static const IconData more = Icons.more_vert_rounded;
   static const IconData note = Icons.description_outlined;
@@ -51,6 +53,7 @@ class AppIcons {
   static const IconData star = Icons.star_border_rounded;
   static const IconData plus = CupertinoIcons.plus;
   static const IconData info = CupertinoIcons.info_circle;
-  
+  static const IconData hamburger = CupertinoIcons.bars;
+  static const IconData tickMark = Icons.check;
   
 }

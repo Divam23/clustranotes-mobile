@@ -93,39 +93,7 @@ extension NoteCategoryJson on NoteCategory {
   }
 }
 
-enum NoteContentType { pdf, docx, pptx, ppt, doc }
 
-extension NoteContentTypeJson on NoteContentType {
-  static NoteContentType fromJson(String value) {
-    switch (value) {
-      case 'doc':
-      case 'docx':
-        return NoteContentType.docx;
-      case 'ppt':
-      case 'pptx':
-        return NoteContentType.pptx;
-      case 'pdf':
-        return NoteContentType.pdf;
-      default:
-        return NoteContentType.pdf;
-    }
-  }
-
-  String toJson() {
-    switch (this) {
-      case NoteContentType.pdf:
-        return 'pdf';
-      case NoteContentType.docx:
-        return 'docx';
-      case NoteContentType.pptx:
-        return 'pptx';
-      case NoteContentType.ppt:
-        return 'ppt';
-      case NoteContentType.doc:
-        return 'doc';
-    }
-  }
-}
 
 enum NotePublishStatus { draft, published, archived, removed }
 

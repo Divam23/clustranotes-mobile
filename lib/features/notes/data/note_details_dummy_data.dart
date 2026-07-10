@@ -1,3 +1,4 @@
+import 'package:clustranotes_mobile/core/models/note_content_type_enum.dart';
 import 'package:clustranotes_mobile/features/notes/models/note_details.dart';
 import 'package:clustranotes_mobile/features/user/data/dummy_user_data.dart';
 import 'package:clustranotes_mobile/features/notes/models/note_model.dart';

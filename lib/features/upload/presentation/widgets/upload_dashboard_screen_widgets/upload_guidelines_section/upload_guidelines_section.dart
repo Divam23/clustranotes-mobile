@@ -1,6 +1,6 @@
 import 'package:clustranotes_mobile/app/theme/app_colors.dart';
 import 'package:clustranotes_mobile/app/theme/app_spacing.dart';
-import 'package:clustranotes_mobile/features/upload/presentation/widgets/upload_guidelines_section/upload_guidelines_sheet.dart';
+import 'package:clustranotes_mobile/features/upload/presentation/widgets/upload_dashboard_screen_widgets/upload_guidelines_section/upload_guidelines_sheet.dart';
 import 'package:flutter/material.dart';
 
 void showUploadGuidelines(BuildContext context){

@@ -1,0 +1,4 @@
+enum UploadSource {
+  images,
+  file
+}

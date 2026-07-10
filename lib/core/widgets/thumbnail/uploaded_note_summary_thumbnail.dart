@@ -1,10 +1,14 @@
 import 'package:clustranotes_mobile/app/theme/theme.dart';
+import 'package:clustranotes_mobile/core/models/note_content_type_enum.dart';
 import 'package:clustranotes_mobile/features/notes/models/note_enums.dart';
 import 'package:flutter/material.dart';
 
 class UploadedNoteSummaryThumbnail extends StatelessWidget{
   final NoteContentType noteContentType;
-  const UploadedNoteSummaryThumbnail({required this.noteContentType, super.key});
+  final Color? fillerColor;
+  final double? height;
+  final double? width;
+  const UploadedNoteSummaryThumbnail({required this.noteContentType, this.width, this.height, this.fillerColor, super.key});
   
   @override
   Widget build(BuildContext context){
@@ -12,11 +16,11 @@ class UploadedNoteSummaryThumbnail extends StatelessWidget{
     final color = _getColor(context); 
     
     return Container(
-      height: 60,
-      width: 50,
+      height: height ?? 60,
+      width: width ?? 50,
       decoration: BoxDecoration(
         borderRadius: AppRadius.button,
-        color: theme.colorScheme.primary.withValues(alpha: 0.2),
+        color: fillerColor ?? theme.colorScheme.primary.withValues(alpha: 0.2),
       ),
       child: Center(
         child: Icon(
@@ -40,8 +44,6 @@ class UploadedNoteSummaryThumbnail extends StatelessWidget{
       case NoteContentType.pptx:
       case NoteContentType.ppt:
         return Icons.slideshow;
-      default:
-        return Icons.picture_as_pdf;
     }
   }
 

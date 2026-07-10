@@ -1,6 +1,6 @@
 import 'package:clustranotes_mobile/app/theme/theme.dart';
 import 'package:clustranotes_mobile/features/upload/models/uploaded_note_summary_model.dart';
-import 'package:clustranotes_mobile/features/upload/presentation/widgets/my_uploads_section/my_upload_card.dart';
+import 'package:clustranotes_mobile/features/upload/presentation/widgets/upload_dashboard_screen_widgets/my_uploads_section/my_upload_card.dart';
 import 'package:flutter/material.dart';
 
 class MyUploadSection extends StatelessWidget {

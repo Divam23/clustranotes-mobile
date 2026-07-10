@@ -1,15 +1,15 @@
 import 'package:clustranotes_mobile/app/theme/app_colors.dart';
 import 'package:clustranotes_mobile/app/theme/app_spacing.dart';
 import 'package:clustranotes_mobile/features/upload/models/contribution_stats_model.dart';
-import 'package:clustranotes_mobile/features/upload/presentation/widgets/contribution_summary_section/contribution_summary_stats_card.dart';
+import 'package:clustranotes_mobile/features/upload/presentation/widgets/upload_dashboard_screen_widgets/contribution_summary_section/contribution_summary_stats_card.dart';
 import 'package:flutter/material.dart';
 
 class ContributionSummarySection extends StatelessWidget{
   final ContributionStatsModel contribution; 
   const ContributionSummarySection({required this.contribution, super.key});
-  
   @override
   Widget build(BuildContext context){
+    final isLandscape = MediaQuery.orientationOf(context) == Orientation.landscape;
     final stats = [
       ContributionStatCardModel(
           stat: contribution.totalNotesCount,
@@ -69,8 +69,8 @@ class ContributionSummarySection extends StatelessWidget{
             final stat = stats[index];
             return ContributionStatsCard(card: stat);
           }, 
-          gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-            crossAxisCount: 2,
+          gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+            crossAxisCount: isLandscape ==true ? 3 : 2,
             crossAxisSpacing: AppSpacing.md,
             mainAxisSpacing: AppSpacing.md,
             childAspectRatio: 2,

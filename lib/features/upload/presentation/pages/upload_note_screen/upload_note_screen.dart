@@ -1,6 +1,6 @@
 import 'package:clustranotes_mobile/core/widgets/button/app_back_button.dart';
 import 'package:clustranotes_mobile/features/upload/presentation/widgets/upload_dashboard_screen_widgets/upload_guidelines_section/upload_guidelines_section.dart';
-import 'package:clustranotes_mobile/features/upload/presentation/widgets/upload_note_screen_widgets/upload_file_section/selected_images_section/selected_image_section.dart';
+import 'package:clustranotes_mobile/features/upload/presentation/widgets/upload_note_screen_widgets/upload_file_section/choose_file_for_upload_popup.dart';
 import 'package:clustranotes_mobile/features/upload/presentation/widgets/upload_note_screen_widgets/upload_file_section/upload_file_section.dart';
 import 'package:clustranotes_mobile/features/upload/presentation/widgets/upload_note_screen_widgets/upload_metadata_section/upload_note_metadata_section.dart';
 import 'package:clustranotes_mobile/features/upload/providers/upload_notifier.dart';
@@ -21,9 +21,10 @@ class _UploadNoteScreenState extends ConsumerState<UploadNoteScreen> {
     final theme = Theme.of(context);
     final upload = ref.watch(uploadProvider);
     debugPrint("Build whole screen");
-    final filePicking = false;
     return Scaffold(
+      extendBodyBehindAppBar: true,
       appBar: AppBar(
+        shadowColor: Colors.transparent,
         leading: const AppBackButton(),
         centerTitle: true,
         title: Column(
@@ -45,32 +46,27 @@ class _UploadNoteScreenState extends ConsumerState<UploadNoteScreen> {
           ),
         ],
       ),
-      body: SingleChildScrollView(
-        padding: const EdgeInsets.symmetric(
-          horizontal: AppSpacing.screenPadding,
-          vertical: AppSpacing.md,
-        ),
-        child: Column(
-          children: [
-            UploadFileSection(
-              onTap: () async {
-                await ref.read(uploadProvider.notifier).pickImages();
-                if (!context.mounted) return;
-                if (ref.read(uploadProvider).selectedImages.isNotEmpty) {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (_) => const SelectedImageScreen(),
-                    ),
-                  );
-                }
-              },
-              isGeneratingPDF: upload.isGeneratingPDF,
-              isPickingImages: upload.isPickingImages,
-            ),
-            const SizedBox(height: AppSpacing.section),
-            UploadNoteMetadataSection(),
-          ],
+      body: SafeArea(
+        
+        child: SingleChildScrollView(
+          padding: const EdgeInsets.symmetric(
+            horizontal: AppSpacing.screenPadding,
+            vertical: AppSpacing.md,
+          ),
+          child: Column(
+            children: [
+              UploadFileSection(
+                onTap: () async {
+                  if (!context.mounted) return;
+                  showUploadFilePickerType(context);
+                },
+                isGeneratingPDF: upload.isGeneratingPDF,
+                isPickingImages: upload.isPickingDocument,
+              ),
+              const SizedBox(height: AppSpacing.section),
+              UploadNoteMetadataSection(),
+            ],
+          ),
         ),
       ),
     );

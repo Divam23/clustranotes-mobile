@@ -41,7 +41,7 @@ class ContributionStatsCard extends StatelessWidget {
         ),
         child: Column(
           spacing: AppSpacing.md,
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Center(
               child: Text(

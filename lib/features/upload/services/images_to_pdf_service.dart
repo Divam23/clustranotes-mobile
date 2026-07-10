@@ -27,7 +27,7 @@ class ImagesToPdfService {
       
     }
     final directory = await getTemporaryDirectory();
-    final file = File('${directory.path}/generated_notes.pdf');
+    final file = File('${directory.path}/Scanned Notes.pdf');
     
     await file.writeAsBytes(
       await pdf.save()
