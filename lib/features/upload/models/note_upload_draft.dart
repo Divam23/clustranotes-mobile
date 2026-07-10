@@ -1,7 +1,7 @@
 import 'package:clustranotes_mobile/features/notes/models/note_enums.dart';
 import 'package:clustranotes_mobile/features/upload/models/upload_file.dart';
 
-class UploadDraft{
+class UploadState{
   final UploadFile? file;
   final String title;
   final String description;
@@ -15,7 +15,7 @@ class UploadDraft{
   final int? semester;
   final bool isPublic;
   
-  const UploadDraft({
+  const UploadState({
     this.file,
     this.title="",
     this.description="",
