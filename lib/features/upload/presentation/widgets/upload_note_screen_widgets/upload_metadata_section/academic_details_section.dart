@@ -11,6 +11,7 @@ class AcademicDetailsSection extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    
     final upload = ref.read(uploadProvider);
     final notifier = ref.read(uploadProvider.notifier);
     final theme = Theme.of(context);

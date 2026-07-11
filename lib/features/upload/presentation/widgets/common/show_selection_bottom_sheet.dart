@@ -54,10 +54,11 @@ class _ShowSelectionBottomSheetState<T>
 
   @override
   Widget build(BuildContext context) {
+    final isLandscape = MediaQuery.orientationOf(context) == Orientation.landscape;
     return DraggableScrollableSheet(
       expand: false,
-      initialChildSize: 0.65,
-      minChildSize: 0.40,
+      initialChildSize: isLandscape ? 0.80 : 0.70,
+      minChildSize: isLandscape ? 0.80 : 0.40,
       maxChildSize: 0.95,
       builder: (context, scrollController){
         return Column(

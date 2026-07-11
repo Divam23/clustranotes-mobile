@@ -25,9 +25,8 @@ class UploadFileSection extends ConsumerWidget {
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
         Text(
-          "Upload File",
+          "File",
           style: theme.textTheme.titleLarge?.copyWith(
-            color: theme.colorScheme.primary,
             fontWeight: FontWeight.w800,
           ),
           textAlign: TextAlign.start,

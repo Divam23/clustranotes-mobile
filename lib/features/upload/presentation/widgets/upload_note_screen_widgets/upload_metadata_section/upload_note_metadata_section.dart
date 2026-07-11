@@ -1,7 +1,9 @@
+import 'package:clustranotes_mobile/app/theme/app_radius.dart';
 import 'package:clustranotes_mobile/app/theme/app_spacing.dart';
+import 'package:clustranotes_mobile/core/widgets/button/multi_utility_button.dart';
+import 'package:clustranotes_mobile/features/upload/presentation/pages/upload_note_screen/upload_note_settings_screen.dart';
 import 'package:clustranotes_mobile/features/upload/presentation/widgets/upload_note_screen_widgets/upload_metadata_section/academic_details_section.dart';
 import 'package:clustranotes_mobile/features/upload/presentation/widgets/upload_note_screen_widgets/upload_metadata_section/basic_note_details_section.dart';
-import 'package:clustranotes_mobile/features/upload/presentation/widgets/upload_note_screen_widgets/upload_metadata_section/note_classification_section.dart';
 import 'package:flutter/material.dart';
 
 final _formKey = GlobalKey<FormState>();
@@ -16,9 +18,8 @@ class UploadNoteMetadataSection extends StatelessWidget {
       spacing: AppSpacing.sm,
       children: [
         Text(
-          "Upload Metadata",
+          "Metadata",
           style: theme.textTheme.titleLarge?.copyWith(
-            color: theme.colorScheme.primary,
             fontWeight: FontWeight.w800,
           ),
           textAlign: TextAlign.start,
@@ -29,10 +30,29 @@ class UploadNoteMetadataSection extends StatelessWidget {
             
             children: [
               BasicNoteDetailsSection(),
-              const SizedBox(height: AppSpacing.section),
+              const SizedBox(height: AppSpacing.xxl),
               AcademicDetailsSection(),
-              const SizedBox(height: AppSpacing.section),
-              NoteClassificationSection()
+              const SizedBox(height: AppSpacing.screenPadding),
+              Row(
+                children: [
+                  Expanded(
+                    child: MultiUtilityButton(
+                      onPressed: (){
+                        Navigator.push(
+                          context, 
+                          MaterialPageRoute(
+                            builder: (context) => const UploadNoteSettingsScreen()
+                          )
+                        );
+                      }, 
+                      text: "Continue",
+                      borderRadius: AppRadius.searchBarRounded,
+                      buttonColor: theme.colorScheme.primary,
+                      buttonTextColor: theme.colorScheme.onPrimary,
+                    ),
+                  ),
+                ],
+              )
             ],
           ),
         )

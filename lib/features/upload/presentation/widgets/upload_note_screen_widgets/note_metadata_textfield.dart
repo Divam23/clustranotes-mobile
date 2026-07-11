@@ -10,6 +10,7 @@ class NoteMetadataTextField extends StatelessWidget {
   final ValueChanged<String>? onSubmitted;
   final TextInputType keyboardType;
   final TextInputAction textInputAction;
+  final TextStyle? textStyle;
   final int minLines;
   final int maxLines;
   final int minLength;
@@ -31,12 +32,13 @@ class NoteMetadataTextField extends StatelessWidget {
     this.focusNode,
     this.minLines = 1,
     this.maxLines = 1,
-    this.minLength=2,
+    this.minLength = 2,
     this.maxLength,
     this.readOnly = false,
     required this.label,
     this.validator,
     this.hintText,
+    this.textStyle,
     this.keyboardType = TextInputType.text,
     this.textInputAction = TextInputAction.next,
     this.enabled = true,
@@ -63,20 +65,20 @@ class NoteMetadataTextField extends StatelessWidget {
       onChanged: onChanged,
       onFieldSubmitted: onSubmitted,
       validator: validator,
-      style: theme.textTheme.bodyLarge,
+      style: textStyle ?? theme.textTheme.bodyLarge,
 
       decoration: InputDecoration(
         label: RichText(
           text: TextSpan(
             style: theme.textTheme.labelLarge?.copyWith(
               color: theme.disabledColor,
-              fontSize: 16
+              fontSize: 14,
             ),
             children: [
               TextSpan(text: label),
               if (required)
                 TextSpan(
-                  text: " *",
+                  text: "*",
                   style: TextStyle(
                     color: theme.colorScheme.error,
                     fontWeight: FontWeight.bold,
@@ -85,9 +87,10 @@ class NoteMetadataTextField extends StatelessWidget {
             ],
           ),
         ),
-        hintText: hintText, hintStyle: theme.textTheme.bodyLarge?.copyWith(
-        color: theme.disabledColor
-      ),
+        hintText: hintText,
+        hintStyle: theme.textTheme.bodyMedium?.copyWith(
+          color: theme.disabledColor,
+        ),
 
         prefixIcon: prefixIcon,
         suffixIcon: suffixIcon,
@@ -101,41 +104,34 @@ class NoteMetadataTextField extends StatelessWidget {
 
         contentPadding: const EdgeInsets.symmetric(
           horizontal: AppSpacing.md,
-          vertical: AppSpacing.lg,
+          vertical: AppSpacing.md,
         ),
 
-        border: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(AppRadius.xl),
-        ),
+        border: OutlineInputBorder(borderRadius: AppRadius.searchBarSharp),
 
         enabledBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(AppRadius.xl),
+          borderRadius: AppRadius.searchBarSharp,
           borderSide: BorderSide(
-            color: theme.dividerColor,
+            color: theme.dividerColor.withValues(alpha: 0.1),
           ),
         ),
 
         focusedBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(AppRadius.xl),
+          borderRadius: AppRadius.searchBarSharp,
           borderSide: BorderSide(
-            color: theme.colorScheme.primary,
+            color: theme.colorScheme.primary.withValues(alpha: 0.3),
             width: 1,
           ),
         ),
 
         errorBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(AppRadius.xl),
-          borderSide: BorderSide(
-            color: theme.colorScheme.error,
-          ),
+          borderRadius: AppRadius.searchBarSharp,
+          borderSide: BorderSide(color: theme.colorScheme.error),
         ),
 
         focusedErrorBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(AppRadius.xl),
-          borderSide: BorderSide(
-            color: theme.colorScheme.error,
-            width: 1,
-          ),
+          borderRadius: AppRadius.searchBarSharp,
+          borderSide: BorderSide(color: theme.colorScheme.error, width: 1),
         ),
       ),
     );

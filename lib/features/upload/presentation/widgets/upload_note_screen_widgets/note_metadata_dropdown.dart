@@ -3,7 +3,7 @@ import 'package:clustranotes_mobile/features/upload/providers/upload_notifier.da
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-class NoteMetadataDropdown<T> extends ConsumerWidget{
+class NoteMetadataDropdown<T> extends ConsumerWidget {
   final String label;
   final T? value;
   final String? hintText;
@@ -30,105 +30,93 @@ class NoteMetadataDropdown<T> extends ConsumerWidget{
     this.errorText,
     this.readOnly = false,
     this.autofocus = false,
-    super.key
+    super.key,
   });
-  
+
   @override
-  Widget build(BuildContext context, WidgetRef ref){
+  Widget build(BuildContext context, WidgetRef ref) {
     final theme = Theme.of(context);
     final upload = ref.read(uploadProvider);
     return InkWell(
-        borderRadius: AppRadius.card,
-        onTap: enabled ? onTap : null,
-        
-        child: InputDecorator(
-          decoration: InputDecoration(
-            errorText: upload.university == null
-                ? errorText
-                : null,
-            
-            label: RichText(
-              text: TextSpan(
-                style: theme.textTheme.labelLarge?.copyWith(
-                    color: theme.disabledColor,
-                    fontSize: 16
-                ),
-                children: [
-                  TextSpan(text: label),
-                  if (required)
-                    TextSpan(
-                      text: ' *',
-                      style: TextStyle(
-                        color: theme.colorScheme.error,
-                        fontWeight: FontWeight.bold,
-                      ),
+      borderRadius: AppRadius.card,
+      onTap: enabled ? onTap : null,
+
+      child: InputDecorator(
+        decoration: InputDecoration(
+          errorText: upload.university == null ? errorText : null,
+
+          label: RichText(
+            text: TextSpan(
+              style: theme.textTheme.labelLarge?.copyWith(
+                color: theme.disabledColor,
+                fontSize: 16,
+              ),
+              children: [
+                TextSpan(text: label),
+                if (required)
+                  TextSpan(
+                    text: ' *',
+                    style: TextStyle(
+                      color: theme.colorScheme.error,
+                      fontWeight: FontWeight.bold,
                     ),
-                ],
-              ),
+                  ),
+              ],
             ),
-            hintText: hintText,
-            prefixIcon: prefixIcon,
-            suffixIcon: suffixIcon ??
-                const Icon(Icons.keyboard_arrow_down_rounded),
-
-            floatingLabelBehavior: FloatingLabelBehavior.auto,
-
-            filled: true,
-            fillColor: theme.colorScheme.surface,
-
-            counterStyle: theme.textTheme.bodySmall,
-
-            contentPadding: const EdgeInsets.symmetric(
-              horizontal: AppSpacing.md,
-              vertical: AppSpacing.lg,
-            ),
-
-            border: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(AppRadius.xl),
-            ),
-
-            enabledBorder: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(AppRadius.xl),
-              borderSide: BorderSide(
-                color: theme.dividerColor,
-              ),
-            ),
-
-            focusedBorder: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(AppRadius.xl),
-              borderSide: BorderSide(
-                color: theme.colorScheme.primary,
-                width: 1,
-              ),
-            ),
-
-            errorBorder: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(AppRadius.xl),
-              borderSide: BorderSide(
-                color: theme.colorScheme.error,
-              ),
-            ),
-
-            focusedErrorBorder: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(AppRadius.xl),
-              borderSide: BorderSide(
-                color: theme.colorScheme.error,
-                width: 1,
-              ),
-            ),
-            
-        ),
-          child:  Text(
-            value == null
-                ? (hintText ?? '')
-                : itemLabelBuilder(value as T),
-            style: value == null
-                ? theme.textTheme.bodyLarge?.copyWith(
-              color: theme.hintColor,
-            )
-                : theme.textTheme.bodyLarge,
           ),
-        )
+          hintText: hintText,
+          prefixIcon: prefixIcon,
+          suffixIcon:
+              suffixIcon ?? const Icon(Icons.keyboard_arrow_down_rounded),
+
+          floatingLabelBehavior: FloatingLabelBehavior.auto,
+
+          filled: true,
+          fillColor: theme.colorScheme.surface,
+
+          counterStyle: theme.textTheme.bodySmall,
+
+          contentPadding: const EdgeInsets.symmetric(
+            horizontal: AppSpacing.md,
+            vertical: AppSpacing.md,
+          ),
+
+          border: OutlineInputBorder(borderRadius: AppRadius.searchBarSharp),
+
+          enabledBorder: OutlineInputBorder(
+            borderRadius: AppRadius.searchBarSharp,
+            borderSide: BorderSide(
+              color: theme.dividerColor.withValues(alpha: 0.1),
+            ),
+          ),
+
+          focusedBorder: OutlineInputBorder(
+            borderRadius: AppRadius.searchBarSharp,
+            borderSide: BorderSide(
+              color: theme.colorScheme.primary.withValues(alpha: 0.3),
+              width: 1,
+            ),
+          ),
+
+          errorBorder: OutlineInputBorder(
+            borderRadius: AppRadius.searchBarSharp,
+            borderSide: BorderSide(color: theme.colorScheme.error),
+          ),
+
+          focusedErrorBorder: OutlineInputBorder(
+            borderRadius: AppRadius.searchBarSharp,
+            borderSide: BorderSide(color: theme.colorScheme.error, width: 1),
+          ),
+        ),
+        child: Text(
+          overflow: TextOverflow.ellipsis,
+          maxLines: 1,
+          value == null ? (hintText ?? '') : itemLabelBuilder(value as T),
+          style: value == null
+              ? theme.textTheme.bodyMedium?.copyWith(color: theme.hintColor)
+              : theme.textTheme.bodyMedium,
+        ),
+      ),
     );
   }
 }
