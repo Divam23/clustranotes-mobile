@@ -15,6 +15,7 @@ void main() {
       statusBarIconBrightness: Brightness.dark,
       statusBarBrightness: Brightness.light,
       systemNavigationBarColor: Colors.transparent,
+      systemNavigationBarContrastEnforced: true
     ),
   );
   runApp(const ProviderScope(child: ClustraNotesApp()));

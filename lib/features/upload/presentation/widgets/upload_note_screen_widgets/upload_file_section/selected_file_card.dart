@@ -61,6 +61,7 @@ class SelectedFileCard extends ConsumerWidget {
               style: theme.textTheme.titleMedium?.copyWith(
                 fontWeight: FontWeight.w700,
               ),
+              textAlign: TextAlign.center,
               uploadState.uploadFile!.fileName,
               maxLines: 2,
               overflow: TextOverflow.ellipsis,

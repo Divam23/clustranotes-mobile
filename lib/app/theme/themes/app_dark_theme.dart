@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 import '../app_colors.dart';
 import '../app_radius.dart';
@@ -11,7 +12,18 @@ class AppDarkTheme {
     return ThemeData(
       useMaterial3: true,
       brightness: Brightness.dark,
-
+      appBarTheme: const AppBarTheme(
+        backgroundColor: Colors.transparent,
+        elevation: 0,
+        systemOverlayStyle: SystemUiOverlayStyle(
+          statusBarColor: Colors.transparent,
+          statusBarIconBrightness: Brightness.light, 
+          statusBarBrightness: Brightness.dark,
+          systemNavigationBarColor: Colors.transparent,
+          systemNavigationBarIconBrightness: Brightness.light,
+          systemNavigationBarContrastEnforced: true,
+        ),
+      ),
       scaffoldBackgroundColor:
       AppColors.darkBackground,
       colorScheme: const ColorScheme.dark(
@@ -63,15 +75,6 @@ class AppDarkTheme {
         AppTextStyles.label.copyWith(
           color: AppColors.darkInk,
         ),
-      ),
-
-      appBarTheme: const AppBarTheme(
-        backgroundColor:
-        AppColors.darkBackground,
-        foregroundColor:
-        AppColors.darkInk,
-        elevation: 0,
-        centerTitle: false,
       ),
 
       cardTheme: CardThemeData(

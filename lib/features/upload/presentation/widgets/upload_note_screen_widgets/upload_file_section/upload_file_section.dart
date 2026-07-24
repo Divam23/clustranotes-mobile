@@ -38,6 +38,7 @@ class UploadFileSection extends ConsumerWidget {
             onTap: onTap,
             isPickingImages: isPickingImages,
             isGeneratingPDF: isGeneratingPDF,
+            
           ),
       ],
     );

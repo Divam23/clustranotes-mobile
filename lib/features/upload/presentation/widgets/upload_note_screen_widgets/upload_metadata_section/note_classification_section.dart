@@ -12,39 +12,50 @@ class NoteClassificationSection extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final upload = ref.read(uploadProvider);
+    final upload = ref.watch(uploadProvider);
     final notifier = ref.read(uploadProvider.notifier);
     final theme = Theme.of(context);
     return Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
-      spacing: AppSpacing.md,
+      spacing: AppSpacing.xl,
       children: [
-        Text(
-          "Classification",
-          style: theme.textTheme.bodyMedium?.copyWith(
-            fontWeight: FontWeight.w700,
-          ),
+        Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          spacing: AppSpacing.xxs,
+          children: [
+            Text(
+              "Classification",
+              style: theme.textTheme.bodyMedium?.copyWith(
+                fontWeight: FontWeight.w700,
+              ),
+            ),
+            Text(
+              "Choose the category that best describes your note.",
+              style: theme.textTheme.bodySmall,
+            ),
+          ],
         ),
+        
         NoteMetadataDropdown<NoteCategory>(
           label: "Category",
           hintText: "Lecture Notes/Assignment etc.",
           enabled: true,
           value: upload.noteCategory,
           itemLabelBuilder: (category) => category.displayName,
-          onTap: () {
-            showModalBottomSheet(
+          allowClear: false,
+          onChanged: notifier.updateNoteCategory,
+          picker: (context) async {
+            return await showModalBottomSheet(
               useSafeArea: true,
               context: context,
               isScrollControlled: true,
+              
               builder: (_) {
                 return ShowSelectionBottomSheet(
                   title: "Select the category of note",
                   items: NoteCategory.values,
                   selectedItem: upload.noteCategory,
                   labelBuilder: (noteCategory) => noteCategory.displayName,
-                  onSelected: notifier.updateNoteCategory,
-                  allowClear: true,
-                  onClear: () => notifier.updateNoteCategory(null),
                   hintText: "Search your categories here",
                 );
               },

@@ -55,5 +55,7 @@ class AppIcons {
   static const IconData info = CupertinoIcons.info_circle;
   static const IconData hamburger = CupertinoIcons.bars;
   static const IconData tickMark = Icons.check;
-  
+  static const IconData public = Icons.public;
+  static const IconData shield = Icons.verified_user_outlined;
+  static const IconData hashtag = Icons.tag_rounded;
 }

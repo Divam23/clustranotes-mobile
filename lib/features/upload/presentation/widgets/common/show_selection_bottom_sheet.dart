@@ -8,20 +8,16 @@ class ShowSelectionBottomSheet<T> extends StatefulWidget {
   final T? selectedItem;
 
   final String Function(T) labelBuilder;
-  final ValueChanged<T> onSelected;
 
   final bool allowClear;
-  final VoidCallback? onClear;
   final String? hintText;
   const ShowSelectionBottomSheet({
     required this.title,
     required this.items,
     required this.labelBuilder,
-    required this.onSelected,
     this.selectedItem,
     this.allowClear = false,
     this.hintText,
-    this.onClear,
     super.key,
   });
 
@@ -48,19 +44,19 @@ class _ShowSelectionBottomSheetState<T>
       filteredItems = widget.items.where((item) {
         return widget.labelBuilder(item).toLowerCase().contains(search);
       }).toList();
-      
     });
   }
 
   @override
   Widget build(BuildContext context) {
-    final isLandscape = MediaQuery.orientationOf(context) == Orientation.landscape;
+    final isLandscape =
+        MediaQuery.orientationOf(context) == Orientation.landscape;
     return DraggableScrollableSheet(
       expand: false,
       initialChildSize: isLandscape ? 0.80 : 0.70,
       minChildSize: isLandscape ? 0.80 : 0.40,
       maxChildSize: 0.95,
-      builder: (context, scrollController){
+      builder: (context, scrollController) {
         return Column(
           children: [
             const SizedBox(height: AppSpacing.lg),
@@ -85,7 +81,7 @@ class _ShowSelectionBottomSheetState<T>
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: AppSpacing.sm),
               child: AppSearchBar(
-                hintText: widget.hintText ??  "Search here...",
+                hintText: widget.hintText ?? "Search here...",
                 controller: controller,
                 onChanged: _filterItems,
                 autoFocus: false,
@@ -102,8 +98,7 @@ class _ShowSelectionBottomSheetState<T>
                 child: InkWell(
                   enableFeedback: true,
                   onTap: () {
-                    widget.onClear?.call();
-                    Navigator.pop(context);
+                    Navigator.pop(context, null);
                   },
                   child: Padding(
                     padding: const EdgeInsets.symmetric(
@@ -122,14 +117,14 @@ class _ShowSelectionBottomSheetState<T>
                   ),
                 ),
               ),
-        
+
             Expanded(
               child: ListView.builder(
                 controller: scrollController,
                 itemCount: filteredItems.length,
                 itemBuilder: (_, index) {
                   final item = filteredItems[index];
-        
+
                   return Container(
                     decoration: const BoxDecoration(
                       border: Border(
@@ -139,10 +134,7 @@ class _ShowSelectionBottomSheetState<T>
                     child: InkWell(
                       enableFeedback: true,
                       onTap: () {
-                        widget.onSelected(
-                            item
-                        );
-                        Navigator.pop(context);
+                        Navigator.pop(context, item);
                       },
                       child: Padding(
                         padding: const EdgeInsets.symmetric(
@@ -157,14 +149,13 @@ class _ShowSelectionBottomSheetState<T>
                             SizedBox(
                               child: Text(
                                 widget.labelBuilder(item),
-                                style: Theme.of(context).textTheme.bodyLarge?.copyWith(
-                                  fontWeight: FontWeight.w700,
-                                ),
+                                style: Theme.of(context).textTheme.bodyLarge
+                                    ?.copyWith(fontWeight: FontWeight.w700),
                               ),
                             ),
-                            if(widget.selectedItem == item)...[
-                              Icon(AppIcons.tickMark)
-                            ]
+                            if (widget.selectedItem == item) ...[
+                              Icon(AppIcons.tickMark),
+                            ],
                           ],
                         ),
                       ),

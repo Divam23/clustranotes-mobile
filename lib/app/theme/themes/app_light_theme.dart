@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 import '../app_colors.dart';
 import '../app_radius.dart';
@@ -11,6 +12,19 @@ class AppLightTheme {
     return ThemeData(
       useMaterial3: true,
       brightness: Brightness.light,
+      appBarTheme: const AppBarTheme(
+        backgroundColor: Colors.transparent,
+        elevation: 0,
+        systemOverlayStyle: SystemUiOverlayStyle(
+          statusBarColor: Colors.transparent,
+          statusBarIconBrightness: Brightness.dark,
+          statusBarBrightness: Brightness.light, 
+
+          systemNavigationBarColor: Colors.transparent,
+          systemNavigationBarIconBrightness: Brightness.dark, 
+          systemNavigationBarContrastEnforced: true,
+        ),
+      ),
 
       scaffoldBackgroundColor: AppColors.lightBackground,
 
@@ -36,13 +50,6 @@ class AppLightTheme {
         bodyMedium: AppTextStyles.body,
         bodySmall: AppTextStyles.caption,
         labelLarge: AppTextStyles.label,
-      ),
-
-      appBarTheme: const AppBarTheme(
-        backgroundColor: AppColors.lightBackground,
-        foregroundColor: AppColors.lightInk,
-        elevation: 0,
-        centerTitle: false,
       ),
 
       cardTheme: CardThemeData(

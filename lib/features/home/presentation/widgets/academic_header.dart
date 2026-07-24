@@ -14,7 +14,7 @@ class AcademicHeader extends StatelessWidget{
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
-                "Good Evening, Ankit 👋🏼",
+                "Good Evening, Divam 👋🏼",
                 style: theme.textTheme.bodyMedium?.copyWith(
                   color: theme.colorScheme.onSecondary
                 ),

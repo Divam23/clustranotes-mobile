@@ -65,6 +65,7 @@ class NoteMetadataTextField extends StatelessWidget {
       onChanged: onChanged,
       onFieldSubmitted: onSubmitted,
       validator: validator,
+      autovalidateMode: AutovalidateMode.onUserInteraction,
       style: textStyle ?? theme.textTheme.bodyLarge,
 
       decoration: InputDecoration(

@@ -12,8 +12,9 @@ class AcademicDetailsSection extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     
-    final upload = ref.read(uploadProvider);
+    final upload = ref.watch(uploadProvider);
     final notifier = ref.read(uploadProvider.notifier);
+
     final theme = Theme.of(context);
     return Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -35,23 +36,23 @@ class AcademicDetailsSection extends ConsumerWidget {
               enabled: true,
               value: upload.university,
               itemLabelBuilder: (university) => university,
-              onTap: () {
-                showModalBottomSheet(
+              onChanged: notifier.updateUniversity,
+              allowClear: true,
+              onCleared: ()=>notifier.updateUniversity(null),
+              picker: (context) async{
+                return await showModalBottomSheet(
                   useSafeArea: true,
                   context: context, 
                   isScrollControlled: true,
-                  builder: (_){
-                    return ShowSelectionBottomSheet(
+                  builder: (_)=>
+                    ShowSelectionBottomSheet(
                       title: "Select your university", 
                       items: universities,
                       selectedItem: upload.university,
                       labelBuilder: (university) => university, 
-                      onSelected: notifier.updateUniversity,
                       allowClear: true,
-                      onClear: () => notifier.updateUniversity(null),
                       hintText: "Which university does this note belong to?",
-                    );
-                  }
+                    )
                 );
               },
             ),
@@ -62,8 +63,11 @@ class AcademicDetailsSection extends ConsumerWidget {
               enabled: true,
               value: upload.collegeName,
               itemLabelBuilder: (college) => college,
-              onTap: () {
-                showModalBottomSheet(
+              onChanged: notifier.updateCollegeName,
+              allowClear: true,
+              onCleared: ()=>notifier.updateCollegeName(null),
+              picker: (context) async{
+                return await showModalBottomSheet(
                   isScrollControlled: true,
                   useSafeArea: true,
                   context: context, 
@@ -73,9 +77,7 @@ class AcademicDetailsSection extends ConsumerWidget {
                       items: colleges,
                       selectedItem: upload.collegeName,
                       labelBuilder: (college) => college, 
-                      onSelected: notifier.updateCollegeName,
                       allowClear: true,
-                      onClear: () => notifier.updateCollegeName(null),
                       hintText: "Search your college here",
                     );
                   }
@@ -90,8 +92,17 @@ class AcademicDetailsSection extends ConsumerWidget {
               enabled: true,
               value: upload.course,
               itemLabelBuilder: (course) => course,
-              onTap: () {
-                showModalBottomSheet(
+              onChanged: notifier.updateCourse,
+              allowClear: false,
+              validator: (value){
+                if(value == null ){
+                  return "Please select a course";
+                }
+                return null;
+              },
+              
+              picker: (context) async{
+               return await showModalBottomSheet(
                   isScrollControlled: true,
                   useSafeArea: true,
                   context: context, 
@@ -101,7 +112,6 @@ class AcademicDetailsSection extends ConsumerWidget {
                       items: courses,
                       selectedItem: upload.course,
                       labelBuilder: (course) => course, 
-                      onSelected: notifier.updateCourse,
                       hintText: "Search for the desired course",
                     );
                   }
@@ -115,8 +125,11 @@ class AcademicDetailsSection extends ConsumerWidget {
               enabled: true,
               value: upload.branch,
               itemLabelBuilder: (branch) => branch,
-              onTap: () {
-                showModalBottomSheet(
+              onChanged: notifier.updateBranch,
+              allowClear: true,
+              onCleared: ()=>notifier.updateBranch(null),
+              picker: (context) async{
+                return await showModalBottomSheet(
                   isScrollControlled: true,
                   useSafeArea: true,
                   context: context, 
@@ -126,9 +139,7 @@ class AcademicDetailsSection extends ConsumerWidget {
                       items: branches,
                       selectedItem: upload.branch,
                       labelBuilder: (branch) => branch, 
-                      onSelected: notifier.updateBranch,
                       allowClear: true,
-                      onClear: () => notifier.updateBranch(null),
                       hintText: "CSE Computer Science Engineering etc.",
                     );
                   }
@@ -142,21 +153,22 @@ class AcademicDetailsSection extends ConsumerWidget {
               enabled: true,
               value: upload.semester,
               itemLabelBuilder: (semester) => "Semester $semester",
-              onTap: () {
-                showModalBottomSheet(
+              onChanged: notifier.updateSemester,
+              allowClear: true,
+              onCleared: ()=>notifier.updateSemester(null),
+              picker: (context) async{
+                return await showModalBottomSheet(
                   isScrollControlled: true,
                   useSafeArea: true,
                   context: context, 
                   builder: (_){
                     return ShowSelectionBottomSheet(
-                      title: "Select your branch", 
+                      title: "Select your semester", 
                       items: semesters,
                       selectedItem: upload.semester,
                       labelBuilder: (semester) => "Semester $semester", 
-                      onSelected: notifier.updateSemester,
                       allowClear: true,
-                      onClear: () => notifier.updateSemester(null),
-                      hintText: "What's your semester?",
+                      hintText: "What's the semester?",
                     );
                   }
                 );
@@ -168,9 +180,18 @@ class AcademicDetailsSection extends ConsumerWidget {
               hintText: "Select subject",
               enabled: true,
               value: upload.subject,
+              required: true,
               itemLabelBuilder: (subject)=> subject,
-              onTap: (){
-                showModalBottomSheet(
+              onChanged: notifier.updateSubject,
+              allowClear: false,
+              validator: (value){
+                if(value == null){
+                  return "Please choose a subject";
+                }
+                return null;
+              },
+              picker: (context) async{
+                return await showModalBottomSheet(
                   context: context, 
                   isScrollControlled: true,
                   useSafeArea: true,
@@ -180,7 +201,6 @@ class AcademicDetailsSection extends ConsumerWidget {
                       items: subjects, 
                       selectedItem: upload.subject,
                       labelBuilder: (subject) => subject,
-                      onSelected: notifier.updateSubject,
                       hintText: "Search relevant subject",
                     );
                   }
