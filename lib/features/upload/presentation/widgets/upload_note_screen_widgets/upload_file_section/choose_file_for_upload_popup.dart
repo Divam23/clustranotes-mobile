@@ -56,18 +56,26 @@ class ChooseFileForUploadPopup extends ConsumerWidget {
           const SizedBox(height: 24),
 
           InkWell(
-            borderRadius: BorderRadius.circular(16),
+            borderRadius: AppRadius.card,
             onTap: () async {
               Navigator.pop(context, UploadSource.file);
               await notifier.pickDocument();
             },
             child: Container(
-              padding: const EdgeInsets.all(16),
+              padding: const EdgeInsets.all(AppSpacing.lg),
               decoration: BoxDecoration(
-                border: Border.all(
-                  color: theme.dividerColor,
-                ),
-                borderRadius: BorderRadius.circular(16),
+                  color: theme.colorScheme.surfaceContainer,
+                  
+                  borderRadius: AppRadius.card,
+                  boxShadow: [
+                    BoxShadow(
+                      color: theme.shadowColor.withValues(alpha: 0.1),
+                      offset: Offset(0, 1),
+                      spreadRadius: 1,
+                      blurRadius: 1,
+                      blurStyle: BlurStyle.normal,
+                    ),
+                  ]
               ),
               child: Row(
                 children: [
@@ -75,7 +83,7 @@ class ChooseFileForUploadPopup extends ConsumerWidget {
                     backgroundColor:
                     theme.colorScheme.primary.withValues(alpha: .1),
                     child: Icon(
-                      Icons.description_rounded,
+                      AppIcons.description,
                       color: theme.colorScheme.primary,
                     ),
                   ),
@@ -107,10 +115,10 @@ class ChooseFileForUploadPopup extends ConsumerWidget {
             ),
           ),
 
-          const SizedBox(height: 16),
+          const SizedBox(height: AppSpacing.lg),
 
           InkWell(
-            borderRadius: BorderRadius.circular(16),
+            borderRadius: AppRadius.card,
             onTap: () async {
               await ref.read(uploadProvider.notifier).pickImages();
               if (!context.mounted) return;
@@ -125,12 +133,20 @@ class ChooseFileForUploadPopup extends ConsumerWidget {
               }
             },
             child: Container(
-              padding: const EdgeInsets.all(16),
+              padding: const EdgeInsets.all(AppSpacing.lg),
               decoration: BoxDecoration(
-                border: Border.all(
-                  color: theme.dividerColor,
-                ),
-                borderRadius: BorderRadius.circular(16),
+                  color: theme.colorScheme.surfaceContainer,
+                
+                borderRadius: AppRadius.card,
+                boxShadow: [
+                  BoxShadow(
+                    color: theme.shadowColor.withValues(alpha: 0.1),
+                    offset: Offset(0, 1),
+                    spreadRadius: 1,
+                    blurRadius: 1,
+                    blurStyle: BlurStyle.normal,
+                  ),
+                ]
               ),
               child: Row(
                 children: [

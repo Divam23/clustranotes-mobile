@@ -23,7 +23,10 @@ class PreviewTagsRow extends ConsumerWidget {
             child: Row(
               spacing: AppSpacing.xs,
               children: [
-                Icon(AppIcons.tags),
+                Icon(
+                  AppIcons.tags,
+                  color: AppColors.primarySky,
+                ),
                 Text(
                   "Tag(s)",
                   style: theme.textTheme.bodyMedium?.copyWith(
