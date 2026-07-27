@@ -1,4 +1,5 @@
 import 'package:clustranotes_mobile/app/theme/theme.dart';
+import 'package:clustranotes_mobile/core/models/note_content_type_enum.dart';
 import 'package:clustranotes_mobile/core/widgets/resource_chips/chip_item.dart';
 import 'package:flutter/material.dart';
 
@@ -35,12 +36,12 @@ class AppFileTypeChips {
   );
 
  
-  static final Map<String, AppChipItem> allFileTypes = {
-    'pdf': pdf,
-    'doc': doc,
-    'docx': docx,
-    'ppt': ppt,
-    'pptx': pptx,
+  static final Map<NoteContentType, AppChipItem> allFileTypes = {
+    NoteContentType.pdf: pdf,
+    NoteContentType.doc: doc,
+    NoteContentType.docx: docx,
+    NoteContentType.ppt: ppt,
+    NoteContentType.pptx: pptx,
   };
 }
 

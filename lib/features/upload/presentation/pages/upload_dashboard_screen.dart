@@ -9,7 +9,7 @@ import 'package:clustranotes_mobile/features/upload/presentation/widgets/upload_
 import 'package:clustranotes_mobile/features/upload/presentation/widgets/upload_dashboard_screen_widgets/upload_guidelines_section/upload_guidelines_section.dart';
 import 'package:flutter/material.dart';
 
-class UploadDashboardScreen extends StatefulWidget{
+class UploadDashboardScreen extends StatefulWidget {
   const UploadDashboardScreen({super.key});
 
   @override
@@ -19,7 +19,7 @@ class UploadDashboardScreen extends StatefulWidget{
 class _UploadDashboardScreenState extends State<UploadDashboardScreen> {
   late final contribution = dummyContributionStats;
   @override
-  Widget build(BuildContext context){
+  Widget build(BuildContext context) {
     return Scaffold(
       body: SafeArea(
         child: SingleChildScrollView(
@@ -28,21 +28,26 @@ class _UploadDashboardScreenState extends State<UploadDashboardScreen> {
             child: Column(
               children: [
                 const ContributionHeader(),
-                const SizedBox(height: AppSpacing.itemGap,),
-                MyUploadSection(uploadedNotecards: dummyUploadedNotes,),
-                const SizedBox(height: AppSpacing.itemGap,),
-                ContributionSummarySection(contribution: contribution,),
-                const SizedBox(height: AppSpacing.sectionGap,),
+                const SizedBox(height: AppSpacing.itemGap),
+                MyUploadSection(uploadedNotecards: dummyUploadedNotes),
+                const SizedBox(height: AppSpacing.itemGap),
+                ContributionSummarySection(contribution: contribution),
+                const SizedBox(height: AppSpacing.sectionGap),
                 UploadGuidelinesSection(),
-                const SizedBox(height: AppSpacing.screenPadding,)
+                const SizedBox(height: AppSpacing.screenPadding),
               ],
             ),
           ),
-        )
+        ),
       ),
-      floatingActionButton: AppFloatingActionButton(onTap: (){
-        Navigator.push(context, MaterialPageRoute(builder: (context)=> const UploadNoteScreen()));
-      },),
+      floatingActionButton: AppFloatingActionButton(
+        onTap: () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) => const UploadNoteScreen()),
+          );
+        },
+      ),
     );
   }
 }

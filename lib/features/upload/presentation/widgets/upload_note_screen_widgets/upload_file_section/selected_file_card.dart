@@ -24,6 +24,7 @@ class SelectedFileCard extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final theme = Theme.of(context);
+    final upload = ref.watch(uploadProvider);
     final color =
         uploadState.uploadFile?.contentType == NoteContentType.doc ||
             uploadState.uploadFile?.contentType == NoteContentType.docx
@@ -81,25 +82,25 @@ class SelectedFileCard extends ConsumerWidget {
                       FileSizeFormatter.format(uploadState.uploadFile!.sizeInBytes),
                     ),
                     Dot(radius: AppRadius.xs, color: AppColors.neutral),
-                    uploadState.uploadFile!.pageCount != null 
-                    ?
                     Text(
                       style: theme.textTheme.titleSmall?.copyWith(
                         color: theme.dividerColor.withValues(alpha: 0.6),
                       ),
-                      NumberFormatter.labelWithCount(
-                        count: uploadState.uploadFile!.pageCount!,
-                        singularLabel: 'page',
-                        pluralLabel: 'pages',
+                      '${upload.uploadFile?.contentType.toExtension().toString().toUpperCase()}'
+                    ),
+                    if(uploadState.uploadFile!.pageCount != null)...[
+                      Dot(radius: AppRadius.xs, color: AppColors.neutral),
+                      Text(
+                        style: theme.textTheme.titleSmall?.copyWith(
+                          color: theme.dividerColor.withValues(alpha: 0.6),
+                        ),
+                        NumberFormatter.labelWithCount(
+                          count: uploadState.uploadFile!.pageCount!,
+                          singularLabel: 'page',
+                          pluralLabel: 'pages',
+                        ),
                       ),
-                    )
-                    :
-                    Text(
-                      style: theme.textTheme.titleSmall?.copyWith(
-                        color: theme.dividerColor.withValues(alpha: 0.6),
-                      ),
-                      uploadState.uploadFile!.contentType.toString().split(".").last.toUpperCase()
-                    )
+                    ],
                         
                   ],
                 ),

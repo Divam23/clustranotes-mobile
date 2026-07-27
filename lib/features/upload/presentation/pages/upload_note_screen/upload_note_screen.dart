@@ -22,12 +22,13 @@ class UploadNoteScreen extends ConsumerStatefulWidget {
 
 class _UploadNoteScreenState extends ConsumerState<UploadNoteScreen> {
   late final notifier = ref.read(uploadProvider.notifier);
-  late final upload = ref.watch(uploadProvider);
 
   final _detailsFormKey = GlobalKey<FormState>();
   final _settingsFormKey = GlobalKey<FormState>();
+  final _reviewFormKey = GlobalKey<FormState>();
 
   void _handleContinue() {
+    final upload = ref.watch(uploadProvider);
     switch (upload.currentScreen) {
       case UploadScreenEnum.details:
         if (!_detailsFormKey.currentState!.validate()) {
@@ -42,13 +43,16 @@ class _UploadNoteScreenState extends ConsumerState<UploadNoteScreen> {
         break;
 
       case UploadScreenEnum.review:
+        if (!_reviewFormKey.currentState!.validate()) {
+          return;
+        }
         break;
     }
 
     if (!notifier.validateCurrentStep()) {
       return;
     }
-    
+
     notifier.nextScreen();
   }
 
@@ -60,13 +64,12 @@ class _UploadNoteScreenState extends ConsumerState<UploadNoteScreen> {
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     final upload = ref.watch(uploadProvider);
-    final continueButtonText = upload.currentScreen == UploadScreenEnum.details
-        ? "Continue"
-        : upload.currentScreen == UploadScreenEnum.settings
-        ? "Review Note"
-        : upload.currentScreen == UploadScreenEnum.review
-        ? "Publish Note"
-        : "Continue";
+    final continueButtonText = switch (upload.currentScreen) {
+      UploadScreenEnum.details => "Continue",
+      UploadScreenEnum.settings => "Review Note",
+      UploadScreenEnum.review => "Publish Note",
+      _ => "Continue",
+    };
     Widget buildCurrentStep(UploadState state) {
       switch (state.currentScreen) {
         case UploadScreenEnum.details:
@@ -82,13 +85,10 @@ class _UploadNoteScreenState extends ConsumerState<UploadNoteScreen> {
           );
 
         case UploadScreenEnum.settings:
-          return Form(
-            key: _settingsFormKey, 
-            child: UploadSettingsStep()
-          );
+          return Form(key: _settingsFormKey, child: UploadSettingsStep());
 
         case UploadScreenEnum.review:
-          return UploadReviewStep();
+          return Form(key: _reviewFormKey, child: UploadReviewStep(),);
       }
     }
 
@@ -127,34 +127,57 @@ class _UploadNoteScreenState extends ConsumerState<UploadNoteScreen> {
               UploadProgressIndicator(),
               const SizedBox(height: AppSpacing.lg),
               buildCurrentStep(upload),
-              const SizedBox(height: AppSpacing.lg),
-              Row(
-                spacing: AppSpacing.sm,
-                children: [
-                  if (upload.currentScreen != UploadScreenEnum.details) ...[
-                    Expanded(
-                      child: MultiUtilityButton(
-                        onPressed: _handleBackButton,
-                        text: "Go Back",
-                        borderRadius: AppRadius.searchBarRounded,
-                        buttonColor: Colors.transparent,
-                        buttonTextColor: theme.colorScheme.primary,
-                      ),
-                    ),
-                  ],
-                  Expanded(
-                    child: MultiUtilityButton(
-                      onPressed: _handleContinue,
-                      text: continueButtonText,
-                      borderRadius: AppRadius.searchBarRounded,
-                      buttonColor: theme.colorScheme.primary,
-                      buttonTextColor: theme.colorScheme.onPrimary,
-                    ),
-                  ),
-                ],
-              ),
             ],
           ),
+        ),
+      ),
+      bottomNavigationBar: Padding(
+        padding: const EdgeInsets.symmetric(
+          horizontal: AppSpacing.screenPadding,
+          vertical: AppSpacing.sm,
+        ),
+        child: Row(
+          spacing: AppSpacing.sm,
+          children: [
+            if (upload.currentScreen != UploadScreenEnum.details) ...[
+              Expanded(
+                child: MultiUtilityButton(
+                  onPressed: _handleBackButton,
+                  text: "",
+                  borderRadius: AppRadius.searchBarRounded,
+                  buttonColor: theme.colorScheme.onInverseSurface,
+                  buttonTextColor: theme.colorScheme.primary,
+                  elevation: 1,
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Icon(
+                        AppIcons.leftArrow,
+                        size: 20,
+                        color: theme.colorScheme.primary,
+                      ),
+                      Text(
+                        "Back",
+                        style: theme.textTheme.labelLarge?.copyWith(
+                          color: theme.colorScheme.primary,
+                        ),
+                      )
+                    ],
+                  ),
+                ),
+              ),
+            ],
+            Expanded(
+              child: MultiUtilityButton(
+                onPressed: _handleContinue,
+                text: continueButtonText,
+                borderRadius: AppRadius.searchBarRounded,
+                buttonColor: theme.colorScheme.primary,
+                buttonTextColor: theme.colorScheme.onPrimary,
+                elevation: 1,
+              ),
+            ),
+          ],
         ),
       ),
     );

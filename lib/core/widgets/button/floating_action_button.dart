@@ -7,6 +7,7 @@ class AppFloatingActionButton extends StatelessWidget{
   
   @override
   Widget build(BuildContext context){
+    final theme = Theme.of(context);
     return InkWell(
       borderRadius: BorderRadius.circular(AppRadius.full),
       onTap: onTap,
@@ -16,7 +17,14 @@ class AppFloatingActionButton extends StatelessWidget{
         padding: const EdgeInsets.all(AppSpacing.sm),
         decoration: BoxDecoration(
           color: Theme.of(context).colorScheme.primary,
-          borderRadius: BorderRadius.circular(AppRadius.full)
+          borderRadius: BorderRadius.circular(AppRadius.full),
+          boxShadow: [
+            BoxShadow(
+              offset: Offset(1, 1),
+              color: theme.shadowColor.withValues(alpha: 0.7),
+              blurRadius: 1
+            )
+          ]
         ),
         child: Center(
           child: Icon(

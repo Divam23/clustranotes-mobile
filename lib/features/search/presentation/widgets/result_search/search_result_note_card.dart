@@ -1,8 +1,10 @@
+import 'package:clustranotes_mobile/core/models/note_content_type_enum.dart';
 import 'package:clustranotes_mobile/core/widgets/button/bookmark_button.dart';
 import 'package:clustranotes_mobile/core/widgets/dot.dart';
 import 'package:clustranotes_mobile/core/widgets/resource_chips/chip_item.dart';
 import 'package:clustranotes_mobile/core/widgets/resource_chips/filetype_chip.dart';
 import 'package:clustranotes_mobile/core/widgets/resource_chips/resource_chip.dart';
+import 'package:clustranotes_mobile/features/notes/models/note_enums.dart';
 import 'package:flutter/material.dart';
 import 'package:clustranotes_mobile/app/theme/theme.dart';
 
@@ -13,8 +15,8 @@ class SearchResultNoteCardItem {
   final String semester;
   final String subject;
   final String collegeName;
-  final String category;
-  final String fileType;
+  final NoteCategory category;
+  final NoteContentType contentType;
   final String downloadCount;
   final String uploadTime;
   final String authorName;
@@ -26,7 +28,7 @@ class SearchResultNoteCardItem {
     required this.subject,
     required this.collegeName,
     required this.category,
-    required this.fileType,
+    required this.contentType,
     required this.downloadCount,
     required this.uploadTime,
     required this.authorName,
@@ -36,11 +38,11 @@ class SearchResultNoteCardItem {
 class SearchResultNoteCard extends StatelessWidget{
   final SearchResultNoteCardItem item;
   const SearchResultNoteCard({required this.item, super.key});
-  
+
   @override
   Widget build(BuildContext context){
     final categoryConfig = AppCategoryChips.allCategories[item.category] ?? AppCategoryChips.others;
-    final fileTypeConfig = AppFileTypeChips.allFileTypes[item.fileType] ?? AppFileTypeChips.pdf;
+    final fileTypeConfig = AppFileTypeChips.allFileTypes[item.contentType] ?? AppFileTypeChips.pdf;
     final theme = Theme.of(context);
     return GestureDetector(
       onTap: (){},
@@ -48,9 +50,9 @@ class SearchResultNoteCard extends StatelessWidget{
         height: 115,
         width: double.infinity,
         decoration: BoxDecoration(
-          color: theme.colorScheme.surface,
-          border: Border.all(color: theme.disabledColor.withValues(alpha: 0.1)),
-          borderRadius: AppRadius.card
+            color: theme.colorScheme.surface,
+            border: Border.all(color: theme.disabledColor.withValues(alpha: 0.1)),
+            borderRadius: AppRadius.card
         ),
         child: Row(
           children: [
@@ -96,7 +98,7 @@ class SearchResultNoteCard extends StatelessWidget{
                         AppBookmarkButton(onPressed: (){}),
                       ],
                     ),
-                    
+
                     Row(
                       spacing: AppSpacing.xs,
                       mainAxisAlignment: MainAxisAlignment.start,
@@ -133,54 +135,54 @@ class SearchResultNoteCard extends StatelessWidget{
                     ),
                     const SizedBox(height: AppSpacing.sm),
                     Row(
-                      children: [
-                        Wrap(
-                        spacing: AppSpacing.md,
-                        crossAxisAlignment: WrapCrossAlignment.center,
                         children: [
-                          Row(
+                          Wrap(
                             spacing: AppSpacing.md,
+                            crossAxisAlignment: WrapCrossAlignment.center,
                             children: [
                               Row(
-                                spacing: AppSpacing.xs,
+                                spacing: AppSpacing.md,
                                 children: [
-                                  Icon(
-                                    AppIcons.download,
-                                    color: theme.colorScheme.onSecondary,
-                                    size: 15,
+                                  Row(
+                                    spacing: AppSpacing.xs,
+                                    children: [
+                                      Icon(
+                                        AppIcons.download,
+                                        color: theme.colorScheme.onSecondary,
+                                        size: 15,
+                                      ),
+                                      Text(
+                                        item.downloadCount,
+                                        style: theme.textTheme.labelMedium
+                                            ?.copyWith(
+                                          color: theme.colorScheme.onSecondary,
+                                        ),
+                                      ),
+                                    ],
                                   ),
-                                  Text(
-                                    item.downloadCount,
-                                    style: theme.textTheme.labelMedium
-                                        ?.copyWith(
-                                      color: theme.colorScheme.onSecondary,
-                                    ),
-                                  ),
-                                ],
-                              ),
-                              Row(
-                                spacing: AppSpacing.xs,
-                                children: [
-                                  Icon(
-                                    AppIcons.clock,
-                                    color: theme.colorScheme.onSecondary,
-                                    size: 15,
-                                  ),
-                                  Text(
-                                    item.uploadTime,
-                                    style: theme.textTheme.labelMedium
-                                        ?.copyWith(
-                                      color: theme.colorScheme.onSecondary,
-                                      overflow: TextOverflow.ellipsis,
-                                    ),
+                                  Row(
+                                    spacing: AppSpacing.xs,
+                                    children: [
+                                      Icon(
+                                        AppIcons.clock,
+                                        color: theme.colorScheme.onSecondary,
+                                        size: 15,
+                                      ),
+                                      Text(
+                                        item.uploadTime,
+                                        style: theme.textTheme.labelMedium
+                                            ?.copyWith(
+                                          color: theme.colorScheme.onSecondary,
+                                          overflow: TextOverflow.ellipsis,
+                                        ),
+                                      ),
+                                    ],
                                   ),
                                 ],
                               ),
                             ],
                           ),
-                        ],
-                      ), 
-                      ]
+                        ]
                     ),
                     const SizedBox(height: 5,),
                     Row(

@@ -8,7 +8,8 @@ class UploadedNoteSummaryThumbnail extends StatelessWidget{
   final Color? fillerColor;
   final double? height;
   final double? width;
-  const UploadedNoteSummaryThumbnail({required this.noteContentType, this.width, this.height, this.fillerColor, super.key});
+  final BorderRadius borderRadius;
+  const UploadedNoteSummaryThumbnail({required this.noteContentType, this.width, this.height, this.fillerColor, this.borderRadius = AppRadius.button,  super.key});
   
   @override
   Widget build(BuildContext context){
@@ -19,7 +20,7 @@ class UploadedNoteSummaryThumbnail extends StatelessWidget{
       height: height ?? 60,
       width: width ?? 50,
       decoration: BoxDecoration(
-        borderRadius: AppRadius.button,
+        borderRadius: borderRadius,
         color: fillerColor ?? theme.colorScheme.primary.withValues(alpha: 0.2),
       ),
       child: Center(

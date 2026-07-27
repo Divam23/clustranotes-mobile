@@ -13,8 +13,8 @@ class UploadStepConnector extends StatelessWidget {
     final theme = Theme.of(context);
 
     return Container(
-      height: 5,
-      width: 25,
+      height: 3,
+      width: 35,
       color: isCompleted
           ? theme.colorScheme.primary
           : theme.disabledColor,

@@ -14,7 +14,7 @@ class UploadProgressIndicator extends ConsumerWidget {
     final upload = ref.watch(uploadProvider);
     final notifier = ref.read(uploadProvider.notifier);
     const circleSize = 28.0;
-    const connectorLength = 25.0;
+    const connectorLength = 35.0;
     var indicatorWidth = 0.0;
     final theme = Theme.of(context);
     final children = <Widget>[];
@@ -40,6 +40,7 @@ class UploadProgressIndicator extends ConsumerWidget {
       
       indicatorWidth =
           (circleSize * steps.length) + (connectorLength * (steps.length - 1));
+      
       children.add(
         UploadStepIndicatorItem(
           isLastStep: step == steps.length - 1,

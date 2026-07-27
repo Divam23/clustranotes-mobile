@@ -58,4 +58,16 @@ class AppIcons {
   static const IconData public = Icons.public;
   static const IconData shield = Icons.verified_user_outlined;
   static const IconData hashtag = Icons.tag_rounded;
+  static const IconData details = CupertinoIcons.list_bullet;
+  static const IconData title = Icons.title;
+  static const IconData subject = Icons.subject_rounded;
+  static const IconData course = CupertinoIcons.square_stack_3d_up;
+  static const IconData branch = CupertinoIcons.arrow_branch;
+  static const IconData semester = Icons.date_range_rounded;
+  static const IconData category = Icons.category;
+  static const IconData description = Icons.description;
+  static const IconData language = Icons.language_rounded;
+  static const IconData tags = CupertinoIcons.tag_solid;
+  static const IconData college = CupertinoIcons.building_2_fill;
+  static const IconData university = Icons.school_rounded;
 }

@@ -22,6 +22,8 @@ class UploadStepIndicatorItem extends StatelessWidget {
 
     Widget circleChild;
     Color circleColor;
+    double width = 20;
+    double height = 20;
 
     switch (stepStatus) {
       case NoteUploadStepStatusEnum.completed:
@@ -37,6 +39,8 @@ class UploadStepIndicatorItem extends StatelessWidget {
         break;
       case NoteUploadStepStatusEnum.inProgress:
         circleColor = theme.colorScheme.primary;
+        width = 25;
+        height = 25;
         circleChild = Center(
           child: Text('$stepNumber', style: theme.textTheme.labelMedium?.copyWith(
             color: theme.colorScheme.onPrimary
@@ -57,8 +61,8 @@ class UploadStepIndicatorItem extends StatelessWidget {
       mainAxisSize: MainAxisSize.min,
       children: [
         Container(
-          width: 20,
-          height: 20,
+          width: width,
+          height: height,
           decoration: BoxDecoration(
             shape: BoxShape.circle,
             color: circleColor

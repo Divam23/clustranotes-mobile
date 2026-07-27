@@ -12,6 +12,7 @@ class MultiUtilityButton extends StatelessWidget {
   final Color? borderColor;
   final FontWeight? fontWeight;
   final double? fontSize;
+  final double? elevation;
   const MultiUtilityButton({
     this.child,
     required this.onPressed,
@@ -23,6 +24,7 @@ class MultiUtilityButton extends StatelessWidget {
     this.borderColor,
     this.fontWeight,
     this.fontSize,
+    this.elevation = 0,
     super.key,
   });
 
@@ -32,7 +34,7 @@ class MultiUtilityButton extends StatelessWidget {
     return FilledButton.tonal(
       
       style: FilledButton.styleFrom(
-        elevation: 0,
+        elevation: elevation,
         overlayColor: Colors.transparent,
         backgroundColor: buttonColor ?? AppColors.primarySky.withValues(alpha: 0.2),
         shape: RoundedRectangleBorder(

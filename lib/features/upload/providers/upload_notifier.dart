@@ -11,6 +11,7 @@ import 'package:clustranotes_mobile/features/upload/services/images_to_pdf_servi
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter_riverpod/legacy.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:pdfrx/pdfrx.dart';
 
 final uploadProvider = StateNotifierProvider<UploadNotifier, UploadState>((
   ref,
@@ -53,6 +54,7 @@ class UploadNotifier extends StateNotifier<UploadState> {
         state = state.copyWith(isPickingDocument: false);
         return;
       }
+      
 
       final pickedFile = result.files.single;
       if (pickedFile.path == null || pickedFile.extension == null) {
@@ -62,12 +64,21 @@ class UploadNotifier extends StateNotifier<UploadState> {
       final fileExtension = NoteContentTypeJson.fromExtension(
         pickedFile.extension!,
       );
+        
+      int? pageCount;
+      print('Extension: $fileExtension');
+      print('Path: ${pickedFile.path}');
+      
+      if(fileExtension == NoteContentType.pdf){
+        pageCount = await _getPdfPageCount(file.path); 
+        print(pageCount);
+      }
       final uploadFile = UploadFile(
         file: file,
         contentType: fileExtension,
         sizeInBytes: await file.length(),
         uploadSource: UploadSource.file,
-        pageCount: null,
+        pageCount: pageCount,
         selectedImages: null,
       );
       state = state.copyWith(
@@ -149,6 +160,13 @@ class UploadNotifier extends StateNotifier<UploadState> {
     } finally {
       state = state.copyWith(isGeneratingPDF: false);
     }
+  }
+  
+  Future<int> _getPdfPageCount(String path) async {
+    final document = await PdfDocument.openFile(path);
+    final pageCount = document.pages.length;
+    
+    return pageCount;
   }
 
   void clearSelectedImages() {
@@ -242,6 +260,7 @@ class UploadNotifier extends StateNotifier<UploadState> {
         currentStep: UploadStep.values[state.currentStep.index + 1],
       );
     }
+    print(state.currentScreen);
   }
 
   NoteUploadStepStatusEnum getFileStatus() {
@@ -266,6 +285,7 @@ class UploadNotifier extends StateNotifier<UploadState> {
   }
 
   NoteUploadStepStatusEnum getReviewStatus() {
+    
     return NoteUploadStepStatusEnum.completed;
   }
 
