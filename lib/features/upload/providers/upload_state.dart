@@ -1,6 +1,7 @@
 import 'package:clustranotes_mobile/features/notes/models/note_enums.dart';
 import 'package:clustranotes_mobile/features/upload/domain/enums/note_upload_step_enum.dart';
 import 'package:clustranotes_mobile/features/upload/domain/enums/upload_stage_enum.dart';
+import 'package:clustranotes_mobile/features/upload/models/upload_declarations_model.dart';
 import 'package:clustranotes_mobile/features/upload/models/upload_file.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:image_picker/image_picker.dart';
@@ -29,6 +30,7 @@ abstract class UploadState with _$UploadState {
     @Default(false) bool isGeneratingPDF,
     @Default(false) bool isPickingDocument,
     @Default(false) bool isUploading,
+    @Default(UploadDeclarations()) UploadDeclarations declarations, 
     String? error,
   })= _UploadState;
 }

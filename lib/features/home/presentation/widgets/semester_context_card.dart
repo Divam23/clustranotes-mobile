@@ -17,7 +17,7 @@ class SemesterContextCard extends StatelessWidget {
       child: Row(
         children: [
           Icon(
-            AppIcons.scholar,
+            AppIcons.university,
             color: theme.colorScheme.primary,
           ),
 

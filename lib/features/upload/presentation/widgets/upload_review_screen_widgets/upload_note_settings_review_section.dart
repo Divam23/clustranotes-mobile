@@ -76,14 +76,14 @@ class UploadNoteSettingsReviewSection extends ConsumerWidget {
                         Text(
                           "Anyone can view and download the material",
                           style: theme.textTheme.bodyMedium?.copyWith(
-                            color: theme.shadowColor.withValues(alpha: 0.5)
+                            color: theme.dividerColor.withValues(alpha: 0.5)
                           ),
                         )
                       else
                         Text(
                           "Nobody can view and download the material",
                           style: theme.textTheme.bodyMedium?.copyWith(
-                              color: theme.shadowColor.withValues(alpha: 0.5)
+                              color: theme.dividerColor.withValues(alpha: 0.5)
                           ),
                         ),
                     ],

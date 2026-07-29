@@ -54,7 +54,6 @@ class UploadNotifier extends StateNotifier<UploadState> {
         state = state.copyWith(isPickingDocument: false);
         return;
       }
-      
 
       final pickedFile = result.files.single;
       if (pickedFile.path == null || pickedFile.extension == null) {
@@ -64,14 +63,11 @@ class UploadNotifier extends StateNotifier<UploadState> {
       final fileExtension = NoteContentTypeJson.fromExtension(
         pickedFile.extension!,
       );
-        
+
       int? pageCount;
-      print('Extension: $fileExtension');
-      print('Path: ${pickedFile.path}');
-      
-      if(fileExtension == NoteContentType.pdf){
-        pageCount = await _getPdfPageCount(file.path); 
-        print(pageCount);
+
+      if (fileExtension == NoteContentType.pdf) {
+        pageCount = await _getPdfPageCount(file.path);
       }
       final uploadFile = UploadFile(
         file: file,
@@ -161,11 +157,11 @@ class UploadNotifier extends StateNotifier<UploadState> {
       state = state.copyWith(isGeneratingPDF: false);
     }
   }
-  
+
   Future<int> _getPdfPageCount(String path) async {
     final document = await PdfDocument.openFile(path);
     final pageCount = document.pages.length;
-    
+
     return pageCount;
   }
 
@@ -230,6 +226,27 @@ class UploadNotifier extends StateNotifier<UploadState> {
     state = state.copyWith(isUploading: isUploading);
   }
 
+  void updateOwnership(bool ownership) {
+    state = state.copyWith(
+      declarations: state.declarations.copyWith(ownership: ownership),
+    );
+  }
+  void updateCopyright(bool copyright) {
+    state = state.copyWith(
+      declarations: state.declarations.copyWith(copyright: copyright),
+    );
+  }
+  void updateGuidelines(bool guidelines) {
+    state = state.copyWith(
+      declarations: state.declarations.copyWith(guidelines: guidelines),
+    );
+  }
+  void updateConsequences(bool consequences) {
+    state = state.copyWith(
+      declarations: state.declarations.copyWith(consequences: consequences),
+    );
+  }
+
   void addTags(String tag) {
     tag = tag.trim();
     if (tag.isEmpty) return;
@@ -260,7 +277,6 @@ class UploadNotifier extends StateNotifier<UploadState> {
         currentStep: UploadStep.values[state.currentStep.index + 1],
       );
     }
-    print(state.currentScreen);
   }
 
   NoteUploadStepStatusEnum getFileStatus() {
@@ -285,8 +301,12 @@ class UploadNotifier extends StateNotifier<UploadState> {
   }
 
   NoteUploadStepStatusEnum getReviewStatus() {
-    
-    return NoteUploadStepStatusEnum.completed;
+    if(_checkDeclarations()){
+      return NoteUploadStepStatusEnum.completed;
+    }
+    else{
+      return NoteUploadStepStatusEnum.inProgress;
+    }
   }
 
   bool validateCurrentStep() {
@@ -304,7 +324,11 @@ class UploadNotifier extends StateNotifier<UploadState> {
         return true;
 
       case UploadStep.review:
-        return true;
+        return _checkDeclarations();
     }
+  }
+  
+  bool _checkDeclarations(){
+    return state.declarations.allAccepted == true;
   }
 }

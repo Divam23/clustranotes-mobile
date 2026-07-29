@@ -121,6 +121,33 @@ class AppLightTheme {
         type: BottomNavigationBarType.fixed,
         elevation: 0,
       ),
+
+      switchTheme: SwitchThemeData(
+        thumbColor: WidgetStateProperty.resolveWith((states) {
+          if (states.contains(WidgetState.selected)) {
+            return Colors.white;
+          }
+          return AppColors.lightBackground;
+        }),
+
+        trackColor: WidgetStateProperty.resolveWith((states) {
+          if (states.contains(WidgetState.selected)) {
+            return AppColors.primary;
+          }
+          return AppColors.border;
+        }),
+
+        trackOutlineColor: WidgetStateProperty.resolveWith((states) {
+          if (states.contains(WidgetState.selected)) {
+            return Colors.transparent;
+          }
+          return AppColors.border;
+        }),
+
+        overlayColor: WidgetStatePropertyAll(
+          AppColors.primary.withValues(alpha: 0.12),
+        ),
+      ),
     );
   }
 }

@@ -6,10 +6,12 @@ class ReviewSectionHeader extends StatelessWidget {
   final IconData icon;
   final int sectionNumber;
   final String sectionTitle;
+  final Color iconColor;
   const ReviewSectionHeader({
     required this.icon,
     required this.sectionNumber,
     required this.sectionTitle,
+    this.iconColor = AppColors.primarySky,
     super.key,
   });
 
@@ -20,7 +22,7 @@ class ReviewSectionHeader extends StatelessWidget {
       children: [
         Icon(
           icon,
-          color: AppColors.primarySky,
+          color: iconColor,
           size: 23,
           fontWeight: FontWeight(600),
         ),

@@ -29,10 +29,12 @@ class NoteVisibilitySection extends ConsumerWidget {
         const SizedBox(height: AppSpacing.md),
 
         Card(
-          elevation: 0.5,
           shape: RoundedRectangleBorder(
             borderRadius: AppRadius.card,
-            side: BorderSide(color: theme.dividerColor.withValues(alpha: 0.1)),
+            side: BorderSide(
+              color: theme.dividerColor.withValues(alpha: 0.1),
+              width: 0.5
+            ),
           ),
           child: Padding(
             padding: const EdgeInsets.all(AppSpacing.lg),
@@ -82,10 +84,13 @@ class NoteVisibilitySection extends ConsumerWidget {
                         ],
                       ),
                     ),
-                    Switch(
-                      value: upload.isPublic,
-                      onChanged: notifier.updateIsPublic,
-                      inactiveThumbColor: AppColors.primarySky,
+                    Transform.scale(
+                      scale: 0.9,
+                      child: Switch(
+                        value: upload.isPublic,
+                        onChanged: notifier.updateIsPublic,
+                        inactiveThumbColor: AppColors.primarySky,
+                      ),
                     ),
                   ],
                 ),

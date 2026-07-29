@@ -68,7 +68,6 @@ class _UploadNoteScreenState extends ConsumerState<UploadNoteScreen> {
       UploadScreenEnum.details => "Continue",
       UploadScreenEnum.settings => "Review Note",
       UploadScreenEnum.review => "Publish Note",
-      _ => "Continue",
     };
     Widget buildCurrentStep(UploadState state) {
       switch (state.currentScreen) {
@@ -88,7 +87,7 @@ class _UploadNoteScreenState extends ConsumerState<UploadNoteScreen> {
           return Form(key: _settingsFormKey, child: UploadSettingsStep());
 
         case UploadScreenEnum.review:
-          return Form(key: _reviewFormKey, child: UploadReviewStep(),);
+          return Form(key: _reviewFormKey, child: UploadReviewStep());
       }
     }
 
@@ -172,9 +171,11 @@ class _UploadNoteScreenState extends ConsumerState<UploadNoteScreen> {
                 onPressed: _handleContinue,
                 text: continueButtonText,
                 borderRadius: AppRadius.searchBarRounded,
-                buttonColor: theme.colorScheme.primary,
-                buttonTextColor: theme.colorScheme.onPrimary,
+                buttonColor: notifier.validateCurrentStep() ? theme.colorScheme.primary : theme.disabledColor.withValues(alpha: 0.1),
+                buttonTextColor: notifier.validateCurrentStep() ? theme.colorScheme.onPrimary : theme.colorScheme.inverseSurface.withValues(alpha: 0.2),
+                borderColor: notifier.validateCurrentStep() ? theme.colorScheme.primary : theme.disabledColor.withValues(alpha: 0.1),
                 elevation: 1,
+                
               ),
             ),
           ],

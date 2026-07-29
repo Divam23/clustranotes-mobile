@@ -34,7 +34,6 @@ class AppIcons {
   static const IconData logout = Icons.logout_rounded;
   static const IconData settings = Icons.settings_outlined;
   static const IconData help = Icons.help_outline_rounded;
-  static const IconData scholar = Icons.school_outlined;
   static const IconData assignment = Icons.description_rounded; 
   static const IconData rightArrow = Icons.chevron_right_rounded; 
   static const IconData leftArrow = Icons.chevron_left_rounded; 
@@ -70,4 +69,5 @@ class AppIcons {
   static const IconData tags = CupertinoIcons.tag_solid;
   static const IconData college = CupertinoIcons.building_2_fill;
   static const IconData university = Icons.school_rounded;
+  static const IconData lock = Icons.lock_outline_rounded;
 }
