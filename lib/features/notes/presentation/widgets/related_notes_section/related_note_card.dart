@@ -44,7 +44,7 @@ class RelatedNoteCard extends StatelessWidget{
                       ),
                     ),
                   ),
-                  child: NoteThumbnail(contentType: note.note.contentType, thumbnailUrl: note.note.file.thumbnailUrl, borderRadius: AppRadius.card?.copyWith(
+                  child: NoteThumbnail(contentType: note.note.contentType, thumbnailUrl: note.note.file.thumbnailUrl, borderRadius: AppRadius.card.copyWith(
                     bottomLeft: Radius.zero,
                     bottomRight: Radius.zero
                   ),) 

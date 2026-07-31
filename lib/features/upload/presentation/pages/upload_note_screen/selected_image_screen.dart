@@ -69,6 +69,7 @@ class SelectedImageScreen extends ConsumerWidget {
                                 content: Text('Error generating PDF: $e'),
                               ),
                             );
+                            
                           }
                         },
                         text: "Continue",

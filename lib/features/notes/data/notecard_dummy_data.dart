@@ -1,5 +1,4 @@
 import 'package:clustranotes_mobile/core/models/note_content_type_enum.dart';
-import 'package:clustranotes_mobile/features/user/models/user_summary.dart';
 import 'package:clustranotes_mobile/features/notes/models/note_card_model.dart';
 import 'package:clustranotes_mobile/features/notes/models/note_enums.dart';
 
@@ -17,7 +16,6 @@ final List<NoteCardModel> dummyNoteCards = [
     collegeName: 'IIT Delhi',
     university: 'Indian Institute of Technology Delhi',
     sizeInBytes: 4500000,
-    thumbnailUrl: 'https://images.unsplash.com/photo-1517842645767-c639042777db?w=400',
     pageCount: 42,
     downloadCount: 1280,
     likeCount: 340,
@@ -41,7 +39,6 @@ final List<NoteCardModel> dummyNoteCards = [
     collegeName: 'NIT Trichy',
     university: 'National Institute of Technology Tiruchirappalli',
     sizeInBytes: 8200000,
-    thumbnailUrl: 'https://images.unsplash.com/photo-1517694712202-14dd9538aa97?w=400',
     pageCount: 65,
     downloadCount: 3400,
     likeCount: 920,
@@ -89,7 +86,6 @@ final List<NoteCardModel> dummyNoteCards = [
     collegeName: 'Lady Shri Ram College',
     university: 'University of Delhi',
     sizeInBytes: 1300000,
-    thumbnailUrl: 'https://images.unsplash.com/photo-1554224155-8d04cb21cd6c?w=400',
     pageCount: 12,
     downloadCount: 540,
     likeCount: 130,
@@ -113,7 +109,6 @@ final List<NoteCardModel> dummyNoteCards = [
     collegeName: 'VIT Vellore',
     university: 'Vellore Institute of Technology',
     sizeInBytes: 950000,
-    thumbnailUrl: 'https://images.unsplash.com/photo-1518770660439-4636190af475?w=400',
     pageCount: 6,
     downloadCount: 4750,
     likeCount: 1100,
@@ -161,7 +156,6 @@ final List<NoteCardModel> dummyNoteCards = [
     collegeName: 'BITS Pilani',
     university: 'Birla Institute of Technology and Science',
     sizeInBytes: 6300000,
-    thumbnailUrl: 'https://images.unsplash.com/photo-1555066931-4365d14bab8c?w=400',
     pageCount: 30,
     downloadCount: 980,
     likeCount: 215,

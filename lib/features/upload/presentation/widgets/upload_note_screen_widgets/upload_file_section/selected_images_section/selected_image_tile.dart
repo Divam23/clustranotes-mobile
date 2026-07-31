@@ -39,7 +39,6 @@ class SelectedImageTile extends ConsumerWidget {
               child: Stack(
                 children: [
                   Container(
-                    /*height: isLandscape == true ? 155: 150,*/
                     width: double.infinity,
                     decoration: BoxDecoration(
                       color: theme.colorScheme.surface,
@@ -63,6 +62,8 @@ class SelectedImageTile extends ConsumerWidget {
                         child: Image.file(
                           File(image.path),
                           fit: BoxFit.cover,
+                          cacheWidth: 300,
+                          cacheHeight: 300,
                           alignment: Alignment.center,
                         ),
                       ),

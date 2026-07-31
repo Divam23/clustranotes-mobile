@@ -128,7 +128,7 @@ class _ShowSelectionBottomSheetState<T>
                   return Container(
                     decoration: const BoxDecoration(
                       border: Border(
-                        bottom: BorderSide(color: Colors.grey, width: 0.5),
+                        bottom: BorderSide(color: Colors.grey, width: 0.2),
                       ),
                     ),
                     child: InkWell(

@@ -23,12 +23,13 @@ class UploadNoteScreen extends ConsumerStatefulWidget {
 class _UploadNoteScreenState extends ConsumerState<UploadNoteScreen> {
   late final notifier = ref.read(uploadProvider.notifier);
 
+
   final _detailsFormKey = GlobalKey<FormState>();
   final _settingsFormKey = GlobalKey<FormState>();
   final _reviewFormKey = GlobalKey<FormState>();
 
   void _handleContinue() {
-    final upload = ref.watch(uploadProvider);
+    final upload = ref.read(uploadProvider);
     switch (upload.currentScreen) {
       case UploadScreenEnum.details:
         if (!_detailsFormKey.currentState!.validate()) {
@@ -64,6 +65,7 @@ class _UploadNoteScreenState extends ConsumerState<UploadNoteScreen> {
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     final upload = ref.watch(uploadProvider);
+    final canContinue = notifier.validateCurrentStep();
     final continueButtonText = switch (upload.currentScreen) {
       UploadScreenEnum.details => "Continue",
       UploadScreenEnum.settings => "Review Note",
@@ -171,9 +173,9 @@ class _UploadNoteScreenState extends ConsumerState<UploadNoteScreen> {
                 onPressed: _handleContinue,
                 text: continueButtonText,
                 borderRadius: AppRadius.searchBarRounded,
-                buttonColor: notifier.validateCurrentStep() ? theme.colorScheme.primary : theme.disabledColor.withValues(alpha: 0.1),
-                buttonTextColor: notifier.validateCurrentStep() ? theme.colorScheme.onPrimary : theme.colorScheme.inverseSurface.withValues(alpha: 0.2),
-                borderColor: notifier.validateCurrentStep() ? theme.colorScheme.primary : theme.disabledColor.withValues(alpha: 0.1),
+                buttonColor: canContinue ? theme.colorScheme.primary : theme.disabledColor.withValues(alpha: 0.1),
+                buttonTextColor: canContinue ? theme.colorScheme.onPrimary : theme.colorScheme.inverseSurface.withValues(alpha: 0.2),
+                borderColor: canContinue ? theme.colorScheme.primary : theme.disabledColor.withValues(alpha: 0.1),
                 elevation: 1,
                 
               ),

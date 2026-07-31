@@ -1,6 +1,4 @@
-import 'package:clustranotes_mobile/app/theme/app_radius.dart';
-import 'package:clustranotes_mobile/app/theme/app_spacing.dart';
-import 'package:clustranotes_mobile/core/widgets/button/multi_utility_button.dart';
+import 'package:clustranotes_mobile/app/theme/theme.dart';
 import 'package:clustranotes_mobile/features/upload/presentation/widgets/upload_note_screen_widgets/upload_metadata_section/academic_details_section.dart';
 import 'package:clustranotes_mobile/features/upload/presentation/widgets/upload_note_screen_widgets/upload_metadata_section/basic_note_details_section.dart';
 import 'package:clustranotes_mobile/features/upload/providers/upload_notifier.dart';

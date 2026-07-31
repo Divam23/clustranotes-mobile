@@ -10,8 +10,6 @@ class SelectedImagePreview extends StatelessWidget{
   
   @override
   Widget build(BuildContext context){
-    return Container(
-      child: PhotoView(imageProvider: FileImage(File(image.path))),
-    );
+    return PhotoView(imageProvider: FileImage(File(image.path)));
   }
 }

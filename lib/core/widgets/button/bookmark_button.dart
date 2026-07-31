@@ -12,16 +12,12 @@ class AppBookmarkButton extends StatelessWidget{
   @override
   Widget build(BuildContext context){
     return Container(
-      height: 30,
-      width: 30,
+      height: 28,
+      width: 28,
       decoration: BoxDecoration(
         borderRadius: AppRadius.searchBarSharp,
         color: Theme.of(context).colorScheme.surface,
-        border: Border.all(
-          color: Theme.of(
-            context,
-          ).dividerColor.withValues(alpha: 0.3),
-        ),
+        
       ),
       child: Material(
         color: Colors.transparent,
@@ -29,12 +25,12 @@ class AppBookmarkButton extends StatelessWidget{
           borderRadius: AppRadius.searchBarSharp,
           onTap: () {},
           child: const SizedBox(
-            height: 35,
-            width: 35,
+            height: 28,
+            width: 28,
             child: Center(
               child: Icon(
                 AppIcons.bookmark,
-                size: 20,
+                size: 18,
               ),
             ),
           ),

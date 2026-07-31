@@ -52,7 +52,6 @@ class AppBottomNavigationBar extends StatelessWidget{
                         await HapticFeedback.lightImpact();
                         onTap(index);
                       }
-                      
                     },
                   ),
                 );

@@ -23,6 +23,7 @@ class UploadNotifier extends StateNotifier<UploadState> {
   UploadNotifier() : super(const UploadState());
 
   static const maxTagLength = 10;
+  static const maxFileSize = 100 * 1024 * 1024; // 100 MB
 
   Future<void> pickImages() async {
     if (!mounted) return;
@@ -32,6 +33,7 @@ class UploadNotifier extends StateNotifier<UploadState> {
       state = state.copyWith(isGeneratingPDF: false, isPickingDocument: false);
       return;
     }
+    
     state = state.copyWith(
       selectedImages: images,
       uploadFile: null,
@@ -58,6 +60,9 @@ class UploadNotifier extends StateNotifier<UploadState> {
       final pickedFile = result.files.single;
       if (pickedFile.path == null || pickedFile.extension == null) {
         throw Exception('Invalid file selected.');
+      }
+      if(pickedFile.size > maxFileSize){
+        throw Exception("File size exceeded (max. 100 MB)");
       }
       final file = File(pickedFile.path!);
       final fileExtension = NoteContentTypeJson.fromExtension(
@@ -137,12 +142,16 @@ class UploadNotifier extends StateNotifier<UploadState> {
       if (state.isGeneratingPDF) return;
       state = state.copyWith(isGeneratingPDF: true, error: null);
       final pdf = await ImagesToPdfService().generate(images);
+      final fileSize = await pdf.length();
       if (!mounted) return;
+      if(fileSize > maxFileSize){
+        throw Exception("File size exceeded (max. 100 MB)");
+      }
       final uploadFile = UploadFile(
         file: pdf,
         contentType: NoteContentType.pdf,
         uploadSource: UploadSource.images,
-        sizeInBytes: await pdf.length(),
+        sizeInBytes: fileSize,
         pageCount: images.length,
       );
       state = state.copyWith(

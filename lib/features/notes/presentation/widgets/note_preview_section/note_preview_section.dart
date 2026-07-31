@@ -4,7 +4,6 @@ import 'package:clustranotes_mobile/core/widgets/resource_chips/filetype_chip.da
 import 'package:clustranotes_mobile/core/widgets/resource_chips/resource_chip.dart';
 import 'package:clustranotes_mobile/features/notes/models/note_details.dart';
 import 'package:flutter/material.dart';
-import 'package:clustranotes_mobile/features/notes/models/note_model.dart';
 
 class NotePreviewSection extends StatelessWidget{
   final NoteDetails note;

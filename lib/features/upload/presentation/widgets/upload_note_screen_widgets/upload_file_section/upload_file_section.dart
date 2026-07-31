@@ -32,7 +32,7 @@ class UploadFileSection extends ConsumerWidget {
           textAlign: TextAlign.start,
         ),
         if (upload.uploadFile != null)
-          SelectedFileCard(uploadState: upload)
+          SelectedFileCard()
         else
           UploadFilePlaceholder(
             onTap: onTap,

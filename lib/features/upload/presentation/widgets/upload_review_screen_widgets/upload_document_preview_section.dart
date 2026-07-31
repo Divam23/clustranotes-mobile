@@ -15,7 +15,6 @@ class UploadDocumentPreviewSection extends StatelessWidget {
         vertical: AppSpacing.sm,
       ),
       decoration: BoxDecoration(
-
         color: theme.colorScheme.surfaceContainer,
         borderRadius: AppRadius.card,
         boxShadow: [BoxShadow(

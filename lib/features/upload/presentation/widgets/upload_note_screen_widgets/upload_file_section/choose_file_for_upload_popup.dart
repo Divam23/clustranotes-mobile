@@ -19,7 +19,7 @@ void showUploadFilePickerType(BuildContext context){
             top: Radius.circular(AppRadius.xxl)
         )
     ),
-    builder: (_) => FractionallySizedBox(
+    builder: (context) => FractionallySizedBox(
       child: const ChooseFileForUploadPopup(),
     ),
   );
@@ -32,7 +32,6 @@ class ChooseFileForUploadPopup extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final theme = Theme.of(context);
     final notifier = ref.read(uploadProvider.notifier);
-
     return Padding(
       padding: const EdgeInsets.all(AppSpacing.xxl),
       child: Column(
@@ -120,14 +119,16 @@ class ChooseFileForUploadPopup extends ConsumerWidget {
           InkWell(
             borderRadius: AppRadius.card,
             onTap: () async {
-              await ref.read(uploadProvider.notifier).pickImages();
+              await notifier.pickImages();
               if (!context.mounted) return;
+              Navigator.pop(context, UploadSource.images);
               if (ref.read(uploadProvider).selectedImages.isNotEmpty) {
-                Navigator.pop(context, UploadSource.images);
                 Navigator.push(
                   context,
                   MaterialPageRoute(
-                    builder: (_) => const SelectedImageScreen(),
+                    builder: (_) {
+                      return const SelectedImageScreen();
+                    },
                   ),
                 );
               }
