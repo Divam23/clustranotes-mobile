@@ -1,9 +1,10 @@
 enum NoteOwnerStatus{
-  draft,
-  archived,
-  removed,
   unverified,
   verified,
   pendingReview,
+  draft,
+  archived,
+  removed,
   rejected
 }
+

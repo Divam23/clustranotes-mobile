@@ -2,7 +2,7 @@ import 'package:clustranotes_mobile/app/theme/app_spacing.dart';
 import 'package:clustranotes_mobile/features/upload/domain/enums/note_upload_step_enum.dart';
 import 'package:clustranotes_mobile/features/upload/domain/enums/note_upload_step_status_enum.dart';
 import 'package:clustranotes_mobile/features/upload/presentation/widgets/common/upload_status_indicator/upload_step_indicator_item.dart';
-import 'package:clustranotes_mobile/features/upload/providers/upload_notifier.dart';
+import 'package:clustranotes_mobile/features/upload/providers/upload_note/upload_notifier.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 

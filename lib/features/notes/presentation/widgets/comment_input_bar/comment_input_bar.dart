@@ -5,13 +5,20 @@ import 'package:clustranotes_mobile/features/user/models/user_summary.dart';
 import 'package:clustranotes_mobile/features/comments/presentation/widgets/comment_card/comment_input_field.dart';
 import 'package:flutter/material.dart';
 
-class CommentInputBar extends StatefulWidget{
+class CommentInputBar extends StatefulWidget {
   final UserSummary currentUser;
   final Comment? replyingTo;
   final VoidCallback onCancelReply;
   final FocusNode focusNode;
   final TextEditingController commentController;
-  const CommentInputBar({required this.currentUser, required this.onCancelReply, required this.focusNode, required this.replyingTo, required this.commentController, super.key});
+  const CommentInputBar({
+    required this.currentUser,
+    required this.onCancelReply,
+    required this.focusNode,
+    required this.replyingTo,
+    required this.commentController,
+    super.key,
+  });
 
   @override
   State<CommentInputBar> createState() => _CommentInputBarState();
@@ -19,12 +26,13 @@ class CommentInputBar extends StatefulWidget{
 
 class _CommentInputBarState extends State<CommentInputBar> {
   @override
-  Widget build(BuildContext context){
+  Widget build(BuildContext context) {
     return Container(
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.zero
+      decoration: BoxDecoration(borderRadius: BorderRadius.zero),
+      padding: const EdgeInsets.symmetric(
+        vertical: AppSpacing.sm,
+        horizontal: AppSpacing.md,
       ),
-      padding: const EdgeInsets.symmetric(vertical: AppSpacing.sm, horizontal: AppSpacing.md ),
       child: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
@@ -47,9 +55,18 @@ class _CommentInputBarState extends State<CommentInputBar> {
           Row(
             spacing: 10,
             children: [
-              AppAvatar(avatar: widget.currentUser.avatarUrl, firstName: widget.currentUser.firstName),
-              Expanded(child: CommentFieldInput(replyingTo: widget.replyingTo, focusNode: widget.focusNode, controller: widget.commentController,)),
-              IconButton(onPressed: (){}, icon: Icon(AppIcons.send))
+              AppAvatar(
+                avatar: widget.currentUser.avatarUrl,
+                firstName: widget.currentUser.firstName,
+              ),
+              Expanded(
+                child: CommentFieldInput(
+                  replyingTo: widget.replyingTo,
+                  focusNode: widget.focusNode,
+                  controller: widget.commentController,
+                ),
+              ),
+              IconButton(onPressed: () {}, icon: Icon(AppIcons.send)),
             ],
           ),
         ],

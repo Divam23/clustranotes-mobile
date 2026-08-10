@@ -70,4 +70,9 @@ class AppIcons {
   static const IconData college = CupertinoIcons.building_2_fill;
   static const IconData university = Icons.school_rounded;
   static const IconData lock = Icons.lock_outline_rounded;
+  static const IconData name = Icons.perm_identity_rounded;
+  static const IconData email = CupertinoIcons.mail;
+  static const IconData password = Icons.lock_outline_rounded;
+  static const IconData visible = Icons.visibility_off_outlined;
+  static const IconData notVisible = Icons.visibility_outlined;
 }

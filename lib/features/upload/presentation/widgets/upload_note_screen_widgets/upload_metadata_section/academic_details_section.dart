@@ -1,8 +1,8 @@
 import 'package:clustranotes_mobile/app/theme/app_spacing.dart';
 import 'package:clustranotes_mobile/features/upload/data/dummy_dropdown_data.dart';
 import 'package:clustranotes_mobile/features/upload/presentation/widgets/common/show_selection_bottom_sheet.dart';
-import 'package:clustranotes_mobile/features/upload/presentation/widgets/upload_note_screen_widgets/note_metadata_dropdown.dart';
-import 'package:clustranotes_mobile/features/upload/providers/upload_notifier.dart';
+import 'package:clustranotes_mobile/features/upload/presentation/widgets/upload_note_screen_widgets/common/note_metadata_dropdown.dart';
+import 'package:clustranotes_mobile/features/upload/providers/upload_note/upload_notifier.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 

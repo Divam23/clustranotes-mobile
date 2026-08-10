@@ -1,6 +1,6 @@
 import 'package:clustranotes_mobile/app/theme/theme.dart';
 import 'package:clustranotes_mobile/core/utils/formatters/formatter.dart';
-import 'package:clustranotes_mobile/features/upload/providers/upload_state.dart';
+import 'package:clustranotes_mobile/features/upload/providers/upload_note/upload_state.dart';
 import 'package:flutter/material.dart';
 
 class SelectedImagesHeader extends StatelessWidget {

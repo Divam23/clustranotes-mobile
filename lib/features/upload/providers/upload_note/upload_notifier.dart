@@ -1,4 +1,6 @@
 import 'dart:io';
+import 'package:clustranotes_mobile/core/api/client/api_client.dart';
+import 'package:clustranotes_mobile/core/api/providers/dio_provider.dart';
 import 'package:clustranotes_mobile/core/models/note_content_type_enum.dart';
 import 'package:clustranotes_mobile/features/notes/models/note_enums.dart';
 import 'package:clustranotes_mobile/features/upload/domain/enums/note_upload_step_enum.dart';
@@ -6,7 +8,7 @@ import 'package:clustranotes_mobile/features/upload/domain/enums/note_upload_ste
 import 'package:clustranotes_mobile/features/upload/domain/enums/upload_source_enums.dart';
 import 'package:clustranotes_mobile/features/upload/domain/enums/upload_stage_enum.dart';
 import 'package:clustranotes_mobile/features/upload/models/upload_file.dart';
-import 'package:clustranotes_mobile/features/upload/providers/upload_state.dart';
+import 'package:clustranotes_mobile/features/upload/providers/upload_note/upload_state.dart';
 import 'package:clustranotes_mobile/features/upload/services/images_to_pdf_service.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter_riverpod/legacy.dart';
@@ -33,7 +35,7 @@ class UploadNotifier extends StateNotifier<UploadState> {
       state = state.copyWith(isGeneratingPDF: false, isPickingDocument: false);
       return;
     }
-    
+
     state = state.copyWith(
       selectedImages: images,
       uploadFile: null,
@@ -61,7 +63,7 @@ class UploadNotifier extends StateNotifier<UploadState> {
       if (pickedFile.path == null || pickedFile.extension == null) {
         throw Exception('Invalid file selected.');
       }
-      if(pickedFile.size > maxFileSize){
+      if (pickedFile.size > maxFileSize) {
         throw Exception("File size exceeded (max. 100 MB)");
       }
       final file = File(pickedFile.path!);
@@ -144,7 +146,7 @@ class UploadNotifier extends StateNotifier<UploadState> {
       final pdf = await ImagesToPdfService().generate(images);
       final fileSize = await pdf.length();
       if (!mounted) return;
-      if(fileSize > maxFileSize){
+      if (fileSize > maxFileSize) {
         throw Exception("File size exceeded (max. 100 MB)");
       }
       final uploadFile = UploadFile(
@@ -240,16 +242,19 @@ class UploadNotifier extends StateNotifier<UploadState> {
       declarations: state.declarations.copyWith(ownership: ownership),
     );
   }
+
   void updateCopyright(bool copyright) {
     state = state.copyWith(
       declarations: state.declarations.copyWith(copyright: copyright),
     );
   }
+
   void updateGuidelines(bool guidelines) {
     state = state.copyWith(
       declarations: state.declarations.copyWith(guidelines: guidelines),
     );
   }
+
   void updateConsequences(bool consequences) {
     state = state.copyWith(
       declarations: state.declarations.copyWith(consequences: consequences),
@@ -310,10 +315,9 @@ class UploadNotifier extends StateNotifier<UploadState> {
   }
 
   NoteUploadStepStatusEnum getReviewStatus() {
-    if(_checkDeclarations()){
+    if (_checkDeclarations()) {
       return NoteUploadStepStatusEnum.completed;
-    }
-    else{
+    } else {
       return NoteUploadStepStatusEnum.inProgress;
     }
   }
@@ -336,8 +340,19 @@ class UploadNotifier extends StateNotifier<UploadState> {
         return _checkDeclarations();
     }
   }
-  
-  bool _checkDeclarations(){
+
+  bool _checkDeclarations() {
     return state.declarations.allAccepted == true;
+  }
+
+  Future<void> handlePublishNote() async {
+
+    /*try {
+      final api = ApiClient(dioProvider);
+      final response = await api.get(path: "/health");
+      debugPrint(response.toString());
+    } catch (e) {
+      debugPrint(e.toString());
+    }*/
   }
 }

@@ -1,12 +1,15 @@
 import 'package:clustranotes_mobile/core/models/note_content_type_enum.dart';
 import 'package:clustranotes_mobile/features/notes/models/note_enums.dart';
+import 'package:clustranotes_mobile/features/notes/models/note_stats.dart';
 
 class UploadedNoteSummary {
   final String id;
   final String title;
+  final String? thumbnailUrl;
   final NotePublishStatus publishStatus;
   final NoteVerificationPrivateStatus noteVerificationStatus;
   final NoteContentType? noteContentType;
+  final NoteStats? noteStats;
   final DateTime createdAt;
   final DateTime? publishedAt;
   final DateTime updatedAt;
@@ -18,8 +21,10 @@ class UploadedNoteSummary {
   const UploadedNoteSummary({
     required this.id,
     required this.title,
+    this.thumbnailUrl,
     required this.publishStatus,
     required this.noteVerificationStatus,
+    this.noteStats,
     required this.createdAt,
     this.publishedAt,
     this.noteContentType,

@@ -98,7 +98,8 @@ class _NoteDetailsScreenState extends State<NoteDetailsScreen> {
                     replyingTo: replyingTo,
                     currentUser: currentUser,
                     onCancelReply: _onCancel,
-                    focusNode: commentFocusNode, commentController: _commentController,
+                    focusNode: commentFocusNode, 
+                    commentController: _commentController,
                   )
               )
             ],

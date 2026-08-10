@@ -1,5 +1,5 @@
 import 'package:clustranotes_mobile/app/theme/app_spacing.dart';
-import 'package:clustranotes_mobile/features/upload/presentation/widgets/upload_note_screen_widgets/note_metadata_textfield.dart';
+import 'package:clustranotes_mobile/features/upload/presentation/widgets/upload_note_screen_widgets/common/note_metadata_textfield.dart';
 import 'package:flutter/material.dart';
 
 class BasicNoteDetailsSection extends StatelessWidget {

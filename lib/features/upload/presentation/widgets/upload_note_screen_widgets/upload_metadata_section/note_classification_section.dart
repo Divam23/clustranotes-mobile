@@ -2,8 +2,8 @@ import 'package:clustranotes_mobile/app/theme/theme.dart';
 import 'package:clustranotes_mobile/features/notes/models/note_enums.dart';
 import 'package:clustranotes_mobile/features/upload/presentation/extension/note_category_enums_ui_showcase.dart';
 import 'package:clustranotes_mobile/features/upload/presentation/widgets/common/show_selection_bottom_sheet.dart';
-import 'package:clustranotes_mobile/features/upload/presentation/widgets/upload_note_screen_widgets/note_metadata_dropdown.dart';
-import 'package:clustranotes_mobile/features/upload/providers/upload_notifier.dart';
+import 'package:clustranotes_mobile/features/upload/presentation/widgets/upload_note_screen_widgets/common/note_metadata_dropdown.dart';
+import 'package:clustranotes_mobile/features/upload/providers/upload_note/upload_notifier.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
