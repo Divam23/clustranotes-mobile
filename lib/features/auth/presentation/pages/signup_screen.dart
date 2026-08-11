@@ -7,6 +7,7 @@ import 'package:clustranotes_mobile/features/auth/providers/auth_providers.dart'
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:clustranotes_mobile/app/theme/theme.dart';
+import 'package:flutter_svg/svg.dart';
 
 class SignupScreen extends ConsumerStatefulWidget {
   const SignupScreen({super.key});
@@ -71,13 +72,12 @@ class _SignupScreenState extends ConsumerState<SignupScreen> {
       appBar: AppBar(leading: const AppBackButton()),
       body: SafeArea(
         child: SingleChildScrollView(
-          keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior.onDrag,
           padding: const EdgeInsets.symmetric(
             horizontal: AppSpacing.screenPadding,
             vertical: AppSpacing.md,
           ),
           child: Column(
-            spacing: AppSpacing.xxl,
+            spacing: AppSpacing.xl,
             children: [
               Column(
                 spacing: AppSpacing.xs,
@@ -95,6 +95,10 @@ class _SignupScreenState extends ConsumerState<SignupScreen> {
                     ),
                   ),
                 ],
+              ),
+              SvgPicture.asset(
+                "assets/animations/mobile-login_pana.svg",
+                width: 240,
               ),
               Form(
                 key: _formKey,
@@ -116,7 +120,6 @@ class _SignupScreenState extends ConsumerState<SignupScreen> {
                           hintText: "Bruce Wayne",
                           required: true,
                           enabled: true,
-                          autofocus: true,
                           validator: (value) =>
                               FormValidators.validateName(value),
                         ),
@@ -204,10 +207,11 @@ class _SignupScreenState extends ConsumerState<SignupScreen> {
       Padding(
         padding: const EdgeInsets.symmetric(
           horizontal: AppSpacing.screenPadding,
-          vertical: AppSpacing.md,
+          vertical: AppSpacing.xl,
         ),
         child: Column(
           mainAxisSize: MainAxisSize.min,
+          spacing: AppSpacing.md,
           children: [
             Row(
               children: [
@@ -238,6 +242,7 @@ class _SignupScreenState extends ConsumerState<SignupScreen> {
                             textAlign: TextAlign.center,
                             style: theme.textTheme.bodyMedium?.copyWith(
                               color: theme.colorScheme.onPrimary,
+                              fontWeight: FontWeight.bold
                             ),
                           ),
                           const SizedBox(
@@ -254,6 +259,7 @@ class _SignupScreenState extends ConsumerState<SignupScreen> {
                         textAlign: TextAlign.center,
                         style: theme.textTheme.bodyMedium?.copyWith(
                           color: theme.colorScheme.onPrimary,
+                          fontWeight: FontWeight.bold
                         ),
                       ),
                     ),
@@ -265,6 +271,7 @@ class _SignupScreenState extends ConsumerState<SignupScreen> {
                   mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Row(
+                  spacing: AppSpacing.sm,
                   children: [
                     Text(
                       "Already a user?",
@@ -273,8 +280,8 @@ class _SignupScreenState extends ConsumerState<SignupScreen> {
                           color: theme.disabledColor
                       ),
                     ),
-                    TextButton(
-                      onPressed: () {
+                    GestureDetector(
+                      onTap: () {
                         Navigator.pushReplacement(
                           context,
                           MaterialPageRoute(
@@ -286,7 +293,7 @@ class _SignupScreenState extends ConsumerState<SignupScreen> {
                         "Sign In",
                         textAlign: TextAlign.center,
                         style: theme.textTheme.labelLarge?.copyWith(
-                            color: theme.colorScheme.primary
+                            color: theme.colorScheme.primary,
                         ),
                       ),
                     ),

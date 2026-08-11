@@ -5,8 +5,10 @@ import 'package:clustranotes_mobile/core/widgets/button/multi_utility_button.dar
 import 'package:clustranotes_mobile/features/auth/presentation/pages/signup_screen.dart';
 import 'package:clustranotes_mobile/features/auth/providers/auth_providers.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:clustranotes_mobile/features/auth/presentation/widgets/auth_textfield.dart';
+import 'package:flutter_svg/svg.dart';
 
 class LoginScreen extends ConsumerStatefulWidget {
   const LoginScreen({super.key});
@@ -45,13 +47,22 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
 
   @override
   Widget build(BuildContext context) {
+    ref.listen(authNotifierProvider, (previous, next) {
+      if (next.error != null && next.error != previous?.error) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text(next.error!)),
+          snackBarAnimationStyle: AnimationStyle(
+            duration: const Duration(milliseconds: 500),
+          ),
+        );
+      }
+    });
     final authState = ref.watch(authNotifierProvider);
     final theme = Theme.of(context);
     return Scaffold(
       appBar: AppBar(leading: const AppBackButton()),
       body: SafeArea(
         child: SingleChildScrollView(
-          keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior.onDrag,
           padding: const EdgeInsets.symmetric(
             horizontal: AppSpacing.screenPadding,
             vertical: AppSpacing.md,
@@ -75,6 +86,10 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                     ),
                   ),
                 ],
+              ),
+              SvgPicture.asset(
+                "assets/animations/mobile_login.svg",
+                width: 240,
               ),
               Form(
                 key: _formKey,
@@ -100,27 +115,37 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                               FormValidators.validateEmail(value),
                         ),
 
-                        AuthTextField(
-                          keyboardType: TextInputType.visiblePassword,
-                          controller: _passwordController,
-                          label: "Password",
-                          textInputAction: TextInputAction.next,
-                          prefixIcon: Icon(
-                            AppIcons.lock,
-                            color: theme.colorScheme.primary,
-                          ),
-                          obscureText: _obscurePassword,
-                          suffixIcon: IconButton(
-                            onPressed: _togglePasswordVisibility,
-                            icon: _obscurePassword
-                                ? Icon(AppIcons.visible)
-                                : Icon(AppIcons.notVisible),
-                          ),
-                          hintText: "iambatman@2747___",
-                          required: true,
-                          enabled: true,
-                          validator: (value) =>
-                              FormValidators.validatePassword(value),
+                        Column(
+                          spacing: AppSpacing.sm,
+                          crossAxisAlignment: CrossAxisAlignment.end,
+                          children: [
+                            AuthTextField(
+                              keyboardType: TextInputType.visiblePassword,
+                              controller: _passwordController,
+                              label: "Password",
+                              textInputAction: TextInputAction.next,
+                              prefixIcon: Icon(
+                                AppIcons.lock,
+                                color: theme.colorScheme.primary,
+                              ),
+                              obscureText: _obscurePassword,
+                              suffixIcon: IconButton(
+                                onPressed: _togglePasswordVisibility,
+                                icon: _obscurePassword
+                                    ? Icon(AppIcons.visible)
+                                    : Icon(AppIcons.notVisible),
+                              ),
+                              hintText: "iambatman@2747___",
+                              required: true,
+                              enabled: true,
+                              validator: (value) =>
+                                  FormValidators.validatePassword(value),
+                            ),
+                            GestureDetector(
+                              onTap: (){},
+                              child: Text("Forgot password?"),
+                            )
+                          ],
                         ),
                       ],
                     ),
@@ -134,10 +159,11 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
       bottomNavigationBar: Padding(
         padding: const EdgeInsets.symmetric(
           horizontal: AppSpacing.screenPadding,
-          vertical: AppSpacing.md,
+          vertical: AppSpacing.xl,
         ),
         child: Column(
           mainAxisSize: MainAxisSize.min,
+          spacing: AppSpacing.md,
           children: [
             Row(
               children: [
@@ -155,7 +181,7 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                         : theme.colorScheme.primary,
                     child: Container(
                       padding: const EdgeInsets.symmetric(
-                        vertical: AppSpacing.lg,
+                        vertical: AppSpacing.md,
                         horizontal: AppSpacing.lg,
                       ),
                       child: authState.isLoading
@@ -168,6 +194,7 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                             textAlign: TextAlign.center,
                             style: theme.textTheme.bodyMedium?.copyWith(
                               color: theme.colorScheme.onPrimary,
+                              fontWeight: FontWeight.bold
                             ),
                           ),
                           const SizedBox(
@@ -184,6 +211,7 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                         textAlign: TextAlign.center,
                         style: theme.textTheme.bodyMedium?.copyWith(
                           color: theme.colorScheme.onPrimary,
+                          fontWeight: FontWeight.bold
                         ),
                       ),
                     ),
@@ -195,6 +223,7 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Row(
+                  spacing: AppSpacing.sm,
                   children: [
                     Text(
                       "New to ClustraNotes?",
@@ -203,8 +232,8 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                         color: theme.disabledColor
                       ),
                     ),
-                    TextButton(
-                      onPressed: () {
+                    GestureDetector(
+                      onTap: () {
                         Navigator.pushReplacement(
                           context,
                           MaterialPageRoute(
