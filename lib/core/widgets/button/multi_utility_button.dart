@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 
 class MultiUtilityButton extends StatelessWidget {
   final Widget? child;
-  final VoidCallback onPressed;
+  final VoidCallback? onPressed;
   final Color? buttonColor;
   final Color? buttonTextColor;
   final String text;

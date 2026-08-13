@@ -25,23 +25,7 @@ class AuthNotifier extends StateNotifier<AuthState> {
     }
   }
 
-  Future<void> signOut() async {
-    state = state.copyWith(isLoading: true, error: null);
-
-    try {
-      await _repository.signOut();
-      state = state.copyWith(error: null);
-      state = const AuthState();
-    } catch (error, stackTrace) {
-      debugPrint("Error logging out: $error");
-      debugPrintStack(stackTrace: stackTrace);
-      state = state.copyWith(error: error.toString());
-    } finally {
-      state = state.copyWith(isLoading: false);
-    }
-  }
-
-  Future<void> signUp({
+  Future<void> signUp ({
     required String email,
     required String password,
     required String name
@@ -52,9 +36,13 @@ class AuthNotifier extends StateNotifier<AuthState> {
       final credential = await _repository.registerWithEmailAndPassword(
         email: email,
         password: password,
+        name: name
       );
-
-      state = state.copyWith(error: null, user: credential.user);
+      
+      state = state.copyWith(
+        error: null, user: credential.user
+      );
+      
     } catch (error) {
       state = state.copyWith(error: error.toString(), user: null);
     } finally {
@@ -73,6 +61,38 @@ class AuthNotifier extends StateNotifier<AuthState> {
     }
     catch (error) {
       state = state.copyWith(error: error.toString(), user: null);
+    } finally {
+      state = state.copyWith(isLoading: false);
+    }
+  }
+  
+  Future<void> forgotPassword({
+    required String email,
+  }) async{
+    state = state.copyWith(isLoading: true, error: null);
+    try{
+      await _repository.forgotPassword(email: email);
+      state = state.copyWith(error: null);
+    }
+    catch(error){
+      state = state.copyWith(error: error.toString());
+    }
+    finally{
+      state = state.copyWith(isLoading: false);
+    }
+  }
+
+  Future<void> signOut() async {
+    state = state.copyWith(isLoading: true, error: null);
+
+    try {
+      await _repository.signOut();
+      state = state.copyWith(error: null);
+      state = const AuthState();
+    } catch (error, stackTrace) {
+      debugPrint("Error logging out: $error");
+      debugPrintStack(stackTrace: stackTrace);
+      state = state.copyWith(error: error.toString());
     } finally {
       state = state.copyWith(isLoading: false);
     }

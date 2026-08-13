@@ -78,6 +78,7 @@ class AuthTextField extends StatelessWidget{
             style: theme.textTheme.labelLarge?.copyWith(
               color: theme.disabledColor,
               fontSize: 14,
+              fontWeight: FontWeight.w400
             ),
             children: [
               TextSpan(text: label),

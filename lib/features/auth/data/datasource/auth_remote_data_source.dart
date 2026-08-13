@@ -26,11 +26,19 @@ class AuthRemoteDataSource {
   Future<UserCredential> registerWithEmailAndPassword({
     required String email,
     required String password,
-  }) async {
-    return _firebaseAuth.createUserWithEmailAndPassword(
-      email: email,
-      password: password,
+    required String name
+  }) async { 
+    final credentials = await _firebaseAuth.createUserWithEmailAndPassword(
+      email: email, 
+      password: password
     );
+    
+    final user = credentials.user;
+    if(user != null){
+      await user.updateDisplayName(name);
+      await user.reload();
+    }
+    return credentials;
   }
 
   Future<UserCredential> signInWithEmailAndPassword({
@@ -41,6 +49,12 @@ class AuthRemoteDataSource {
       email: email,
       password: password,
     );
+  }
+  
+  Future<void> forgotPassword({
+    required String email,  
+  })async{
+    return _firebaseAuth.sendPasswordResetEmail(email: email);
   }
 
   Future<void> signOut() async {

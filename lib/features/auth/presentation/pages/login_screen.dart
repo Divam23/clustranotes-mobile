@@ -2,10 +2,10 @@ import 'package:clustranotes_mobile/app/theme/theme.dart';
 import 'package:clustranotes_mobile/core/utils/validators/form_validators.dart';
 import 'package:clustranotes_mobile/core/widgets/button/app_back_button.dart';
 import 'package:clustranotes_mobile/core/widgets/button/multi_utility_button.dart';
+import 'package:clustranotes_mobile/features/auth/presentation/pages/forgot_password_screen.dart';
 import 'package:clustranotes_mobile/features/auth/presentation/pages/signup_screen.dart';
 import 'package:clustranotes_mobile/features/auth/providers/auth_providers.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:clustranotes_mobile/features/auth/presentation/widgets/auth_textfield.dart';
 import 'package:flutter_svg/svg.dart';
@@ -88,7 +88,7 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                 ],
               ),
               SvgPicture.asset(
-                "assets/animations/mobile_login.svg",
+                "assets/animations/login_storyset.svg",
                 width: 240,
               ),
               Form(
@@ -123,7 +123,8 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                               keyboardType: TextInputType.visiblePassword,
                               controller: _passwordController,
                               label: "Password",
-                              textInputAction: TextInputAction.next,
+                              textInputAction: TextInputAction.done,
+                              onSubmitted: (_) => _submit(),
                               prefixIcon: Icon(
                                 AppIcons.lock,
                                 color: theme.colorScheme.primary,
@@ -142,7 +143,12 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                                   FormValidators.validatePassword(value),
                             ),
                             GestureDetector(
-                              onTap: (){},
+                              onTap: (){
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(builder: (context)=> const ForgotPasswordScreen())
+                                );
+                              },
                               child: Text("Forgot password?"),
                             )
                           ],

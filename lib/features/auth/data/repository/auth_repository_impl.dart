@@ -2,28 +2,48 @@ import 'package:clustranotes_mobile/features/auth/data/datasource/auth_remote_da
 import 'package:clustranotes_mobile/features/auth/domain/repositories/auth_repository.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
-class AuthRepositoryImpl implements AuthRepository{
+class AuthRepositoryImpl implements AuthRepository {
   final AuthRemoteDataSource _remoteDataSource;
   AuthRepositoryImpl(this._remoteDataSource);
-  
+
   @override
-  Future<UserCredential> signInWithGoogle(){
+  Future<UserCredential> signInWithGoogle() {
     return _remoteDataSource.signInWithGoogle();
   }
 
   @override
-  Future<UserCredential> registerWithEmailAndPassword({required String email, required String password}) {
-    return _remoteDataSource.registerWithEmailAndPassword(email: email, password: password);
-  }
-  
-  @override
-  Future<UserCredential> signInWithEmailAndPassword({required String email, required String password}){
-    return _remoteDataSource.signInWithEmailAndPassword(email: email, password: password);
-  }
-  
-  @override
-  Future<void> signOut(){
-    return _remoteDataSource.signOut();
+  Future<UserCredential> registerWithEmailAndPassword({
+    required String email,
+    required String password,
+    required String name,
+  }) {
+    return _remoteDataSource.registerWithEmailAndPassword(
+      name: name,
+      email: email,
+      password: password,
+    );
   }
 
+  @override
+  Future<UserCredential> signInWithEmailAndPassword({
+    required String email,
+    required String password,
+  }) {
+    return _remoteDataSource.signInWithEmailAndPassword(
+      email: email,
+      password: password,
+    );
+  }
+  
+  @override
+  Future<void> forgotPassword({
+    required String email,
+  })async{
+    return _remoteDataSource.forgotPassword(email: email);
+  }
+
+  @override
+  Future<void> signOut() {
+    return _remoteDataSource.signOut();
+  }
 }

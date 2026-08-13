@@ -97,7 +97,7 @@ class _SignupScreenState extends ConsumerState<SignupScreen> {
                 ],
               ),
               SvgPicture.asset(
-                "assets/animations/mobile-login_pana.svg",
+                "assets/animations/signup_storyset.svg",
                 width: 240,
               ),
               Form(

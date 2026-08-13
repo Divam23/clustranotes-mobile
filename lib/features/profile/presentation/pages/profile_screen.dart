@@ -1,3 +1,4 @@
+import 'package:clustranotes_mobile/app/theme/app_spacing.dart';
 import 'package:clustranotes_mobile/features/auth/presentation/pages/signup_screen.dart';
 import 'package:clustranotes_mobile/features/auth/providers/auth_providers.dart';
 import 'package:flutter/material.dart';
@@ -15,8 +16,14 @@ class ProfileScreen extends ConsumerWidget{
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             if (state.user != null)
-              Text(
-                'Signed in as ${state.user!.email}',
+              Column(
+                spacing: AppSpacing.lg,
+                children: [
+                  Text(
+                    'Signed in as ${state.user!.displayName}',
+                  ),
+                  Text("Email: ${state.user!.email}")
+                ],
               ),
 
             if (state.error != null)
