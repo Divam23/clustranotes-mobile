@@ -75,4 +75,5 @@ class AppIcons {
   static const IconData password = Icons.lock_outline_rounded;
   static const IconData visible = Icons.visibility_off_outlined;
   static const IconData notVisible = Icons.visibility_outlined;
+  static const IconData refresh = Icons.refresh_rounded;
 }

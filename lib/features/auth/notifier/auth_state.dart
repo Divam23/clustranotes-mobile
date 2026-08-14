@@ -8,7 +8,10 @@ part 'auth_state.freezed.dart';
 abstract class AuthState with _$AuthState{
   const factory AuthState({
     @Default(false) bool isLoading,
+    @Default(false) bool isSendingVerification,
+    @Default(false) bool isCheckingVerification,
+    @Default(0) int verificationResendCooldown,
     User? user,
-    String? error
+    String? error,
   })= _AuthState;
 }

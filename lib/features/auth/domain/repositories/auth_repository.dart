@@ -12,9 +12,14 @@ abstract interface class AuthRepository {
     required String password,
   });
   
+  Future<void> sendEmailVerificationLink();
+  
+  Future<bool> checkEmailVerification();
+  
   Future<void> forgotPassword({
     required String email
   });
+  
   
   Future<void> signOut();
 }

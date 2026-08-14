@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'package:clustranotes_mobile/features/auth/domain/repositories/auth_repository.dart';
 import 'package:clustranotes_mobile/features/auth/notifier/auth_state.dart';
 import 'package:flutter/cupertino.dart';
@@ -5,8 +6,10 @@ import 'package:flutter_riverpod/legacy.dart';
 
 class AuthNotifier extends StateNotifier<AuthState> {
   final AuthRepository _repository;
+  Timer? _verificationCooldownTimer;
+  
   AuthNotifier(this._repository) : super(const AuthState());
-
+  
   Future<void> signInWithGoogle() async {
     state = state.copyWith(isLoading: true, error: null);
     try {
@@ -25,7 +28,7 @@ class AuthNotifier extends StateNotifier<AuthState> {
     }
   }
 
-  Future<void> signUp ({
+  Future<bool> signUp ({
     required String email,
     required String password,
     required String name
@@ -42,9 +45,10 @@ class AuthNotifier extends StateNotifier<AuthState> {
       state = state.copyWith(
         error: null, user: credential.user
       );
-      
+      return true;
     } catch (error) {
       state = state.copyWith(error: error.toString(), user: null);
+      return false;
     } finally {
       state = state.copyWith(isLoading: false);
     }
@@ -63,6 +67,40 @@ class AuthNotifier extends StateNotifier<AuthState> {
       state = state.copyWith(error: error.toString(), user: null);
     } finally {
       state = state.copyWith(isLoading: false);
+    }
+  }
+  
+  Future<void> resendEmailVerificationLink() async{
+    if(state.verificationResendCooldown > 0) return;
+    state = state.copyWith(isSendingVerification: true, error: null);
+    
+    try{
+      await _repository.sendEmailVerificationLink();
+      _startVerificationCooldownTimer();
+      state = state.copyWith(error: null);
+    }
+    catch(error){
+      state = state.copyWith(error: error.toString());
+    }
+    finally{
+      state = state.copyWith(isSendingVerification: false);
+    }
+  }
+  
+  Future<bool> checkEmailVerification() async{
+    state = state.copyWith(isCheckingVerification: true, error: null);
+    
+    try{
+      final response = await _repository.checkEmailVerification();
+      state = state.copyWith(error: null);
+      
+      return response;
+    }catch(error){
+      state = state.copyWith(error: error.toString());
+      return false;
+    }
+    finally{
+      state = state.copyWith(isCheckingVerification: false);
     }
   }
   
@@ -96,5 +134,26 @@ class AuthNotifier extends StateNotifier<AuthState> {
     } finally {
       state = state.copyWith(isLoading: false);
     }
+  }
+  
+  void _startVerificationCooldownTimer(){
+    _verificationCooldownTimer?.cancel();
+    
+    state = state.copyWith(verificationResendCooldown: 45);
+    
+    _verificationCooldownTimer = Timer.periodic(
+      const Duration(seconds: 1),
+        (timer){
+          final remaining = state.verificationResendCooldown;
+          if(remaining <= 1 ){
+            timer.cancel();
+            
+            state = state.copyWith(verificationResendCooldown: 0);
+            
+            return;
+          }
+          state = state.copyWith(verificationResendCooldown: remaining-1);
+        }
+    );
   }
 }

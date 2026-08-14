@@ -87,9 +87,11 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                   ),
                 ],
               ),
-              SvgPicture.asset(
-                "assets/animations/login_storyset.svg",
-                width: 240,
+              Center(
+                child: SvgPicture.asset(
+                  "assets/animations/login_storyset.svg",
+                  width: 240,
+                ),
               ),
               Form(
                 key: _formKey,
@@ -187,7 +189,7 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                         : theme.colorScheme.primary,
                     child: Container(
                       padding: const EdgeInsets.symmetric(
-                        vertical: AppSpacing.md,
+                        vertical: AppSpacing.lg,
                         horizontal: AppSpacing.lg,
                       ),
                       child: authState.isLoading

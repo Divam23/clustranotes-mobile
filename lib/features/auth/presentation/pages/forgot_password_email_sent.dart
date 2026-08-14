@@ -69,7 +69,7 @@ class ForgotPasswordEmailSent extends StatelessWidget {
                                 buttonColor: theme.colorScheme.primary,
                                 child: Container(
                                   padding: const EdgeInsets.symmetric(
-                                    vertical: AppSpacing.md,
+                                    vertical: AppSpacing.lg,
                                     horizontal: AppSpacing.lg,
                                   ),
                                   child: Text(

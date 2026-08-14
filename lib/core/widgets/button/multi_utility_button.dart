@@ -15,7 +15,7 @@ class MultiUtilityButton extends StatelessWidget {
   final double? elevation;
   const MultiUtilityButton({
     this.child,
-    required this.onPressed,
+    this.onPressed,
     required this.text,
     this.buttonColor,
     this.buttonTextColor,

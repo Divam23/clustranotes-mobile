@@ -36,6 +36,16 @@ class AuthRepositoryImpl implements AuthRepository {
   }
   
   @override
+  Future<void> sendEmailVerificationLink()async{
+    return _remoteDataSource.sendVerificationEmailLink();  
+  }
+  
+  @override
+  Future<bool> checkEmailVerification() async{
+    return _remoteDataSource.checkEmailVerification();
+  }
+  
+  @override
   Future<void> forgotPassword({
     required String email,
   })async{

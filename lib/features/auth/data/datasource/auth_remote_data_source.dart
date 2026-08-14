@@ -36,7 +36,7 @@ class AuthRemoteDataSource {
     final user = credentials.user;
     if(user != null){
       await user.updateDisplayName(name);
-      await user.reload();
+      await sendVerificationEmailLink();
     }
     return credentials;
   }
@@ -49,6 +49,25 @@ class AuthRemoteDataSource {
       email: email,
       password: password,
     );
+  }
+  
+  Future<void> sendVerificationEmailLink() async{
+    final user = _firebaseAuth.currentUser;
+    
+    if(user == null){
+      throw Exception("No authenticated user found");
+    }
+    await user.sendEmailVerification();
+  }
+  
+  Future<bool> checkEmailVerification() async{
+    final user =  _firebaseAuth.currentUser;
+    if(user == null){
+      throw Exception("No authenticated user found");
+    }
+    await user.reload();
+    
+    return _firebaseAuth.currentUser?.emailVerified ?? false;
   }
   
   Future<void> forgotPassword({

@@ -57,7 +57,7 @@ class _ForgotPasswordScreenState extends ConsumerState<ForgotPasswordScreen> {
                 ),
               ),
               Column(
-                spacing: AppSpacing.xs,
+                spacing: AppSpacing.sm,
                 mainAxisAlignment: MainAxisAlignment.start,
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: [
@@ -67,8 +67,9 @@ class _ForgotPasswordScreenState extends ConsumerState<ForgotPasswordScreen> {
                   ),
                   Text(
                     "No worries! Enter your email and we'll send you a link to reset your password.",
-                    style: theme.textTheme.labelMedium?.copyWith(
+                    style: theme.textTheme.bodySmall?.copyWith(
                       color: theme.colorScheme.onSecondary,
+                      fontWeight: FontWeight.w500
                     ),
                   ),
                 ],
@@ -124,7 +125,7 @@ class _ForgotPasswordScreenState extends ConsumerState<ForgotPasswordScreen> {
                                 : theme.colorScheme.primary,
                             child: Container(
                               padding: const EdgeInsets.symmetric(
-                                vertical: AppSpacing.md,
+                                vertical: AppSpacing.lg,
                                 horizontal: AppSpacing.lg,
                               ),
                               child: authState.isLoading

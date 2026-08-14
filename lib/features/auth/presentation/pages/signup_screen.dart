@@ -1,6 +1,7 @@
 import 'package:clustranotes_mobile/core/utils/validators/form_validators.dart';
 import 'package:clustranotes_mobile/core/widgets/button/app_back_button.dart';
 import 'package:clustranotes_mobile/core/widgets/button/multi_utility_button.dart';
+import 'package:clustranotes_mobile/features/auth/presentation/pages/email_verification_screen.dart';
 import 'package:clustranotes_mobile/features/auth/presentation/pages/login_screen.dart';
 import 'package:clustranotes_mobile/features/auth/presentation/widgets/auth_textfield.dart';
 import 'package:clustranotes_mobile/features/auth/providers/auth_providers.dart';
@@ -18,11 +19,22 @@ class SignupScreen extends ConsumerStatefulWidget {
 
 class _SignupScreenState extends ConsumerState<SignupScreen> {
   final _formKey = GlobalKey<FormState>();
-  
+
   final TextEditingController _nameController = TextEditingController();
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
-  final TextEditingController _confirmPasswordController = TextEditingController();
+  final TextEditingController _confirmPasswordController =
+      TextEditingController();
+
+
+  @override
+  void dispose() {
+    _nameController.dispose();
+    _emailController.dispose();
+    _passwordController.dispose();
+    _confirmPasswordController.dispose();
+    super.dispose();
+  }
 
   bool _obscurePassword = true;
   bool _obscureConfirmPassword = true;
@@ -39,18 +51,23 @@ class _SignupScreenState extends ConsumerState<SignupScreen> {
     });
   }
 
-  void _submit() {
+  Future<void> _submit() async{
     if (!_formKey.currentState!.validate()) {
       return;
     }
 
-    ref
+    final success = await ref
         .read(authNotifierProvider.notifier)
         .signUp(
           name: _nameController.text.trim(),
           email: _emailController.text.trim(),
           password: _passwordController.text.trim(),
         );
+    
+    if(!mounted) return;
+    if(success){
+      Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=> const EmailVerificationScreen()));
+    }
   }
 
   @override
@@ -67,7 +84,6 @@ class _SignupScreenState extends ConsumerState<SignupScreen> {
       }
     });
     final authState = ref.watch(authNotifierProvider);
-
     return Scaffold(
       appBar: AppBar(leading: const AppBackButton()),
       body: SafeArea(
@@ -96,10 +112,13 @@ class _SignupScreenState extends ConsumerState<SignupScreen> {
                   ),
                 ],
               ),
-              SvgPicture.asset(
-                "assets/animations/signup_storyset.svg",
-                width: 240,
-              ),
+              RepaintBoundary(
+                  child: SvgPicture.asset(
+                    "assets/animations/signup_storyset.svg",
+                    width: 240,
+                  ),
+              )
+              ,
               Form(
                 key: _formKey,
                 child: Column(
@@ -123,7 +142,7 @@ class _SignupScreenState extends ConsumerState<SignupScreen> {
                           validator: (value) =>
                               FormValidators.validateName(value),
                         ),
-              
+
                         AuthTextField(
                           keyboardType: TextInputType.emailAddress,
                           controller: _emailController,
@@ -139,7 +158,7 @@ class _SignupScreenState extends ConsumerState<SignupScreen> {
                           validator: (value) =>
                               FormValidators.validateEmail(value),
                         ),
-              
+
                         AuthTextField(
                           keyboardType: TextInputType.visiblePassword,
                           controller: _passwordController,
@@ -162,7 +181,7 @@ class _SignupScreenState extends ConsumerState<SignupScreen> {
                           validator: (value) =>
                               FormValidators.validatePassword(value),
                         ),
-              
+
                         AuthTextField(
                           keyboardType: TextInputType.visiblePassword,
                           controller: _confirmPasswordController,
@@ -186,7 +205,7 @@ class _SignupScreenState extends ConsumerState<SignupScreen> {
                             if (value == null || value.isEmpty) {
                               return "Please confirm your password";
                             }
-              
+
                             if (value != _passwordController.text) {
                               return "Passwords do not match";
                             }
@@ -198,13 +217,11 @@ class _SignupScreenState extends ConsumerState<SignupScreen> {
                   ],
                 ),
               ),
-              
             ],
           ),
         ),
       ),
-      bottomNavigationBar:
-      Padding(
+      bottomNavigationBar: Padding(
         padding: const EdgeInsets.symmetric(
           horizontal: AppSpacing.screenPadding,
           vertical: AppSpacing.xl,
@@ -219,7 +236,9 @@ class _SignupScreenState extends ConsumerState<SignupScreen> {
                   child: MultiUtilityButton(
                     elevation: 1,
                     onPressed: () {
-                      authState.isLoading ? null : _submit();
+                      authState.isLoading
+                          ? null
+                          : _submit();
                     },
                     text: "",
                     borderColor: AppColors.transparent,
@@ -234,41 +253,41 @@ class _SignupScreenState extends ConsumerState<SignupScreen> {
                       ),
                       child: authState.isLoading
                           ? Row(
-                        spacing: AppSpacing.md,
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Text(
-                            "Creating Account",
-                            textAlign: TextAlign.center,
-                            style: theme.textTheme.bodyMedium?.copyWith(
-                              color: theme.colorScheme.onPrimary,
-                              fontWeight: FontWeight.bold
-                            ),
-                          ),
-                          const SizedBox(
-                            width: 16,
-                            height: 16,
-                            child: CircularProgressIndicator(
-                              strokeWidth: 2,
-                            ),
-                          ),
-                        ],
-                      )
+                              spacing: AppSpacing.md,
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Text(
+                                  "Creating Account",
+                                  textAlign: TextAlign.center,
+                                  style: theme.textTheme.bodyMedium?.copyWith(
+                                    color: theme.colorScheme.onPrimary,
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                ),
+                                const SizedBox(
+                                  width: 16,
+                                  height: 16,
+                                  child: CircularProgressIndicator(
+                                    strokeWidth: 2,
+                                  ),
+                                ),
+                              ],
+                            )
                           : Text(
-                        "Create Account",
-                        textAlign: TextAlign.center,
-                        style: theme.textTheme.bodyMedium?.copyWith(
-                          color: theme.colorScheme.onPrimary,
-                          fontWeight: FontWeight.bold
-                        ),
-                      ),
+                              "Create Account",
+                              textAlign: TextAlign.center,
+                              style: theme.textTheme.bodyMedium?.copyWith(
+                                color: theme.colorScheme.onPrimary,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
                     ),
                   ),
                 ),
               ],
             ),
             Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
+              mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Row(
                   spacing: AppSpacing.sm,
@@ -277,7 +296,7 @@ class _SignupScreenState extends ConsumerState<SignupScreen> {
                       "Already a user?",
                       textAlign: TextAlign.center,
                       style: theme.textTheme.labelLarge?.copyWith(
-                          color: theme.disabledColor
+                        color: theme.disabledColor,
                       ),
                     ),
                     GestureDetector(
@@ -293,13 +312,12 @@ class _SignupScreenState extends ConsumerState<SignupScreen> {
                         "Sign In",
                         textAlign: TextAlign.center,
                         style: theme.textTheme.labelLarge?.copyWith(
-                            color: theme.colorScheme.primary,
+                          color: theme.colorScheme.primary,
                         ),
                       ),
                     ),
                   ],
                 ),
-                
               ],
             ),
           ],
@@ -308,12 +326,4 @@ class _SignupScreenState extends ConsumerState<SignupScreen> {
     );
   }
 
-  @override
-  void dispose() {
-    _nameController.dispose();
-    _emailController.dispose();
-    _passwordController.dispose();
-    _confirmPasswordController.dispose();
-    super.dispose();
-  }
 }
