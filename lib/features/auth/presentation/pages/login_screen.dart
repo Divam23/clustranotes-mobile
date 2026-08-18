@@ -155,6 +155,101 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                             )
                           ],
                         ),
+                        const SizedBox(height: AppSpacing.lg,),
+                        Column(
+                          mainAxisSize: MainAxisSize.min,
+                          spacing: AppSpacing.md,
+                          children: [
+                            Row(
+                              children: [
+                                Expanded(
+                                  child: MultiUtilityButton(
+                                    elevation: 1,
+                                    onPressed: () {
+                                      authState.isLoading ? null : _submit();
+                                    },
+                                    text: "",
+                                    borderColor: AppColors.transparent,
+                                    borderRadius: AppRadius.searchBarRounded,
+                                    buttonColor: authState.isLoading
+                                        ? AppColors.transparent
+                                        : theme.colorScheme.primary,
+                                    child: Container(
+                                      padding: const EdgeInsets.symmetric(
+                                        vertical: AppSpacing.lg,
+                                        horizontal: AppSpacing.lg,
+                                      ),
+                                      child: authState.isLoading
+                                          ? Row(
+                                        spacing: AppSpacing.md,
+                                        mainAxisAlignment: MainAxisAlignment.center,
+                                        children: [
+                                          Text(
+                                            "Signing In",
+                                            textAlign: TextAlign.center,
+                                            style: theme.textTheme.bodyMedium?.copyWith(
+                                                color: theme.colorScheme.onPrimary,
+                                                fontWeight: FontWeight.bold
+                                            ),
+                                          ),
+                                          const SizedBox(
+                                            width: 16,
+                                            height: 16,
+                                            child: CircularProgressIndicator(
+                                              strokeWidth: 2,
+                                            ),
+                                          ),
+                                        ],
+                                      )
+                                          : Text(
+                                        "Sign In",
+                                        textAlign: TextAlign.center,
+                                        style: theme.textTheme.bodyMedium?.copyWith(
+                                            color: theme.colorScheme.onPrimary,
+                                            fontWeight: FontWeight.bold
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            ),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Row(
+                                  spacing: AppSpacing.sm,
+                                  children: [
+                                    Text(
+                                      "New to ClustraNotes?",
+                                      textAlign: TextAlign.center,
+                                      style: theme.textTheme.labelLarge?.copyWith(
+                                          color: theme.disabledColor
+                                      ),
+                                    ),
+                                    GestureDetector(
+                                      onTap: () {
+                                        Navigator.pushReplacement(
+                                          context,
+                                          MaterialPageRoute(
+                                            builder: (context) => const SignupScreen(),
+                                          ),
+                                        );
+                                      },
+                                      child: Text(
+                                        "Start Here",
+                                        textAlign: TextAlign.center,
+                                        style: theme.textTheme.labelLarge?.copyWith(
+                                            color: theme.colorScheme.primary
+                                        ),
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ],
+                            ),
+                          ],
+                        )
                       ],
                     ),
                   ],
@@ -162,106 +257,6 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
               ),
             ],
           ),
-        ),
-      ),
-      bottomNavigationBar: Padding(
-        padding: const EdgeInsets.symmetric(
-          horizontal: AppSpacing.screenPadding,
-          vertical: AppSpacing.xl,
-        ),
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          spacing: AppSpacing.md,
-          children: [
-            Row(
-              children: [
-                Expanded(
-                  child: MultiUtilityButton(
-                    elevation: 1,
-                    onPressed: () {
-                      authState.isLoading ? null : _submit();
-                    },
-                    text: "",
-                    borderColor: AppColors.transparent,
-                    borderRadius: AppRadius.searchBarRounded,
-                    buttonColor: authState.isLoading
-                        ? AppColors.transparent
-                        : theme.colorScheme.primary,
-                    child: Container(
-                      padding: const EdgeInsets.symmetric(
-                        vertical: AppSpacing.lg,
-                        horizontal: AppSpacing.lg,
-                      ),
-                      child: authState.isLoading
-                          ? Row(
-                        spacing: AppSpacing.md,
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Text(
-                            "Signing In",
-                            textAlign: TextAlign.center,
-                            style: theme.textTheme.bodyMedium?.copyWith(
-                              color: theme.colorScheme.onPrimary,
-                              fontWeight: FontWeight.bold
-                            ),
-                          ),
-                          const SizedBox(
-                            width: 16,
-                            height: 16,
-                            child: CircularProgressIndicator(
-                              strokeWidth: 2,
-                            ),
-                          ),
-                        ],
-                      )
-                          : Text(
-                        "Sign In",
-                        textAlign: TextAlign.center,
-                        style: theme.textTheme.bodyMedium?.copyWith(
-                          color: theme.colorScheme.onPrimary,
-                          fontWeight: FontWeight.bold
-                        ),
-                      ),
-                    ),
-                  ),
-                ),
-              ],
-            ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Row(
-                  spacing: AppSpacing.sm,
-                  children: [
-                    Text(
-                      "New to ClustraNotes?",
-                      textAlign: TextAlign.center,
-                      style: theme.textTheme.labelLarge?.copyWith(
-                        color: theme.disabledColor
-                      ),
-                    ),
-                    GestureDetector(
-                      onTap: () {
-                        Navigator.pushReplacement(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => const SignupScreen(),
-                          ),
-                        );
-                      },
-                      child: Text(
-                        "Start Here",
-                        textAlign: TextAlign.center,
-                        style: theme.textTheme.labelLarge?.copyWith(
-                          color: theme.colorScheme.primary
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
-              ],
-            ),
-          ],
         ),
       ),
     );

@@ -7,10 +7,15 @@ class AuthRepositoryImpl implements AuthRepository {
   AuthRepositoryImpl(this._remoteDataSource);
 
   @override
+  Stream<User?> authStateChanges(){
+    return _remoteDataSource.authStateChange();
+  }
+  
+  @override
   Future<UserCredential> signInWithGoogle() {
     return _remoteDataSource.signInWithGoogle();
   }
-
+  
   @override
   Future<UserCredential> registerWithEmailAndPassword({
     required String email,
@@ -37,12 +42,12 @@ class AuthRepositoryImpl implements AuthRepository {
   
   @override
   Future<void> sendEmailVerificationLink()async{
-    return _remoteDataSource.sendVerificationEmailLink();  
+    return _remoteDataSource.sendEmailVerificationLink();  
   }
   
   @override
-  Future<bool> checkEmailVerification() async{
-    return _remoteDataSource.checkEmailVerification();
+  Future<User?> reloadCurrentUser() async{
+    return _remoteDataSource.reloadCurrentUser();
   }
   
   @override

@@ -6,6 +6,10 @@ class AuthRemoteDataSource {
   final GoogleSignIn _googleSignIn;
 
   AuthRemoteDataSource(this._firebaseAuth, this._googleSignIn);
+  
+  Stream<User?> authStateChange(){
+    return _firebaseAuth.authStateChanges();
+  }
 
   Future<UserCredential> signInWithGoogle() async {
     final GoogleSignInAccount googleUser = await _googleSignIn.authenticate();
@@ -36,7 +40,7 @@ class AuthRemoteDataSource {
     final user = credentials.user;
     if(user != null){
       await user.updateDisplayName(name);
-      await sendVerificationEmailLink();
+      await sendEmailVerificationLink();
     }
     return credentials;
   }
@@ -51,7 +55,7 @@ class AuthRemoteDataSource {
     );
   }
   
-  Future<void> sendVerificationEmailLink() async{
+  Future<void> sendEmailVerificationLink() async{
     final user = _firebaseAuth.currentUser;
     
     if(user == null){
@@ -60,14 +64,16 @@ class AuthRemoteDataSource {
     await user.sendEmailVerification();
   }
   
-  Future<bool> checkEmailVerification() async{
-    final user =  _firebaseAuth.currentUser;
+  Future<User?> reloadCurrentUser() async{
+    final user = _firebaseAuth.currentUser;
+    
     if(user == null){
-      throw Exception("No authenticated user found");
+      return null;
     }
+    
     await user.reload();
     
-    return _firebaseAuth.currentUser?.emailVerified ?? false;
+    return _firebaseAuth.currentUser;
   }
   
   Future<void> forgotPassword({

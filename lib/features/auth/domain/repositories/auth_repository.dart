@@ -1,6 +1,9 @@
 import 'package:firebase_auth/firebase_auth.dart';
 
 abstract interface class AuthRepository {
+
+  Stream<User?> authStateChanges();
+  
   Future<UserCredential> signInWithGoogle();
   Future<UserCredential> registerWithEmailAndPassword({
     required String email,
@@ -14,7 +17,8 @@ abstract interface class AuthRepository {
   
   Future<void> sendEmailVerificationLink();
   
-  Future<bool> checkEmailVerification();
+  Future<User?> reloadCurrentUser();
+
   
   Future<void> forgotPassword({
     required String email

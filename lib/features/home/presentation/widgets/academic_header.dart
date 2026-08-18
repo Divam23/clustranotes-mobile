@@ -21,7 +21,7 @@ class AcademicHeader extends StatelessWidget{
                 
               ),
               const Text(
-                "Clustra Notes",
+                "ClustraNotes",
                 style: AppTextStyles.heading1,
               ),
             ],

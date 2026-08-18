@@ -1,5 +1,5 @@
 import 'package:clustranotes_mobile/app/theme/app_spacing.dart';
-import 'package:clustranotes_mobile/features/auth/presentation/pages/signup_screen.dart';
+import 'package:clustranotes_mobile/features/auth/presentation/pages/main_auth_screen.dart';
 import 'package:clustranotes_mobile/features/auth/providers/auth_providers.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -57,7 +57,7 @@ class ProfileScreen extends ConsumerWidget{
               onPressed: (){
                 Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (context)=> const SignupScreen())
+                  MaterialPageRoute(builder: (context)=> const MainAuthScreen())
                 );
               }, 
               child: Text("Go to signup screen")

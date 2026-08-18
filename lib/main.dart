@@ -1,5 +1,5 @@
+import 'package:clustranotes_mobile/app/router/app_router.dart';
 import 'package:clustranotes_mobile/app/theme/app_theme.dart';
-import 'package:clustranotes_mobile/core/navigation/app_navigation_shell.dart';
 import 'package:clustranotes_mobile/firebase_options.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
@@ -27,17 +27,18 @@ void main() async{
   runApp(const ProviderScope(child: ClustraNotesApp()));
 }
 
-class ClustraNotesApp extends StatelessWidget {
+class ClustraNotesApp extends ConsumerWidget {
   const ClustraNotesApp({super.key});
 
   @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
+  Widget build(BuildContext context, WidgetRef ref) {
+    final router = ref.watch(appRouterProvider);
+    return MaterialApp.router(
       theme: AppTheme.light,
       darkTheme: AppTheme.dark,
       themeMode: ThemeMode.system,
       debugShowCheckedModeBanner: false,
-      home: AppNavigationShell(),
+      routerConfig: router,
     );
   }
 }

@@ -14,7 +14,7 @@ T _$identity<T>(T value) => value;
 /// @nodoc
 mixin _$AuthState {
 
- bool get isLoading; bool get isSendingVerification; bool get isCheckingVerification; int get verificationResendCooldown; User? get user; String? get error;
+ bool get isLoading; bool get isInitializing; int get verificationResendCooldown; AuthAction? get loadingAction; User? get user; String? get error;
 /// Create a copy of AuthState
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -25,16 +25,16 @@ $AuthStateCopyWith<AuthState> get copyWith => _$AuthStateCopyWithImpl<AuthState>
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is AuthState&&(identical(other.isLoading, isLoading) || other.isLoading == isLoading)&&(identical(other.isSendingVerification, isSendingVerification) || other.isSendingVerification == isSendingVerification)&&(identical(other.isCheckingVerification, isCheckingVerification) || other.isCheckingVerification == isCheckingVerification)&&(identical(other.verificationResendCooldown, verificationResendCooldown) || other.verificationResendCooldown == verificationResendCooldown)&&(identical(other.user, user) || other.user == user)&&(identical(other.error, error) || other.error == error));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is AuthState&&(identical(other.isLoading, isLoading) || other.isLoading == isLoading)&&(identical(other.isInitializing, isInitializing) || other.isInitializing == isInitializing)&&(identical(other.verificationResendCooldown, verificationResendCooldown) || other.verificationResendCooldown == verificationResendCooldown)&&(identical(other.loadingAction, loadingAction) || other.loadingAction == loadingAction)&&(identical(other.user, user) || other.user == user)&&(identical(other.error, error) || other.error == error));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,isLoading,isSendingVerification,isCheckingVerification,verificationResendCooldown,user,error);
+int get hashCode => Object.hash(runtimeType,isLoading,isInitializing,verificationResendCooldown,loadingAction,user,error);
 
 @override
 String toString() {
-  return 'AuthState(isLoading: $isLoading, isSendingVerification: $isSendingVerification, isCheckingVerification: $isCheckingVerification, verificationResendCooldown: $verificationResendCooldown, user: $user, error: $error)';
+  return 'AuthState(isLoading: $isLoading, isInitializing: $isInitializing, verificationResendCooldown: $verificationResendCooldown, loadingAction: $loadingAction, user: $user, error: $error)';
 }
 
 
@@ -45,7 +45,7 @@ abstract mixin class $AuthStateCopyWith<$Res>  {
   factory $AuthStateCopyWith(AuthState value, $Res Function(AuthState) _then) = _$AuthStateCopyWithImpl;
 @useResult
 $Res call({
- bool isLoading, bool isSendingVerification, bool isCheckingVerification, int verificationResendCooldown, User? user, String? error
+ bool isLoading, bool isInitializing, int verificationResendCooldown, AuthAction? loadingAction, User? user, String? error
 });
 
 
@@ -62,13 +62,13 @@ class _$AuthStateCopyWithImpl<$Res>
 
 /// Create a copy of AuthState
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? isLoading = null,Object? isSendingVerification = null,Object? isCheckingVerification = null,Object? verificationResendCooldown = null,Object? user = freezed,Object? error = freezed,}) {
+@pragma('vm:prefer-inline') @override $Res call({Object? isLoading = null,Object? isInitializing = null,Object? verificationResendCooldown = null,Object? loadingAction = freezed,Object? user = freezed,Object? error = freezed,}) {
   return _then(_self.copyWith(
 isLoading: null == isLoading ? _self.isLoading : isLoading // ignore: cast_nullable_to_non_nullable
-as bool,isSendingVerification: null == isSendingVerification ? _self.isSendingVerification : isSendingVerification // ignore: cast_nullable_to_non_nullable
-as bool,isCheckingVerification: null == isCheckingVerification ? _self.isCheckingVerification : isCheckingVerification // ignore: cast_nullable_to_non_nullable
+as bool,isInitializing: null == isInitializing ? _self.isInitializing : isInitializing // ignore: cast_nullable_to_non_nullable
 as bool,verificationResendCooldown: null == verificationResendCooldown ? _self.verificationResendCooldown : verificationResendCooldown // ignore: cast_nullable_to_non_nullable
-as int,user: freezed == user ? _self.user : user // ignore: cast_nullable_to_non_nullable
+as int,loadingAction: freezed == loadingAction ? _self.loadingAction : loadingAction // ignore: cast_nullable_to_non_nullable
+as AuthAction?,user: freezed == user ? _self.user : user // ignore: cast_nullable_to_non_nullable
 as User?,error: freezed == error ? _self.error : error // ignore: cast_nullable_to_non_nullable
 as String?,
   ));
@@ -155,10 +155,10 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( bool isLoading,  bool isSendingVerification,  bool isCheckingVerification,  int verificationResendCooldown,  User? user,  String? error)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( bool isLoading,  bool isInitializing,  int verificationResendCooldown,  AuthAction? loadingAction,  User? user,  String? error)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _AuthState() when $default != null:
-return $default(_that.isLoading,_that.isSendingVerification,_that.isCheckingVerification,_that.verificationResendCooldown,_that.user,_that.error);case _:
+return $default(_that.isLoading,_that.isInitializing,_that.verificationResendCooldown,_that.loadingAction,_that.user,_that.error);case _:
   return orElse();
 
 }
@@ -176,10 +176,10 @@ return $default(_that.isLoading,_that.isSendingVerification,_that.isCheckingVeri
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( bool isLoading,  bool isSendingVerification,  bool isCheckingVerification,  int verificationResendCooldown,  User? user,  String? error)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( bool isLoading,  bool isInitializing,  int verificationResendCooldown,  AuthAction? loadingAction,  User? user,  String? error)  $default,) {final _that = this;
 switch (_that) {
 case _AuthState():
-return $default(_that.isLoading,_that.isSendingVerification,_that.isCheckingVerification,_that.verificationResendCooldown,_that.user,_that.error);case _:
+return $default(_that.isLoading,_that.isInitializing,_that.verificationResendCooldown,_that.loadingAction,_that.user,_that.error);case _:
   throw StateError('Unexpected subclass');
 
 }
@@ -196,10 +196,10 @@ return $default(_that.isLoading,_that.isSendingVerification,_that.isCheckingVeri
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( bool isLoading,  bool isSendingVerification,  bool isCheckingVerification,  int verificationResendCooldown,  User? user,  String? error)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( bool isLoading,  bool isInitializing,  int verificationResendCooldown,  AuthAction? loadingAction,  User? user,  String? error)?  $default,) {final _that = this;
 switch (_that) {
 case _AuthState() when $default != null:
-return $default(_that.isLoading,_that.isSendingVerification,_that.isCheckingVerification,_that.verificationResendCooldown,_that.user,_that.error);case _:
+return $default(_that.isLoading,_that.isInitializing,_that.verificationResendCooldown,_that.loadingAction,_that.user,_that.error);case _:
   return null;
 
 }
@@ -210,14 +210,14 @@ return $default(_that.isLoading,_that.isSendingVerification,_that.isCheckingVeri
 /// @nodoc
 
 
-class _AuthState implements AuthState {
-  const _AuthState({this.isLoading = false, this.isSendingVerification = false, this.isCheckingVerification = false, this.verificationResendCooldown = 0, this.user, this.error});
+class _AuthState extends AuthState {
+  const _AuthState({this.isLoading = false, this.isInitializing = true, this.verificationResendCooldown = 0, this.loadingAction, this.user, this.error}): super._();
   
 
 @override@JsonKey() final  bool isLoading;
-@override@JsonKey() final  bool isSendingVerification;
-@override@JsonKey() final  bool isCheckingVerification;
+@override@JsonKey() final  bool isInitializing;
 @override@JsonKey() final  int verificationResendCooldown;
+@override final  AuthAction? loadingAction;
 @override final  User? user;
 @override final  String? error;
 
@@ -231,16 +231,16 @@ _$AuthStateCopyWith<_AuthState> get copyWith => __$AuthStateCopyWithImpl<_AuthSt
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _AuthState&&(identical(other.isLoading, isLoading) || other.isLoading == isLoading)&&(identical(other.isSendingVerification, isSendingVerification) || other.isSendingVerification == isSendingVerification)&&(identical(other.isCheckingVerification, isCheckingVerification) || other.isCheckingVerification == isCheckingVerification)&&(identical(other.verificationResendCooldown, verificationResendCooldown) || other.verificationResendCooldown == verificationResendCooldown)&&(identical(other.user, user) || other.user == user)&&(identical(other.error, error) || other.error == error));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _AuthState&&(identical(other.isLoading, isLoading) || other.isLoading == isLoading)&&(identical(other.isInitializing, isInitializing) || other.isInitializing == isInitializing)&&(identical(other.verificationResendCooldown, verificationResendCooldown) || other.verificationResendCooldown == verificationResendCooldown)&&(identical(other.loadingAction, loadingAction) || other.loadingAction == loadingAction)&&(identical(other.user, user) || other.user == user)&&(identical(other.error, error) || other.error == error));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,isLoading,isSendingVerification,isCheckingVerification,verificationResendCooldown,user,error);
+int get hashCode => Object.hash(runtimeType,isLoading,isInitializing,verificationResendCooldown,loadingAction,user,error);
 
 @override
 String toString() {
-  return 'AuthState(isLoading: $isLoading, isSendingVerification: $isSendingVerification, isCheckingVerification: $isCheckingVerification, verificationResendCooldown: $verificationResendCooldown, user: $user, error: $error)';
+  return 'AuthState(isLoading: $isLoading, isInitializing: $isInitializing, verificationResendCooldown: $verificationResendCooldown, loadingAction: $loadingAction, user: $user, error: $error)';
 }
 
 
@@ -251,7 +251,7 @@ abstract mixin class _$AuthStateCopyWith<$Res> implements $AuthStateCopyWith<$Re
   factory _$AuthStateCopyWith(_AuthState value, $Res Function(_AuthState) _then) = __$AuthStateCopyWithImpl;
 @override @useResult
 $Res call({
- bool isLoading, bool isSendingVerification, bool isCheckingVerification, int verificationResendCooldown, User? user, String? error
+ bool isLoading, bool isInitializing, int verificationResendCooldown, AuthAction? loadingAction, User? user, String? error
 });
 
 
@@ -268,13 +268,13 @@ class __$AuthStateCopyWithImpl<$Res>
 
 /// Create a copy of AuthState
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? isLoading = null,Object? isSendingVerification = null,Object? isCheckingVerification = null,Object? verificationResendCooldown = null,Object? user = freezed,Object? error = freezed,}) {
+@override @pragma('vm:prefer-inline') $Res call({Object? isLoading = null,Object? isInitializing = null,Object? verificationResendCooldown = null,Object? loadingAction = freezed,Object? user = freezed,Object? error = freezed,}) {
   return _then(_AuthState(
 isLoading: null == isLoading ? _self.isLoading : isLoading // ignore: cast_nullable_to_non_nullable
-as bool,isSendingVerification: null == isSendingVerification ? _self.isSendingVerification : isSendingVerification // ignore: cast_nullable_to_non_nullable
-as bool,isCheckingVerification: null == isCheckingVerification ? _self.isCheckingVerification : isCheckingVerification // ignore: cast_nullable_to_non_nullable
+as bool,isInitializing: null == isInitializing ? _self.isInitializing : isInitializing // ignore: cast_nullable_to_non_nullable
 as bool,verificationResendCooldown: null == verificationResendCooldown ? _self.verificationResendCooldown : verificationResendCooldown // ignore: cast_nullable_to_non_nullable
-as int,user: freezed == user ? _self.user : user // ignore: cast_nullable_to_non_nullable
+as int,loadingAction: freezed == loadingAction ? _self.loadingAction : loadingAction // ignore: cast_nullable_to_non_nullable
+as AuthAction?,user: freezed == user ? _self.user : user // ignore: cast_nullable_to_non_nullable
 as User?,error: freezed == error ? _self.error : error // ignore: cast_nullable_to_non_nullable
 as String?,
   ));

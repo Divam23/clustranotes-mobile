@@ -26,7 +26,6 @@ class _SignupScreenState extends ConsumerState<SignupScreen> {
   final TextEditingController _confirmPasswordController =
       TextEditingController();
 
-
   @override
   void dispose() {
     _nameController.dispose();
@@ -51,7 +50,7 @@ class _SignupScreenState extends ConsumerState<SignupScreen> {
     });
   }
 
-  Future<void> _submit() async{
+  Future<void> _submit() async {
     if (!_formKey.currentState!.validate()) {
       return;
     }
@@ -63,10 +62,15 @@ class _SignupScreenState extends ConsumerState<SignupScreen> {
           email: _emailController.text.trim(),
           password: _passwordController.text.trim(),
         );
-    
-    if(!mounted) return;
-    if(success){
-      Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=> const EmailVerificationScreen()));
+
+    if (!mounted) return;
+    if (success) {
+      Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(
+          builder: (context) => const EmailVerificationScreen(),
+        ),
+      );
     }
   }
 
@@ -113,12 +117,11 @@ class _SignupScreenState extends ConsumerState<SignupScreen> {
                 ],
               ),
               RepaintBoundary(
-                  child: SvgPicture.asset(
-                    "assets/animations/signup_storyset.svg",
-                    width: 240,
-                  ),
-              )
-              ,
+                child: SvgPicture.asset(
+                  "assets/animations/signup_storyset.svg",
+                  width: 240,
+                ),
+              ),
               Form(
                 key: _formKey,
                 child: Column(
@@ -212,6 +215,115 @@ class _SignupScreenState extends ConsumerState<SignupScreen> {
                             return null;
                           },
                         ),
+                        const SizedBox(height: AppSpacing.lg),
+                        Column(
+                          mainAxisSize: MainAxisSize.min,
+                          spacing: AppSpacing.md,
+                          children: [
+                            Row(
+                              children: [
+                                Expanded(
+                                  child: MultiUtilityButton(
+                                    elevation: 1,
+                                    onPressed: () {
+                                      authState.isLoading ? null : _submit();
+                                    },
+                                    text: "",
+                                    borderColor: AppColors.transparent,
+                                    borderRadius: AppRadius.searchBarRounded,
+                                    buttonColor: authState.isLoading
+                                        ? AppColors.transparent
+                                        : theme.colorScheme.primary,
+                                    child: Container(
+                                      padding: const EdgeInsets.symmetric(
+                                        vertical: AppSpacing.lg,
+                                        horizontal: AppSpacing.lg,
+                                      ),
+                                      child: authState.isLoading
+                                          ? Row(
+                                              spacing: AppSpacing.md,
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment.center,
+                                              children: [
+                                                Text(
+                                                  "Creating Account",
+                                                  textAlign: TextAlign.center,
+                                                  style: theme
+                                                      .textTheme
+                                                      .bodyMedium
+                                                      ?.copyWith(
+                                                        color: theme
+                                                            .colorScheme
+                                                            .onPrimary,
+                                                        fontWeight:
+                                                            FontWeight.bold,
+                                                      ),
+                                                ),
+                                                const SizedBox(
+                                                  width: 16,
+                                                  height: 16,
+                                                  child:
+                                                      CircularProgressIndicator(
+                                                        strokeWidth: 2,
+                                                      ),
+                                                ),
+                                              ],
+                                            )
+                                          : Text(
+                                              "Create Account",
+                                              textAlign: TextAlign.center,
+                                              style: theme.textTheme.bodyMedium
+                                                  ?.copyWith(
+                                                    color: theme
+                                                        .colorScheme
+                                                        .onPrimary,
+                                                    fontWeight: FontWeight.bold,
+                                                  ),
+                                            ),
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            ),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Row(
+                                  spacing: AppSpacing.sm,
+                                  children: [
+                                    Text(
+                                      "Already a user?",
+                                      textAlign: TextAlign.center,
+                                      style: theme.textTheme.labelLarge
+                                          ?.copyWith(
+                                            color: theme.disabledColor,
+                                          ),
+                                    ),
+                                    GestureDetector(
+                                      onTap: () {
+                                        Navigator.pushReplacement(
+                                          context,
+                                          MaterialPageRoute(
+                                            builder: (context) =>
+                                                const LoginScreen(),
+                                          ),
+                                        );
+                                      },
+                                      child: Text(
+                                        "Sign In",
+                                        textAlign: TextAlign.center,
+                                        style: theme.textTheme.labelLarge
+                                            ?.copyWith(
+                                              color: theme.colorScheme.primary,
+                                            ),
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ],
+                            ),
+                          ],
+                        ),
                       ],
                     ),
                   ],
@@ -221,109 +333,6 @@ class _SignupScreenState extends ConsumerState<SignupScreen> {
           ),
         ),
       ),
-      bottomNavigationBar: Padding(
-        padding: const EdgeInsets.symmetric(
-          horizontal: AppSpacing.screenPadding,
-          vertical: AppSpacing.xl,
-        ),
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          spacing: AppSpacing.md,
-          children: [
-            Row(
-              children: [
-                Expanded(
-                  child: MultiUtilityButton(
-                    elevation: 1,
-                    onPressed: () {
-                      authState.isLoading
-                          ? null
-                          : _submit();
-                    },
-                    text: "",
-                    borderColor: AppColors.transparent,
-                    borderRadius: AppRadius.searchBarRounded,
-                    buttonColor: authState.isLoading
-                        ? AppColors.transparent
-                        : theme.colorScheme.primary,
-                    child: Container(
-                      padding: const EdgeInsets.symmetric(
-                        vertical: AppSpacing.lg,
-                        horizontal: AppSpacing.lg,
-                      ),
-                      child: authState.isLoading
-                          ? Row(
-                              spacing: AppSpacing.md,
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                Text(
-                                  "Creating Account",
-                                  textAlign: TextAlign.center,
-                                  style: theme.textTheme.bodyMedium?.copyWith(
-                                    color: theme.colorScheme.onPrimary,
-                                    fontWeight: FontWeight.bold,
-                                  ),
-                                ),
-                                const SizedBox(
-                                  width: 16,
-                                  height: 16,
-                                  child: CircularProgressIndicator(
-                                    strokeWidth: 2,
-                                  ),
-                                ),
-                              ],
-                            )
-                          : Text(
-                              "Create Account",
-                              textAlign: TextAlign.center,
-                              style: theme.textTheme.bodyMedium?.copyWith(
-                                color: theme.colorScheme.onPrimary,
-                                fontWeight: FontWeight.bold,
-                              ),
-                            ),
-                    ),
-                  ),
-                ),
-              ],
-            ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Row(
-                  spacing: AppSpacing.sm,
-                  children: [
-                    Text(
-                      "Already a user?",
-                      textAlign: TextAlign.center,
-                      style: theme.textTheme.labelLarge?.copyWith(
-                        color: theme.disabledColor,
-                      ),
-                    ),
-                    GestureDetector(
-                      onTap: () {
-                        Navigator.pushReplacement(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => const LoginScreen(),
-                          ),
-                        );
-                      },
-                      child: Text(
-                        "Sign In",
-                        textAlign: TextAlign.center,
-                        style: theme.textTheme.labelLarge?.copyWith(
-                          color: theme.colorScheme.primary,
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
-              ],
-            ),
-          ],
-        ),
-      ),
     );
   }
-
 }

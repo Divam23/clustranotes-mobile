@@ -1,5 +1,6 @@
 import 'package:clustranotes_mobile/app/theme/app_icons.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 
 class AppBackButton extends StatelessWidget{
   const AppBackButton({super.key});
@@ -13,7 +14,7 @@ class AppBackButton extends StatelessWidget{
         padding: EdgeInsets.zero,
         constraints: const BoxConstraints(),
         onPressed: () {
-          Navigator.pop(context);
+          context.pop();
         },
         icon: Icon(AppIcons.back),
       ),

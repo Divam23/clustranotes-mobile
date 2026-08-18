@@ -1,4 +1,3 @@
-import 'package:clustranotes_mobile/core/api/providers/api_client_provider.dart';
 import 'package:clustranotes_mobile/core/firebase/provider/firebase_auth_provider.dart';
 import 'package:clustranotes_mobile/core/firebase/provider/google_sign_in_provider.dart';
 import 'package:clustranotes_mobile/features/auth/data/datasource/auth_remote_data_source.dart';
