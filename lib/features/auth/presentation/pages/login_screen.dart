@@ -1,3 +1,4 @@
+import 'package:clustranotes_mobile/app/router/app_route_paths.dart';
 import 'package:clustranotes_mobile/app/theme/theme.dart';
 import 'package:clustranotes_mobile/core/utils/validators/form_validators.dart';
 import 'package:clustranotes_mobile/core/widgets/button/app_back_button.dart';
@@ -9,6 +10,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:clustranotes_mobile/features/auth/presentation/widgets/auth_textfield.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:go_router/go_router.dart';
 
 class LoginScreen extends ConsumerStatefulWidget {
   const LoginScreen({super.key});
@@ -229,12 +231,7 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                                     ),
                                     GestureDetector(
                                       onTap: () {
-                                        Navigator.pushReplacement(
-                                          context,
-                                          MaterialPageRoute(
-                                            builder: (context) => const SignupScreen(),
-                                          ),
-                                        );
+                                        context.go(AppRoutePaths.signup);
                                       },
                                       child: Text(
                                         "Start Here",

@@ -1,117 +1,91 @@
+import 'package:clustranotes_mobile/app/router/app_route_paths.dart';
 import 'package:clustranotes_mobile/app/router/auth_router_notifier.dart';
-import 'package:clustranotes_mobile/core/navigation/app_navigation_shell.dart';
+import 'package:clustranotes_mobile/app/router/routes/auth_routes.dart';
+import 'package:clustranotes_mobile/app/router/routes/app_shell_routes.dart';
 import 'package:clustranotes_mobile/features/auth/domain/enum/auth_status_enum.dart';
 import 'package:clustranotes_mobile/features/auth/notifier/auth_state.dart';
-import 'package:clustranotes_mobile/features/auth/presentation/pages/auth_splash_screen.dart';
-import 'package:clustranotes_mobile/features/auth/presentation/pages/email_verification_screen.dart';
-import 'package:clustranotes_mobile/features/auth/presentation/pages/forgot_password_screen.dart';
-import 'package:clustranotes_mobile/features/auth/presentation/pages/login_screen.dart';
-import 'package:clustranotes_mobile/features/auth/presentation/pages/main_auth_screen.dart';
-import 'package:clustranotes_mobile/features/auth/presentation/pages/signup_screen.dart';
 import 'package:clustranotes_mobile/features/auth/providers/auth_providers.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
-final appRouterNotifierProvider = Provider<AuthRouterNotifier>((ref){
-  final notifier = AuthRouterNotifier(
-    ref.read(authNotifierProvider)
-  );
-  
-  ref.listen<AuthState>(
-    authNotifierProvider,
-      (_, next){
-      notifier.update(next);
-      }
-  );
-  
+final authRouterNotifierProvider = Provider<AuthRouterNotifier>((ref) {
+  final notifier = AuthRouterNotifier(ref.read(authNotifierProvider));
+
+  ref.listen<AuthState>(authNotifierProvider, (_, next) {
+    notifier.update(next);
+  });
+
   ref.onDispose(notifier.dispose);
-  
+
   return notifier;
 });
 
+final appRouterProvider = Provider<GoRouter>((ref) {
+  final authRouterNotifier = ref.read(authRouterNotifierProvider);
 
-final appRouterProvider = Provider<GoRouter>((ref){
-  final authRouterNotifier = ref.read(appRouterNotifierProvider);
-  
   return GoRouter(
-    initialLocation: '/splash',
+    initialLocation: AppRoutePaths.splash,
     refreshListenable: authRouterNotifier,
-    redirect: (context, state){
+    redirect: (context, state) {
+      debugPrint(
+        'ROUTER: ${state.matchedLocation} '
+            '| AUTH: ${authRouterNotifier.authState.status} '
+            '| LOCATION: ${state.matchedLocation} '
+            '| USER: ${authRouterNotifier.authState.user?.email}',
+      );
       final authState = authRouterNotifier.authState;
-      
+
       final location = state.matchedLocation;
       if (authState.status == AuthStatus.initializing) {
-        if (location == '/splash') {
-          return null;
-        }
-
-        return '/splash';
+        return location == AppRoutePaths.splash
+            ? null
+            : AppRoutePaths.splash;
       }
+
+      final isAuthRoute =
+          location == AppRoutePaths.root ||
+          location == AppRoutePaths.login ||
+          location == AppRoutePaths.signup ||
+          location == AppRoutePaths.forgotPassword;
       
-      final isAuthRoute = location == '/' || location == '/login' || location == '/signup' || location == '/forgot-password';
-      final isVerificationRoute = location == "/email-verification";
-      final isAppRoute = location.startsWith("/home");
-      
-      switch(authState.status){
+      final isVerificationRoute = location == AppRoutePaths.emailVerification;
+
+      final isAppRoute =
+          location == AppRoutePaths.home ||
+              location == AppRoutePaths.explore ||
+              location == AppRoutePaths.upload ||
+              location == AppRoutePaths.library ||
+              location == AppRoutePaths.profile;
+
+      switch (authState.status) {
         case AuthStatus.initializing:
-          return '/splash';
-          
+          return AppRoutePaths.splash;
+
         case AuthStatus.unauthenticated:
-          if(isAuthRoute){
+          if (isAuthRoute) {
             return null;
           }
-          
-          return '/';
-          
+
+          return AppRoutePaths.root;
+
         case AuthStatus.emailUnverified:
-          if(isVerificationRoute){
+          if (isVerificationRoute) {
             return null;
           }
-          
-          return '/email-verification';
-        
+
+          return AppRoutePaths.emailVerification;
+
         case AuthStatus.authenticated:
-          if(isAppRoute){
+          if (isAppRoute) {
             return null;
           }
-          return '/home';
+          return AppRoutePaths.home;
       }
     },
     routes: [
-      GoRoute(
-        path: "/",
-        builder: (context, state) => const MainAuthScreen()
-      ),
-      
-      GoRoute(
-        path: "/splash",
-        builder: (context, state) => const AuthSplashScreen()
-      ),
-      
-      GoRoute(
-        path: "/login",
-        builder: (context, state) => const LoginScreen(),
-      ),
-      
-      GoRoute(
-        path: "/signup",
-        builder: (context, state) => const SignupScreen(),
-      ),
-
-      GoRoute(
-        path: '/forgot-password',
-        builder: (context, state) => const ForgotPasswordScreen(),
-      ),
-
-      GoRoute(
-        path: '/email-verification',
-        builder: (context, state) => const EmailVerificationScreen(),
-      ),
-
-      GoRoute(
-        path: '/home',
-        builder: (context, state) => const AppNavigationShell(),
-      ),
+      ...authRoutes,
+      ...homeRoutes
     ],
   );
 });

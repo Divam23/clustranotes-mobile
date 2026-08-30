@@ -1,5 +1,5 @@
-import 'package:clustranotes_mobile/features/user/models/user_enums.dart';
-import 'package:clustranotes_mobile/features/user/models/user_summary.dart';
+import 'package:clustranotes_mobile/features/user/domain/enums/user_enums.dart';
+import 'package:clustranotes_mobile/features/user/domain/models/user_summary.dart';
 
 final dummyUsers = [
   UserSummary(

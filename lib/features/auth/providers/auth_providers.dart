@@ -1,3 +1,4 @@
+import 'package:clustranotes_mobile/core/api/providers/api_client_provider.dart';
 import 'package:clustranotes_mobile/core/firebase/provider/firebase_auth_provider.dart';
 import 'package:clustranotes_mobile/core/firebase/provider/google_sign_in_provider.dart';
 import 'package:clustranotes_mobile/features/auth/data/datasource/auth_remote_data_source.dart';
@@ -9,7 +10,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_riverpod/legacy.dart';
 
 final authRemoteDataSourceProvider = Provider<AuthRemoteDataSource>((ref){
-  return AuthRemoteDataSource(ref.read(firebaseAuthProvider), ref.read(googleSignInProvider));
+  return AuthRemoteDataSource(ref.read(firebaseAuthProvider), ref.read(googleSignInProvider), ref.read(apiClientProvider));
 }); 
 
 final authRepositoryProvider = Provider<AuthRepository>((ref){

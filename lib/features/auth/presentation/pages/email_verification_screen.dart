@@ -1,11 +1,10 @@
+import 'package:clustranotes_mobile/app/theme/theme.dart';
 import 'package:clustranotes_mobile/core/utils/formatters/formatter.dart';
 import 'package:clustranotes_mobile/core/widgets/button/app_back_button.dart';
 import 'package:clustranotes_mobile/core/widgets/button/multi_utility_button.dart';
 import 'package:clustranotes_mobile/features/auth/domain/enum/auth_action_enum.dart';
 import 'package:clustranotes_mobile/features/auth/providers/auth_providers.dart';
-import 'package:clustranotes_mobile/features/home/presentation/pages/home_screen.dart';
 import 'package:flutter/material.dart';
-import 'package:clustranotes_mobile/app/theme/theme.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_svg/svg.dart';
 
@@ -17,82 +16,96 @@ class EmailVerificationScreen extends ConsumerWidget {
     final theme = Theme.of(context);
     final authProvider = ref.watch(authNotifierProvider);
     final authNotifier = ref.read(authNotifierProvider.notifier);
-    final isResending = authProvider.isLoading && authProvider.loadingAction == AuthAction.resendVerification;
+
+    final isResending =
+        authProvider.isLoading &&
+        authProvider.loadingAction == AuthAction.resendVerification;
+    final isVerifying =
+        authProvider.isLoading &&
+        authProvider.loadingAction == AuthAction.checkVerification;
+    final isSigningOut =
+        authProvider.isLoading &&
+        authProvider.loadingAction == AuthAction.signOut;
+
     final timer = authProvider.verificationResendCooldown;
-    final canResend = timer == 0 && !authProvider.isLoading;
-    final email = authProvider.user?.email ?? "your email.";
+    final canResend = timer <= 0 && !authProvider.isLoading;
+    final email = authProvider.user?.email ?? "your email address";
+
     return Scaffold(
-      appBar: AppBar(leading: const AppBackButton()),
+      appBar: AppBar(
+        leading: const AppBackButton(),
+        elevation: 0,
+        backgroundColor: Colors.transparent,
+      ),
       body: SafeArea(
         child: LayoutBuilder(
           builder: (context, constraints) {
             return SingleChildScrollView(
+              padding: const EdgeInsets.symmetric(
+                horizontal: AppSpacing.screenPadding,
+                vertical: AppSpacing.md,
+              ),
               child: ConstrainedBox(
-                constraints: BoxConstraints(minHeight: constraints.maxHeight),
-                child: Padding(
-                  padding: const EdgeInsets.symmetric(
-                    horizontal: AppSpacing.screenPadding,
-                    vertical: AppSpacing.md,
-                  ),
+                constraints: BoxConstraints(
+                  minHeight: constraints.maxHeight - (AppSpacing.md * 2),
+                ),
+                child: IntrinsicHeight(
                   child: Column(
-                    spacing: AppSpacing.lg,
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    crossAxisAlignment: CrossAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.stretch,
                     children: [
-                      SvgPicture.asset(
-                        "assets/animations/undraw_email_verification_link.svg",
-                        width: 240,
+                      const SizedBox(height: AppSpacing.sm),
+
+                      Center(
+                        child: SvgPicture.asset(
+                          "assets/animations/undraw_email_verification_link.svg",
+                          width: 200,
+                        ),
                       ),
-                      Column(
-                        mainAxisSize: MainAxisSize.min,
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: [
-                          Text(
-                            "Verify your email",
-                            textAlign: TextAlign.center,
-                            style: theme.textTheme.headlineLarge?.copyWith(
-                              fontWeight: FontWeight.w600,
-                            ),
-                          ),
+                      const SizedBox(height: AppSpacing.xl),
 
-                          const SizedBox(height: AppSpacing.sm),
-
-                          Text(
-                            "We've sent a verification link to",
-                            textAlign: TextAlign.center,
-                            style: theme.textTheme.bodyMedium?.copyWith(
-                              color: theme.colorScheme.onSurfaceVariant,
-                            ),
-                          ),
-
-                          const SizedBox(height: AppSpacing.xs),
-
-                          Text(
-                            email,
-                            textAlign: TextAlign.center,
-                            style: theme.textTheme.bodyMedium?.copyWith(
-                              fontWeight: FontWeight.w600,
-                              color: theme.colorScheme.primary,
-                            ),
-                          ),
-
-                          const SizedBox(height: AppSpacing.md),
-
-                          Padding(
-                            padding: const EdgeInsets.symmetric(
-                              horizontal: AppSpacing.md,
-                            ),
-                            child: Text(
-                              "Please check your inbox and click the link to verify your email address.",
-                              textAlign: TextAlign.center,
-                              style: theme.textTheme.bodySmall?.copyWith(
-                                color: theme.colorScheme.onSurfaceVariant,
-                                height: 1.4,
-                              ),
-                            ),
-                          ),
-                        ],
+                      Text(
+                        "Verify your email",
+                        textAlign: TextAlign.center,
+                        style: theme.textTheme.headlineLarge?.copyWith(
+                          fontWeight: FontWeight.w600,
+                        ),
                       ),
+                      const SizedBox(height: AppSpacing.sm),
+                      Text(
+                        "We've sent a verification link to",
+                        textAlign: TextAlign.center,
+                        style: theme.textTheme.bodyMedium?.copyWith(
+                          color: theme.colorScheme.onSurfaceVariant,
+                        ),
+                      ),
+                      const SizedBox(height: AppSpacing.xs),
+                      Text(
+                        email,
+                        textAlign: TextAlign.center,
+                        style: theme.textTheme.bodyMedium?.copyWith(
+                          fontWeight: FontWeight.w600,
+                          color: theme.colorScheme.primary,
+                        ),
+                      ),
+                      const SizedBox(height: AppSpacing.md),
+                      Padding(
+                        padding: const EdgeInsets.symmetric(
+                          horizontal: AppSpacing.md,
+                        ),
+
+                        child: Text(
+                          "Please check your inbox and click the link to verify your email address.",
+                          textAlign: TextAlign.center,
+                          style: theme.textTheme.bodySmall?.copyWith(
+                            color: theme.colorScheme.onSurfaceVariant,
+                            height: 1.4,
+                          ),
+                        ),
+                      ),
+                      const SizedBox(height: AppSpacing.lg),
+                      const Spacer(),
+                      const SizedBox(height: AppSpacing.xl),
+
                       Card(
                         elevation: 0,
                         color: theme.colorScheme.primary.withValues(
@@ -105,23 +118,22 @@ class EmailVerificationScreen extends ConsumerWidget {
                           padding: const EdgeInsets.all(AppSpacing.md),
                           child: Row(
                             crossAxisAlignment: CrossAxisAlignment.start,
-                            spacing: AppSpacing.md,
                             children: [
                               Icon(
                                 AppIcons.info,
-                                color: AppColors.primarySky,
+                                color: theme.colorScheme.primary,
                                 size: 24,
                               ),
-
+                              const SizedBox(width: AppSpacing.md),
                               Expanded(
                                 child: Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
-                                  spacing: AppSpacing.xs,
                                   children: [
                                     Text(
                                       "Didn't receive the email?",
                                       style: theme.textTheme.labelLarge,
                                     ),
+                                    const SizedBox(height: 2),
                                     Text(
                                       "Check your spam folder or resend the verification email.",
                                       style: theme.textTheme.bodySmall
@@ -138,150 +150,131 @@ class EmailVerificationScreen extends ConsumerWidget {
                           ),
                         ),
                       ),
+
+                      const SizedBox(height: AppSpacing.md),
+
                       Column(
-                        spacing: AppSpacing.md,
+                        crossAxisAlignment: CrossAxisAlignment.stretch,
                         children: [
-                          Row(
-                            children: [
-                              Expanded(
-                                child: MultiUtilityButton(
-                                  elevation: 1,
-                                  onPressed: canResend
-                                      ? () async {
-                                          await authNotifier
-                                              .resendEmailVerificationLink();
-                                        }
-                                      : null,
-                                  text: "",
-                                  borderColor: AppColors.transparent,
-                                  borderRadius: AppRadius.searchBarRounded,
-                                  buttonColor: theme.colorScheme.primary,
-                                  child: Container(
-                                    padding: const EdgeInsets.symmetric(
-                                      vertical: AppSpacing.lg,
-                                      horizontal: AppSpacing.lg,
-                                    ),
-                                    child: isResending
-                                        ? Row(
-                                            spacing: AppSpacing.md,
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.center,
-                                            children: [
-                                              const SizedBox(
-                                                width: 16,
-                                                height: 16,
-                                                child:
-                                                    CircularProgressIndicator(
-                                                      strokeWidth: 2,
-                                                    ),
-                                              ),
-                                              Text(
-                                                "Sending",
-                                                textAlign: TextAlign.center,
-                                                style: theme
-                                                    .textTheme
-                                                    .bodyMedium
-                                                    ?.copyWith(
-                                                      color: theme
-                                                          .colorScheme
-                                                          .onPrimary,
-                                                      fontWeight:
-                                                          FontWeight.w600,
-                                                    ),
-                                              ),
-                                            ],
-                                          )
-                                        : timer > 0
-                                        ? Text(
-                                            "Resend in ${NumberFormatter.labelWithCount(count: timer, singularLabel: "second", pluralLabel: "seconds")}",
-                                            textAlign: TextAlign.center,
-                                            style: theme.textTheme.bodyMedium
-                                                ?.copyWith(
-                                                  color: theme
-                                                      .colorScheme
-                                                      .onPrimary,
-                                                  fontWeight: FontWeight.w600,
-                                                ),
-                                          )
-                                        : Row(
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.center,
-                                            spacing: AppSpacing.xs,
-                                            children: [
-                                              Icon(
-                                                AppIcons.refresh,
-                                                color:
-                                                    theme.colorScheme.onPrimary,
-                                                size: 20,
-                                              ),
-                                              Text(
-                                                "Resend Email",
-                                                textAlign: TextAlign.center,
-                                                style: theme
-                                                    .textTheme
-                                                    .bodyMedium
-                                                    ?.copyWith(
-                                                      color: theme
-                                                          .colorScheme
-                                                          .onPrimary,
-                                                      fontWeight:
-                                                          FontWeight.w600,
-                                                    ),
-                                              ),
-                                            ],
-                                          ),
-                                  ),
-                                ),
+                          MultiUtilityButton(
+                            elevation: 0,
+                            onPressed: authProvider.isLoading
+                                ? null
+                                : () async {
+                                    await authNotifier.checkEmailVerification();
+                                  },
+                            text: "",
+                            borderColor: AppColors.transparent,
+                            borderRadius: AppRadius.searchBarRounded,
+                            buttonColor: theme.colorScheme.primary,
+                            child: Padding(
+                              padding: const EdgeInsets.symmetric(
+                                vertical: AppSpacing.md + 2,
                               ),
-                            ],
-                          ),
-                          Row(
-                            children: [
-                              Expanded(
-                                child: MultiUtilityButton(
-                                  elevation: 1,
-                                  onPressed:
-                                      authProvider.isLoading &&
-                                          authProvider.loadingAction ==
-                                              AuthAction.checkVerification
-                                      ? null
-                                      : () async {
-                                          final verified = await authNotifier
-                                              .checkEmailVerification();
-                                          if (context.mounted && verified) {
-                                            Navigator.pushReplacement(
-                                              context,
-                                              MaterialPageRoute(
-                                                builder: (context) =>
-                                                    const HomeScreen(),
-                                              ),
-                                            );
-                                          }
-                                        },
-                                  text: "",
-                                  borderColor: theme.disabledColor.withValues(
-                                    alpha: 0.1,
-                                  ),
-                                  borderRadius: AppRadius.searchBarRounded,
-                                  buttonColor: theme.colorScheme.onPrimary,
-                                  child: Container(
-                                    padding: const EdgeInsets.symmetric(
-                                      vertical: AppSpacing.lg,
-                                      horizontal: AppSpacing.lg,
-                                    ),
-                                    child: Text(
+                              child: isVerifying
+                                  ? _ButtonLoadingContent(
+                                      label: "Verifying...",
+                                      textColor: theme.colorScheme.onPrimary,
+                                    )
+                                  : Text(
                                       "I've Verified, Continue",
                                       textAlign: TextAlign.center,
                                       style: theme.textTheme.bodyMedium
                                           ?.copyWith(
-                                            color: theme.colorScheme.scrim,
+                                            color: theme.colorScheme.onPrimary,
                                             fontWeight: FontWeight.w600,
                                           ),
                                     ),
-                                  ),
-                                ),
+                            ),
+                          ),
+                          const SizedBox(height: AppSpacing.sm),
+
+                          MultiUtilityButton(
+                            elevation: 0,
+                            onPressed: canResend
+                                ? () async {
+                                    await authNotifier
+                                        .resendEmailVerificationLink();
+                                  }
+                                : null,
+                            text: "",
+                            borderColor: theme.colorScheme.outlineVariant
+                                .withValues(alpha: 0.5),
+                            borderRadius: AppRadius.searchBarRounded,
+                            buttonColor: theme
+                                .colorScheme
+                                .surfaceContainerHighest
+                                .withValues(alpha: 0.5),
+                            child: Padding(
+                              padding: const EdgeInsets.symmetric(
+                                vertical: AppSpacing.md + 2,
                               ),
-                            ],
+                              child: isResending
+                                  ? _ButtonLoadingContent(
+                                      label: "Sending...",
+                                      textColor: theme.colorScheme.primary,
+                                    )
+                                  : timer > 0
+                                  ? Text(
+                                      "Resend in ${NumberFormatter.labelWithCount(count: timer, singularLabel: "second", pluralLabel: "seconds")}",
+                                      textAlign: TextAlign.center,
+                                      style: theme.textTheme.bodyMedium
+                                          ?.copyWith(
+                                            color: theme
+                                                .colorScheme
+                                                .onSurfaceVariant,
+                                            fontWeight: FontWeight.w500,
+                                          ),
+                                    )
+                                  : Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
+                                      mainAxisSize: MainAxisSize.min,
+                                      children: [
+                                        Icon(
+                                          AppIcons.refresh,
+                                          color: theme.colorScheme.primary,
+                                          size: 18,
+                                        ),
+                                        const SizedBox(width: AppSpacing.xs),
+                                        Text(
+                                          "Resend Email",
+                                          style: theme.textTheme.bodyMedium
+                                              ?.copyWith(
+                                                color:
+                                                    theme.colorScheme.primary,
+                                                fontWeight: FontWeight.w600,
+                                              ),
+                                        ),
+                                      ],
+                                    ),
+                            ),
+                          ),
+                          const SizedBox(height: AppSpacing.xs),
+
+                          TextButton(
+                            onPressed: authProvider.isLoading
+                                ? null
+                                : () async {
+                                    await authNotifier.signOut();
+                                  },
+                            style: TextButton.styleFrom(
+                              padding: const EdgeInsets.symmetric(
+                                vertical: AppSpacing.sm,
+                              ),
+                            ),
+                            child: isSigningOut
+                                ? _ButtonLoadingContent(
+                                    label: "Signing out...",
+                                    textColor: theme.colorScheme.error,
+                                  )
+                                : Text(
+                                    "Use another account",
+                                    style: theme.textTheme.bodyMedium?.copyWith(
+                                      color: theme.colorScheme.onSurfaceVariant,
+                                      fontWeight: FontWeight.w500,
+                                    ),
+                                  ),
                           ),
                         ],
                       ),
@@ -293,6 +286,39 @@ class EmailVerificationScreen extends ConsumerWidget {
           },
         ),
       ),
+    );
+  }
+}
+
+class _ButtonLoadingContent extends StatelessWidget {
+  final String label;
+  final Color textColor;
+
+  const _ButtonLoadingContent({required this.label, required this.textColor});
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.center,
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        SizedBox(
+          width: 16,
+          height: 16,
+          child: CircularProgressIndicator(
+            strokeWidth: 2,
+            valueColor: AlwaysStoppedAnimation<Color>(textColor),
+          ),
+        ),
+        const SizedBox(width: AppSpacing.sm),
+        Text(
+          label,
+          style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+            color: textColor,
+            fontWeight: FontWeight.w600,
+          ),
+        ),
+      ],
     );
   }
 }

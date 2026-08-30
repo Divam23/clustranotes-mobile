@@ -77,15 +77,15 @@ flutter:
 
 flutter_native_splash:
   color: "#FFFFFF"
-  image: assets/icons/clustra_logo.png
+  image: assets/icons/logo_light.png
   fullscreen: true
 
   color_dark: "#121212"
-  image_dark: assets/icons/clustra_logo.png
+  image_dark: assets/icons/logo_dark.png
 
   android_12:
     color: "#FFFFFF"
-    image: assets/icons/clustra_logo.png
+    image: assets/icons/logo_light.png
 
     color_dark: "#121212"
-    image_dark: assets/icons/clustra_logo.png
+    image_dark: assets/icons/logo_dark.png

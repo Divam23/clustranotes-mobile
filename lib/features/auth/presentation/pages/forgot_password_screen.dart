@@ -2,12 +2,12 @@ import 'package:clustranotes_mobile/app/theme/theme.dart';
 import 'package:clustranotes_mobile/core/utils/validators/form_validators.dart';
 import 'package:clustranotes_mobile/core/widgets/button/app_back_button.dart';
 import 'package:clustranotes_mobile/core/widgets/button/multi_utility_button.dart';
-import 'package:clustranotes_mobile/features/auth/presentation/pages/forgot_password_email_sent.dart';
 import 'package:clustranotes_mobile/features/auth/presentation/widgets/auth_textfield.dart';
 import 'package:clustranotes_mobile/features/auth/providers/auth_providers.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:go_router/go_router.dart';
 
 class ForgotPasswordScreen extends ConsumerStatefulWidget {
   const ForgotPasswordScreen({super.key});
@@ -53,7 +53,7 @@ class _ForgotPasswordScreenState extends ConsumerState<ForgotPasswordScreen> {
               Center(
                 child: SvgPicture.asset(
                   "assets/animations/forgot_password.svg",
-                  width: 240,
+                  width: 350,
                 ),
               ),
               Column(
@@ -108,13 +108,7 @@ class _ForgotPasswordScreenState extends ConsumerState<ForgotPasswordScreen> {
                                       final success = await _submit();
                                       if (!context.mounted) return;
                                       if (success) {
-                                        Navigator.push(
-                                          context,
-                                          MaterialPageRoute(
-                                            builder: (context) =>
-                                                const ForgotPasswordEmailSent(),
-                                          ),
-                                        );
+                                        context.pushReplacement("/mail-sent");
                                       }
                             },
                             text: "",

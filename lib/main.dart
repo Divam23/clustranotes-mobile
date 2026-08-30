@@ -5,6 +5,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter_native_splash/flutter_native_splash.dart';
 
 void main() async{
   WidgetsFlutterBinding.ensureInitialized();
@@ -27,11 +28,27 @@ void main() async{
   runApp(const ProviderScope(child: ClustraNotesApp()));
 }
 
-class ClustraNotesApp extends ConsumerWidget {
+class ClustraNotesApp extends ConsumerStatefulWidget {
   const ClustraNotesApp({super.key});
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  ConsumerState<ClustraNotesApp> createState() =>
+      _ClustraNotesAppState();
+}
+
+class _ClustraNotesAppState extends ConsumerState<ClustraNotesApp>{
+  
+  @override
+  void initState(){
+    super.initState();
+
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      FlutterNativeSplash.remove();
+    });
+  }
+
+@override
+  Widget build(BuildContext context) {
     final router = ref.watch(appRouterProvider);
     return MaterialApp.router(
       theme: AppTheme.light,

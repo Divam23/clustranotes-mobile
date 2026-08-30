@@ -1,10 +1,11 @@
-import 'package:clustranotes_mobile/features/auth/presentation/pages/login_screen.dart';
+import 'package:clustranotes_mobile/app/router/app_route_paths.dart';
 import 'package:clustranotes_mobile/features/auth/presentation/widgets/email_signin_button.dart';
 import 'package:clustranotes_mobile/features/auth/presentation/widgets/google_signin_button.dart';
 import 'package:clustranotes_mobile/features/auth/providers/auth_providers.dart';
 import 'package:flutter/material.dart';
 import 'package:clustranotes_mobile/app/theme/theme.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:go_router/go_router.dart';
 
 class MainAuthScreen extends ConsumerWidget{
@@ -12,7 +13,6 @@ class MainAuthScreen extends ConsumerWidget{
   
   @override
   Widget build(BuildContext context, WidgetRef ref){
-    final authNotifier = ref.read(authNotifierProvider.notifier);
     final authProvider = ref.watch(authNotifierProvider);
     final theme = Theme.of(context);
     return Scaffold(
@@ -70,8 +70,8 @@ class MainAuthScreen extends ConsumerWidget{
                           ],
                         ),
                         const SizedBox(height: AppSpacing.lg,),
-                        Image.asset(
-                          "assets/animations/main_auth_storyset.gif",
+                        SvgPicture.asset(
+                          "assets/animations/undraw_main_auth.svg",
                           width: 350,
                         ),
                         const SizedBox(height: AppSpacing.xl,),
@@ -82,10 +82,6 @@ class MainAuthScreen extends ConsumerWidget{
                               isLoading: authProvider.isLoading,
                               onPressed: () async{
                                 await ref.read(authNotifierProvider.notifier).signInWithGoogle();
-                                
-                                if(context.mounted){
-                                  context.go('/home');
-                                }
                               }, 
                             ),
                             const SizedBox(height: AppSpacing.md),
@@ -112,7 +108,7 @@ class MainAuthScreen extends ConsumerWidget{
                             const SizedBox(height: AppSpacing.md),
                             EmailSignInButton(
                               onPressed: () {
-                                context.push('/login');
+                                context.push(AppRoutePaths.login);
                               },
                             ),
                           ],

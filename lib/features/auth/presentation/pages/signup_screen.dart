@@ -1,14 +1,14 @@
+import 'package:clustranotes_mobile/app/router/app_route_paths.dart';
 import 'package:clustranotes_mobile/core/utils/validators/form_validators.dart';
 import 'package:clustranotes_mobile/core/widgets/button/app_back_button.dart';
 import 'package:clustranotes_mobile/core/widgets/button/multi_utility_button.dart';
-import 'package:clustranotes_mobile/features/auth/presentation/pages/email_verification_screen.dart';
-import 'package:clustranotes_mobile/features/auth/presentation/pages/login_screen.dart';
 import 'package:clustranotes_mobile/features/auth/presentation/widgets/auth_textfield.dart';
 import 'package:clustranotes_mobile/features/auth/providers/auth_providers.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:clustranotes_mobile/app/theme/theme.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:go_router/go_router.dart';
 
 class SignupScreen extends ConsumerStatefulWidget {
   const SignupScreen({super.key});
@@ -55,7 +55,7 @@ class _SignupScreenState extends ConsumerState<SignupScreen> {
       return;
     }
 
-    final success = await ref
+    await ref
         .read(authNotifierProvider.notifier)
         .signUp(
           name: _nameController.text.trim(),
@@ -64,14 +64,6 @@ class _SignupScreenState extends ConsumerState<SignupScreen> {
         );
 
     if (!mounted) return;
-    if (success) {
-      Navigator.pushReplacement(
-        context,
-        MaterialPageRoute(
-          builder: (context) => const EmailVerificationScreen(),
-        ),
-      );
-    }
   }
 
   @override
@@ -301,13 +293,7 @@ class _SignupScreenState extends ConsumerState<SignupScreen> {
                                     ),
                                     GestureDetector(
                                       onTap: () {
-                                        Navigator.pushReplacement(
-                                          context,
-                                          MaterialPageRoute(
-                                            builder: (context) =>
-                                                const LoginScreen(),
-                                          ),
-                                        );
+                                        context.go(AppRoutePaths.login);
                                       },
                                       child: Text(
                                         "Sign In",

@@ -4,8 +4,8 @@ import 'package:clustranotes_mobile/features/auth/presentation/pages/login_scree
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 
-class ForgotPasswordEmailSent extends StatelessWidget {
-  const ForgotPasswordEmailSent({super.key});
+class ForgotPasswordEmailSentScreen extends StatelessWidget {
+  const ForgotPasswordEmailSentScreen({super.key});
 
   @override
   Widget build(BuildContext context) {

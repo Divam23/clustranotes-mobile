@@ -1,5 +1,6 @@
 import 'package:clustranotes_mobile/features/auth/data/datasource/auth_remote_data_source.dart';
 import 'package:clustranotes_mobile/features/auth/domain/repositories/auth_repository.dart';
+import 'package:dio/dio.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
 class AuthRepositoryImpl implements AuthRepository {
@@ -10,6 +11,11 @@ class AuthRepositoryImpl implements AuthRepository {
   Stream<User?> authStateChanges(){
     return _remoteDataSource.authStateChange();
   }
+  
+  @override
+  Future<Response<dynamic>> authenticateWithBackend(){
+    return _remoteDataSource.authenticateWithBackend();
+  } 
   
   @override
   Future<UserCredential> signInWithGoogle() {

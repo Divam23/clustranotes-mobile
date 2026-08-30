@@ -1,16 +1,26 @@
+import 'package:clustranotes_mobile/core/api/client/api_client.dart';
+import 'package:clustranotes_mobile/core/api/config/api_endpoints.dart';
+import 'package:dio/dio.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 
 class AuthRemoteDataSource {
   final FirebaseAuth _firebaseAuth;
   final GoogleSignIn _googleSignIn;
+  final ApiClient _apiClient;
 
-  AuthRemoteDataSource(this._firebaseAuth, this._googleSignIn);
+  AuthRemoteDataSource(this._firebaseAuth, this._googleSignIn, this._apiClient);
   
   Stream<User?> authStateChange(){
     return _firebaseAuth.authStateChanges();
   }
-
+  
+  Future<Response<dynamic>> authenticateWithBackend() {
+    return _apiClient.post(
+      path: ApiEndpoints.authenticate
+    );
+  }
+  
   Future<UserCredential> signInWithGoogle() async {
     final GoogleSignInAccount googleUser = await _googleSignIn.authenticate();
 
@@ -23,6 +33,8 @@ class AuthRemoteDataSource {
     final userCredential = await _firebaseAuth.signInWithCredential(
       credentials,
     );
+    
+    await authenticateWithBackend();
 
     return userCredential;
   }
@@ -40,8 +52,12 @@ class AuthRemoteDataSource {
     final user = credentials.user;
     if(user != null){
       await user.updateDisplayName(name);
+      await user.reload();
+      await user.getIdToken(true);
       await sendEmailVerificationLink();
     }
+    
+    await authenticateWithBackend();
     return credentials;
   }
 

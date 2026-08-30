@@ -1,6 +1,6 @@
 import 'package:clustranotes_mobile/features/comments/data/dummy_comment_data.dart';
 import 'package:clustranotes_mobile/features/comments/models/comment_model.dart';
-import 'package:clustranotes_mobile/features/user/models/user_summary.dart';
+import 'package:clustranotes_mobile/features/user/domain/models/user_summary.dart';
 import 'package:clustranotes_mobile/features/notes/data/note_details_dummy_data.dart';
 import 'package:clustranotes_mobile/features/notes/presentation/widgets/comment_input_bar/comment_input_bar.dart';
 import 'package:clustranotes_mobile/features/notes/presentation/widgets/comment_section/comment_section.dart';

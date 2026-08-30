@@ -5,42 +5,38 @@ import 'package:clustranotes_mobile/features/library/presentation/pages/library_
 import 'package:clustranotes_mobile/features/profile/presentation/pages/profile_screen.dart';
 import 'package:clustranotes_mobile/features/upload/presentation/pages/upload_dashboard_screen.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 
-class AppNavigationShell extends StatefulWidget{
-  const AppNavigationShell({super.key});
+class AppNavigationShell extends StatelessWidget{
+  final StatefulNavigationShell navigationShell;
   
-  @override
-  State<AppNavigationShell> createState() => _AppNavigationShellState();
-}
+  const AppNavigationShell({required this.navigationShell, super.key});
 
-class _AppNavigationShellState extends State<AppNavigationShell> {
-  
-  int currentIndex = 0;
-  
-  final pages = [
-    HomeScreen(),
-    ExploreScreen(),
-    UploadDashboardScreen(),
-    LibraryScreen(),
-    ProfileScreen()
-  ];
   
   @override
   Widget build(BuildContext context){
-    return Scaffold(
-      body: IndexedStack(
-        index: currentIndex,
-        children: pages,
-      ),
-      
-      bottomNavigationBar: AppBottomNavigationBar(
-        
-        currentIndex: currentIndex,
-        onTap: (index){
-          setState(() {
-            currentIndex = index;
-          });    
+    return PopScope(
+      canPop: navigationShell.currentIndex == 0,
+      onPopInvokedWithResult: ((didPop, result) {
+        if(didPop){
+          return;
         }
+        if(navigationShell.currentIndex != 0){
+          navigationShell.goBranch(0, initialLocation: true);
+        }
+      }),
+      child: Scaffold(
+        body: navigationShell,
+        
+        bottomNavigationBar: AppBottomNavigationBar(
+          currentIndex: navigationShell.currentIndex,
+          onTap: (index){
+            navigationShell.goBranch(
+              index,
+              initialLocation: index == navigationShell.currentIndex
+            );
+          },
+        ),
       ),
     );
   }
