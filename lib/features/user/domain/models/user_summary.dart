@@ -1,4 +1,4 @@
-import 'package:clustranotes_mobile/features/user/models/user_enums.dart';
+import 'package:clustranotes_mobile/features/user/domain/enums/user_enums.dart';
 
 class UserSummary{
   final String id;
