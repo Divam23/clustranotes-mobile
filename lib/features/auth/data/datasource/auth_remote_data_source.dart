@@ -1,5 +1,5 @@
 import 'package:clustranotes_mobile/core/api/client/api_client.dart';
-import 'package:clustranotes_mobile/core/api/config/api_endpoints.dart';
+import 'package:clustranotes_mobile/features/user/data/constants/user_api_endpoints.dart';
 import 'package:dio/dio.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
@@ -17,7 +17,7 @@ class AuthRemoteDataSource {
   
   Future<Response<dynamic>> authenticateWithBackend() {
     return _apiClient.post(
-      path: ApiEndpoints.authenticate
+      path: UserApiEndpoints.authenticate
     );
   }
   

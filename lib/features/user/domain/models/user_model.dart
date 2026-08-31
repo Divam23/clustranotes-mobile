@@ -1,20 +1,18 @@
-import 'package:clustranotes_mobile/features/user/data/models/user_avatar_dto.dart';
-import 'package:clustranotes_mobile/features/user/data/models/user_preferences_dto.dart';
-import 'package:clustranotes_mobile/features/user/data/models/user_stats_dto.dart';
+
 import 'package:clustranotes_mobile/features/user/domain/enums/user_enums.dart';
 import 'package:clustranotes_mobile/features/user/domain/enums/user_role_enums.dart';
-import 'package:json_annotation/json_annotation.dart';
-part 'user_response_dto.g.dart';
+import 'package:clustranotes_mobile/features/user/domain/models/user_avatar.dart';
+import 'package:clustranotes_mobile/features/user/domain/models/user_preferences.dart';
+import 'package:clustranotes_mobile/features/user/domain/models/user_stats.dart';
 
-@JsonSerializable()
-class UserResponseDto {
+class UserModel {
   final String id;
   final String firstName;
   final String lastName;
   final String email;
   final String userName;
   
-  final UserAvatarDto avatar;
+  final UserAvatarModel avatar;
   
   final String bio;
   final String college;
@@ -26,13 +24,13 @@ class UserResponseDto {
   final List<UserRole> roles;
   final UserVerificationStatus verificationStatus;
   
-  final UserPreferencesDto preferences;
-  final UserStatsDto stats;
+  final UserPreferences preferences;
+  final UserStats stats;
   
   final DateTime createdAt;
   final DateTime updatedAt;
-  
-  const UserResponseDto({
+
+  const UserModel({
     required this.id,
     required this.firstName,
     required this.lastName,
@@ -52,7 +50,4 @@ class UserResponseDto {
     required this.createdAt,
     required this.updatedAt,
   });
-  
-  factory UserResponseDto.fromJson(Map<String, dynamic> json) => _$UserResponseDtoFromJson(json);
-  Map<String, dynamic> toJson() => _$UserResponseDtoToJson(this);
 }
