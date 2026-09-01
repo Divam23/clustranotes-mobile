@@ -1,6 +1,7 @@
 import 'package:clustranotes_mobile/app/router/app_route_names.dart';
 import 'package:clustranotes_mobile/app/router/app_route_paths.dart';
 import 'package:clustranotes_mobile/features/auth/presentation/pages/auth_splash_screen.dart';
+import 'package:clustranotes_mobile/features/auth/presentation/pages/backend_authentication_failed_screen.dart';
 import 'package:clustranotes_mobile/features/auth/presentation/pages/email_verification_screen.dart';
 import 'package:clustranotes_mobile/features/auth/presentation/pages/forgot_password_email_sent.dart';
 import 'package:clustranotes_mobile/features/auth/presentation/pages/forgot_password_screen.dart';
@@ -65,5 +66,13 @@ final List<RouteBase> authRoutes = [
       return const EmailVerificationScreen();
     },
   ),
+  
+  GoRoute(
+    path: AppRoutePaths.backendAuthenticationFailed,
+    name: AppRouteNames.backendAuthenticationFailed,
+    builder: (context, state){
+      return const BackendAuthenticationFailedScreen();
+    }
+  )
 
 ];

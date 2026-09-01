@@ -15,34 +15,32 @@ class ProfileScreen extends ConsumerWidget{
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            if (state.user != null)
+            if (state.firebaseUser != null)
               Column(
                 spacing: AppSpacing.lg,
                 children: [
                   Text(
-                    'Signed in as ${state.user!.displayName}',
+                    'Signed in as ${state.firebaseUser!.displayName}',
                   ),
-                  Text("Email: ${state.user!.email}")
+                  Text("Email: ${state.firebaseUser!.email}")
+                ],
+              ),
+              Column(
+                spacing: AppSpacing.lg,
+                children: [
+                  Text(
+                    'ClustraNotes username: ${state.user?.userName ?? 'Not loaded'}',
+                  ),
+                  Text(
+                    'Email: ${state.user?.email ?? 'Not loaded'}',
+                  ),
                 ],
               ),
 
             if (state.error != null)
               Text(state.error!),
 
-            ElevatedButton(
-              onPressed: state.isLoading
-                  ? null
-                  : () {
-                ref
-                    .read(authNotifierProvider.notifier)
-                    .signInWithGoogle();
-              },
-              child: state.isLoading
-                  ? const CircularProgressIndicator()
-                  : const Text('Continue with Google'),
-            ),
-
-            if (state.user != null)...[
+            if (state.firebaseUser != null)...[
               TextButton(
                 onPressed: () {
                   ref

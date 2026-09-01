@@ -50,6 +50,7 @@ final appRouterProvider = Provider<GoRouter>((ref) {
           location == AppRoutePaths.forgotPassword;
       
       final isVerificationRoute = location == AppRoutePaths.emailVerification;
+      final backendAuthenticationFailed = location == AppRoutePaths.backendAuthenticationFailed;
 
       final isAppRoute =
           location == AppRoutePaths.home ||
@@ -75,12 +76,25 @@ final appRouterProvider = Provider<GoRouter>((ref) {
           }
 
           return AppRoutePaths.emailVerification;
+          
+        case AuthStatus.backendAuthenticationFailed:
+          if(backendAuthenticationFailed) {
+            return null;
+          }
+
+          return AppRoutePaths.backendAuthenticationFailed;
 
         case AuthStatus.authenticated:
           if (isAppRoute) {
             return null;
           }
           return AppRoutePaths.home;
+          
+        case AuthStatus.authenticatingWithBackend:
+          if(isAppRoute){
+            return null;
+          }
+          return AppRoutePaths.splash;
       }
     },
     routes: [

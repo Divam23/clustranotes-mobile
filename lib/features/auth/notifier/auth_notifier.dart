@@ -1,38 +1,86 @@
 import 'dart:async';
 import 'package:clustranotes_mobile/features/auth/domain/enum/auth_action_enum.dart';
+import 'package:clustranotes_mobile/features/auth/domain/enum/backend_auth_status.dart';
 import 'package:clustranotes_mobile/features/auth/domain/repositories/auth_repository.dart';
 import 'package:clustranotes_mobile/features/auth/notifier/auth_state.dart';
+import 'package:clustranotes_mobile/features/user/domain/repositories/user_repository.dart';
+
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_riverpod/legacy.dart';
 
 class AuthNotifier extends StateNotifier<AuthState> {
-  final AuthRepository _repository;
+  final AuthRepository _authRepository;
+  final UserRepository _userRepository;
   Timer? _verificationCooldownTimer;
   StreamSubscription<User?>? _authStateSubscription;
 
-  AuthNotifier(this._repository) : super(const AuthState()){_listenToAuthState();}
+  AuthNotifier(this._authRepository, this._userRepository) : super(const AuthState()){_listenToAuthState();}
   
   
   void _listenToAuthState(){
-    _authStateSubscription = _repository.authStateChanges().listen(
-        (user){
-          debugPrint("Auth state user: ${user?.email}");
+    _authStateSubscription = _authRepository.authStateChanges().listen(
+      (user) async{
+        debugPrint("Auth state user: ${user?.email}");
+        if(user == null){
           state = state.copyWith(
-            user: user,
-            isInitializing: false
+            firebaseUser: null,
+            user: null,
+            isInitializing: false,
+            backendAuthStatus: BackendAuthStatus.idle
+          ); 
+          return;
+        }
+        state = state.copyWith(
+          firebaseUser: user,
+        );
+
+        if (!user.emailVerified) {
+          state = state.copyWith(
+            user: null,
+            isInitializing: false,
           );
-        },
+          return;
+        }
+        
+        await _authenticateWithBackend(user);
+      },
       onError: (error, stackTrace){
         debugPrint("Error: $error");
         debugPrintStack(stackTrace: stackTrace);
           
         state = state.copyWith(
           isInitializing: false,
-          error: error.toString()
+          error: error.toString(),
         );
       }
     );
+  }
+
+  bool _isAuthenticatingWithBackend = false;
+  Future<void> _authenticateWithBackend(User user) async {
+    if (_isAuthenticatingWithBackend) return;
+    _isAuthenticatingWithBackend = true;
+    try {
+      final clustraUser = await _userRepository.authenticateUser();
+      debugPrint("MongoDB User: $clustraUser");
+      state = state.copyWith(
+        user: clustraUser,
+        backendAuthStatus: BackendAuthStatus.authenticated,
+        error: null,
+      );
+    } catch (error, stackTrace) {
+      debugPrint('Error authenticating user with backend: $error');
+      debugPrintStack(stackTrace: stackTrace);
+      state = state.copyWith(
+        user: null,
+        error: error.toString(),
+        backendAuthStatus: BackendAuthStatus.failed,
+      );
+    } finally {
+      _isAuthenticatingWithBackend = false;
+      state = state.copyWith(isInitializing: false);
+    }
   }
 
   Future<void> signInWithGoogle() async {
@@ -42,12 +90,12 @@ class AuthNotifier extends StateNotifier<AuthState> {
       error: null,
     );
     try {
-      final userCredential = await _repository.signInWithGoogle();
-      state = state.copyWith(user: userCredential.user);
+      final userCredential = await _authRepository.signInWithGoogle();
+      state = state.copyWith(firebaseUser: userCredential.user);
     } catch (error, stackTrace) {
       debugPrint("Error while signing in: $error");
       debugPrintStack(stackTrace: stackTrace);
-      state = state.copyWith(error: error.toString(), user: null);
+      state = state.copyWith(error: error.toString(), firebaseUser: null);
     } finally {
       state = state.copyWith(isLoading: false, loadingAction: null);
     }
@@ -65,16 +113,16 @@ class AuthNotifier extends StateNotifier<AuthState> {
     );
 
     try {
-      final credential = await _repository.registerWithEmailAndPassword(
+      final credential = await _authRepository.registerWithEmailAndPassword(
         email: email,
         password: password,
         name: name,
       );
       _startVerificationCooldownTimer();
-      state = state.copyWith(error: null, user: credential.user);
+      state = state.copyWith(error: null, firebaseUser: credential.user);
       return true;
     } catch (error) {
-      state = state.copyWith(error: error.toString(), user: null);
+      state = state.copyWith(error: error.toString(), firebaseUser: null);
       return false;
     } finally {
       state = state.copyWith(isLoading: false, loadingAction: null);
@@ -88,18 +136,27 @@ class AuthNotifier extends StateNotifier<AuthState> {
       error: null,
     );
     try {
-      final credential = await _repository.signInWithEmailAndPassword(
+      final credential = await _authRepository.signInWithEmailAndPassword(
         email: email,
         password: password,
       );
-      state = state.copyWith(error: null, user: credential.user);
-    } catch (error) {
-      state = state.copyWith(error: error.toString(), user: null);
+      final firebaseUser = credential.user;
+      
+      if(firebaseUser == null){
+        throw Exception('Firebase authentication returned no user');
+      }
+      
+      state = state.copyWith(error: null, user: null, firebaseUser: firebaseUser);
+    } catch (error,stackTrace) {
+      debugPrint('Error while signing in: $error');
+      debugPrintStack(stackTrace: stackTrace);
+      state = state.copyWith(error: error.toString());
     } finally {
       state = state.copyWith(isLoading: false, loadingAction: null);
     }
   }
 
+  
   Future<void> resendEmailVerificationLink() async {
     if (state.verificationResendCooldown > 0) return;
     state = state.copyWith(
@@ -109,7 +166,7 @@ class AuthNotifier extends StateNotifier<AuthState> {
     );
 
     try {
-      await _repository.sendEmailVerificationLink();
+      await _authRepository.sendEmailVerificationLink();
       _startVerificationCooldownTimer();
       state = state.copyWith(error: null);
     } catch (error) {
@@ -118,8 +175,11 @@ class AuthNotifier extends StateNotifier<AuthState> {
       state = state.copyWith(isLoading: false, loadingAction: null);
     }
   }
-
+  
+  bool _isCheckingEmailVerification = false;
   Future<bool> checkEmailVerification() async {
+    if (_isCheckingEmailVerification) return state.firebaseUser?.emailVerified ?? false;
+    _isCheckingEmailVerification = true;
     state = state.copyWith(
       isLoading: true,
       loadingAction: AuthAction.checkVerification,
@@ -127,14 +187,19 @@ class AuthNotifier extends StateNotifier<AuthState> {
     );
 
     try {
-      final user = await _repository.reloadCurrentUser();
-      state = state.copyWith( user: user, error: null);
+      final user = await _authRepository.reloadCurrentUser();
+      state = state.copyWith(firebaseUser: user, error: null);
 
-      return user?.emailVerified ?? false;
+      final isVerified = user?.emailVerified ?? false;
+      if (isVerified && user != null) {
+        await _authenticateWithBackend(user);
+      }
+      return isVerified;
     } catch (error) {
       state = state.copyWith(error: error.toString());
       return false;
     } finally {
+      _isCheckingEmailVerification = false;
       state = state.copyWith(isLoading: false, loadingAction: null);
     }
   }
@@ -146,7 +211,7 @@ class AuthNotifier extends StateNotifier<AuthState> {
       error: null,
     );
     try {
-      await _repository.forgotPassword(email: email);
+      await _authRepository.forgotPassword(email: email);
       state = state.copyWith(error: null);
     } catch (error) {
       state = state.copyWith(error: error.toString());
@@ -163,7 +228,7 @@ class AuthNotifier extends StateNotifier<AuthState> {
     );
 
     try {
-      await _repository.signOut();
+      await _authRepository.signOut();
       state = state.copyWith(error: null);
     } catch (error, stackTrace) {
       debugPrint("Error logging out: $error");
@@ -198,6 +263,8 @@ class AuthNotifier extends StateNotifier<AuthState> {
   void dispose(){
     _authStateSubscription?.cancel();
     _verificationCooldownTimer?.cancel();
+    _isAuthenticatingWithBackend = false;
+    _isCheckingEmailVerification = false;
     super.dispose();
   }
 }

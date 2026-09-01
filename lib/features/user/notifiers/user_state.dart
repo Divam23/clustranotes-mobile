@@ -14,14 +14,14 @@ class UserState {
   static const _undefined = Object();
   
   UserState copyWith({
-    UserModel? user,
+    Object? user = _undefined,
     bool? isLoading,
-    String? error
+    Object? error = _undefined
   }){
     return UserState(
-      user: identical(user, _undefined) ? this.user : user,
+      user: identical(user, _undefined) ? this.user : user as UserModel?,
       isLoading: isLoading ?? this.isLoading,
-      error: error ?? this.error
+      error: identical(error, _undefined) ? this.error : error as String?
     );
   }
 }

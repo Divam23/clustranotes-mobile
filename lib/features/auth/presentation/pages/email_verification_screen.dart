@@ -29,7 +29,7 @@ class EmailVerificationScreen extends ConsumerWidget {
 
     final timer = authProvider.verificationResendCooldown;
     final canResend = timer <= 0 && !authProvider.isLoading;
-    final email = authProvider.user?.email ?? "your email address";
+    final email = authProvider.firebaseUser?.email ?? "your email address";
 
     return Scaffold(
       appBar: AppBar(

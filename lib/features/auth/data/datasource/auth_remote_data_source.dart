@@ -2,6 +2,7 @@ import 'package:clustranotes_mobile/core/api/client/api_client.dart';
 import 'package:clustranotes_mobile/features/user/data/constants/user_api_endpoints.dart';
 import 'package:dio/dio.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 
 class AuthRemoteDataSource {
@@ -33,9 +34,6 @@ class AuthRemoteDataSource {
     final userCredential = await _firebaseAuth.signInWithCredential(
       credentials,
     );
-    
-    await authenticateWithBackend();
-
     return userCredential;
   }
 
@@ -70,14 +68,32 @@ class AuthRemoteDataSource {
       password: password,
     );
   }
-  
-  Future<void> sendEmailVerificationLink() async{
+
+  Future<void> sendEmailVerificationLink() async {
     final user = _firebaseAuth.currentUser;
-    
-    if(user == null){
-      throw Exception("No authenticated user found");
+
+    if (user == null) {
+      throw Exception('No authenticated user found');
     }
-    await user.sendEmailVerification();
+
+    try {
+      debugPrint(
+        'Sending verification email to: ${user.email}',
+      );
+
+      await user.sendEmailVerification();
+
+      debugPrint(
+        'Verification email request completed successfully',
+      );
+    } catch (error, stackTrace) {
+      debugPrint(
+        'Failed to send verification email: $error',
+      );
+      debugPrintStack(stackTrace: stackTrace);
+
+      rethrow;
+    }
   }
   
   Future<User?> reloadCurrentUser() async{

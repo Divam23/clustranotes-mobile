@@ -4,7 +4,6 @@ import 'package:clustranotes_mobile/core/utils/validators/form_validators.dart';
 import 'package:clustranotes_mobile/core/widgets/button/app_back_button.dart';
 import 'package:clustranotes_mobile/core/widgets/button/multi_utility_button.dart';
 import 'package:clustranotes_mobile/features/auth/presentation/pages/forgot_password_screen.dart';
-import 'package:clustranotes_mobile/features/auth/presentation/pages/signup_screen.dart';
 import 'package:clustranotes_mobile/features/auth/providers/auth_providers.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -231,7 +230,7 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                                     ),
                                     GestureDetector(
                                       onTap: () {
-                                        context.go(AppRoutePaths.signup);
+                                        context.pushReplacement(AppRoutePaths.signup);
                                       },
                                       child: Text(
                                         "Start Here",

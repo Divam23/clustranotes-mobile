@@ -8,6 +8,7 @@ abstract final class AppRoutePaths {
   static const emailVerification = '/email-verification';
   static const splash = '/splash';
   static const forgotPasswordMail = '/reset-mail';
+  static const backendAuthenticationFailed = '/auth-failed';
   
   //App
   static const home = '/home';

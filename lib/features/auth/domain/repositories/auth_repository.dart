@@ -1,3 +1,4 @@
+import 'package:dio/dio.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
 abstract interface class AuthRepository {
@@ -14,6 +15,8 @@ abstract interface class AuthRepository {
     required String email,
     required String password,
   });
+  
+  Future<Response<dynamic>> authenticateWithBackend();
   
   Future<void> sendEmailVerificationLink();
   

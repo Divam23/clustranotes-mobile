@@ -8,6 +8,7 @@ abstract final class AppRouteNames {
   static const emailVerification = 'emailVerification';
   static const splash = 'splash';
   static const forgotPasswordMail = 'forgotPasswordMail';
+  static const backendAuthenticationFailed = 'authFailed';
   
   //App
   static const home = 'home';

@@ -6,6 +6,7 @@ import 'package:clustranotes_mobile/features/auth/data/repository/auth_repositor
 import 'package:clustranotes_mobile/features/auth/domain/repositories/auth_repository.dart';
 import 'package:clustranotes_mobile/features/auth/notifier/auth_notifier.dart';
 import 'package:clustranotes_mobile/features/auth/notifier/auth_state.dart';
+import 'package:clustranotes_mobile/features/user/providers/user_providers.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_riverpod/legacy.dart';
 
@@ -18,5 +19,5 @@ final authRepositoryProvider = Provider<AuthRepository>((ref){
 });
 
 final authNotifierProvider = StateNotifierProvider<AuthNotifier, AuthState>((ref){
-  return AuthNotifier(ref.read(authRepositoryProvider));
+  return AuthNotifier(ref.read(authRepositoryProvider), ref.read(userRepositoryProvider));
 });

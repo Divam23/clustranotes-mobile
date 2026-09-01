@@ -12,7 +12,6 @@ class UserRepositoryImpl implements UserRepository{
   Future<UserModel> authenticateUser() async{
     final dto = await _remoteDataSource.authenticateUser();
     return UserMapper.toDomain(dto);
-    
   }
   
   @override
