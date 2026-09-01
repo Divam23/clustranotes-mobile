@@ -1,9 +1,4 @@
 import 'package:clustranotes_mobile/core/navigation/app_bottom_navigation_bar.dart';
-import 'package:clustranotes_mobile/features/explore/presentation/pages/explore_screen.dart';
-import 'package:clustranotes_mobile/features/home/presentation/pages/home_screen.dart';
-import 'package:clustranotes_mobile/features/library/presentation/pages/library_screen.dart';
-import 'package:clustranotes_mobile/features/profile/presentation/pages/profile_screen.dart';
-import 'package:clustranotes_mobile/features/upload/presentation/pages/upload_dashboard_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 

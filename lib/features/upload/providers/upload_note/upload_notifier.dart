@@ -1,6 +1,4 @@
 import 'dart:io';
-import 'package:clustranotes_mobile/core/api/client/api_client.dart';
-import 'package:clustranotes_mobile/core/api/providers/dio_provider.dart';
 import 'package:clustranotes_mobile/core/models/note_content_type_enum.dart';
 import 'package:clustranotes_mobile/features/notes/models/note_enums.dart';
 import 'package:clustranotes_mobile/features/upload/domain/enums/note_upload_step_enum.dart';
