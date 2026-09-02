@@ -5,5 +5,6 @@ enum AuthAction {
   resendVerification,
   checkVerification,
   forgotPassword,
+  retryBackendAuthentication,
   signOut
 }

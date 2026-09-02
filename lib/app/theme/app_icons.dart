@@ -76,4 +76,6 @@ class AppIcons {
   static const IconData visible = Icons.visibility_off_outlined;
   static const IconData notVisible = Icons.visibility_outlined;
   static const IconData refresh = Icons.refresh_rounded;
+  static const IconData cloud = Icons.cloud_off_rounded;
+  
 }

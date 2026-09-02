@@ -259,6 +259,36 @@ class AuthNotifier extends StateNotifier<AuthState> {
     });
   }
   
+  Future<void> retryBackendAuthentication() async{
+    state = state.copyWith(
+      isLoading: true,
+      loadingAction: AuthAction.retryBackendAuthentication,
+      backendAuthStatus: BackendAuthStatus.authenticating,
+      error: null
+    );
+    try{
+      final user = await _userRepository.authenticateUser();
+      state = state.copyWith(
+        user: user,
+        error: null,
+        backendAuthStatus: BackendAuthStatus.authenticated
+      );
+    }catch(error){
+      state = state.copyWith(
+        error: error.toString(),
+        user: null,
+        backendAuthStatus: BackendAuthStatus.failed
+      );
+    }
+    finally{
+      state = state.copyWith(
+        isLoading: false,
+        loadingAction: null
+      );
+    }
+    
+  }
+  
   @override
   void dispose(){
     _authStateSubscription?.cancel();
