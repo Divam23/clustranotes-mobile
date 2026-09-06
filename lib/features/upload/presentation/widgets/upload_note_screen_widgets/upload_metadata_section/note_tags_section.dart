@@ -2,6 +2,7 @@ import 'package:clustranotes_mobile/app/theme/theme.dart';
 import 'package:clustranotes_mobile/core/widgets/button/multi_utility_button.dart';
 import 'package:clustranotes_mobile/features/upload/presentation/widgets/upload_note_screen_widgets/common/note_metadata_textfield.dart';
 import 'package:clustranotes_mobile/features/upload/providers/upload_note/upload_notifier.dart';
+import 'package:clustranotes_mobile/features/upload/providers/upload_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 

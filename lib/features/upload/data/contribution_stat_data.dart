@@ -1,4 +1,4 @@
-import 'package:clustranotes_mobile/features/upload/models/contribution_stats_model.dart';
+import 'package:clustranotes_mobile/features/upload/domain/models/contribution_stats_model.dart';
 
 const newUserStats = ContributionStatsModel(
   userId: 'user_001',

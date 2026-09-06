@@ -88,8 +88,8 @@ class NoteInfoSection extends StatelessWidget{
             spacing: AppSpacing.sm,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              note.user.avatarUrl != null ? 
-              UserAvatar(avatar: note.user.avatarUrl!) : 
+              note.user.avatar?.url != null ? 
+              UserAvatar(avatar: note.user.avatar!.url) : 
               FallbackUserAvatar(firstName: note.user.firstName),
               Text(
                 note.user.firstName,

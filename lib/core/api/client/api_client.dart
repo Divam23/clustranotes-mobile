@@ -69,4 +69,20 @@ class ApiClient {
       options: options
     );
   }
+  
+  Future<Response<T>> postMultipart<T>({
+    required String path,
+    required FormData data,
+    Map<String, dynamic>? queryParameters,
+    void Function(int sent, int total)? onSendProgress,
+    Options? options,
+  }){
+    return _dio.post(
+      path,
+      data: data,
+      queryParameters: queryParameters,
+      options: options,
+      onSendProgress: onSendProgress
+    );
+  }
 }

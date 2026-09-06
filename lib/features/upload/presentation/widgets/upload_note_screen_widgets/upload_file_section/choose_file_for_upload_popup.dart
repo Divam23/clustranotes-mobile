@@ -2,6 +2,7 @@ import 'package:clustranotes_mobile/app/theme/theme.dart';
 import 'package:clustranotes_mobile/features/upload/domain/enums/upload_source_enums.dart';
 import 'package:clustranotes_mobile/features/upload/presentation/pages/upload_note_screen/selected_image_screen.dart';
 import 'package:clustranotes_mobile/features/upload/providers/upload_note/upload_notifier.dart';
+import 'package:clustranotes_mobile/features/upload/providers/upload_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 

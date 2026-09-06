@@ -8,6 +8,7 @@ import 'package:clustranotes_mobile/core/widgets/dot.dart';
 import 'package:clustranotes_mobile/core/widgets/thumbnail/uploaded_note_summary_thumbnail.dart';
 import 'package:clustranotes_mobile/features/upload/domain/enums/upload_source_enums.dart';
 import 'package:clustranotes_mobile/features/upload/providers/upload_note/upload_notifier.dart';
+import 'package:clustranotes_mobile/features/upload/providers/upload_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:open_filex/open_filex.dart';

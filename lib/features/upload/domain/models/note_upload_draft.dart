@@ -1,5 +1,5 @@
 import 'package:clustranotes_mobile/features/notes/models/note_enums.dart';
-import 'package:clustranotes_mobile/features/upload/models/upload_file.dart';
+import 'package:clustranotes_mobile/features/upload/domain/models/upload_file.dart';
 
 class UploadDraft{
   final UploadFile? file;

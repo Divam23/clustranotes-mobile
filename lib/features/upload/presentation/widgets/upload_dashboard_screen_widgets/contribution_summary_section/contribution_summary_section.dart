@@ -1,5 +1,5 @@
 import 'package:clustranotes_mobile/app/theme/theme.dart';
-import 'package:clustranotes_mobile/features/upload/models/contribution_stats_model.dart';
+import 'package:clustranotes_mobile/features/upload/domain/models/contribution_stats_model.dart';
 import 'package:clustranotes_mobile/features/upload/presentation/widgets/upload_dashboard_screen_widgets/contribution_summary_section/contribution_summary_stats_card.dart';
 import 'package:flutter/material.dart';
 

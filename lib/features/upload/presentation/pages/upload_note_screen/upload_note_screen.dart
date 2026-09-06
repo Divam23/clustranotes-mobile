@@ -6,8 +6,8 @@ import 'package:clustranotes_mobile/features/upload/presentation/widgets/upload_
 import 'package:clustranotes_mobile/features/upload/presentation/widgets/upload_steps/upload_note_metadata_step.dart';
 import 'package:clustranotes_mobile/features/upload/presentation/widgets/upload_steps/upload_review_step.dart';
 import 'package:clustranotes_mobile/features/upload/presentation/widgets/upload_steps/upload_settings_step.dart';
-import 'package:clustranotes_mobile/features/upload/providers/upload_note/upload_notifier.dart';
 import 'package:clustranotes_mobile/features/upload/providers/upload_note/upload_state.dart';
+import 'package:clustranotes_mobile/features/upload/providers/upload_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:clustranotes_mobile/app/theme/theme.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';

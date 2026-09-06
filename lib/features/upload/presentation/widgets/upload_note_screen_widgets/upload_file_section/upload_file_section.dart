@@ -2,6 +2,7 @@ import 'package:clustranotes_mobile/app/theme/app_spacing.dart';
 import 'package:clustranotes_mobile/features/upload/presentation/widgets/upload_note_screen_widgets/upload_file_section/selected_file_card.dart';
 import 'package:clustranotes_mobile/features/upload/presentation/widgets/upload_note_screen_widgets/upload_file_section/upload_file_placeholder.dart';
 import 'package:clustranotes_mobile/features/upload/providers/upload_note/upload_notifier.dart';
+import 'package:clustranotes_mobile/features/upload/providers/upload_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 

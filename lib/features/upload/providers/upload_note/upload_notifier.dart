@@ -1,11 +1,13 @@
 import 'dart:io';
 import 'package:clustranotes_mobile/core/models/note_content_type_enum.dart';
+import 'package:clustranotes_mobile/features/notes/data/models/create_note_dto.dart';
+import 'package:clustranotes_mobile/features/notes/domain/repositories/note_repository.dart';
 import 'package:clustranotes_mobile/features/notes/models/note_enums.dart';
 import 'package:clustranotes_mobile/features/upload/domain/enums/note_upload_step_enum.dart';
 import 'package:clustranotes_mobile/features/upload/domain/enums/note_upload_step_status_enum.dart';
 import 'package:clustranotes_mobile/features/upload/domain/enums/upload_source_enums.dart';
 import 'package:clustranotes_mobile/features/upload/domain/enums/upload_stage_enum.dart';
-import 'package:clustranotes_mobile/features/upload/models/upload_file.dart';
+import 'package:clustranotes_mobile/features/upload/domain/models/upload_file.dart';
 import 'package:clustranotes_mobile/features/upload/providers/upload_note/upload_state.dart';
 import 'package:clustranotes_mobile/features/upload/services/images_to_pdf_service.dart';
 import 'package:file_picker/file_picker.dart';
@@ -13,14 +15,9 @@ import 'package:flutter_riverpod/legacy.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:pdfrx/pdfrx.dart';
 
-final uploadProvider = StateNotifierProvider<UploadNotifier, UploadState>((
-  ref,
-) {
-  return UploadNotifier();
-});
-
 class UploadNotifier extends StateNotifier<UploadState> {
-  UploadNotifier() : super(const UploadState());
+  final NoteRepository _noteRepository;
+  UploadNotifier(this._noteRepository) : super(const UploadState());
 
   static const maxTagLength = 10;
   static const maxFileSize = 100 * 1024 * 1024; // 100 MB
@@ -300,9 +297,7 @@ class UploadNotifier extends StateNotifier<UploadState> {
 
   NoteUploadStepStatusEnum getDetailsStatus() {
     if (state.title.isEmpty ||
-        state.description.isEmpty ||
-        state.subject == null ||
-        state.course == null) {
+        state.description.isEmpty) {
       return NoteUploadStepStatusEnum.inProgress;
     }
     return NoteUploadStepStatusEnum.completed;
@@ -327,9 +322,7 @@ class UploadNotifier extends StateNotifier<UploadState> {
 
       case UploadStep.basicDetails:
         return state.title.trim().isNotEmpty &&
-            state.description.trim().isNotEmpty &&
-            state.course != null &&
-            state.subject != null;
+            state.description.trim().isNotEmpty;
 
       case UploadStep.noteSettings:
         return true;
@@ -344,13 +337,58 @@ class UploadNotifier extends StateNotifier<UploadState> {
   }
 
   Future<void> handlePublishNote() async {
+    if (!mounted) return;
+    if (state.isUploading) return;
 
-    /*try {
-      final api = ApiClient(dioProvider);
-      final response = await api.get(path: "/health");
-      debugPrint(response.toString());
-    } catch (e) {
-      debugPrint(e.toString());
-    }*/
+
+    if (state.uploadFile == null) {
+      state = state.copyWith(error: "Please select a file.");
+      return;
+    }
+
+    if (!_checkDeclarations()) {
+      state = state.copyWith(error: "Please accept all declarations.");
+      return;
+    }
+
+    final file = state.uploadFile!.file;
+    
+    final dto = CreateNoteDto(
+      title: state.title,
+      description: state.description,
+      category: state.noteCategory,
+      subject: state.subject,
+      course: state.course,
+      tags: state.tags,
+      university: state.university,
+      isPublic: state.isPublic,
+      semester: state.semester,
+      collegeName: state.collegeName,
+      branch: state.branch,
+      canDownload: state.canDownload,
+      language: state.language,
+    );
+
+    try {
+      state = state.copyWith(
+        isUploading: true,
+        uploadProgress: 0.0,
+        error: null,
+      );
+
+      await _noteRepository.createNote(
+        note: dto,
+        file: file,
+        onSendProgress: (sent, total) {
+          if (!mounted || total <= 0) return;
+          state = state.copyWith(uploadProgress: sent / total);
+        },
+      );
+    } catch (error) {
+      if (!mounted) return;
+      state = state.copyWith(error: error.toString());
+    } finally {
+      state = state.copyWith(isUploading: false);
+    }
   }
 }

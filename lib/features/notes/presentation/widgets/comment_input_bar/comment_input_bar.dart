@@ -56,7 +56,7 @@ class _CommentInputBarState extends State<CommentInputBar> {
             spacing: 10,
             children: [
               AppAvatar(
-                avatar: widget.currentUser.avatarUrl,
+                avatar: widget.currentUser.avatar?.url,
                 firstName: widget.currentUser.firstName,
               ),
               Expanded(

@@ -1,5 +1,6 @@
 import 'package:clustranotes_mobile/features/upload/presentation/widgets/upload_note_screen_widgets/upload_file_section/selected_images_section/selected_image_tile.dart';
 import 'package:clustranotes_mobile/features/upload/providers/upload_note/upload_notifier.dart';
+import 'package:clustranotes_mobile/features/upload/providers/upload_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:reorderable_grid_view/reorderable_grid_view.dart';

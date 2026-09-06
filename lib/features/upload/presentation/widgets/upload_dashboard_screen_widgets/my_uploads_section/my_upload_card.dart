@@ -3,7 +3,7 @@ import 'package:clustranotes_mobile/core/utils/formatters/datetime_formatter.dar
 import 'package:clustranotes_mobile/core/widgets/thumbnail/uploaded_note_summary_thumbnail.dart';
 import 'package:clustranotes_mobile/features/upload/domain/extensions/note_relevant_timestamps.dart';
 import 'package:clustranotes_mobile/features/upload/domain/extensions/upload_note_summary_domain.dart';
-import 'package:clustranotes_mobile/features/upload/models/uploaded_note_summary_model.dart';
+import 'package:clustranotes_mobile/features/upload/domain/models/uploaded_note_summary_model.dart';
 import 'package:clustranotes_mobile/features/upload/presentation/extension/note_owner_status_timeline_info.dart';
 import 'package:clustranotes_mobile/features/upload/presentation/extension/note_owner_status_ui.dart';
 import 'package:clustranotes_mobile/features/upload/presentation/extension/note_status_color_extension.dart';

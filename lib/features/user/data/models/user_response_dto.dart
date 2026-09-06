@@ -1,8 +1,8 @@
-import 'package:clustranotes_mobile/features/user/data/models/user_avatar_dto.dart';
 import 'package:clustranotes_mobile/features/user/data/models/user_preferences_dto.dart';
 import 'package:clustranotes_mobile/features/user/data/models/user_stats_dto.dart';
 import 'package:clustranotes_mobile/features/user/domain/enums/user_enums.dart';
 import 'package:clustranotes_mobile/features/user/domain/enums/user_role_enums.dart';
+import 'package:clustranotes_mobile/shared/models/user_avatar_dto.dart';
 import 'package:json_annotation/json_annotation.dart';
 part 'user_response_dto.g.dart';
 

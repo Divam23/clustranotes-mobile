@@ -1,7 +1,7 @@
 import 'package:clustranotes_mobile/features/notes/models/note_enums.dart';
 import 'package:clustranotes_mobile/features/upload/domain/entities/note_status_timestamps.dart';
 import 'package:clustranotes_mobile/features/upload/domain/enums/note_timestamps_enum.dart';
-import 'package:clustranotes_mobile/features/upload/models/uploaded_note_summary_model.dart';
+import 'package:clustranotes_mobile/features/upload/domain/models/uploaded_note_summary_model.dart';
 
 extension UploadedNoteSummaryDomain on UploadedNoteSummary {
   NoteStatusTimestamps get statusTimestamp {

@@ -1,6 +1,6 @@
 import 'package:clustranotes_mobile/features/upload/domain/enums/note_owner_status_enum.dart';
-import 'package:clustranotes_mobile/features/upload/models/uploaded_note_summary_model.dart';
 import 'package:clustranotes_mobile/features/notes/models/note_enums.dart';
+import 'package:clustranotes_mobile/features/upload/domain/models/uploaded_note_summary_model.dart';
 
 extension UploadedNoteSummaryDomain on UploadedNoteSummary {
   NoteOwnerStatus get ownerStatus {

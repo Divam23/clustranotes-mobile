@@ -4,6 +4,8 @@ class NoteStats {
   final int likesCount;
   final int bookmarksCount;
   final int commentsCount;
+  final double ratingsAverage;
+  final int ratingsCount;
   final DateTime? lastViewedAt;
 
   const NoteStats({
@@ -12,31 +14,9 @@ class NoteStats {
     required this.likesCount,
     required this.bookmarksCount,
     required this.commentsCount,
+    required this.ratingsCount,
+    required this.ratingsAverage,
     this.lastViewedAt
   });
 
-  factory NoteStats.fromJson(Map<String, dynamic>? json) {
-    final j = json ?? {};
-    return NoteStats(
-      viewsCount: (j['viewsCount'] as num?)?.toInt() ?? 0,
-      downloadCount: (j['downloadCount'] as num?)?.toInt() ?? 0,
-      likesCount: (j['likesCount'] as num?)?.toInt() ?? 0,
-      bookmarksCount: (j['bookmarksCount'] as num?)?.toInt() ?? 0,
-      commentsCount: (j['commentsCount'] as num?)?.toInt() ?? 0,
-      lastViewedAt: j['lastViewedAt'] != null
-          ? DateTime.parse(j['lastViewedAt'] as String)
-          : null,
-    );
-  }
-
-  Map<String, dynamic> toJson() {
-    return {
-      'viewsCount': viewsCount,
-      'downloadCount': downloadCount,
-      'likesCount': likesCount,
-      'bookmarksCount': bookmarksCount,
-      'commentsCount': commentsCount,
-      if (lastViewedAt != null) 'lastViewedAt': lastViewedAt!.toIso8601String(),
-    };
-  }
 }

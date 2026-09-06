@@ -24,8 +24,6 @@ final dummyNoteDetails = [
       semester: 4,
       language: 'en',
       file: const NoteFileMetadata(
-        url: 'https://storage.clustranotes.com/files/note_001.pdf',
-        storagePath: 'notes/note_001.pdf',
         mimeType: 'application/pdf',
         sizeInBytes: 4500000,
         thumbnailUrl: 'https://images.unsplash.com/photo-1517842645767-c639042777db?w=400',
@@ -48,6 +46,8 @@ final dummyNoteDetails = [
         likesCount: 340,
         bookmarksCount: 210,
         commentsCount: 8,
+        ratingsAverage: 4.5,
+        ratingsCount: 23,
         lastViewedAt: DateTime(2026, 6, 23),
       ),
       moderation: const ModerationInfo(
@@ -76,8 +76,6 @@ final dummyNoteDetails = [
       semester: 2,
       language: 'en',
       file: const NoteFileMetadata(
-        url: 'https://storage.clustranotes.com/files/note_002.docx',
-        storagePath: 'notes/note_002.docx',
         mimeType: 'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
         sizeInBytes: 2100000,
         thumbnailUrl: null,
@@ -100,6 +98,8 @@ final dummyNoteDetails = [
         likesCount: 45,
         bookmarksCount: 30,
         commentsCount: 3,
+        ratingsAverage: 4.5,
+        ratingsCount: 23,
         lastViewedAt: DateTime(2026, 6, 20),
       ),
       moderation: const ModerationInfo(
@@ -128,8 +128,6 @@ final dummyNoteDetails = [
       semester: 3,
       language: 'en',
       file: const NoteFileMetadata(
-        url: 'https://storage.clustranotes.com/files/note_003.pdf',
-        storagePath: 'notes/note_003.pdf',
         mimeType: 'application/pdf',
         sizeInBytes: 1750000,
         thumbnailUrl: null,
@@ -154,6 +152,8 @@ final dummyNoteDetails = [
         likesCount: 78,
         bookmarksCount: 40,
         commentsCount: 6,
+        ratingsAverage: 4.5,
+        ratingsCount: 23,
         lastViewedAt: DateTime(2026, 6, 22),
       ),
       moderation: const ModerationInfo(

@@ -1,4 +1,5 @@
 import 'package:clustranotes_mobile/features/user/domain/enums/user_enums.dart';
+import 'package:clustranotes_mobile/features/user/domain/models/user_avatar.dart';
 import 'package:clustranotes_mobile/features/user/domain/models/user_summary.dart';
 
 final dummyUsers = [
@@ -8,7 +9,8 @@ final dummyUsers = [
     lastName: 'Dubey',
     userName: 'divamdubey',
     isEmailVerified: true,
-    avatarUrl: null,
+    avatar: UserAvatarModel(
+        url: null, storagePath: storagePath),
     userVerificationStatus: UserVerificationStatus.verified,
   ),
   UserSummary(
