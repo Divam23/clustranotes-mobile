@@ -1,4 +1,4 @@
-import 'package:clustranotes_mobile/features/notes/models/note_enums.dart';
+import 'package:clustranotes_mobile/features/notes/domain/enums/note_category_enums.dart';
 import 'package:clustranotes_mobile/features/upload/domain/enums/note_upload_status_enum.dart';
 import 'package:clustranotes_mobile/features/upload/domain/enums/note_upload_step_enum.dart';
 import 'package:clustranotes_mobile/features/upload/domain/enums/upload_stage_enum.dart';
@@ -17,10 +17,10 @@ abstract class UploadState with _$UploadState {
     @Default("") String title,
     @Default("") String description,
 
-    @Default("") String subject,
-    @Default("") String course,
+    String? subject,
+    String? course,
     String? branch,
-    @Default(NoteCategory.lectureNotes) NoteCategory noteCategory,
+    @Default(NoteCategoryEnum.lectureNotes) NoteCategoryEnum noteCategory,
     @Default(<String>[]) List<String> tags,
     String? collegeName,
     String? university,
@@ -32,7 +32,6 @@ abstract class UploadState with _$UploadState {
     @Default(true) bool isPublic,
     @Default(false) bool isGeneratingPDF,
     @Default(false) bool isPickingDocument,
-    @Default(false) bool isUploading,
     @Default(true) bool canDownload,
     @Default(0.0) double uploadProgress,
     @Default(NoteUploadStatus.idle) NoteUploadStatus noteUploadStatus,

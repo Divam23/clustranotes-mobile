@@ -1,6 +1,6 @@
 import 'package:clustranotes_mobile/app/theme/theme.dart';
 import 'package:clustranotes_mobile/core/widgets/resource_chips/chip_item.dart';
-import 'package:clustranotes_mobile/features/notes/models/note_enums.dart';
+import 'package:clustranotes_mobile/features/notes/domain/enums/note_category_enums.dart';
 import 'package:flutter/material.dart';
 
 class AppCategoryChips {
@@ -102,28 +102,28 @@ class AppCategoryChips {
     color: const Color(0xFF9E9E9E),
   );
 
-  static final Map<NoteCategory, AppChipItem> allCategories = {
-    NoteCategory.lectureNotes: lectureNotes,
-    NoteCategory.handwritten: handwritten,
-    NoteCategory.revisionNotes: revisionNotes,
-    NoteCategory.previousYearQuestions: previousYearQuestions,
-    NoteCategory.assignment: assignment,
-    NoteCategory.labManual: labManual,
-    NoteCategory.labRecord: labRecord,
-    NoteCategory.summary: summary,
-    NoteCategory.cheatSheet: cheatSheet,
-    NoteCategory.presentation: presentation,
-    NoteCategory.ebook: ebook,
-    NoteCategory.syllabus: syllabus,
-    NoteCategory.questionBank: questionBank,
-    NoteCategory.practiceSet: practiceSet,
-    NoteCategory.projectReport: projectReport,
-    NoteCategory.others: others,
+  static final Map<NoteCategoryEnum, AppChipItem> allCategories = {
+    NoteCategoryEnum.lectureNotes: lectureNotes,
+    NoteCategoryEnum.handwritten: handwritten,
+    NoteCategoryEnum.revisionNotes: revisionNotes,
+    NoteCategoryEnum.previousYearQuestions: previousYearQuestions,
+    NoteCategoryEnum.assignment: assignment,
+    NoteCategoryEnum.labManual: labManual,
+    NoteCategoryEnum.labRecord: labRecord,
+    NoteCategoryEnum.summary: summary,
+    NoteCategoryEnum.cheatSheet: cheatSheet,
+    NoteCategoryEnum.presentation: presentation,
+    NoteCategoryEnum.ebook: ebook,
+    NoteCategoryEnum.syllabus: syllabus,
+    NoteCategoryEnum.questionBank: questionBank,
+    NoteCategoryEnum.practiceSet: practiceSet,
+    NoteCategoryEnum.projectReport: projectReport,
+    NoteCategoryEnum.others: others,
   };
 }
 
 
-extension NoteCategoryExtension on NoteCategory {
+extension NoteCategoryExtension on NoteCategoryEnum {
   AppChipItem get chip {
     return AppCategoryChips.allCategories[this] ?? AppCategoryChips.others;
   }

@@ -1,4 +1,4 @@
-import 'package:clustranotes_mobile/features/notes/models/note_enums.dart';
+import 'package:clustranotes_mobile/features/notes/domain/enums/note_category_enums.dart';
 import 'package:json_annotation/json_annotation.dart';
 part 'create_note_dto.g.dart';
 
@@ -8,7 +8,7 @@ class CreateNoteDto {
   final String description;
   final String subject;
   final String? branch;
-  final NoteCategory category;
+  final NoteCategoryEnum category;
   final List<String>? tags;
   final int? semester;
   final String course;

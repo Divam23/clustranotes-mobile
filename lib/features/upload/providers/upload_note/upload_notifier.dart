@@ -1,8 +1,9 @@
 import 'dart:io';
 import 'package:clustranotes_mobile/core/models/note_content_type_enum.dart';
 import 'package:clustranotes_mobile/features/notes/data/models/create_note_dto.dart';
+import 'package:clustranotes_mobile/features/notes/domain/enums/note_category_enums.dart';
 import 'package:clustranotes_mobile/features/notes/domain/repositories/note_repository.dart';
-import 'package:clustranotes_mobile/features/notes/models/note_enums.dart';
+import 'package:clustranotes_mobile/features/upload/domain/enums/note_upload_status_enum.dart';
 import 'package:clustranotes_mobile/features/upload/domain/enums/note_upload_step_enum.dart';
 import 'package:clustranotes_mobile/features/upload/domain/enums/note_upload_step_status_enum.dart';
 import 'package:clustranotes_mobile/features/upload/domain/enums/upload_source_enums.dart';
@@ -220,16 +221,12 @@ class UploadNotifier extends StateNotifier<UploadState> {
     state = state.copyWith(subject: subject);
   }
 
-  void updateNoteCategory(NoteCategory noteCategory) {
+  void updateNoteCategory(NoteCategoryEnum noteCategory) {
     state = state.copyWith(noteCategory: noteCategory);
   }
 
   void updateIsPublic(bool isPublic) {
     state = state.copyWith(isPublic: isPublic);
-  }
-
-  void updateIsUploading(bool isUploading) {
-    state = state.copyWith(isUploading: isUploading);
   }
 
   void updateOwnership(bool ownership) {
@@ -297,7 +294,8 @@ class UploadNotifier extends StateNotifier<UploadState> {
 
   NoteUploadStepStatusEnum getDetailsStatus() {
     if (state.title.isEmpty ||
-        state.description.isEmpty) {
+        state.description.isEmpty || state.subject == null ||
+    state.course == null) {
       return NoteUploadStepStatusEnum.inProgress;
     }
     return NoteUploadStepStatusEnum.completed;
@@ -322,7 +320,8 @@ class UploadNotifier extends StateNotifier<UploadState> {
 
       case UploadStep.basicDetails:
         return state.title.trim().isNotEmpty &&
-            state.description.trim().isNotEmpty;
+            state.description.trim().isNotEmpty && state.course != null &&
+            state.subject != null;
 
       case UploadStep.noteSettings:
         return true;
@@ -336,59 +335,93 @@ class UploadNotifier extends StateNotifier<UploadState> {
     return state.declarations.allAccepted == true;
   }
 
-  Future<void> handlePublishNote() async {
-    if (!mounted) return;
-    if (state.isUploading) return;
-
-
+  (CreateNoteDto, File)? _checkAllValidationsBeforeUpload() {
+    
     if (state.uploadFile == null) {
       state = state.copyWith(error: "Please select a file.");
-      return;
+      return null;
     }
-
+    
     if (!_checkDeclarations()) {
       state = state.copyWith(error: "Please accept all declarations.");
-      return;
+      return null;
+    }
+
+    final currentCourse = state.course;
+    final currentSubject = state.subject;
+
+    if (currentCourse == null || currentCourse.trim().isEmpty ||
+        currentSubject == null || currentSubject.trim().isEmpty) {
+      state = state.copyWith(error: "Course and Subject fields are required.");
+      return null;
     }
 
     final file = state.uploadFile!.file;
-    
+
     final dto = CreateNoteDto(
       title: state.title,
       description: state.description,
       category: state.noteCategory,
-      subject: state.subject,
-      course: state.course,
+      subject: state.subject!,
+      course: state.course!,
+      branch: state.branch,
       tags: state.tags,
+      collegeName: state.collegeName,
       university: state.university,
       isPublic: state.isPublic,
       semester: state.semester,
-      collegeName: state.collegeName,
-      branch: state.branch,
       canDownload: state.canDownload,
       language: state.language,
     );
+    print("BEFORE Sending: $dto");
+    return (dto,file);
+  }
+  
+  Future<void> _uploadNote() async{
+    if (!mounted) return;
+    if (state.noteUploadStatus == NoteUploadStatus.uploading) return;
+
+    final fileData = _checkAllValidationsBeforeUpload();
+
+    if(fileData == null){
+      
+      return;
+    }
 
     try {
       state = state.copyWith(
-        isUploading: true,
         uploadProgress: 0.0,
         error: null,
       );
 
-      await _noteRepository.createNote(
-        note: dto,
-        file: file,
+      final response = await _noteRepository.createNote(
+        note: fileData.$1,
+        file: fileData.$2,
         onSendProgress: (sent, total) {
           if (!mounted || total <= 0) return;
           state = state.copyWith(uploadProgress: sent / total);
         },
       );
+      
+      print("Response After SENDING: $response");
+      state = state.copyWith(
+          noteUploadStatus: NoteUploadStatus.success
+      );
     } catch (error) {
       if (!mounted) return;
-      state = state.copyWith(error: error.toString());
-    } finally {
-      state = state.copyWith(isUploading: false);
+      state = state.copyWith(error: error.toString(), noteUploadStatus: NoteUploadStatus.failure);
     }
+  }
+  
+  Future<void> handlePublishNote() async {
+    _uploadNote();
+  }
+  
+  Future<void> retryNoteUpload() async{
+    _uploadNote();
+  }
+  
+  Future<void> cancelUpload() async{
+    
   }
 }

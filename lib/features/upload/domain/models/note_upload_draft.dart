@@ -1,4 +1,4 @@
-import 'package:clustranotes_mobile/features/notes/models/note_enums.dart';
+import 'package:clustranotes_mobile/features/notes/domain/enums/note_category_enums.dart';
 import 'package:clustranotes_mobile/features/upload/domain/models/upload_file.dart';
 
 class UploadDraft{
@@ -7,7 +7,7 @@ class UploadDraft{
   final String description;
   final String? subject;
   final String? branch;
-  final NoteCategory? category;
+  final NoteCategoryEnum? category;
   final List<String> tags;
   final String? course;
   final String? collegeName;

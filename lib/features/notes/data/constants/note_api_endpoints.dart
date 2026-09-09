@@ -1,3 +1,3 @@
 class NoteApiEndpoints {
-  static const createNote = '/notes/create';
+  static const createNote = '/note/create';
 }

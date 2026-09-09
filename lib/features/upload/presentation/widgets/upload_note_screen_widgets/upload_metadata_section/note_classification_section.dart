@@ -1,9 +1,8 @@
 import 'package:clustranotes_mobile/app/theme/theme.dart';
-import 'package:clustranotes_mobile/features/notes/models/note_enums.dart';
+import 'package:clustranotes_mobile/features/notes/domain/enums/note_category_enums.dart';
 import 'package:clustranotes_mobile/features/upload/presentation/extension/note_category_enums_ui_showcase.dart';
 import 'package:clustranotes_mobile/features/upload/presentation/widgets/common/show_selection_bottom_sheet.dart';
 import 'package:clustranotes_mobile/features/upload/presentation/widgets/upload_note_screen_widgets/common/note_metadata_dropdown.dart';
-import 'package:clustranotes_mobile/features/upload/providers/upload_note/upload_notifier.dart';
 import 'package:clustranotes_mobile/features/upload/providers/upload_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -37,7 +36,7 @@ class NoteClassificationSection extends ConsumerWidget {
           ],
         ),
         
-        NoteMetadataDropdown<NoteCategory>(
+        NoteMetadataDropdown<NoteCategoryEnum>(
           label: "Category",
           hintText: "Lecture Notes/Assignment etc.",
           enabled: true,
@@ -54,7 +53,7 @@ class NoteClassificationSection extends ConsumerWidget {
               builder: (_) {
                 return ShowSelectionBottomSheet(
                   title: "Select the category of note",
-                  items: NoteCategory.values,
+                  items: NoteCategoryEnum.values,
                   selectedItem: upload.noteCategory,
                   labelBuilder: (noteCategory) => noteCategory.displayName,
                   hintText: "Search your categories here",

@@ -8,9 +8,7 @@ final dummyUsers = [
     firstName: 'Divam',
     lastName: 'Dubey',
     userName: 'divamdubey',
-    isEmailVerified: true,
-    avatar: UserAvatarModel(
-        url: null, storagePath: storagePath),
+    avatar: UserAvatarModel(url: '', storagePath: ''),
     userVerificationStatus: UserVerificationStatus.verified,
   ),
   UserSummary(
@@ -18,8 +16,7 @@ final dummyUsers = [
     firstName: 'Aryan',
     lastName: 'Arya',
     userName: 'aryaaryan',
-    isEmailVerified: false,
-    avatarUrl: null,
+    avatar: UserAvatarModel(url: '', storagePath: ''),
     userVerificationStatus: UserVerificationStatus.notVerified,
   ),
   UserSummary(
@@ -27,8 +24,7 @@ final dummyUsers = [
     firstName: 'Anmol',
     lastName: 'Anshu',
     userName: 'anshuanmol',
-    isEmailVerified: false,
-    avatarUrl: null,
+    avatar: UserAvatarModel(url: '', storagePath: ''),
     userVerificationStatus: UserVerificationStatus.notVerified,
   ),
   UserSummary(
@@ -36,8 +32,7 @@ final dummyUsers = [
     firstName: 'Aditya',
     lastName: 'Sushant',
     userName: 'adityasushant',
-    isEmailVerified: true,
-    avatarUrl: null,
+    avatar: UserAvatarModel(url: '', storagePath: ''),
     userVerificationStatus: UserVerificationStatus.verified,
   ),
   UserSummary(
@@ -45,8 +40,7 @@ final dummyUsers = [
     firstName: 'Nishant',
     lastName: 'Kumar',
     userName: 'nishantkumar',
-    isEmailVerified: true,
-    avatarUrl: null,
+    avatar: UserAvatarModel(url: '', storagePath: ''),
     userVerificationStatus: UserVerificationStatus.verificationFailed,
   ),
   UserSummary(
@@ -54,8 +48,7 @@ final dummyUsers = [
     firstName: 'Harsh',
     lastName: 'Raj',
     userName: 'harshraj',
-    isEmailVerified: true,
-    avatarUrl: null,
+    avatar: UserAvatarModel(url: '', storagePath: ''),
     userVerificationStatus: UserVerificationStatus.underVerification,
   ),
   UserSummary(
@@ -63,8 +56,7 @@ final dummyUsers = [
     firstName: 'Akansh',
     lastName: 'Kumar',
     userName: 'akanshkumar',
-    isEmailVerified: true,
-    avatarUrl: null,
+    avatar: UserAvatarModel(url: '', storagePath: ''),
     userVerificationStatus: UserVerificationStatus.verified,
   ),
   UserSummary(
@@ -72,8 +64,7 @@ final dummyUsers = [
     firstName: 'Rahul',
     lastName: 'Kumar',
     userName: 'kumarrahul',
-    isEmailVerified: false,
-    avatarUrl: null,
+    avatar: UserAvatarModel(url: '', storagePath: ''),
     userVerificationStatus: UserVerificationStatus.notVerified,
   ),
   
@@ -84,8 +75,7 @@ const divam = UserSummary(
   firstName: 'Divam',
   lastName: 'Dubey',
   userName: 'divam',
-  avatarUrl: null,
-  isEmailVerified: true,
+  avatar: UserAvatarModel(url: '', storagePath: ''),
   userVerificationStatus: UserVerificationStatus.verified,
 );
 
@@ -94,7 +84,6 @@ const harsh = UserSummary(
   firstName: 'Harsh',
   lastName: 'Singh',
   userName: 'harsh',
-  avatarUrl: null,
-  isEmailVerified: true,
+  avatar: UserAvatarModel(url: '', storagePath: ''),
   userVerificationStatus: UserVerificationStatus.notVerified,
 );

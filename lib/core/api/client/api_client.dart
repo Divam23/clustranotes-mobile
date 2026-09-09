@@ -81,7 +81,9 @@ class ApiClient {
       path,
       data: data,
       queryParameters: queryParameters,
-      options: options,
+      options: (options ?? Options()).copyWith(
+        sendTimeout: const Duration(minutes: 5),
+      ),
       onSendProgress: onSendProgress
     );
   }

@@ -1,8 +1,10 @@
 import 'package:clustranotes_mobile/core/models/note_content_type_enum.dart';
+import 'package:clustranotes_mobile/features/notes/domain/enums/note_category_enums.dart';
+import 'package:clustranotes_mobile/features/notes/domain/enums/note_publish_status_enums.dart';
+import 'package:clustranotes_mobile/features/notes/domain/enums/note_verification_status_enums.dart';
 import 'package:clustranotes_mobile/features/notes/models/note_details.dart';
 import 'package:clustranotes_mobile/features/user/data/dummy_user_data.dart';
 import 'package:clustranotes_mobile/features/notes/models/note_model.dart';
-import 'package:clustranotes_mobile/features/notes/models/note_enums.dart';
 import 'package:clustranotes_mobile/features/notes/models/note_file_metadata.dart';
 import 'package:clustranotes_mobile/features/notes/models/note_stats.dart';
 import 'package:clustranotes_mobile/features/notes/models/moderation_info.dart';
@@ -15,7 +17,7 @@ final dummyNoteDetails = [
       description: 'Covers all laws of thermodynamics with solved examples.Organic Chemistry Reaction MechanismsOrganic Chemistry Reaction MechanismsOrganic Chemistry Reaction MechanismsOrganic Chemistry Reaction MechanismsOrganic Chemistry Reaction MechanismsOrganic Chemistry Reaction MechanismsOrganic Chemistry Reaction MechanismsOrganic Chemistry Reaction MechanismsOrganic Chemistry Reaction MechanismsOrganic Chemistry Reaction MechanismsOrganic Chemistry Reaction MechanismsOrganic Chemistry Reaction MechanismsOrganic Chemistry Reaction MechanismsOrganic Chemistry Reaction MechanismsOrganic Chemistry Reaction MechanismsOrganic Chemistry Reaction MechanismsOrganic Chemistry Reaction MechanismsOrganic Chemistry Reaction MechanismsOrganic Chemistry Reaction MechanismsOrganic Chemistry Reaction MechanismsOrganic Chemistry Reaction MechanismsOrganic Chemistry Reaction MechanismsOrganic Chemistry Reaction MechanismsOrganic Chemistry Reaction MechanismsOrganic Chemistry Reaction MechanismsOrganic Chemistry Reaction MechanismsOrganic Chemistry Reaction MechanismsOrganic Chemistry Reaction MechanismsOrganic Chemistry Reaction MechanismsOrganic Chemistry Reaction MechanismsOrganic Chemistry Reaction MechanismsOrganic Chemistry Reaction MechanismsOrganic Chemistry Reaction MechanismsOrganic Chemistry Reaction MechanismsOrganic Chemistry Reaction MechanismsOrganic Chemistry Reaction MechanismsOrganic Chemistry Reaction MechanismsOrganic Chemistry Reaction MechanismsOrganic Chemistry Reaction MechanismsOrganic Chemistry Reaction MechanismsOrganic Chemistry Reaction MechanismsOrganic Chemistry Reaction MechanismsOrganic Chemistry Reaction MechanismsOrganic Chemistry Reaction MechanismsOrganic Chemistry Reaction MechanismsOrganic Chemistry Reaction MechanismsOrganic Chemistry Reaction MechanismsOrganic Chemistry Reaction MechanismsOrganic Chemistry Reaction MechanismsOrganic Chemistry Reaction MechanismsOrganic Chemistry Reaction MechanismsOrganic Chemistry Reaction MechanismsOrganic Chemistry Reaction MechanismsOrganic Chemistry Reaction MechanismsOrganic Chemistry Reaction MechanismsOrganic Chemistry Reaction Mechanismsv',
       subject: 'Physics',
       branch: 'Mechanical Engineering',
-      category: NoteCategory.lectureNotes,
+      category: NoteCategoryEnum.lectureNotes,
       contentType: NoteContentType.pdf,
       tags: const ['thermodynamics', 'physics', 'mechanical'],
       course: 'B.Tech',
@@ -31,7 +33,7 @@ final dummyNoteDetails = [
         readingTime: 18,
       ),
       extractedText: null,
-      uploaderId: 'user_101',
+      uploader: dummyUsers[1],
       isPublic: true,
       publishStatus: NotePublishStatus.published,
       publishedAt: DateTime(2026, 2, 14),
@@ -67,7 +69,7 @@ final dummyNoteDetails = [
       description: '',
       subject: 'Chemistry',
       branch: null,
-      category: NoteCategory.lectureNotes,
+      category: NoteCategoryEnum.lectureNotes,
       contentType: NoteContentType.docx,
       tags: const ['organic chemistry', 'reactions'],
       course: 'B.Sc.',
@@ -83,7 +85,7 @@ final dummyNoteDetails = [
         readingTime: 8,
       ),
       extractedText: null,
-      uploaderId: 'user_202',
+      uploader: dummyUsers[2],
       isPublic: true,
       publishStatus: NotePublishStatus.published,
       publishedAt: DateTime(2026, 4, 18),
@@ -119,7 +121,7 @@ final dummyNoteDetails = [
       description: 'Eigenvalues, eigenvectors and matrix diagonalization',
       subject: 'Mathematics',
       branch: null,
-      category: NoteCategory.assignment,
+      category: NoteCategoryEnum.assignment,
       contentType: NoteContentType.pdf,
       tags: const ['linear algebra', 'matrices'],
       course: 'B.Sc. Mathematics',
@@ -135,7 +137,7 @@ final dummyNoteDetails = [
         readingTime: 10,
       ),
       extractedText: null,
-      uploaderId: 'user_303',
+      uploader: dummyUsers[3],
       // rejected, but still public — matches our reject() design:
       // verification rejection never hides the note, only affects the badge
       isPublic: true,

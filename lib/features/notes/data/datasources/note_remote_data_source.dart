@@ -22,6 +22,8 @@ class NoteRemoteDataSource {
       ...note.toJson(),
       'file': await multipartFile,
     });
+    
+    print("Form Data: ${formData.fields}");
 
     final response = await _apiClient.postMultipart<Map<String, dynamic>>(
       path: NoteApiEndpoints.createNote,

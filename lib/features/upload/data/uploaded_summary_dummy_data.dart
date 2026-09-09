@@ -1,5 +1,6 @@
 import 'package:clustranotes_mobile/core/models/note_content_type_enum.dart';
-import 'package:clustranotes_mobile/features/notes/models/note_enums.dart';
+import 'package:clustranotes_mobile/features/notes/domain/enums/note_publish_status_enums.dart';
+import 'package:clustranotes_mobile/features/notes/domain/enums/note_verification_status_enums.dart';
 import 'package:clustranotes_mobile/features/upload/domain/models/uploaded_note_summary_model.dart';
 
 final dummyUploadedNotes = [

@@ -1,5 +1,6 @@
 import 'package:clustranotes_mobile/core/models/note_content_type_enum.dart';
-import 'package:clustranotes_mobile/features/notes/models/note_enums.dart';
+import 'package:clustranotes_mobile/features/notes/domain/enums/note_category_enums.dart';
+import 'package:clustranotes_mobile/features/notes/domain/enums/note_verification_status_enums.dart';
 
 class NoteCardModel{
   final String id;
@@ -7,7 +8,7 @@ class NoteCardModel{
   final String subject;
   final String? branch;
   final String course;
-  final NoteCategory category;
+  final NoteCategoryEnum category;
   final NoteContentType contentType;
   final int? semester;
   final List<String>? tags;

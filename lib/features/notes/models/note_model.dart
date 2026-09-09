@@ -1,6 +1,8 @@
 import 'package:clustranotes_mobile/core/models/note_content_type_enum.dart';
+import 'package:clustranotes_mobile/features/notes/domain/enums/note_category_enums.dart';
+import 'package:clustranotes_mobile/features/notes/domain/enums/note_publish_status_enums.dart';
+import 'package:clustranotes_mobile/features/notes/domain/enums/note_verification_status_enums.dart';
 import 'package:clustranotes_mobile/features/notes/models/moderation_info.dart';
-import 'package:clustranotes_mobile/features/notes/models/note_enums.dart';
 import 'package:clustranotes_mobile/features/notes/models/note_file_metadata.dart';
 import 'package:clustranotes_mobile/features/notes/models/note_stats.dart';
 import 'package:clustranotes_mobile/features/user/domain/models/user_summary.dart';
@@ -11,7 +13,7 @@ class Note {
   final String description;
   final String subject;
   final String? branch;
-  final NoteCategory category;
+  final NoteCategoryEnum category;
   final NoteContentType contentType;
   final List<String>? tags;
   final String course;

@@ -4,7 +4,7 @@ import 'package:clustranotes_mobile/core/widgets/dot.dart';
 import 'package:clustranotes_mobile/core/widgets/resource_chips/chip_item.dart';
 import 'package:clustranotes_mobile/core/widgets/resource_chips/filetype_chip.dart';
 import 'package:clustranotes_mobile/core/widgets/resource_chips/resource_chip.dart';
-import 'package:clustranotes_mobile/features/notes/models/note_enums.dart';
+import 'package:clustranotes_mobile/features/notes/domain/enums/note_category_enums.dart';
 import 'package:flutter/material.dart';
 import 'package:clustranotes_mobile/app/theme/theme.dart';
 
@@ -15,7 +15,7 @@ class SearchResultNoteCardItem {
   final String semester;
   final String subject;
   final String collegeName;
-  final NoteCategory category;
+  final NoteCategoryEnum category;
   final NoteContentType contentType;
   final String downloadCount;
   final String uploadTime;

@@ -1,6 +1,7 @@
 import 'package:clustranotes_mobile/core/models/note_content_type_enum.dart';
+import 'package:clustranotes_mobile/features/notes/domain/enums/note_category_enums.dart';
+import 'package:clustranotes_mobile/features/notes/domain/enums/note_verification_status_enums.dart';
 import 'package:clustranotes_mobile/features/notes/models/note_card_model.dart';
-import 'package:clustranotes_mobile/features/notes/models/note_enums.dart';
 
 final List<NoteCardModel> dummyNoteCards = [
   NoteCardModel(
@@ -9,7 +10,7 @@ final List<NoteCardModel> dummyNoteCards = [
     subject: 'Physics',
     branch: 'Mechanical Engineering',
     course: 'B.Tech',
-    category: NoteCategory.lectureNotes,
+    category: NoteCategoryEnum.lectureNotes,
     contentType: NoteContentType.pdf,
     semester: 4,
     tags: ['thermodynamics', 'physics', 'mechanical'],
@@ -32,7 +33,7 @@ final List<NoteCardModel> dummyNoteCards = [
     subject: 'Computer Science',
     branch: 'Computer Science Engineering',
     course: 'B.Tech',
-    category: NoteCategory.handwritten,
+    category: NoteCategoryEnum.handwritten,
     contentType: NoteContentType.pdf,
     semester: 3,
     tags: ['dsa', 'trees', 'graphs'],
@@ -55,7 +56,7 @@ final List<NoteCardModel> dummyNoteCards = [
     subject: 'Chemistry',
     branch: null,
     course: 'B.Sc.',
-    category: NoteCategory.lectureNotes,
+    category: NoteCategoryEnum.lectureNotes,
     contentType: NoteContentType.pdf,
     semester: 2,
     tags: ['organic chemistry', 'reactions'],
@@ -79,7 +80,7 @@ final List<NoteCardModel> dummyNoteCards = [
     subject: 'Economics',
     branch: null,
     course: 'BA Economics',
-    category: NoteCategory.revisionNotes,
+    category: NoteCategoryEnum.revisionNotes,
     contentType: NoteContentType.docx,
     semester: 5,
     tags: ['macroeconomics', 'revision'],
@@ -102,7 +103,7 @@ final List<NoteCardModel> dummyNoteCards = [
     subject: 'Database Management Systems',
     branch: 'Information Technology',
     course: 'B.Tech',
-    category: NoteCategory.cheatSheet,
+    category: NoteCategoryEnum.cheatSheet,
     contentType: NoteContentType.pdf,
     semester: 4,
     tags: ['dbms', 'normalization', 'sql'],
@@ -125,7 +126,7 @@ final List<NoteCardModel> dummyNoteCards = [
     subject: 'Mathematics',
     branch: null,
     course: 'B.Sc. Mathematics',
-    category: NoteCategory.assignment,
+    category: NoteCategoryEnum.assignment,
     contentType: NoteContentType.pdf,
     semester: 3,
     tags: ['linear algebra', 'matrices'],
@@ -149,7 +150,7 @@ final List<NoteCardModel> dummyNoteCards = [
     subject: 'Computer Science',
     branch: 'Computer Science Engineering',
     course: 'B.Tech',
-    category: NoteCategory.lectureNotes,
+    category: NoteCategoryEnum.lectureNotes,
     contentType: NoteContentType.pptx,
     semester: 5,
     tags: ['operating systems', 'scheduling'],

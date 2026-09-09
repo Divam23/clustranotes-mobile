@@ -1,39 +1,39 @@
-import 'package:clustranotes_mobile/features/notes/models/note_enums.dart';
+import 'package:clustranotes_mobile/features/notes/domain/enums/note_category_enums.dart';
 
-extension NoteCategoryExtension on NoteCategory {
+extension NoteCategoryExtension on NoteCategoryEnum {
   String get displayName {
     switch (this) {
-      case NoteCategory.lectureNotes:
+      case NoteCategoryEnum.lectureNotes:
         return "Lecture Notes";
-      case NoteCategory.handwritten:
+      case NoteCategoryEnum.handwritten:
         return "Handwritten";
-      case NoteCategory.previousYearQuestions:
+      case NoteCategoryEnum.previousYearQuestions:
         return "Previous Year Questions";
-      case NoteCategory.revisionNotes:
+      case NoteCategoryEnum.revisionNotes:
         return "Revision Notes";
-      case NoteCategory.assignment:
+      case NoteCategoryEnum.assignment:
         return "Assignment";
-      case NoteCategory.labManual:
+      case NoteCategoryEnum.labManual:
         return "Lab Manual";
-      case NoteCategory.labRecord:
+      case NoteCategoryEnum.labRecord:
         return "Lab Record";
-      case NoteCategory.summary:
+      case NoteCategoryEnum.summary:
         return "Summary";
-      case NoteCategory.cheatSheet:
+      case NoteCategoryEnum.cheatSheet:
         return "Cheat Sheet";
-      case NoteCategory.presentation:
+      case NoteCategoryEnum.presentation:
         return "Presentation";
-      case NoteCategory.ebook:
+      case NoteCategoryEnum.ebook:
         return "E-Book";
-      case NoteCategory.syllabus:
+      case NoteCategoryEnum.syllabus:
         return "Syllabus";
-      case NoteCategory.questionBank:
+      case NoteCategoryEnum.questionBank:
         return "Question Bank";
-      case NoteCategory.practiceSet:
+      case NoteCategoryEnum.practiceSet:
         return "Practice Set";
-      case NoteCategory.projectReport:
+      case NoteCategoryEnum.projectReport:
         return "Project Report";
-      case NoteCategory.others:
+      case NoteCategoryEnum.others:
         return "Others";
     }
   }
