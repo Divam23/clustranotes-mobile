@@ -108,7 +108,7 @@ class _ForgotPasswordScreenState extends ConsumerState<ForgotPasswordScreen> {
                                       final success = await _submit();
                                       if (!context.mounted) return;
                                       if (success) {
-                                        context.pushReplacement("/mail-sent");
+                                        context.pushReplacement("/reset-mail");
                                       }
                             },
                             text: "",

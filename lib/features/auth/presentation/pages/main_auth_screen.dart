@@ -111,6 +111,21 @@ class MainAuthScreen extends ConsumerWidget{
                                 context.push(AppRoutePaths.login);
                               },
                             ),
+                            const SizedBox(height: AppSpacing.md),
+                            TextButton(
+                              onPressed: () {
+                                context.push('/notes/test123');
+                              },
+                              child: const Text('Test Protected Route'),
+                            ),
+                            const SizedBox(height: AppSpacing.md),
+                            TextButton(
+                              onPressed: () {
+                                context.push('/test123');
+                              },
+                              child: const Text('Unknown Route'),
+                            ),
+                            
                           ],
                         )
                         

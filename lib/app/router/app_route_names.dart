@@ -16,4 +16,10 @@ abstract final class AppRouteNames {
   static const upload = 'upload';
   static const library = 'library';
   static const profile = 'profile';
+  
+  //Note
+  static const noteDetails = 'noteDetails';
+  
+  //not found
+  static const notFound = 'notFound';
 }

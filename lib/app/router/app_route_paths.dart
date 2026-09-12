@@ -17,5 +17,9 @@ abstract final class AppRoutePaths {
   static const library = '/library';
   static const profile = '/profile';
   
+  //Note
+  static const noteDetails = '/notes/:noteId';
   
+  //Not Found
+  static const notFound = '/404';
 }
