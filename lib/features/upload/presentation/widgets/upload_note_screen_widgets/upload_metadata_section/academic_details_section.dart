@@ -96,7 +96,7 @@ class AcademicDetailsSection extends ConsumerWidget {
               onChanged: notifier.updateCourse,
               allowClear: false,
               validator: (value){
-                if(value == null ){
+                if(value == null){
                   return "Please select a course";
                 }
                 return null;

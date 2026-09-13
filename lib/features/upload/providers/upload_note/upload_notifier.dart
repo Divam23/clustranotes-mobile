@@ -1,4 +1,7 @@
 import 'dart:io';
+import 'package:clustranotes_mobile/core/errors/app_failure.dart';
+import 'package:clustranotes_mobile/core/errors/app_failure_mapper.dart';
+import 'package:clustranotes_mobile/core/errors/exceptions/app_exception.dart';
 import 'package:clustranotes_mobile/core/models/note_content_type_enum.dart';
 import 'package:clustranotes_mobile/features/notes/data/models/create_note_dto.dart';
 import 'package:clustranotes_mobile/features/notes/domain/enums/note_category_enums.dart';
@@ -12,6 +15,7 @@ import 'package:clustranotes_mobile/features/upload/domain/models/upload_file.da
 import 'package:clustranotes_mobile/features/upload/providers/upload_note/upload_state.dart';
 import 'package:clustranotes_mobile/features/upload/services/images_to_pdf_service.dart';
 import 'package:file_picker/file_picker.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter_riverpod/legacy.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:pdfrx/pdfrx.dart';
@@ -85,10 +89,24 @@ class UploadNotifier extends StateNotifier<UploadState> {
         currentStep: UploadStep.basicDetails,
         error: null,
       );
-    } catch (e) {
+    } 
+    on AppException catch (exception) {
       if (!mounted) return;
-      state = state.copyWith(error: e.toString());
-    } finally {
+      state = state.copyWith(error: AppFailureMapper.map(exception));
+    } 
+    catch(error, stackTrace){
+      debugPrintStack(stackTrace: stackTrace);
+      debugPrint("Error in picking file: $error");
+      if(!mounted) return;
+      state = state.copyWith(
+        error: const AppFailure(
+          message: 'Something went wrong while picking file. Please try again.',
+          retryable: true,
+        ),
+      );
+    }
+    
+    finally {
       state = state.copyWith(isPickingDocument: false);
     }
   }
@@ -159,7 +177,10 @@ class UploadNotifier extends StateNotifier<UploadState> {
       );
     } catch (e) {
       if (!mounted) return;
-      state = state.copyWith(error: e.toString());
+      state = state.copyWith(error: const AppFailure(
+        message: 'Error generating PDF. Please try again.',
+        retryable: true,
+      ),);
     } finally {
       state = state.copyWith(isGeneratingPDF: false);
     }
@@ -294,8 +315,9 @@ class UploadNotifier extends StateNotifier<UploadState> {
 
   NoteUploadStepStatusEnum getDetailsStatus() {
     if (state.title.isEmpty ||
-        state.description.isEmpty || state.subject == null ||
-    state.course == null) {
+        state.description.isEmpty ||
+        state.subject == null ||
+        state.course == null) {
       return NoteUploadStepStatusEnum.inProgress;
     }
     return NoteUploadStepStatusEnum.completed;
@@ -320,7 +342,8 @@ class UploadNotifier extends StateNotifier<UploadState> {
 
       case UploadStep.basicDetails:
         return state.title.trim().isNotEmpty &&
-            state.description.trim().isNotEmpty && state.course != null &&
+            state.description.trim().isNotEmpty &&
+            state.course != null &&
             state.subject != null;
 
       case UploadStep.noteSettings:
@@ -336,23 +359,33 @@ class UploadNotifier extends StateNotifier<UploadState> {
   }
 
   (CreateNoteDto, File)? _checkAllValidationsBeforeUpload() {
-    
     if (state.uploadFile == null) {
-      state = state.copyWith(error: "Please select a file.");
+      state = state.copyWith(error: const AppFailure(
+        message: 'Please select a file.',
+        retryable: true,
+      ),);
       return null;
     }
-    
+
     if (!_checkDeclarations()) {
-      state = state.copyWith(error: "Please accept all declarations.");
+      state = state.copyWith(error: const AppFailure(
+        message: 'Please accept all declarations.',
+        retryable: true,
+      ),);
       return null;
     }
 
     final currentCourse = state.course;
     final currentSubject = state.subject;
 
-    if (currentCourse == null || currentCourse.trim().isEmpty ||
-        currentSubject == null || currentSubject.trim().isEmpty) {
-      state = state.copyWith(error: "Course and Subject fields are required.");
+    if (currentCourse == null ||
+        currentCourse.trim().isEmpty ||
+        currentSubject == null ||
+        currentSubject.trim().isEmpty) {
+      state = state.copyWith(error: const AppFailure(
+        message: 'Course and Subject fields are required.',
+        retryable: true,
+      ),);
       return null;
     }
 
@@ -374,25 +407,21 @@ class UploadNotifier extends StateNotifier<UploadState> {
       language: state.language,
     );
     print("BEFORE Sending: $dto");
-    return (dto,file);
+    return (dto, file);
   }
-  
-  Future<void> _uploadNote() async{
+
+  Future<void> _uploadNote() async {
     if (!mounted) return;
     if (state.noteUploadStatus == NoteUploadStatus.uploading) return;
 
     final fileData = _checkAllValidationsBeforeUpload();
 
-    if(fileData == null){
-      
+    if (fileData == null) {
       return;
     }
 
     try {
-      state = state.copyWith(
-        uploadProgress: 0.0,
-        error: null,
-      );
+      state = state.copyWith(uploadProgress: 0.0, error: null);
 
       final response = await _noteRepository.createNote(
         note: fileData.$1,
@@ -402,26 +431,39 @@ class UploadNotifier extends StateNotifier<UploadState> {
           state = state.copyWith(uploadProgress: sent / total);
         },
       );
-      
+
       print("Response After SENDING: $response");
-      state = state.copyWith(
-          noteUploadStatus: NoteUploadStatus.success
-      );
-    } catch (error) {
+      state = state.copyWith(noteUploadStatus: NoteUploadStatus.success);
+    } 
+    on AppException catch (exception) {
       if (!mounted) return;
-      state = state.copyWith(error: error.toString(), noteUploadStatus: NoteUploadStatus.failure);
+      state = state.copyWith(
+        error: AppFailureMapper.map(exception),
+        noteUploadStatus: NoteUploadStatus.failure,
+      );
+    }
+    catch (error, stackTrace) {
+      debugPrintStack(stackTrace: stackTrace);
+      debugPrint("Error: $error");
+      if (!mounted) return;
+
+      state = state.copyWith(
+        error: const AppFailure(
+          message: 'Something went wrong. Please try again.',
+          retryable: true,
+        ),
+        noteUploadStatus: NoteUploadStatus.failure,
+      );
     }
   }
-  
+
   Future<void> handlePublishNote() async {
     _uploadNote();
   }
-  
-  Future<void> retryNoteUpload() async{
+
+  Future<void> retryNoteUpload() async {
     _uploadNote();
   }
-  
-  Future<void> cancelUpload() async{
-    
-  }
+
+  Future<void> cancelUpload() async {}
 }

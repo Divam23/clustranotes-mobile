@@ -14,7 +14,7 @@ T _$identity<T>(T value) => value;
 /// @nodoc
 mixin _$UploadState {
 
- UploadFile? get uploadFile; List<XFile> get selectedImages; String get title; String get description; String? get subject; String? get course; String? get branch; NoteCategoryEnum get noteCategory; List<String> get tags; String? get collegeName; String? get university; String get language; UploadStep get currentStep; UploadScreenEnum get currentScreen; int? get semester; int? get previewIndex; bool get isPublic; bool get isGeneratingPDF; bool get isPickingDocument; bool get canDownload; double get uploadProgress; NoteUploadStatus get noteUploadStatus; UploadDeclarations get declarations; String? get error;
+ UploadFile? get uploadFile; List<XFile> get selectedImages; String get title; String get description; String? get subject; String? get course; String? get branch; NoteCategoryEnum get noteCategory; List<String> get tags; String? get collegeName; String? get university; String get language; UploadStep get currentStep; UploadScreenEnum get currentScreen; int? get semester; int? get previewIndex; bool get isPublic; bool get isGeneratingPDF; bool get isPickingDocument; bool get canDownload; double get uploadProgress; NoteUploadStatus get noteUploadStatus; UploadDeclarations get declarations; AppFailure? get error;
 /// Create a copy of UploadState
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -45,7 +45,7 @@ abstract mixin class $UploadStateCopyWith<$Res>  {
   factory $UploadStateCopyWith(UploadState value, $Res Function(UploadState) _then) = _$UploadStateCopyWithImpl;
 @useResult
 $Res call({
- UploadFile? uploadFile, List<XFile> selectedImages, String title, String description, String? subject, String? course, String? branch, NoteCategoryEnum noteCategory, List<String> tags, String? collegeName, String? university, String language, UploadStep currentStep, UploadScreenEnum currentScreen, int? semester, int? previewIndex, bool isPublic, bool isGeneratingPDF, bool isPickingDocument, bool canDownload, double uploadProgress, NoteUploadStatus noteUploadStatus, UploadDeclarations declarations, String? error
+ UploadFile? uploadFile, List<XFile> selectedImages, String title, String description, String? subject, String? course, String? branch, NoteCategoryEnum noteCategory, List<String> tags, String? collegeName, String? university, String language, UploadStep currentStep, UploadScreenEnum currentScreen, int? semester, int? previewIndex, bool isPublic, bool isGeneratingPDF, bool isPickingDocument, bool canDownload, double uploadProgress, NoteUploadStatus noteUploadStatus, UploadDeclarations declarations, AppFailure? error
 });
 
 
@@ -88,7 +88,7 @@ as bool,uploadProgress: null == uploadProgress ? _self.uploadProgress : uploadPr
 as double,noteUploadStatus: null == noteUploadStatus ? _self.noteUploadStatus : noteUploadStatus // ignore: cast_nullable_to_non_nullable
 as NoteUploadStatus,declarations: null == declarations ? _self.declarations : declarations // ignore: cast_nullable_to_non_nullable
 as UploadDeclarations,error: freezed == error ? _self.error : error // ignore: cast_nullable_to_non_nullable
-as String?,
+as AppFailure?,
   ));
 }
 
@@ -173,7 +173,7 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( UploadFile? uploadFile,  List<XFile> selectedImages,  String title,  String description,  String? subject,  String? course,  String? branch,  NoteCategoryEnum noteCategory,  List<String> tags,  String? collegeName,  String? university,  String language,  UploadStep currentStep,  UploadScreenEnum currentScreen,  int? semester,  int? previewIndex,  bool isPublic,  bool isGeneratingPDF,  bool isPickingDocument,  bool canDownload,  double uploadProgress,  NoteUploadStatus noteUploadStatus,  UploadDeclarations declarations,  String? error)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( UploadFile? uploadFile,  List<XFile> selectedImages,  String title,  String description,  String? subject,  String? course,  String? branch,  NoteCategoryEnum noteCategory,  List<String> tags,  String? collegeName,  String? university,  String language,  UploadStep currentStep,  UploadScreenEnum currentScreen,  int? semester,  int? previewIndex,  bool isPublic,  bool isGeneratingPDF,  bool isPickingDocument,  bool canDownload,  double uploadProgress,  NoteUploadStatus noteUploadStatus,  UploadDeclarations declarations,  AppFailure? error)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _UploadState() when $default != null:
 return $default(_that.uploadFile,_that.selectedImages,_that.title,_that.description,_that.subject,_that.course,_that.branch,_that.noteCategory,_that.tags,_that.collegeName,_that.university,_that.language,_that.currentStep,_that.currentScreen,_that.semester,_that.previewIndex,_that.isPublic,_that.isGeneratingPDF,_that.isPickingDocument,_that.canDownload,_that.uploadProgress,_that.noteUploadStatus,_that.declarations,_that.error);case _:
@@ -194,7 +194,7 @@ return $default(_that.uploadFile,_that.selectedImages,_that.title,_that.descript
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( UploadFile? uploadFile,  List<XFile> selectedImages,  String title,  String description,  String? subject,  String? course,  String? branch,  NoteCategoryEnum noteCategory,  List<String> tags,  String? collegeName,  String? university,  String language,  UploadStep currentStep,  UploadScreenEnum currentScreen,  int? semester,  int? previewIndex,  bool isPublic,  bool isGeneratingPDF,  bool isPickingDocument,  bool canDownload,  double uploadProgress,  NoteUploadStatus noteUploadStatus,  UploadDeclarations declarations,  String? error)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( UploadFile? uploadFile,  List<XFile> selectedImages,  String title,  String description,  String? subject,  String? course,  String? branch,  NoteCategoryEnum noteCategory,  List<String> tags,  String? collegeName,  String? university,  String language,  UploadStep currentStep,  UploadScreenEnum currentScreen,  int? semester,  int? previewIndex,  bool isPublic,  bool isGeneratingPDF,  bool isPickingDocument,  bool canDownload,  double uploadProgress,  NoteUploadStatus noteUploadStatus,  UploadDeclarations declarations,  AppFailure? error)  $default,) {final _that = this;
 switch (_that) {
 case _UploadState():
 return $default(_that.uploadFile,_that.selectedImages,_that.title,_that.description,_that.subject,_that.course,_that.branch,_that.noteCategory,_that.tags,_that.collegeName,_that.university,_that.language,_that.currentStep,_that.currentScreen,_that.semester,_that.previewIndex,_that.isPublic,_that.isGeneratingPDF,_that.isPickingDocument,_that.canDownload,_that.uploadProgress,_that.noteUploadStatus,_that.declarations,_that.error);case _:
@@ -214,7 +214,7 @@ return $default(_that.uploadFile,_that.selectedImages,_that.title,_that.descript
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( UploadFile? uploadFile,  List<XFile> selectedImages,  String title,  String description,  String? subject,  String? course,  String? branch,  NoteCategoryEnum noteCategory,  List<String> tags,  String? collegeName,  String? university,  String language,  UploadStep currentStep,  UploadScreenEnum currentScreen,  int? semester,  int? previewIndex,  bool isPublic,  bool isGeneratingPDF,  bool isPickingDocument,  bool canDownload,  double uploadProgress,  NoteUploadStatus noteUploadStatus,  UploadDeclarations declarations,  String? error)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( UploadFile? uploadFile,  List<XFile> selectedImages,  String title,  String description,  String? subject,  String? course,  String? branch,  NoteCategoryEnum noteCategory,  List<String> tags,  String? collegeName,  String? university,  String language,  UploadStep currentStep,  UploadScreenEnum currentScreen,  int? semester,  int? previewIndex,  bool isPublic,  bool isGeneratingPDF,  bool isPickingDocument,  bool canDownload,  double uploadProgress,  NoteUploadStatus noteUploadStatus,  UploadDeclarations declarations,  AppFailure? error)?  $default,) {final _that = this;
 switch (_that) {
 case _UploadState() when $default != null:
 return $default(_that.uploadFile,_that.selectedImages,_that.title,_that.description,_that.subject,_that.course,_that.branch,_that.noteCategory,_that.tags,_that.collegeName,_that.university,_that.language,_that.currentStep,_that.currentScreen,_that.semester,_that.previewIndex,_that.isPublic,_that.isGeneratingPDF,_that.isPickingDocument,_that.canDownload,_that.uploadProgress,_that.noteUploadStatus,_that.declarations,_that.error);case _:
@@ -267,7 +267,7 @@ class _UploadState implements UploadState {
 @override@JsonKey() final  double uploadProgress;
 @override@JsonKey() final  NoteUploadStatus noteUploadStatus;
 @override@JsonKey() final  UploadDeclarations declarations;
-@override final  String? error;
+@override final  AppFailure? error;
 
 /// Create a copy of UploadState
 /// with the given fields replaced by the non-null parameter values.
@@ -299,7 +299,7 @@ abstract mixin class _$UploadStateCopyWith<$Res> implements $UploadStateCopyWith
   factory _$UploadStateCopyWith(_UploadState value, $Res Function(_UploadState) _then) = __$UploadStateCopyWithImpl;
 @override @useResult
 $Res call({
- UploadFile? uploadFile, List<XFile> selectedImages, String title, String description, String? subject, String? course, String? branch, NoteCategoryEnum noteCategory, List<String> tags, String? collegeName, String? university, String language, UploadStep currentStep, UploadScreenEnum currentScreen, int? semester, int? previewIndex, bool isPublic, bool isGeneratingPDF, bool isPickingDocument, bool canDownload, double uploadProgress, NoteUploadStatus noteUploadStatus, UploadDeclarations declarations, String? error
+ UploadFile? uploadFile, List<XFile> selectedImages, String title, String description, String? subject, String? course, String? branch, NoteCategoryEnum noteCategory, List<String> tags, String? collegeName, String? university, String language, UploadStep currentStep, UploadScreenEnum currentScreen, int? semester, int? previewIndex, bool isPublic, bool isGeneratingPDF, bool isPickingDocument, bool canDownload, double uploadProgress, NoteUploadStatus noteUploadStatus, UploadDeclarations declarations, AppFailure? error
 });
 
 
@@ -342,7 +342,7 @@ as bool,uploadProgress: null == uploadProgress ? _self.uploadProgress : uploadPr
 as double,noteUploadStatus: null == noteUploadStatus ? _self.noteUploadStatus : noteUploadStatus // ignore: cast_nullable_to_non_nullable
 as NoteUploadStatus,declarations: null == declarations ? _self.declarations : declarations // ignore: cast_nullable_to_non_nullable
 as UploadDeclarations,error: freezed == error ? _self.error : error // ignore: cast_nullable_to_non_nullable
-as String?,
+as AppFailure?,
   ));
 }
 

@@ -1,3 +1,4 @@
+import 'package:clustranotes_mobile/core/errors/app_failure.dart';
 import 'package:clustranotes_mobile/features/notes/domain/enums/note_category_enums.dart';
 import 'package:clustranotes_mobile/features/upload/domain/enums/note_upload_status_enum.dart';
 import 'package:clustranotes_mobile/features/upload/domain/enums/note_upload_step_enum.dart';
@@ -36,6 +37,6 @@ abstract class UploadState with _$UploadState {
     @Default(0.0) double uploadProgress,
     @Default(NoteUploadStatus.idle) NoteUploadStatus noteUploadStatus,
     @Default(UploadDeclarations()) UploadDeclarations declarations, 
-    String? error,
+    AppFailure? error,
   })= _UploadState;
 }
