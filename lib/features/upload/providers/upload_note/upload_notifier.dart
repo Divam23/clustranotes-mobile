@@ -421,7 +421,10 @@ class UploadNotifier extends StateNotifier<UploadState> {
     }
 
     try {
-      state = state.copyWith(uploadProgress: 0.0, error: null);
+      state = state.copyWith(
+          uploadProgress: 0.0,
+          error: null
+      );
 
       final response = await _noteRepository.createNote(
         note: fileData.$1,
@@ -431,7 +434,7 @@ class UploadNotifier extends StateNotifier<UploadState> {
           state = state.copyWith(uploadProgress: sent / total);
         },
       );
-
+      print(response.runtimeType);
       print("Response After SENDING: $response");
       state = state.copyWith(noteUploadStatus: NoteUploadStatus.success);
     } 

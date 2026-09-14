@@ -8,13 +8,13 @@ class NoteFileDto {
   final int pageCount;
   final bool canDownload;
   final int readingTime;
-  final String thumbnailUrl;
+  final String? thumbnailUrl;
   
   const NoteFileDto({
     required this.size,
     required this.mimeType,
     required this.pageCount,
-    required this.thumbnailUrl,
+    this.thumbnailUrl,
     required this.canDownload,
     required this.readingTime
   });

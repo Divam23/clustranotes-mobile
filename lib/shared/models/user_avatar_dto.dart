@@ -3,12 +3,12 @@ part 'user_avatar_dto.g.dart';
 
 @JsonSerializable()
 class UserAvatarDto {
-  final String url;
-  final String storagePath;
+  final String? url;
+  final String? storagePath;
 
   const UserAvatarDto({
-    required this.url,
-    required this.storagePath
+    this.url,
+    this.storagePath
   });
 
   factory UserAvatarDto.fromJson(Map<String, dynamic> json) => _$UserAvatarDtoFromJson(json);

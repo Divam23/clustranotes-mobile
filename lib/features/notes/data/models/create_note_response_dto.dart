@@ -12,58 +12,20 @@ part 'create_note_response_dto.g.dart';
 class CreateNoteResponseDto {
   final String id;
   final String title;
-  final String description;
   final String subject;
-  final NoteCategoryEnum category;
-  final List<String>? tags;
   final String course;
-  final String? branch;
-  final String? college;
-  final String? university;
-  final int? semester;
-  final String language;
-  final NoteContentType contentType;
-  
-  final NoteFileDto file;
-  final CreateNoteResponseStatsDto stats;
-  final NoteUploaderDto uploader;
-  
   final bool isPublic;
-  final NoteVerificationPublicStatus noteVerificationPublicStatus;
-  final NotePublishStatus notePublishStatus;
+  final int fileSize;
   final DateTime? publishedAt;
-  final bool isLiked;
-  final bool isBookmarked;
-  final bool isOwner;
-  final DateTime createdAt;
-  final DateTime updatedAt;
-  
+
   const CreateNoteResponseDto({
     required this.id,
     required this.title,
-    required this.description,
     required this.subject,
-    required this.category,
-    this.tags,
     required this.course,
-    this.branch,
-    this.college,
-    this.university,
-    this.semester,
-    required this.language,
-    required this.contentType,
-    required this.file,
-    required this.stats,
-    required this.uploader,
+    required this.fileSize,
     required this.isPublic,
-    required this.noteVerificationPublicStatus,
-    required this.notePublishStatus,
     this.publishedAt,
-    required this.isLiked,
-    required this.isBookmarked,
-    required this.isOwner,
-    required this.createdAt,
-    required this.updatedAt,
   });
   
   factory CreateNoteResponseDto.fromJson(Map<String, dynamic> json) =>

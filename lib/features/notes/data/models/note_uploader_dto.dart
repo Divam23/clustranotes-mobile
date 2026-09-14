@@ -9,7 +9,7 @@ class NoteUploaderDto {
   final String firstName;
   final String lastName;
   final String userName;
-  final UserAvatarDto avatar;
+  final UserAvatarDto? avatar;
   final UserVerificationStatus userVerificationStatus;
   
   const NoteUploaderDto({

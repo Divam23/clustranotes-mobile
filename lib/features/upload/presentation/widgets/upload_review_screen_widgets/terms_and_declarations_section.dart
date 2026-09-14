@@ -1,6 +1,5 @@
 import 'package:clustranotes_mobile/features/upload/presentation/widgets/upload_review_screen_widgets/declaration_checkbox.dart';
 import 'package:clustranotes_mobile/features/upload/presentation/widgets/upload_review_screen_widgets/review_section_header.dart';
-import 'package:clustranotes_mobile/features/upload/providers/upload_note/upload_notifier.dart';
 import 'package:clustranotes_mobile/features/upload/providers/upload_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:clustranotes_mobile/app/theme/theme.dart';
@@ -94,6 +93,19 @@ class TermsAndDeclarationsSection extends ConsumerWidget {
               ],
             ),
           ),
+          if (upload.error != null) ...[
+            
+            Text(upload.error!.message),
+
+            if (upload.error!.retryable)
+              TextButton(
+                onPressed: () {
+                  print(upload.error!);
+                  notifier.handlePublishNote();
+                },
+                child: const Text('Try Again'),
+              ),
+          ],
           Row(
             spacing: AppSpacing.sm,
             children: [
