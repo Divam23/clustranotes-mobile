@@ -49,13 +49,13 @@ class GoogleSignInButton extends StatelessWidget{
           ],
         ) : Row(
           mainAxisAlignment: MainAxisAlignment.center,
-          spacing: AppSpacing.md,
           children: [
             Image.network(
               "https://developers.google.com/identity/images/g-logo.png",
               width: 25,
               height: 25,
             ),
+            const SizedBox(width: 10),
             Text(
               "Continue with Google",
               style: theme.textTheme.bodyLarge?.copyWith(

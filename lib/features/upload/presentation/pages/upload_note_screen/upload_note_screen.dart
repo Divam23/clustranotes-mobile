@@ -29,8 +29,8 @@ class _UploadNoteScreenState extends ConsumerState<UploadNoteScreen> {
   final _reviewFormKey = GlobalKey<FormState>();
 
   void _handleContinue() {
-    final upload = ref.read(uploadProvider);
-    switch (upload.currentScreen) {
+    final currentScreen = ref.read(uploadProvider).currentScreen;
+    switch (currentScreen) {
       case UploadScreenEnum.details:
         if (!_detailsFormKey.currentState!.validate()) {
           return;
@@ -54,29 +54,26 @@ class _UploadNoteScreenState extends ConsumerState<UploadNoteScreen> {
       return;
     }
     
-    if(upload.currentScreen == UploadScreenEnum.review) {
+    if(currentScreen == UploadScreenEnum.review) {
       notifier.handlePublishNote();
     }
 
     notifier.nextScreen();
   }
 
-  void _handleBackButton() {
-    notifier.previousScreen();
-  }
+  void _handleBackButton() => notifier.previousScreen();
 
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
-    final upload = ref.watch(uploadProvider);
-    final canContinue = notifier.validateCurrentStep();
-    final continueButtonText = switch (upload.currentScreen) {
+    final currentScreen = ref.watch(uploadProvider.select((s) => s.currentScreen));
+    final continueButtonText = switch (currentScreen) {
       UploadScreenEnum.details => "Continue",
       UploadScreenEnum.settings => "Review Note",
       UploadScreenEnum.review => "Publish Note",
     };
-    Widget buildCurrentStep(UploadState state) {
-      switch (state.currentScreen) {
+    Widget buildCurrentStep() {
+      switch (currentScreen) {
         case UploadScreenEnum.details:
           return Form(
             key: _detailsFormKey,
@@ -131,61 +128,78 @@ class _UploadNoteScreenState extends ConsumerState<UploadNoteScreen> {
             children: [
               UploadProgressIndicator(),
               const SizedBox(height: AppSpacing.lg),
-              buildCurrentStep(upload),
+              buildCurrentStep(),
             ],
           ),
         ),
       ),
-      bottomNavigationBar: Padding(
-        padding: const EdgeInsets.symmetric(
-          horizontal: AppSpacing.screenPadding,
-          vertical: AppSpacing.sm,
-        ),
-        child: Row(
-          spacing: AppSpacing.sm,
-          children: [
-            if (upload.currentScreen != UploadScreenEnum.details) ...[
-              Expanded(
-                child: MultiUtilityButton(
-                  onPressed: _handleBackButton,
-                  text: "",
-                  borderRadius: AppRadius.searchBarRounded,
-                  buttonColor: theme.colorScheme.onInverseSurface,
-                  buttonTextColor: theme.colorScheme.primary,
-                  elevation: 1,
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Icon(
-                        AppIcons.leftArrow,
-                        size: 20,
-                        color: theme.colorScheme.primary,
-                      ),
-                      Text(
-                        "Back",
-                        style: theme.textTheme.labelLarge?.copyWith(
-                          color: theme.colorScheme.primary,
-                        ),
-                      )
-                    ],
-                  ),
-                ),
-              ),
-            ],
+      bottomNavigationBar: _BottomActions(
+        currentScreen: currentScreen,
+        continueButtonText: continueButtonText,
+        onContinue: _handleContinue,
+        onBack: _handleBackButton,
+      ),
+    );
+  }
+}
+
+class _BottomActions extends ConsumerWidget {
+  final UploadScreenEnum currentScreen;
+  final String continueButtonText;
+  final VoidCallback onContinue;
+  final VoidCallback onBack;
+
+  const _BottomActions({
+    required this.currentScreen,
+    required this.continueButtonText,
+    required this.onContinue,
+    required this.onBack,
+  });
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    final theme = Theme.of(context);
+    final notifier = ref.read(uploadProvider.notifier);
+    final canContinue = ref.watch(uploadProvider.select((s) => notifier.validateCurrentStep(s)));
+
+    return Padding(
+      padding: const EdgeInsets.symmetric(
+        horizontal: AppSpacing.screenPadding,
+        vertical: AppSpacing.sm,
+      ),
+      child: Row(
+        spacing: AppSpacing.sm,
+        children: [
+          if (currentScreen != UploadScreenEnum.details)
             Expanded(
               child: MultiUtilityButton(
-                onPressed: _handleContinue,
-                text: continueButtonText,
+                onPressed: onBack,
+                text: "",
                 borderRadius: AppRadius.searchBarRounded,
-                buttonColor: canContinue ? theme.colorScheme.primary : theme.disabledColor.withValues(alpha: 0.1),
-                buttonTextColor: canContinue ? theme.colorScheme.onPrimary : theme.colorScheme.inverseSurface.withValues(alpha: 0.2),
-                borderColor: canContinue ? theme.colorScheme.primary : theme.disabledColor.withValues(alpha: 0.1),
+                buttonColor: theme.colorScheme.onInverseSurface,
+                buttonTextColor: theme.colorScheme.primary,
                 elevation: 1,
-                
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Icon(AppIcons.leftArrow, size: 20, color: theme.colorScheme.primary),
+                    Text("Back", style: theme.textTheme.labelLarge?.copyWith(color: theme.colorScheme.primary)),
+                  ],
+                ),
               ),
             ),
-          ],
-        ),
+          Expanded(
+            child: MultiUtilityButton(
+              onPressed: onContinue,
+              text: continueButtonText,
+              borderRadius: AppRadius.searchBarRounded,
+              buttonColor: canContinue ? theme.colorScheme.primary : theme.disabledColor.withValues(alpha: 0.1),
+              buttonTextColor: canContinue ? theme.colorScheme.onPrimary : theme.colorScheme.inverseSurface.withValues(alpha: 0.2),
+              borderColor: canContinue ? theme.colorScheme.primary : theme.disabledColor.withValues(alpha: 0.1),
+              elevation: 1,
+            ),
+          ),
+        ],
       ),
     );
   }

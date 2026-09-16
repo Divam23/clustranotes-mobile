@@ -34,7 +34,7 @@ class BasicNoteDetailsSection extends StatelessWidget {
           spacing: AppSpacing.xl,
           children: [
             NoteMetadataTextField(
-              minLength: 2,
+              minLength: 3,
               maxLength: 120,
               label: "Title",
               required: true,

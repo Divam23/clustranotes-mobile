@@ -102,6 +102,7 @@ class ApiClient {
         queryParameters: queryParameters,
         options: (options ?? Options()).copyWith(
           sendTimeout: const Duration(minutes: 5),
+          receiveTimeout: const Duration(minutes: 2),
         ),
         onSendProgress: onSendProgress,
       );

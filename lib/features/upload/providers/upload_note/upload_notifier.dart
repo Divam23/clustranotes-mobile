@@ -89,25 +89,23 @@ class UploadNotifier extends StateNotifier<UploadState> {
         currentStep: UploadStep.basicDetails,
         error: null,
       );
-    } 
-    on AppException catch (exception) {
+    } on AppException catch (exception) {
       if (!mounted) return;
       state = state.copyWith(error: AppFailureMapper.map(exception));
-    } 
-    catch(error, stackTrace){
+    } catch (error, stackTrace) {
       debugPrintStack(stackTrace: stackTrace);
       debugPrint("Error in picking file: $error");
-      if(!mounted) return;
+      if (!mounted) return;
       state = state.copyWith(
         error: const AppFailure(
           message: 'Something went wrong while picking file. Please try again.',
           retryable: true,
         ),
       );
-    }
-    
-    finally {
-      state = state.copyWith(isPickingDocument: false);
+    } finally {
+      if (mounted) {
+        state = state.copyWith(isPickingDocument: false);
+      }
     }
   }
 
@@ -177,10 +175,12 @@ class UploadNotifier extends StateNotifier<UploadState> {
       );
     } catch (e) {
       if (!mounted) return;
-      state = state.copyWith(error: const AppFailure(
-        message: 'Error generating PDF. Please try again.',
-        retryable: true,
-      ),);
+      state = state.copyWith(
+        error: const AppFailure(
+          message: 'Error generating PDF. Please try again.',
+          retryable: true,
+        ),
+      );
     } finally {
       state = state.copyWith(isGeneratingPDF: false);
     }
@@ -189,7 +189,7 @@ class UploadNotifier extends StateNotifier<UploadState> {
   Future<int> _getPdfPageCount(String path) async {
     final document = await PdfDocument.openFile(path);
     final pageCount = document.pages.length;
-
+    await document.dispose();
     return pageCount;
   }
 
@@ -335,16 +335,21 @@ class UploadNotifier extends StateNotifier<UploadState> {
     }
   }
 
-  bool validateCurrentStep() {
-    switch (state.currentStep) {
+  bool validateCurrentStep([UploadState? overrideState]) {
+    final s = overrideState ?? state;
+    switch (s.currentStep) {
       case UploadStep.file:
-        return state.uploadFile != null;
+        return s.uploadFile != null;
 
       case UploadStep.basicDetails:
-        return state.title.trim().isNotEmpty &&
-            state.description.trim().isNotEmpty &&
-            state.course != null &&
-            state.subject != null;
+        return (s.title.trim().isNotEmpty &&
+                (s.title.trim().length >= 3 &&
+                    s.title.trim().length <= 120)) &&
+            (s.description.trim().isNotEmpty &&
+                (s.description.trim().length >= 5 &&
+                    s.description.trim().length <= 1000)) &&
+            s.course != null &&
+            s.subject != null;
 
       case UploadStep.noteSettings:
         return true;
@@ -360,18 +365,22 @@ class UploadNotifier extends StateNotifier<UploadState> {
 
   (CreateNoteDto, File)? _checkAllValidationsBeforeUpload() {
     if (state.uploadFile == null) {
-      state = state.copyWith(error: const AppFailure(
-        message: 'Please select a file.',
-        retryable: true,
-      ),);
+      state = state.copyWith(
+        error: const AppFailure(
+          message: 'Please select a file.',
+          retryable: true,
+        ),
+      );
       return null;
     }
 
     if (!_checkDeclarations()) {
-      state = state.copyWith(error: const AppFailure(
-        message: 'Please accept all declarations.',
-        retryable: true,
-      ),);
+      state = state.copyWith(
+        error: const AppFailure(
+          message: 'Please accept all declarations.',
+          retryable: true,
+        ),
+      );
       return null;
     }
 
@@ -382,10 +391,12 @@ class UploadNotifier extends StateNotifier<UploadState> {
         currentCourse.trim().isEmpty ||
         currentSubject == null ||
         currentSubject.trim().isEmpty) {
-      state = state.copyWith(error: const AppFailure(
-        message: 'Course and Subject fields are required.',
-        retryable: true,
-      ),);
+      state = state.copyWith(
+        error: const AppFailure(
+          message: 'Course and Subject fields are required.',
+          retryable: true,
+        ),
+      );
       return null;
     }
 
@@ -421,31 +432,30 @@ class UploadNotifier extends StateNotifier<UploadState> {
     }
 
     try {
-      state = state.copyWith(
-          uploadProgress: 0.0,
-          error: null
-      );
-
+      state = state.copyWith(uploadProgress: 0.0, error: null);
+      double _lastReportedProgress = 0;
       final response = await _noteRepository.createNote(
         note: fileData.$1,
         file: fileData.$2,
         onSendProgress: (sent, total) {
           if (!mounted || total <= 0) return;
-          state = state.copyWith(uploadProgress: sent / total);
+          final progress = sent/total;
+          if (progress - _lastReportedProgress < 0.01 && progress < 1.0) return;
+          _lastReportedProgress = progress;
+          state = state.copyWith(uploadProgress: progress);
+          print(progress);
         },
       );
       print(response.runtimeType);
       print("Response After SENDING: $response");
       state = state.copyWith(noteUploadStatus: NoteUploadStatus.success);
-    } 
-    on AppException catch (exception) {
+    } on AppException catch (exception) {
       if (!mounted) return;
       state = state.copyWith(
         error: AppFailureMapper.map(exception),
         noteUploadStatus: NoteUploadStatus.failure,
       );
-    }
-    catch (error, stackTrace) {
+    } catch (error, stackTrace) {
       debugPrintStack(stackTrace: stackTrace);
       debugPrint("Error: $error");
       if (!mounted) return;

@@ -2,19 +2,37 @@ import 'package:clustranotes_mobile/app/theme/theme.dart';
 import 'package:clustranotes_mobile/core/models/note_content_type_enum.dart';
 import 'package:clustranotes_mobile/core/utils/formatters/formatter.dart';
 import 'package:clustranotes_mobile/core/widgets/thumbnail/uploaded_note_summary_thumbnail.dart';
-import 'package:clustranotes_mobile/features/upload/providers/upload_note/upload_notifier.dart';
 import 'package:clustranotes_mobile/features/upload/providers/upload_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:pdfrx/pdfrx.dart';
 
-class NotePreviewCard extends ConsumerWidget {
+class NotePreviewCard extends ConsumerStatefulWidget {
   const NotePreviewCard({super.key});
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  ConsumerState<NotePreviewCard> createState() => _NotePreviewCardState();
+}
+
+class _NotePreviewCardState extends ConsumerState<NotePreviewCard> {
+  Future<PdfDocument>? _pdfFuture;
+  late final upload = ref.watch(uploadProvider);
+  
+  @override
+  void initState() {
+    super.initState();
+    _pdfFuture = PdfDocument.openFile(upload.uploadFile!.file.path);
+  }
+
+  @override
+  void dispose() {
+    _pdfFuture?.then((doc) => doc.dispose());
+    super.dispose();
+  }
+  
+  @override
+  Widget build(BuildContext context) {
     final theme = Theme.of(context);
-    final upload = ref.watch(uploadProvider);
     return Row(
       children: [
         if (upload.uploadFile != null &&
