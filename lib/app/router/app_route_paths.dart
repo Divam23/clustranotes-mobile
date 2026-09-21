@@ -20,6 +20,10 @@ abstract final class AppRoutePaths {
   //Note
   static const noteDetails = '/notes/:noteId';
   
+  //Upload
+  static const uploadFlow = '/upload/upload-flow';
+  static const uploadProgress = '/upload/progress';
+  
   //Not Found
   static const notFound = '/404';
 }

@@ -38,60 +38,111 @@ class UploadNoteSettingsReviewSection extends ConsumerWidget {
             sectionNumber: 3,
             sectionTitle: "Upload Settings",
           ),
-          Container(
-            child: Row(
-              spacing: AppSpacing.md,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Icon(
-                  AppIcons.language,
-                  color: AppColors.primarySky,
-                ),
-                Expanded(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Row(
-                        spacing: AppSpacing.md,
-                        children: [
-                          Text(
-                            "Visibility",
-                            style: theme.textTheme.titleMedium,
-                          ),
-                          upload.isPublic == true
-                              ? Text(
-                                  "Public",
-                                  style: theme.textTheme.titleMedium?.copyWith(
-                                    color: AppColors.success,
-                                  ),
-                                )
-                              : Text(
-                                  "Private",
-                                  style: theme.textTheme.titleMedium?.copyWith(
-                                    color: AppColors.warning,
-                                  ),
-                                ),
-                        ],
-                      ),
-                      if (upload.isPublic == true)
+          Row(
+            spacing: AppSpacing.md,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Icon(
+                AppIcons.language,
+                color: AppColors.primarySky,
+              ),
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Row(
+                      spacing: AppSpacing.md,
+                      children: [
                         Text(
-                          "Anyone can view and download the material",
-                          style: theme.textTheme.bodyMedium?.copyWith(
-                            color: theme.dividerColor.withValues(alpha: 0.5)
-                          ),
-                        )
-                      else
-                        Text(
-                          "Nobody can view and download the material",
-                          style: theme.textTheme.bodyMedium?.copyWith(
-                              color: theme.dividerColor.withValues(alpha: 0.5)
-                          ),
+                          "Visibility",
+                          style: theme.textTheme.titleMedium,
                         ),
-                    ],
-                  ),
+                        upload.isPublic == true
+                            ? Text(
+                                "Public",
+                                style: theme.textTheme.titleMedium?.copyWith(
+                                  color: AppColors.success,
+                                ),
+                              )
+                            : Text(
+                                "Private",
+                                style: theme.textTheme.titleMedium?.copyWith(
+                                  color: AppColors.warning,
+                                ),
+                              ),
+                      ],
+                    ),
+                    if (upload.isPublic == true)
+                      Text(
+                        "Anyone can view and download the material",
+                        style: theme.textTheme.bodyMedium?.copyWith(
+                          color: theme.dividerColor.withValues(alpha: 0.5)
+                        ),
+                      )
+                    else
+                      Text(
+                        "Nobody can view and download the material",
+                        style: theme.textTheme.bodyMedium?.copyWith(
+                            color: theme.dividerColor.withValues(alpha: 0.5)
+                        ),
+                      ),
+                  ],
                 ),
-              ],
-            ),
+              ),
+            ],
+          ),
+          Row(
+            spacing: AppSpacing.md,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Icon(
+                AppIcons.download,
+                color: AppColors.primarySky,
+              ),
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Row(
+                      spacing: AppSpacing.md,
+                      children: [
+                        Text(
+                          "Download",
+                          style: theme.textTheme.titleMedium,
+                        ),
+                        upload.isPublic == true
+                            ? Text(
+                                "Allowed",
+                                style: theme.textTheme.titleMedium?.copyWith(
+                                  color: AppColors.success,
+                                ),
+                              )
+                            : Text(
+                                "Not Allowed",
+                                style: theme.textTheme.titleMedium?.copyWith(
+                                  color: AppColors.warning,
+                                ),
+                              ),
+                      ],
+                    ),
+                    if (upload.isPublic == true)
+                      Text(
+                        "Anyone can download the material",
+                        style: theme.textTheme.bodyMedium?.copyWith(
+                          color: theme.dividerColor.withValues(alpha: 0.5)
+                        ),
+                      )
+                    else
+                      Text(
+                        "Nobody can download the material",
+                        style: theme.textTheme.bodyMedium?.copyWith(
+                            color: theme.dividerColor.withValues(alpha: 0.5)
+                        ),
+                      ),
+                  ],
+                ),
+              ),
+            ],
           ),
         ],
       ),

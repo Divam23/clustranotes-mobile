@@ -51,7 +51,7 @@ class _NotePreviewCardState extends ConsumerState<NotePreviewCard> {
               borderRadius: AppRadius.searchBarSharp,
               clipBehavior: Clip.antiAliasWithSaveLayer,
               child: FutureBuilder<PdfDocument>(
-                future: PdfDocument.openFile(upload.uploadFile!.file.path),
+                future: _pdfFuture,
                 builder: (context, snapshot) {
                   if (snapshot.hasData) {
                     return PdfPageView(document: snapshot.data!, pageNumber: 1);

@@ -3,8 +3,8 @@ import 'package:clustranotes_mobile/features/upload/providers/upload_provider.da
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-class NoteVisibilitySection extends ConsumerWidget {
-  const NoteVisibilitySection({super.key});
+class NoteDownloadToggleSection extends ConsumerWidget {
+  const NoteDownloadToggleSection({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -16,14 +16,14 @@ class NoteVisibilitySection extends ConsumerWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(
-          "Visibility",
+          "Download",
           style: theme.textTheme.bodyMedium?.copyWith(
             fontWeight: FontWeight.w700,
           ),
         ),
         const SizedBox(height: AppSpacing.xxs),
         Text(
-          "Choose who can discover and access this note.",
+          "Choose who can download this note.",
           style: theme.textTheme.bodySmall,
         ),
         const SizedBox(height: AppSpacing.md),
@@ -59,13 +59,13 @@ class NoteVisibilitySection extends ConsumerWidget {
                                   shape: BoxShape.circle,
                                 ),
                                 child: Icon(
-                                  AppIcons.public,
+                                  AppIcons.download,
                                   color: theme.colorScheme.primary,
                                 ),
                               ),
                               const SizedBox(width: AppSpacing.md),
                               Text(
-                                "Public",
+                                "Download Allowed?",
                                 style: theme.textTheme.titleMedium?.copyWith(
                                   fontWeight: FontWeight.w700,
                                 ),
@@ -75,9 +75,9 @@ class NoteVisibilitySection extends ConsumerWidget {
                           const SizedBox(height: AppSpacing.xs),
 
                           Text(
-                            upload.isPublic ? 
-                            "Anyone on ClustraNotes will be able to search, view and download this note."
-                            : "No one will be able to search, view and download this note",
+                            upload.canDownload ? 
+                            "Anyone on ClustraNotes download this note."
+                            : "No one can download this note",
                             style: theme.textTheme.bodySmall?.copyWith(
                               color: theme.hintColor,
                               height: 1.25,
@@ -89,44 +89,12 @@ class NoteVisibilitySection extends ConsumerWidget {
                     Transform.scale(
                       scale: 0.9,
                       child: Switch(
-                        value: upload.isPublic,
-                        onChanged: notifier.updateIsPublic,
+                        value: upload.canDownload,
+                        onChanged: notifier.updateCanDownload,
                         inactiveThumbColor: AppColors.primarySky,
                       ),
                     ),
                   ],
-                ),
-
-                const SizedBox(height: AppSpacing.lg),
-
-                Container(
-                  width: double.infinity,
-                  padding: const EdgeInsets.all(AppSpacing.md),
-                  decoration: BoxDecoration(
-                    color: theme.colorScheme.primary.withValues(alpha: 0.08),
-                    borderRadius: BorderRadius.circular(AppRadius.md),
-                  ),
-                  child: Row(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Icon(
-                        AppIcons.shield,
-                        size: 20,
-                        color: theme.colorScheme.primary,
-                      ),
-                      const SizedBox(width: AppSpacing.sm),
-
-                      Expanded(
-                        child: Text(
-                          "All notes are reviewed by our team to maintain quality and reduce spam. You can always choose to make your note verified from our team.",
-                          style: theme.textTheme.bodySmall?.copyWith(
-                            color: theme.hintColor,
-                            height: 1.4,
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
                 ),
               ],
             ),

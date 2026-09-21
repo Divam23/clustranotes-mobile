@@ -1,6 +1,7 @@
 import 'package:clustranotes_mobile/app/theme/theme.dart';
 import 'package:clustranotes_mobile/features/upload/presentation/widgets/upload_note_screen_widgets/upload_metadata_section/note_classification_section.dart';
 import 'package:clustranotes_mobile/features/upload/presentation/widgets/upload_note_screen_widgets/upload_metadata_section/note_tags_section.dart';
+import 'package:clustranotes_mobile/features/upload/presentation/widgets/upload_note_screen_widgets/upload_note_settings/note_download_toggle_section.dart';
 import 'package:clustranotes_mobile/features/upload/presentation/widgets/upload_note_screen_widgets/upload_note_settings/note_visibility_section.dart';
 import 'package:flutter/material.dart';
 
@@ -24,6 +25,8 @@ class UploadNoteSettingsScreen extends StatelessWidget {
               NoteTagsSection(),
               const SizedBox(height: AppSpacing.xl),
               NoteVisibilitySection(),
+              const SizedBox(height: AppSpacing.xl),
+              NoteDownloadToggleSection()
             ],
           ),
         ),

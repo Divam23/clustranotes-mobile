@@ -1,6 +1,7 @@
 import 'package:clustranotes_mobile/app/router/app_route_names.dart';
 import 'package:clustranotes_mobile/app/router/app_route_paths.dart';
 import 'package:clustranotes_mobile/app/router/auth_router_notifier.dart';
+import 'package:clustranotes_mobile/app/router/routes/app_routes.dart';
 import 'package:clustranotes_mobile/app/router/routes/auth_routes.dart';
 import 'package:clustranotes_mobile/app/router/routes/app_shell_routes.dart';
 import 'package:clustranotes_mobile/core/widgets/button/app_back_button.dart';
@@ -79,7 +80,11 @@ final appRouterProvider = Provider<GoRouter>((ref) {
           location == AppRoutePaths.library ||
           location == AppRoutePaths.profile;
 
-      final isAuthenticatedRoute = isAppRoute || location.startsWith('/notes/');
+      final isAuthenticatedRoute =
+          isAppRoute ||
+              location.startsWith('/notes/') ||
+              location == AppRoutePaths.uploadFlow ||
+              location == AppRoutePaths.uploadProgress;
       
       final isErrorRoute = state.error != null;
 
@@ -167,6 +172,7 @@ final appRouterProvider = Provider<GoRouter>((ref) {
       }
     },
     routes: [
+      ...appRoutes,
       ...authRoutes,
       ...homeRoutes,
 

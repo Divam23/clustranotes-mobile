@@ -20,6 +20,10 @@ abstract final class AppRouteNames {
   //Note
   static const noteDetails = 'noteDetails';
   
+  //Upload
+  static const uploadFlow = 'uploadFlow';
+  static const uploadProgress = 'uploadProgress';
+  
   //not found
   static const notFound = 'notFound';
 }

@@ -1,3 +1,4 @@
+import 'package:clustranotes_mobile/app/router/app_route_paths.dart';
 import 'package:clustranotes_mobile/core/widgets/button/app_back_button.dart';
 import 'package:clustranotes_mobile/core/widgets/button/multi_utility_button.dart';
 import 'package:clustranotes_mobile/features/upload/presentation/widgets/common/upload_status_indicator/upload_step_indicator.dart';
@@ -12,6 +13,7 @@ import 'package:flutter/material.dart';
 import 'package:clustranotes_mobile/app/theme/theme.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:clustranotes_mobile/features/upload/domain/enums/upload_stage_enum.dart';
+import 'package:go_router/go_router.dart';
 
 class UploadNoteScreen extends ConsumerStatefulWidget {
   const UploadNoteScreen({super.key});
@@ -56,6 +58,8 @@ class _UploadNoteScreenState extends ConsumerState<UploadNoteScreen> {
     
     if(currentScreen == UploadScreenEnum.review) {
       notifier.handlePublishNote();
+      context.push(AppRoutePaths.uploadProgress);
+      
     }
 
     notifier.nextScreen();

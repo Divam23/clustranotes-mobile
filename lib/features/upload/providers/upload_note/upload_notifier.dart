@@ -249,6 +249,10 @@ class UploadNotifier extends StateNotifier<UploadState> {
   void updateIsPublic(bool isPublic) {
     state = state.copyWith(isPublic: isPublic);
   }
+  
+  void updateCanDownload(bool canDownload){
+    state = state.copyWith(canDownload: canDownload);
+  }
 
   void updateOwnership(bool ownership) {
     state = state.copyWith(

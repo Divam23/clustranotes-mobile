@@ -45,7 +45,7 @@ abstract final class AppFailureMapper {
       case UnknownException():
         return const AppFailure(
           retryable: true,
-          message: "Something went wrong. Please try again.",
+          message: "Something went wrong. Please try again later.",
         );
         
       default:

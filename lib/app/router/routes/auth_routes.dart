@@ -19,13 +19,6 @@ final List<RouteBase> authRoutes = [
     },
   ),
 
-  GoRoute(
-    path: AppRoutePaths.splash,
-    name: AppRouteNames.splash,
-    builder: (context, state) {
-      return const AuthSplashScreen();
-    },
-  ),
 
   GoRoute(
     path: AppRoutePaths.login,
