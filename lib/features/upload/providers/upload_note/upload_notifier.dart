@@ -436,23 +436,27 @@ class UploadNotifier extends StateNotifier<UploadState> {
     }
 
     try {
-      state = state.copyWith(uploadProgress: 0.0, error: null);
-      double _lastReportedProgress = 0;
+      state = state.copyWith(uploadProgress: 0.0, error: null, noteUploadStatus: NoteUploadStatus.uploading);
+      double lastReportedProgress = 0;
       final response = await _noteRepository.createNote(
         note: fileData.$1,
         file: fileData.$2,
         onSendProgress: (sent, total) {
           if (!mounted || total <= 0) return;
           final progress = sent/total;
-          if (progress - _lastReportedProgress < 0.01 && progress < 1.0) return;
-          _lastReportedProgress = progress;
+          if (progress - lastReportedProgress < 0.01 && progress < 1.0) return;
+          lastReportedProgress = progress;
           state = state.copyWith(uploadProgress: progress);
           print(progress);
         },
       );
       print(response.runtimeType);
       print("Response After SENDING: $response");
-      state = state.copyWith(noteUploadStatus: NoteUploadStatus.success);
+      state = state.copyWith(
+        uploadProgress: 1.0,
+        noteUploadStatus: NoteUploadStatus.success,
+      );
+      resetUpload();
     } on AppException catch (exception) {
       if (!mounted) return;
       state = state.copyWith(

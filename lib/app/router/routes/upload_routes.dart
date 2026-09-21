@@ -6,11 +6,11 @@ import 'package:go_router/go_router.dart';
 
 final List<RouteBase> uploadRoutes = [
   GoRoute(
-      path: AppRoutePaths.uploadProgress,
-      name: AppRouteNames.uploadProgress,
-      builder: (context, state) {
-        return const UploadProgressScreen();
-      },
+    path: AppRoutePaths.uploadProgress,
+    name: AppRouteNames.uploadProgress,
+    builder: (context, state) {
+      return const UploadProgressScreen();
+    },
   ),
 
   GoRoute(
