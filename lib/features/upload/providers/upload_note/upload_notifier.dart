@@ -456,7 +456,6 @@ class UploadNotifier extends StateNotifier<UploadState> {
         uploadProgress: 1.0,
         noteUploadStatus: NoteUploadStatus.success,
       );
-      resetUpload();
     } on AppException catch (exception) {
       if (!mounted) return;
       state = state.copyWith(
