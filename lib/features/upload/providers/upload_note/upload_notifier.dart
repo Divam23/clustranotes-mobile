@@ -447,7 +447,7 @@ class UploadNotifier extends StateNotifier<UploadState> {
           if (progress - lastReportedProgress < 0.01 && progress < 1.0) return;
           lastReportedProgress = progress;
           state = state.copyWith(uploadProgress: progress);
-          print(progress);
+          
         },
       );
       print(response.runtimeType);
