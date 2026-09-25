@@ -62,3 +62,6 @@ android/key.properties
 # Secrets
 secrets/
 credentials/
+
+#misc
+THIRD_PARTY_LICENSES.md

@@ -1,4 +1,4 @@
-import 'package:clustranotes_mobile/core/models/note_content_type_enum.dart';
+import 'package:clustranotes_mobile/core/api/models/note_content_type_enum.dart';
 import 'package:clustranotes_mobile/features/notes/data/models/create_note_response_stats_dto.dart';
 import 'package:clustranotes_mobile/features/notes/data/models/note_file_dto.dart';
 import 'package:clustranotes_mobile/features/notes/data/models/note_uploader_dto.dart';

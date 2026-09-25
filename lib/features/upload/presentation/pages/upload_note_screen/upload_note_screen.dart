@@ -135,11 +135,13 @@ class _UploadNoteScreenState extends ConsumerState<UploadNoteScreen> {
           ),
         ),
       ),
-      bottomNavigationBar: _BottomActions(
-        currentScreen: currentScreen,
-        continueButtonText: continueButtonText,
-        onContinue: _handleContinue,
-        onBack: _handleBackButton,
+      bottomNavigationBar: SafeArea(
+        child: _BottomActions(
+          currentScreen: currentScreen,
+          continueButtonText: continueButtonText,
+          onContinue: _handleContinue,
+          onBack: _handleBackButton,
+        ),
       ),
     );
   }

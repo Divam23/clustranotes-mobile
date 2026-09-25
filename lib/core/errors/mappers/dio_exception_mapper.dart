@@ -1,4 +1,5 @@
 import 'package:clustranotes_mobile/core/errors/exceptions/exceptions.dart';
+import 'package:clustranotes_mobile/core/errors/exceptions/upload_cancelled_exception.dart';
 import 'package:dio/dio.dart';
 
 abstract final class DioExceptionMapper {
@@ -27,6 +28,12 @@ abstract final class DioExceptionMapper {
         return TimeoutException(
           cause: exception,
           stackTrace: exception.stackTrace,
+        );
+        
+      case DioExceptionType.cancel:
+        return UploadCancelledException(
+          cause: exception,
+          stackTrace: exception.stackTrace
         );
 
       default:

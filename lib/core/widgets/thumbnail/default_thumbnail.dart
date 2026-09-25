@@ -1,5 +1,5 @@
 import 'package:clustranotes_mobile/app/theme/app_radius.dart';
-import 'package:clustranotes_mobile/core/models/note_content_type_enum.dart';
+import 'package:clustranotes_mobile/core/api/models/note_content_type_enum.dart';
 import 'package:flutter/material.dart';
 
 class DefaultNoteThumbnail extends StatelessWidget {

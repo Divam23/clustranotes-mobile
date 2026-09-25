@@ -9,24 +9,30 @@ class UploadProgressScreenHeader extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
-    String _uploadDisplayText(){
-      switch(uploadStatus){
-        case NoteUploadStatus.idle:
-          return "Preparing note to upload";
 
-        case NoteUploadStatus.uploading:
-          return "Please wait while we upload your note";
-          
-        case NoteUploadStatus.success:
-          return "All Done!";
-          
-        case NoteUploadStatus.cancelled:
-          return "Note upload cancelled";
-          
-        case NoteUploadStatus.failure:
-          return "Something went wrong";
-      }
-    }
+    final (title, subtitle, titleColor) = switch (uploadStatus) {
+      NoteUploadStatus.uploading => (
+      'Uploading your note...',
+      'Please keep ClustraNotes open until the upload is complete.',
+      theme.colorScheme.onSurface,
+      ),
+      NoteUploadStatus.success => (
+      'Note uploaded successfully!',
+      'You can view your note in the uploads.',
+      AppColors.success,
+      ),
+      NoteUploadStatus.failure => (
+      "We couldn't upload your note.",
+      'There was a problem while uploading the file.\nPlease try again.',
+      AppColors.error,
+      ),
+      NoteUploadStatus.cancelled => (
+      'Upload cancelled',
+      'The upload was cancelled by you.',
+      theme.colorScheme.onSurface,
+      ),
+      NoteUploadStatus.idle => ('', '', theme.colorScheme.onSurface),
+    };
     
     return Column(
       crossAxisAlignment: CrossAxisAlignment.center,
@@ -37,21 +43,15 @@ class UploadProgressScreenHeader extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           mainAxisSize: MainAxisSize.max,
           children: [
-            Icon(
-              AppIcons.uploadCloud,
-              size: 30,
-              color: theme.colorScheme.primary,
-              fontWeight: FontWeight.w500,
-            ),
-            const SizedBox(width: AppSpacing.sm),
             Flexible(
               child: Text(
-                'Uploading Note',
-                maxLines: 1,
+                title,
+                maxLines: 2,
+                textAlign: TextAlign.center,
                 overflow: TextOverflow.ellipsis,
-                style: theme.textTheme.headlineLarge?.copyWith(
+                style: theme.textTheme.titleLarge?.copyWith(
                   fontWeight: FontWeight.w700,
-                  color: theme.colorScheme.onSurface,
+                  color: titleColor,
                 ),
               ),
             ),
@@ -61,11 +61,11 @@ class UploadProgressScreenHeader extends StatelessWidget {
         const SizedBox(height: AppSpacing.xs),
 
         Text(
-          _uploadDisplayText(),
+          subtitle,
           textAlign: TextAlign.center,
           maxLines: 2,
           overflow: TextOverflow.ellipsis,
-          style: theme.textTheme.bodyMedium?.copyWith(
+          style: theme.textTheme.titleSmall?.copyWith(
             color: theme.colorScheme.onSurfaceVariant,
           ),
         ),

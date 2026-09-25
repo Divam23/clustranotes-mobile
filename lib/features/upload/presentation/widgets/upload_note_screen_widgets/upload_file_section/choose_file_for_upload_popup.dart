@@ -1,7 +1,6 @@
 import 'package:clustranotes_mobile/app/theme/theme.dart';
 import 'package:clustranotes_mobile/features/upload/domain/enums/upload_source_enums.dart';
 import 'package:clustranotes_mobile/features/upload/presentation/pages/upload_note_screen/selected_image_screen.dart';
-import 'package:clustranotes_mobile/features/upload/providers/upload_note/upload_notifier.dart';
 import 'package:clustranotes_mobile/features/upload/providers/upload_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -13,6 +12,8 @@ void showUploadFilePickerType(BuildContext context){
     showDragHandle: true,
     enableDrag: true,
     isDismissible: true,
+    useSafeArea: true,
+    
     sheetAnimationStyle: AnimationStyle(duration: Duration(milliseconds: 300)),
     backgroundColor: Theme.of(context).scaffoldBackgroundColor,
     shape: const RoundedRectangleBorder(
@@ -20,7 +21,9 @@ void showUploadFilePickerType(BuildContext context){
             top: Radius.circular(AppRadius.xxl)
         )
     ),
-    builder: (context) => FractionallySizedBox(
+    builder: (context) => SafeArea(
+      top: false, 
+      bottom: true, 
       child: const ChooseFileForUploadPopup(),
     ),
   );
@@ -88,7 +91,7 @@ class ChooseFileForUploadPopup extends ConsumerWidget {
                     ),
                   ),
 
-                  const SizedBox(width: 16),
+                  const SizedBox(width: AppSpacing.lg),
 
                   Expanded(
                     child: Column(
@@ -100,7 +103,7 @@ class ChooseFileForUploadPopup extends ConsumerWidget {
                             fontWeight: FontWeight.w600,
                           ),
                         ),
-                        const SizedBox(height: 4),
+                        const SizedBox(height: AppSpacing.xs),
                         Text(
                           "PDF, DOC, DOCX, PPT, PPTX",
                           style: theme.textTheme.bodySmall,
@@ -161,7 +164,7 @@ class ChooseFileForUploadPopup extends ConsumerWidget {
                     ),
                   ),
 
-                  const SizedBox(width: 16),
+                  const SizedBox(width: AppSpacing.lg),
 
                   Expanded(
                     child: Column(
@@ -173,7 +176,7 @@ class ChooseFileForUploadPopup extends ConsumerWidget {
                             fontWeight: FontWeight.w600,
                           ),
                         ),
-                        const SizedBox(height: 4),
+                        const SizedBox(height: AppSpacing.xs),
                         Text(
                           "Convert multiple images into a PDF",
                           style: theme.textTheme.bodySmall,

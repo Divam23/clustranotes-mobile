@@ -35,6 +35,8 @@ abstract class UploadState with _$UploadState {
     @Default(false) bool isPickingDocument,
     @Default(true) bool canDownload,
     @Default(0.0) double uploadProgress,
+    @Default(0) int bytesSent,
+    @Default(0) int totalBytes,
     @Default(NoteUploadStatus.idle) NoteUploadStatus noteUploadStatus,
     @Default(UploadDeclarations()) UploadDeclarations declarations, 
     AppFailure? error,

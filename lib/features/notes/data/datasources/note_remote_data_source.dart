@@ -14,6 +14,7 @@ class NoteRemoteDataSource {
   Future<CreateNoteResponseDto> createNote({
     required CreateNoteDto note,
     required File file,
+    CancelToken? cancelToken,
     void Function(int sent, int total)? onSendProgress
   }) async {
     final multipartFile = MultipartFile.fromFile(file.path);
@@ -28,7 +29,8 @@ class NoteRemoteDataSource {
     final response = await _apiClient.postMultipart<Map<String, dynamic>>(
       path: NoteApiEndpoints.createNote,
       data: formData,
-      onSendProgress: onSendProgress
+      onSendProgress: onSendProgress,
+      cancelToken: cancelToken
     );
     
     final responseData = response.data?['data'];

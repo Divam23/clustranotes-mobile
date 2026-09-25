@@ -1,4 +1,4 @@
-import 'package:clustranotes_mobile/core/models/note_content_type_enum.dart';
+import 'package:clustranotes_mobile/core/api/models/note_content_type_enum.dart';
 import 'package:clustranotes_mobile/core/widgets/thumbnail/actual_thumbnail.dart';
 import 'package:clustranotes_mobile/core/widgets/thumbnail/default_thumbnail.dart';
 import 'package:flutter/material.dart';

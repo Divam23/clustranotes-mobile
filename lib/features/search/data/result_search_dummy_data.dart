@@ -1,4 +1,4 @@
-import 'package:clustranotes_mobile/core/models/note_content_type_enum.dart';
+import 'package:clustranotes_mobile/core/api/models/note_content_type_enum.dart';
 import 'package:clustranotes_mobile/features/notes/domain/enums/note_category_enums.dart';
 import 'package:clustranotes_mobile/features/search/presentation/widgets/result_search/search_result_note_card.dart';
 

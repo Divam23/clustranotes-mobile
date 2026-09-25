@@ -1,7 +1,7 @@
 import 'package:clustranotes_mobile/app/theme/app_colors.dart';
 import 'package:clustranotes_mobile/app/theme/app_radius.dart';
 import 'package:clustranotes_mobile/app/theme/app_spacing.dart';
-import 'package:clustranotes_mobile/core/models/note_content_type_enum.dart';
+import 'package:clustranotes_mobile/core/api/models/note_content_type_enum.dart';
 import 'package:clustranotes_mobile/core/utils/formatters/formatter.dart';
 import 'package:clustranotes_mobile/core/widgets/button/multi_utility_button.dart';
 import 'package:clustranotes_mobile/core/widgets/dot.dart';

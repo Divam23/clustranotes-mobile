@@ -1,5 +1,6 @@
 import 'package:clustranotes_mobile/core/errors/app_failure.dart';
 import 'package:clustranotes_mobile/core/errors/exceptions/exceptions.dart';
+import 'package:clustranotes_mobile/core/errors/exceptions/upload_cancelled_exception.dart';
 
 abstract final class AppFailureMapper {
   static AppFailure map(AppException exception) {
@@ -36,10 +37,15 @@ abstract final class AppFailureMapper {
         return const AppFailure(
           message: "Something went wrong on the server. Please try again.",
         );
-
+ 
       case ValidationException():
         return AppFailure(
           message: exception.message ?? 'Please check the information you entered.',
+        );
+        
+      case UploadCancelledException():
+        return AppFailure(
+            message: "Upload cancelled by user."
         );
 
       case UnknownException():
@@ -47,7 +53,6 @@ abstract final class AppFailureMapper {
           retryable: true,
           message: "Something went wrong. Please try again later.",
         );
-        
       default:
         return const AppFailure(
           message: "Something went wrong. Please try again.",

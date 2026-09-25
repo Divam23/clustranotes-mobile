@@ -78,4 +78,10 @@ class AppIcons {
   static const IconData refresh = Icons.refresh_rounded;
   static const IconData cloud = Icons.cloud_off_rounded;
   
+  static const String pdfIcon = 'assets/icons/pdf.png';
+  static const String pptIcon = 'assets/icons/ppt.png';
+  static const String docIcon = 'assets/icons/doc.png';
+  static const String fileIcon = 'assets/icons/file.png';
+  
+  
 }

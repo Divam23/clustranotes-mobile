@@ -7,6 +7,7 @@ class ApiClient {
 
   Future<Response<T>> get<T>({
     required String path,
+    CancelToken? cancelToken,
     Map<String, dynamic>? queryParameters,
   }) {
     try {
@@ -93,12 +94,14 @@ class ApiClient {
     required FormData data,
     Map<String, dynamic>? queryParameters,
     void Function(int sent, int total)? onSendProgress,
+    CancelToken? cancelToken,
     Options? options,
   }) {
     try {
       return _dio.post(
         path,
         data: data,
+        cancelToken: cancelToken,
         queryParameters: queryParameters,
         options: (options ?? Options()).copyWith(
           sendTimeout: const Duration(minutes: 5),

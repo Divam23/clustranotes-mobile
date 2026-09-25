@@ -2,7 +2,8 @@ import 'dart:io';
 import 'package:clustranotes_mobile/core/errors/app_failure.dart';
 import 'package:clustranotes_mobile/core/errors/app_failure_mapper.dart';
 import 'package:clustranotes_mobile/core/errors/exceptions/app_exception.dart';
-import 'package:clustranotes_mobile/core/models/note_content_type_enum.dart';
+import 'package:clustranotes_mobile/core/api/models/note_content_type_enum.dart';
+import 'package:clustranotes_mobile/core/errors/exceptions/upload_cancelled_exception.dart';
 import 'package:clustranotes_mobile/features/notes/data/models/create_note_dto.dart';
 import 'package:clustranotes_mobile/features/notes/domain/enums/note_category_enums.dart';
 import 'package:clustranotes_mobile/features/notes/domain/repositories/note_repository.dart';
@@ -14,6 +15,7 @@ import 'package:clustranotes_mobile/features/upload/domain/enums/upload_stage_en
 import 'package:clustranotes_mobile/features/upload/domain/models/upload_file.dart';
 import 'package:clustranotes_mobile/features/upload/providers/upload_note/upload_state.dart';
 import 'package:clustranotes_mobile/features/upload/services/images_to_pdf_service.dart';
+import 'package:dio/dio.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_riverpod/legacy.dart';
@@ -249,8 +251,8 @@ class UploadNotifier extends StateNotifier<UploadState> {
   void updateIsPublic(bool isPublic) {
     state = state.copyWith(isPublic: isPublic);
   }
-  
-  void updateCanDownload(bool canDownload){
+
+  void updateCanDownload(bool canDownload) {
     state = state.copyWith(canDownload: canDownload);
   }
 
@@ -347,8 +349,7 @@ class UploadNotifier extends StateNotifier<UploadState> {
 
       case UploadStep.basicDetails:
         return (s.title.trim().isNotEmpty &&
-                (s.title.trim().length >= 3 &&
-                    s.title.trim().length <= 120)) &&
+                (s.title.trim().length >= 3 && s.title.trim().length <= 120)) &&
             (s.description.trim().isNotEmpty &&
                 (s.description.trim().length >= 5 &&
                     s.description.trim().length <= 1000)) &&
@@ -425,6 +426,12 @@ class UploadNotifier extends StateNotifier<UploadState> {
     return (dto, file);
   }
 
+  /*List<int> getFileSize(){
+    return 
+  }*/
+
+  CancelToken? _cancelToken;
+
   Future<void> _uploadNote() async {
     if (!mounted) return;
     if (state.noteUploadStatus == NoteUploadStatus.uploading) return;
@@ -434,20 +441,29 @@ class UploadNotifier extends StateNotifier<UploadState> {
     if (fileData == null) {
       return;
     }
-
+    _cancelToken = CancelToken();
+    
     try {
-      state = state.copyWith(uploadProgress: 0.0, error: null, noteUploadStatus: NoteUploadStatus.uploading);
+      state = state.copyWith(
+        uploadProgress: 0.0,
+        error: null,
+        noteUploadStatus: NoteUploadStatus.uploading,
+      );
       double lastReportedProgress = 0;
       final response = await _noteRepository.createNote(
         note: fileData.$1,
         file: fileData.$2,
+        cancelToken: _cancelToken,
         onSendProgress: (sent, total) {
           if (!mounted || total <= 0) return;
-          final progress = sent/total;
+          final progress = sent / total;
           if (progress - lastReportedProgress < 0.01 && progress < 1.0) return;
           lastReportedProgress = progress;
-          state = state.copyWith(uploadProgress: progress);
-          
+          state = state.copyWith(
+            uploadProgress: progress,
+            bytesSent: sent,
+            totalBytes: total,
+          );
         },
       );
       print(response.runtimeType);
@@ -455,6 +471,15 @@ class UploadNotifier extends StateNotifier<UploadState> {
       state = state.copyWith(
         uploadProgress: 1.0,
         noteUploadStatus: NoteUploadStatus.success,
+      );
+    } on UploadCancelledException catch (exception) {
+      debugPrint(
+        'CAUGHT UploadCancelledException: ${exception.runtimeType}',
+      );
+      if (!mounted) return;
+      state = state.copyWith(
+        error: AppFailureMapper.map(exception),
+        noteUploadStatus: NoteUploadStatus.cancelled,
       );
     } on AppException catch (exception) {
       if (!mounted) return;
@@ -475,6 +500,9 @@ class UploadNotifier extends StateNotifier<UploadState> {
         noteUploadStatus: NoteUploadStatus.failure,
       );
     }
+    finally{
+      _cancelToken = null;
+    }
   }
 
   Future<void> handlePublishNote() async {
@@ -485,5 +513,19 @@ class UploadNotifier extends StateNotifier<UploadState> {
     _uploadNote();
   }
 
-  Future<void> cancelUpload() async {}
+  Future<void> cancelUpload() async {
+    if(_cancelToken == null){
+      return;
+    }
+    
+    if (_cancelToken!.isCancelled) {
+      return;
+    }
+    _cancelToken?.cancel("Upload cancelled by user");
+  }
+
+  Future<void> uploadDone() async {
+    resetUpload();
+    state = state.copyWith(noteUploadStatus: NoteUploadStatus.idle);
+  }
 }
