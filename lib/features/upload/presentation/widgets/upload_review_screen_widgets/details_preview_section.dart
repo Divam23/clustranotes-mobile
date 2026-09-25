@@ -3,7 +3,6 @@ import 'package:clustranotes_mobile/features/upload/presentation/extension/note_
 import 'package:clustranotes_mobile/features/upload/presentation/widgets/upload_review_screen_widgets/preview_tags_row.dart';
 import 'package:clustranotes_mobile/features/upload/presentation/widgets/upload_review_screen_widgets/review_section_header.dart';
 import 'package:clustranotes_mobile/features/upload/presentation/widgets/upload_review_screen_widgets/single_detail_row.dart';
-import 'package:clustranotes_mobile/features/upload/providers/upload_note/upload_notifier.dart';
 import 'package:clustranotes_mobile/features/upload/providers/upload_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';

@@ -1,5 +1,4 @@
 import 'package:clustranotes_mobile/core/errors/exceptions/api_exception.dart';
-import 'package:clustranotes_mobile/core/errors/exceptions/app_exception.dart';
 
 class NotFoundException extends ApiException{
   const NotFoundException({

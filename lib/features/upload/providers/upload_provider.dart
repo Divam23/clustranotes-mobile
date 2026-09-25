@@ -1,5 +1,4 @@
 import 'package:clustranotes_mobile/core/api/providers/api_client_provider.dart';
-import 'package:clustranotes_mobile/features/notes/domain/repositories/note_repository.dart';
 import 'package:clustranotes_mobile/features/notes/providers/note_providers.dart';
 import 'package:clustranotes_mobile/features/upload/data/datasource/upload_remote_datasource.dart';
 import 'package:clustranotes_mobile/features/upload/data/repository/upload_repository_impl.dart';

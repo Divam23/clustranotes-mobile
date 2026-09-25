@@ -3,7 +3,6 @@ import 'package:clustranotes_mobile/features/auth/presentation/pages/main_auth_s
 import 'package:clustranotes_mobile/features/auth/providers/auth_providers.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:go_router/go_router.dart';
 
 class ProfileScreen extends ConsumerWidget{
   const ProfileScreen({super.key});

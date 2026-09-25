@@ -25,7 +25,7 @@ class _CommentHeaderState extends State<CommentHeader> {
             spacing: AppSpacing.xs,
             children: [
               widget.comment.user.avatar?.url != null
-                  ? UserAvatar(avatar: widget.comment.user?.avatar!.url)
+                  ? UserAvatar(avatar: widget.comment.user.avatar!.url)
                   : FallbackUserAvatar(
                 firstName: widget.comment.user.firstName,
               ),

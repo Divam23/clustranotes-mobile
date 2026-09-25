@@ -1,4 +1,3 @@
-import 'package:clustranotes_mobile/features/upload/providers/upload_note/upload_notifier.dart';
 import 'package:clustranotes_mobile/features/upload/providers/upload_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:clustranotes_mobile/app/theme/theme.dart';

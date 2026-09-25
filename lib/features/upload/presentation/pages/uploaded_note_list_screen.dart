@@ -2,7 +2,6 @@ import 'package:clustranotes_mobile/app/theme/app_spacing.dart';
 import 'package:clustranotes_mobile/core/widgets/button/app_back_button.dart';
 import 'package:clustranotes_mobile/features/upload/domain/enums/note_owner_status_enum.dart';
 import 'package:clustranotes_mobile/features/upload/presentation/widgets/uploaded_note_list_screen_widgets/note_status_filter_chip.dart';
-import 'package:clustranotes_mobile/features/upload/providers/my_upload_notes/my_upload_notifier.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -14,8 +13,6 @@ class UploadedNoteListScreen extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final theme = Theme.of(context);
-    final upload = ref.watch(myUploadedNoteProvider);
-    final notifier = ref.read(myUploadedNoteProvider.notifier);
     return Scaffold(
       appBar: AppBar(
         leading: const AppBackButton(),

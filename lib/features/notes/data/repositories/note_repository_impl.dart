@@ -5,7 +5,6 @@ import 'package:clustranotes_mobile/features/notes/data/mappers/create_note_resp
 import 'package:clustranotes_mobile/features/notes/data/models/create_note_dto.dart';
 import 'package:clustranotes_mobile/features/notes/domain/repositories/note_repository.dart';
 import 'package:clustranotes_mobile/features/notes/models/create_note_response_model.dart';
-import 'package:clustranotes_mobile/features/notes/models/note_model.dart';
 import 'package:dio/dio.dart';
 
 class NoteRepositoryImpl implements NoteRepository {
