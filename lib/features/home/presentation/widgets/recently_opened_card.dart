@@ -41,7 +41,11 @@ class RecentlyOpenedCard extends StatelessWidget {
                   color: theme.colorScheme.primary.withValues(alpha: 0.2),
                 ),
                 child: Center(
-                  child: Icon(AppIcons.note, color: theme.colorScheme.primary),
+                  child: Image.asset(
+                    AppIcons.fileIcon, 
+                    height: 30, 
+                    color: theme.colorScheme.primary,
+                  ),
                 ),
               ),
               Expanded(

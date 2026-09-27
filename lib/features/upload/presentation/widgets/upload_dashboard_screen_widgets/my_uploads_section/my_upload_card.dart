@@ -50,10 +50,11 @@ class MyUploadCard extends StatelessWidget {
                       color: theme.colorScheme.primary.withValues(alpha: 0.2),
                     ),
                     child: Center(
-                      child: Icon(
-                        AppIcons.note,
+                      child: Image.asset(
+                        AppIcons.fileIcon,
                         color: theme.colorScheme.primary,
-                        size: 30,
+                        height: 40,
+                        
                       ),
                     ),
                   ),

@@ -23,7 +23,6 @@ class UploadProgressActionButton extends StatelessWidget {
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
 
-    // 1. Uploading State: Single Cancel Outlined Button
     if (uploadStatus == NoteUploadStatus.uploading) {
       const errorColor = Color(0xFFEA4335);
 
@@ -88,10 +87,10 @@ class UploadProgressActionButton extends StatelessWidget {
     }
 
     return Column(
+      mainAxisSize: MainAxisSize.min,
       spacing: AppSpacing.sm,
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
-        // Primary Filled Button
         MultiUtilityButton(
           elevation: 1,
           text: "",
@@ -125,7 +124,6 @@ class UploadProgressActionButton extends StatelessWidget {
           ),
         ),
 
-        // Secondary Outlined Button
         MultiUtilityButton(
           elevation: 0,
           text: "",

@@ -96,9 +96,9 @@ class ApiClient {
     void Function(int sent, int total)? onSendProgress,
     CancelToken? cancelToken,
     Options? options,
-  }) {
+  }) async{
     try {
-      return _dio.post(
+      return await _dio.post(
         path,
         data: data,
         cancelToken: cancelToken,

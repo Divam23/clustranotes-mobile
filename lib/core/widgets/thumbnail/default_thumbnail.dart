@@ -1,3 +1,4 @@
+import 'package:clustranotes_mobile/app/theme/app_icons.dart';
 import 'package:clustranotes_mobile/app/theme/app_radius.dart';
 import 'package:clustranotes_mobile/core/api/models/note_content_type_enum.dart';
 import 'package:flutter/material.dart';
@@ -23,27 +24,26 @@ class DefaultNoteThumbnail extends StatelessWidget {
         width: double.infinity,
         color: color.withValues(alpha: 0.15),
         alignment: Alignment.center,
-        child: Icon(
+        child: Image.asset(
           _getIcon(),
-          size: 56,
-          color: color,
+          height: 56,
         ),
       ),
     );
   }
 
-  IconData _getIcon() {
+  String _getIcon() {
     switch (contentType) {
       case NoteContentType.pdf:
-        return Icons.picture_as_pdf;
+        return AppIcons.pdfIcon;
 
       case NoteContentType.docx:
       case NoteContentType.doc:
-        return Icons.description;
+        return AppIcons.docIcon;
 
       case NoteContentType.pptx:
       case NoteContentType.ppt:
-        return Icons.slideshow;
+        return AppIcons.pptIcon;
 
     }
   }

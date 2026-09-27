@@ -1,4 +1,5 @@
 import 'package:clustranotes_mobile/app/router/app_route_paths.dart';
+import 'package:clustranotes_mobile/core/widgets/button/app_back_button.dart';
 import 'package:clustranotes_mobile/features/upload/presentation/widgets/upload_progress_screen_widgets/upload_note_card.dart';
 import 'package:clustranotes_mobile/features/upload/presentation/widgets/upload_progress_screen_widgets/upload_progress_action_button.dart';
 import 'package:clustranotes_mobile/features/upload/presentation/widgets/upload_progress_screen_widgets/upload_progress_circle.dart';
@@ -17,6 +18,9 @@ class UploadProgressScreen extends ConsumerWidget {
     final progress = ref.watch(uploadProvider).uploadProgress;
     final uploadStatus = ref.watch(uploadProvider).noteUploadStatus;
     return Scaffold(
+      appBar: AppBar(
+        leading: const AppBackButton(),
+      ),
       body: SafeArea(
         child: SingleChildScrollView(
           child: Padding(
@@ -28,29 +32,37 @@ class UploadProgressScreen extends ConsumerWidget {
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                const SizedBox(height: AppSpacing.xxl),
-                UploadProgressScreenHeader(uploadStatus: uploadStatus,),
+                UploadProgressScreenHeader(uploadStatus: uploadStatus),
                 const SizedBox(height: AppSpacing.section),
-                UploadStatusBadge(progress: progress, status: uploadStatus,),
+                UploadStatusBadge(progress: progress, status: uploadStatus),
                 const SizedBox(height: AppSpacing.section),
                 UploadNoteCard(),
-                const SizedBox(height: AppSpacing.section,),
-                UploadProgressActionButton(
-                  uploadStatus: uploadStatus, 
-                  onRetry: (){
-                    ref.watch(uploadProvider.notifier).retryNoteUpload();
-                  }, 
-                  onCancel: (){
-                    ref.watch(uploadProvider.notifier).cancelUpload();
-                    print(uploadStatus);
-                  },
-                  onDone: (){
-                    ref.watch(uploadProvider.notifier).uploadDone();
-                    context.pushReplacement(AppRoutePaths.upload);
-                  },
-                )
+                const SizedBox(height: AppSpacing.section),
               ],
             ),
+          ),
+        ),
+      ),
+      bottomNavigationBar: SafeArea(
+        bottom: true,
+        child: Padding(
+          padding: const EdgeInsets.symmetric(
+            horizontal: AppSpacing.screenPadding,
+            vertical: AppSpacing.sm,
+          ),
+          child: UploadProgressActionButton(
+            uploadStatus: uploadStatus,
+            onRetry: () {
+              ref.watch(uploadProvider.notifier).retryNoteUpload();
+            },
+            onCancel: () {
+              ref.watch(uploadProvider.notifier).cancelUpload();
+              print(uploadStatus);
+            },
+            onDone: () {
+              ref.watch(uploadProvider.notifier).uploadDone();
+              context.pushReplacement(AppRoutePaths.upload);
+            },
           ),
         ),
       ),

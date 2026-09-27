@@ -30,7 +30,7 @@ class NoteRemoteDataSource {
       path: NoteApiEndpoints.createNote,
       data: formData,
       onSendProgress: onSendProgress,
-      cancelToken: cancelToken
+      cancelToken: cancelToken,
     );
     
     final responseData = response.data?['data'];

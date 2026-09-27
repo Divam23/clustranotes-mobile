@@ -20,30 +20,29 @@ class UploadedNoteSummaryThumbnail extends StatelessWidget{
       width: width ?? 50,
       decoration: BoxDecoration(
         borderRadius: borderRadius,
-        color: fillerColor ?? theme.colorScheme.primary.withValues(alpha: 0.2),
+        color: fillerColor,
       ),
       child: Center(
-        child: Icon(
-          _getIcon(),
-          color: color,
-          size: 30,
+        child: Image.asset(
+          _getImage(),
+          height: 50,
         ),
       ),
     );
   }
 
-  IconData _getIcon() {
+  String _getImage() {
     switch (noteContentType) {
       case NoteContentType.pdf:
-        return Icons.picture_as_pdf;
+        return AppIcons.pdfIcon;
 
       case NoteContentType.docx:
       case NoteContentType.doc:
-        return Icons.description;
+        return AppIcons.docIcon;
 
       case NoteContentType.pptx:
       case NoteContentType.ppt:
-        return Icons.slideshow;
+        return AppIcons.pptIcon;
     }
   }
 
