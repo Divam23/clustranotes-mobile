@@ -11,7 +11,7 @@ class ApiClient {
     Map<String, dynamic>? queryParameters,
   }) {
     try {
-      return _dio.get(path, queryParameters: queryParameters);
+      return _dio.get<T>(path, queryParameters: queryParameters);
     } on DioException catch (error) {
       throw DioExceptionMapper.map(error);
     }
@@ -24,7 +24,7 @@ class ApiClient {
     Options? options,
   }) {
     try {
-      return _dio.post(
+      return _dio.post<T>(
         path,
         data: data,
         queryParameters: queryParameters,
@@ -42,7 +42,7 @@ class ApiClient {
     Options? options,
   }) {
     try {
-      return _dio.put(
+      return _dio.put<T>(
         path,
         data: data,
         queryParameters: queryParameters,
@@ -60,7 +60,7 @@ class ApiClient {
     Options? options,
   }) {
     try {
-      return _dio.patch(
+      return _dio.patch<T>(
         path,
         data: data,
         queryParameters: queryParameters,
@@ -78,7 +78,7 @@ class ApiClient {
     Options? options,
   }) {
     try {
-      return _dio.delete(
+      return _dio.delete<T>(
         path,
         data: data,
         queryParameters: queryParameters,
@@ -98,7 +98,7 @@ class ApiClient {
     Options? options,
   }) async{
     try {
-      return await _dio.post(
+      return await _dio.post<T>(
         path,
         data: data,
         cancelToken: cancelToken,

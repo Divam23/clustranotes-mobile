@@ -28,9 +28,13 @@ class _UploadNoteScreenState extends ConsumerState<UploadNoteScreen> {
   final _detailsFormKey = GlobalKey<FormState>();
   final _settingsFormKey = GlobalKey<FormState>();
   final _reviewFormKey = GlobalKey<FormState>();
+  
+  final _scrollController = ScrollController(initialScrollOffset: 0);
+  
 
   void _handleContinue() {
     final currentScreen = ref.read(uploadProvider).currentScreen;
+    
     switch (currentScreen) {
       case UploadScreenEnum.details:
         if (!_detailsFormKey.currentState!.validate()) {
@@ -61,6 +65,15 @@ class _UploadNoteScreenState extends ConsumerState<UploadNoteScreen> {
     }
 
     notifier.nextScreen();
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      if (_scrollController.hasClients) {
+        _scrollController.animateTo(
+          0,
+          duration: const Duration(milliseconds: 250),
+          curve: Curves.easeOut,
+        );
+      }
+    });
   }
 
   void _handleBackButton() => notifier.previousScreen();

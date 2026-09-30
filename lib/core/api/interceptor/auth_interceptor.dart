@@ -16,7 +16,7 @@ class AuthInterceptor extends Interceptor{
         handler.next(options);
         return;
       }
-
+      await user.reload();
       final token = await user.getIdToken();
       options.headers['Authorization'] = 'Bearer $token';
 

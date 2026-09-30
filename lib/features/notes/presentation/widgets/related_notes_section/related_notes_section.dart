@@ -1,11 +1,11 @@
-import 'package:clustranotes_mobile/features/notes/models/note_details.dart';
+import 'package:clustranotes_mobile/features/notes/models/note_card_model.dart';
 import 'package:clustranotes_mobile/features/notes/presentation/widgets/related_notes_section/related_note_card.dart';
 import 'package:flutter/material.dart';
 import 'package:clustranotes_mobile/app/theme/theme.dart';
 
 
 class RelatedNotesSection extends StatelessWidget{
-  final List<NoteDetails> notes;
+  final List<NoteCardModel> notes;
   const RelatedNotesSection({
     required this.notes,
     super.key

@@ -4,9 +4,8 @@ import 'package:clustranotes_mobile/features/auth/domain/enum/backend_auth_statu
 import 'package:clustranotes_mobile/features/auth/domain/repositories/auth_repository.dart';
 import 'package:clustranotes_mobile/features/auth/notifier/auth_state.dart';
 import 'package:clustranotes_mobile/features/user/domain/repositories/user_repository.dart';
-
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/legacy.dart';
 
 class AuthNotifier extends StateNotifier<AuthState> {
@@ -189,7 +188,7 @@ class AuthNotifier extends StateNotifier<AuthState> {
     try {
       final user = await _authRepository.reloadCurrentUser();
       state = state.copyWith(firebaseUser: user, error: null);
-
+      
       final isVerified = user?.emailVerified ?? false;
       if (isVerified && user != null) {
         await _authenticateWithBackend(user);

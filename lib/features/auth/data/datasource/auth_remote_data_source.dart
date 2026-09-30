@@ -104,7 +104,8 @@ class AuthRemoteDataSource {
     }
     
     await user.reload();
-    
+    print("EMAIL VERIFIED OR NOT: ${user.emailVerified}");
+    print("Reloaded User: $user");
     return _firebaseAuth.currentUser;
   }
   

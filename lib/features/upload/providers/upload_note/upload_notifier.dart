@@ -435,7 +435,7 @@ class UploadNotifier extends StateNotifier<UploadState> {
   Future<void> _uploadNote() async {
     if (!mounted) return;
     if (state.noteUploadStatus == NoteUploadStatus.uploading) return;
-
+    
     final fileData = _checkAllValidationsBeforeUpload();
 
     if (fileData == null) {

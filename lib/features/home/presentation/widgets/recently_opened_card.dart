@@ -2,6 +2,7 @@ import 'package:clustranotes_mobile/app/theme/app_icons.dart';
 import 'package:clustranotes_mobile/app/theme/app_radius.dart';
 import 'package:clustranotes_mobile/app/theme/app_spacing.dart';
 import 'package:clustranotes_mobile/core/widgets/button/app_button.dart';
+import 'package:clustranotes_mobile/core/widgets/button/multi_utility_button.dart';
 import 'package:flutter/material.dart';
 
 class RecentlyOpenedCard extends StatelessWidget {
@@ -27,8 +28,8 @@ class RecentlyOpenedCard extends StatelessWidget {
             color: theme.colorScheme.surface,
             borderRadius: AppRadius.card,
             border: Border.all(
-              color: theme.disabledColor.withValues(alpha: 0.1)
-            )
+              color: theme.disabledColor.withValues(alpha: 0.1),
+            ),
           ),
           child: Row(
             spacing: 20,
@@ -42,8 +43,8 @@ class RecentlyOpenedCard extends StatelessWidget {
                 ),
                 child: Center(
                   child: Image.asset(
-                    AppIcons.fileIcon, 
-                    height: 30, 
+                    AppIcons.fileIcon,
+                    height: 30,
                     color: theme.colorScheme.primary,
                   ),
                 ),
@@ -55,24 +56,30 @@ class RecentlyOpenedCard extends StatelessWidget {
                   children: [
                     Text(
                       "DBMS Unit 3 Notes",
+                      maxLines: 2,
+                      overflow: TextOverflow.ellipsis,
                       style: theme.textTheme.bodyMedium?.copyWith(
                         fontWeight: FontWeight.w600,
                       ),
                     ),
                     Text(
-                      "Last opened today", 
+                      "Last opened today",
+                      maxLines: 2,
+                      overflow: TextOverflow.ellipsis,
                       style: theme.textTheme.bodySmall?.copyWith(
-                        color: theme.colorScheme.onSecondary
-                      )
+                        color: theme.colorScheme.onSecondary,
+                      ),
+                    ),
+                    MultiUtilityButton(
+                      text: "Continue",
+                      buttonColor: theme.colorScheme.primary,
+                      buttonTextColor: theme.colorScheme.onPrimary,
+                      borderColor: theme.colorScheme.primary,
+                      
                     ),
                   ],
                 ),
               ),
-              AppButton(
-                text: "Continue",
-                variant: AppButtonVariant.filled,
-                onPressed: (){}
-              )
             ],
           ),
         ),

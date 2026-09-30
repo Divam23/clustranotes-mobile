@@ -2,41 +2,22 @@ import 'package:clustranotes_mobile/app/theme/theme.dart';
 import 'package:clustranotes_mobile/core/widgets/button/bookmark_button.dart';
 import 'package:clustranotes_mobile/core/widgets/resource_chips/chip_item.dart';
 import 'package:clustranotes_mobile/core/widgets/resource_chips/resource_chip.dart';
+import 'package:clustranotes_mobile/core/widgets/thumbnail/note_thumbnail.dart';
+import 'package:clustranotes_mobile/features/notes/models/note_card_model.dart';
 import 'package:flutter/material.dart';
 
-class RecommendedSearchItem {
-  final String title;
-  final String thumbnail;
-  final String semester;
-  final String subject;
-  final String collegeName;
-  final String category;
-  final String fileType;
-
-  const RecommendedSearchItem({
-    required this.title,
-    required this.thumbnail,
-    required this.semester,
-    required this.subject,
-    required this.collegeName,
-    required this.category,
-    required this.fileType,
-  });
-}
-
 class RecommendedSearchCard extends StatelessWidget {
-  final RecommendedSearchItem item;
+  final NoteCardModel item;
   const RecommendedSearchCard({required this.item, super.key});
 
   @override
   Widget build(BuildContext context) {
-    final categoryChipConfig = AppCategoryChips.allCategories[item.category] ?? AppCategoryChips.others;
+    final categoryChipConfig = item.category.chip;
     final theme = Theme.of(context);
     return InkWell(
       onTap: () {},
       borderRadius: AppRadius.card,
       child: Container(
-        height: 200,
         width: 200,
         decoration: BoxDecoration(
           color: theme.colorScheme.surface,
@@ -54,7 +35,6 @@ class RecommendedSearchCard extends StatelessWidget {
                     border: Border(
                       bottom: BorderSide(
                         color: theme.dividerColor.withValues(alpha: 0.3),
-                        
                       ),
                     ),
                   ),
@@ -64,11 +44,13 @@ class RecommendedSearchCard extends StatelessWidget {
                       bottomRight: Radius.zero,
                     ),
 
-                    child: Image.network(
-                      item.thumbnail,
-                      fit: BoxFit.cover,
-                      width: double.infinity,
-                      height: double.infinity,
+                    child: NoteThumbnail(
+                      contentType: item.contentType,
+                      thumbnailUrl: item.thumbnailUrl,
+                      borderRadius: AppRadius.card.copyWith(
+                        bottomLeft: Radius.zero,
+                        bottomRight: Radius.zero,
+                      ),
                     ),
                   ),
                 ),
@@ -80,7 +62,7 @@ class RecommendedSearchCard extends StatelessWidget {
                 Positioned(
                   bottom: AppSpacing.sm,
                   left: AppSpacing.sm,
-                  child: AppChip(item: categoryChipConfig)
+                  child: AppChip(item: categoryChipConfig),
                 ),
               ],
             ),
@@ -93,19 +75,40 @@ class RecommendedSearchCard extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 spacing: 0,
                 children: [
-                  Text(item.title, style: theme.textTheme.titleMedium),
+                  Text(
+                    item.title,
+                    maxLines: 2,
+                    overflow: TextOverflow.ellipsis,
+                    style: theme.textTheme.titleMedium
+                  ),
                   Text(
                     item.subject,
+                    maxLines: 1,
+                    overflow: TextOverflow.ellipsis,
                     style: theme.textTheme.labelMedium?.copyWith(
                       color: theme.colorScheme.onSecondary,
                     ),
                   ),
-                  Text(
-                    item.collegeName,
-                    style: theme.textTheme.labelMedium?.copyWith(
-                      color: theme.colorScheme.primary,
+                  if (item.collegeName != null) ...[
+                    Text(
+                      item.collegeName!,
+                      maxLines: 1,
+                      overflow: TextOverflow.ellipsis,
+                      style: theme.textTheme.labelMedium?.copyWith(
+                        color: theme.colorScheme.primary,
+                      ),
                     ),
-                  ),
+                  ],
+                  if (item.university != null) ...[
+                    Text(
+                      item.university!,
+                      maxLines: 1,
+                      overflow: TextOverflow.ellipsis,
+                      style: theme.textTheme.labelMedium?.copyWith(
+                        color: theme.colorScheme.primary,
+                      ),
+                    ),
+                  ],
                 ],
               ),
             ),

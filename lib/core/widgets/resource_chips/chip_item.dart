@@ -8,7 +8,7 @@ class AppChipItem {
 
   const AppChipItem({
     required this.chipName,
-    required this.radius,
+    this.radius = AppRadius.chip,
     required this.color,
   });
 }
@@ -25,7 +25,7 @@ class AppChip extends StatelessWidget {
     final theme = Theme.of(context);
     return Container(
       padding: EdgeInsets.symmetric(vertical:AppSpacing.xxs,horizontal:AppSpacing.sm),
-      height: 20,
+      constraints: const BoxConstraints(minHeight: 20),
       decoration: BoxDecoration(
         color: item.color,
         borderRadius: item.radius,

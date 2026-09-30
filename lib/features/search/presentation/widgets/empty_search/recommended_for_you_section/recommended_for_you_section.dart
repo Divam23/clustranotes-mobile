@@ -1,5 +1,5 @@
 import 'package:clustranotes_mobile/app/theme/theme.dart';
-import 'package:clustranotes_mobile/features/search/data/recommended_dummy_data.dart';
+import 'package:clustranotes_mobile/features/notes/data/notecard_dummy_data.dart';
 import 'package:clustranotes_mobile/features/search/presentation/widgets/empty_search/recommended_for_you_section/recommended_search_card.dart';
 import 'package:flutter/material.dart';
 
@@ -34,7 +34,7 @@ class RecommendedForYouSection extends StatelessWidget {
           child: Row(
             spacing: AppSpacing.itemGap,
             children: [
-              ...recommendedSearchItems.map((item) {
+              ...dummyNoteCards.map((item) {
                 return RecommendedSearchCard(item: item);
               }),
             ],

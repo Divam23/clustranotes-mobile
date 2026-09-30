@@ -14,17 +14,15 @@ class TrendingCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final categoryChipConfig =
-        AppCategoryChips.allCategories[card.category] ??
-        AppCategoryChips.others;
-    final fileTypeChipConfig = AppFileTypeChips.allFileTypes[card.contentType] ?? AppFileTypeChips.pdf;
+    final categoryChipConfig = card.category.chip;
+    final fileTypeChipConfig =
+        AppFileTypeChips.allFileTypes[card.contentType] ?? AppFileTypeChips.pdf;
     final theme = Theme.of(context);
     return InkWell(
       onTap: () {},
       borderRadius: AppRadius.card,
       child: Container(
         padding: const EdgeInsets.only(bottom: AppSpacing.xs),
-        height: 230,
         width: 230,
         decoration: BoxDecoration(
           color: theme.colorScheme.surface,
@@ -33,26 +31,28 @@ class TrendingCard extends StatelessWidget {
         ),
         child: Column(
           spacing: AppSpacing.xs,
+          mainAxisSize: MainAxisSize.min,
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: [
             Stack(
               children: [
-                Container(
-                  height: 135,
-                  width: double.infinity,
-                  decoration: BoxDecoration(
-                    border: Border(
-                      bottom: BorderSide(
-                        color: theme.dividerColor.withValues(alpha: 0.3),
+                AspectRatio(
+                  aspectRatio: 16/9,
+                  child: Container(
+                    decoration: BoxDecoration(
+                      border: Border(
+                        bottom: BorderSide(
+                          color: theme.dividerColor.withValues(alpha: 0.3),
+                        ),
                       ),
                     ),
-                  ),
-                  child: NoteThumbnail(
-                    contentType: card.contentType,
-                    thumbnailUrl: card.thumbnailUrl,
-                    borderRadius: AppRadius.card.copyWith(
-                      bottomRight: Radius.zero,
-                      bottomLeft: Radius.zero,
+                    child: NoteThumbnail(
+                      contentType: card.contentType,
+                      thumbnailUrl: card.thumbnailUrl,
+                      borderRadius: AppRadius.card.copyWith(
+                        bottomRight: Radius.zero,
+                        bottomLeft: Radius.zero,
+                      ),
                     ),
                   ),
                 ),
@@ -68,60 +68,61 @@ class TrendingCard extends StatelessWidget {
                 ),
               ],
             ),
-            Container(
-              padding: const EdgeInsets.symmetric(
-                vertical: AppSpacing.xs,
-                horizontal: AppSpacing.sm,
-              ),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.stretch,
-                spacing: 0,
-                children: [
-                  Text(
-                    card.title,
-                    maxLines: 1,
-                    overflow: TextOverflow.ellipsis,
-                    style: theme.textTheme.titleMedium
-                  ),
-                  Text(
-                    card.subject,
-                    maxLines: 1,
-                    overflow: TextOverflow.ellipsis,
-                    style: theme.textTheme.labelMedium?.copyWith(
-                      color: theme.colorScheme.onSecondary,
-                    ),
-                  ),
-                  if(card.collegeName != null) ...[
+            Expanded(
+              child: Padding(
+                padding: const EdgeInsets.symmetric(
+                  vertical: AppSpacing.xs,
+                  horizontal: AppSpacing.sm,
+                ),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
+                  spacing: 0,
+                  children: [
                     Text(
-                      card.collegeName!,
+                      card.title,
+                      maxLines: 1,
+                      overflow: TextOverflow.ellipsis,
+                      style: theme.textTheme.titleMedium,
+                    ),
+                    
+                    Text(
+                      card.subject,
                       maxLines: 1,
                       overflow: TextOverflow.ellipsis,
                       style: theme.textTheme.labelMedium?.copyWith(
-                        color: theme.colorScheme.primary,
+                        color: theme.colorScheme.onSecondary,
                       ),
-                    )
-                  ],
-                  Row(
-                    children: [
-                      Expanded(
-                        child: Row(
-                          spacing: AppSpacing.xs,
-                          children: [
-                            Icon(
-                              AppIcons.download,
-                              size: 18,
-                            ),
-                            Text(
-                              NumberFormatter.compact(card.downloadCount),
-                              style: theme.textTheme.labelMedium,
-                            )
-                          ],
+                    ),
+                    
+                    if (card.collegeName != null) ...[
+                      Text(
+                        card.collegeName!,
+                        maxLines: 1,
+                        overflow: TextOverflow.ellipsis,
+                        style: theme.textTheme.labelMedium?.copyWith(
+                          color: theme.colorScheme.primary,
                         ),
                       ),
-                      AppChip(item: fileTypeChipConfig)
                     ],
-                  )
-                ],
+                    Row(
+                      children: [
+                        Expanded(
+                          child: Row(
+                            spacing: AppSpacing.xs,
+                            children: [
+                              Icon(AppIcons.download, size: 18),
+                              Text(
+                                NumberFormatter.compact(card.downloadCount),
+                                style: theme.textTheme.labelMedium,
+                              ),
+                            ],
+                          ),
+                        ),
+                        AppChip(item: fileTypeChipConfig),
+                      ],
+                    ),
+                  ],
+                ),
               ),
             ),
           ],

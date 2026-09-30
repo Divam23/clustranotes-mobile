@@ -19,16 +19,14 @@ class UploadNoteCard extends ConsumerWidget {
         ? 1.0
         : upload.uploadProgress.clamp(0.0, 1.0);
 
-    // Dynamic accent color for each of the 4 visual states
     final Color stateColor = switch (status) {
       NoteUploadStatus.uploading => theme.colorScheme.primary,
-      NoteUploadStatus.success => const Color(0xFF1CB055),
-      NoteUploadStatus.failure => const Color(0xFFEA4335),
-      NoteUploadStatus.cancelled => const Color(0xFF6B7280),
+      NoteUploadStatus.success => AppColors.success,
+      NoteUploadStatus.failure => AppColors.error,
+      NoteUploadStatus.cancelled => AppColors.neutral,
       NoteUploadStatus.idle => theme.colorScheme.primary,
     };
 
-    // File type icon resolver
     final String fileIcon = switch (upload.uploadFile?.contentType) {
       NoteContentType.pdf => AppIcons.pdfIcon,
       NoteContentType.ppt || NoteContentType.pptx => AppIcons.pptIcon,
@@ -55,7 +53,6 @@ class UploadNoteCard extends ConsumerWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
-          // File Details Header
           Row(
             children: [
               Container(
@@ -108,7 +105,6 @@ class UploadNoteCard extends ConsumerWidget {
             ),
           ),
 
-          // Upload Progress Section
           Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
@@ -150,7 +146,6 @@ class UploadNoteCard extends ConsumerWidget {
                   );
                 },
               ),
-              // Show estimated time only when upload is actively in progress
               if (status == NoteUploadStatus.uploading) ...[
                 const SizedBox(height: AppSpacing.sm),
                 Row(

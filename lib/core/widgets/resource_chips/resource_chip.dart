@@ -1,130 +1,110 @@
-import 'package:clustranotes_mobile/app/theme/theme.dart';
 import 'package:clustranotes_mobile/core/widgets/resource_chips/chip_item.dart';
 import 'package:clustranotes_mobile/features/notes/domain/enums/note_category_enums.dart';
 import 'package:flutter/material.dart';
 
+
 class AppCategoryChips {
   AppCategoryChips._();
 
-  static final lectureNotes = AppChipItem(
+  static const lectureNotes = AppChipItem(
     chipName: "Notes",
-    radius: AppRadius.chip,
-    color: const Color(0xFF2196F3),
+    color:  Color(0xFF2196F3),
   );
   
-  static final handwritten = AppChipItem(
+  static const handwritten = AppChipItem(
     chipName: "Handwritten",
-    radius: AppRadius.chip,
-    color: const Color(0xFF03A9F4),
+    color:  Color(0xFF03A9F4),
   );
 
-  static final revisionNotes = AppChipItem(
+  static const revisionNotes = AppChipItem(
     chipName: "Revision Notes",
-    radius: AppRadius.chip,
-    color: const Color(0xFF3F51B5),
+    color:  Color(0xFF3F51B5),
   );
 
-  static final previousYearQuestions = AppChipItem(
+  static const previousYearQuestions = AppChipItem(
     chipName: "PYQs",
-    radius: AppRadius.chip,
-    color: const Color(0xFF9C27B0),
+    color:  Color(0xFF9C27B0),
   );
 
-  static final assignment = AppChipItem(
+  static const assignment = AppChipItem(
     chipName: "Assignment",
-    radius: AppRadius.chip,
-    color: const Color(0xFFFF9800),
+    color:  Color(0xFFFF9800),
   );
 
-  static final labManual = AppChipItem(
+  static const labManual = AppChipItem(
     chipName: "Lab Manual",
-    radius: AppRadius.chip,
-    color: const Color(0xFF009688),
+    color:  Color(0xFF009688),
   );
 
-  static final labRecord = AppChipItem(
+  static const labRecord = AppChipItem(
     chipName: "Lab Record",
-    radius: AppRadius.chip,
-    color: const Color(0xFF4CAF50),
+    color:  Color(0xFF4CAF50),
   );
 
-  static final summary = AppChipItem(
+  static const summary = AppChipItem(
     chipName: "Summary",
-    radius: AppRadius.chip,
-    color: const Color(0xFFE91E63),
+    color:  Color(0xFFE91E63),
   );
 
-  static final cheatSheet = AppChipItem(
+  static const cheatSheet = AppChipItem(
     chipName: "Cheat Sheet",
-    radius: AppRadius.chip,
-    color: const Color(0xFFF44336),
+    color:  Color(0xFFF44336),
   );
 
-  static final presentation = AppChipItem(
+  static const presentation = AppChipItem(
     chipName: "Presentation",
-    radius: AppRadius.chip,
-    color: const Color(0x43000000),
+    color:  Color(0x43000000),
   );
 
-  static final ebook = AppChipItem(
+  static const ebook = AppChipItem(
     chipName: "E-Book",
-    radius: AppRadius.chip,
-    color: const Color(0xFF3F51B5),
+    color:  Color(0xFF3F51B5),
   );
 
-  static final syllabus = AppChipItem(
+  static const syllabus = AppChipItem(
     chipName: "Syllabus",
-    radius: AppRadius.chip,
-    color: const Color(0xFF607D8B),
+    color: Color(0xFF607D8B),
   );
 
-  static final questionBank = AppChipItem(
+  static const questionBank = AppChipItem(
     chipName: "Question Bank",
-    radius: AppRadius.chip,
-    color: const Color(0xFF673AB7),
+    color: Color(0xFF673AB7),
   );
 
-  static final practiceSet = AppChipItem(
+  static const practiceSet = AppChipItem(
     chipName: "Practice Set",
-    radius: AppRadius.chip,
-    color: const Color(0xFF00BCD4),
+    color: Color(0xFF00BCD4),
   );
 
-  static final projectReport = AppChipItem(
+  static const projectReport = AppChipItem(
     chipName: "Project Report",
-    radius: AppRadius.chip,
-    color: const Color(0xFF795548),
+    color: Color(0xFF795548),
   );
 
-  static final others = AppChipItem(
+  static const others = AppChipItem(
     chipName: "Others",
-    radius: AppRadius.chip,
-    color: const Color(0xFF9E9E9E),
+    color: Color(0xFF9E9E9E),
   );
-
-  static final Map<NoteCategoryEnum, AppChipItem> allCategories = {
-    NoteCategoryEnum.lectureNotes: lectureNotes,
-    NoteCategoryEnum.handwritten: handwritten,
-    NoteCategoryEnum.revisionNotes: revisionNotes,
-    NoteCategoryEnum.previousYearQuestions: previousYearQuestions,
-    NoteCategoryEnum.assignment: assignment,
-    NoteCategoryEnum.labManual: labManual,
-    NoteCategoryEnum.labRecord: labRecord,
-    NoteCategoryEnum.summary: summary,
-    NoteCategoryEnum.cheatSheet: cheatSheet,
-    NoteCategoryEnum.presentation: presentation,
-    NoteCategoryEnum.ebook: ebook,
-    NoteCategoryEnum.syllabus: syllabus,
-    NoteCategoryEnum.questionBank: questionBank,
-    NoteCategoryEnum.practiceSet: practiceSet,
-    NoteCategoryEnum.projectReport: projectReport,
-    NoteCategoryEnum.others: others,
-  };
 }
 
 
 extension NoteCategoryExtension on NoteCategoryEnum {
-  AppChipItem get chip {
-    return AppCategoryChips.allCategories[this] ?? AppCategoryChips.others;
-  }
+  AppChipItem get chip => switch (this) {
+    NoteCategoryEnum.lectureNotes => AppCategoryChips.lectureNotes,
+    NoteCategoryEnum.handwritten => AppCategoryChips.handwritten,
+    NoteCategoryEnum.revisionNotes => AppCategoryChips.revisionNotes,
+    NoteCategoryEnum.previousYearQuestions => AppCategoryChips.previousYearQuestions,
+    NoteCategoryEnum.assignment => AppCategoryChips.assignment,
+    NoteCategoryEnum.labManual => AppCategoryChips.labManual,
+    NoteCategoryEnum.labRecord => AppCategoryChips.labRecord,
+    NoteCategoryEnum.summary => AppCategoryChips.summary,
+    NoteCategoryEnum.cheatSheet => AppCategoryChips.cheatSheet,
+    NoteCategoryEnum.presentation => AppCategoryChips.presentation,
+    NoteCategoryEnum.ebook => AppCategoryChips.ebook,
+    NoteCategoryEnum.syllabus => AppCategoryChips.syllabus,
+    NoteCategoryEnum.questionBank => AppCategoryChips.questionBank,
+    NoteCategoryEnum.practiceSet => AppCategoryChips.practiceSet,
+    NoteCategoryEnum.projectReport => AppCategoryChips.projectReport,
+    NoteCategoryEnum.others => AppCategoryChips.others,
+  };
 }

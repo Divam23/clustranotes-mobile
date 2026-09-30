@@ -4,15 +4,13 @@ import 'package:clustranotes_mobile/core/widgets/resource_chips/resource_chip.da
 import 'package:clustranotes_mobile/features/collection/models/collection_summary_model.dart';
 import 'package:flutter/material.dart';
 
-class CollectionCard extends StatelessWidget{
+class CollectionCard extends StatelessWidget {
   final CollectionSummary collection;
   const CollectionCard({required this.collection, super.key});
-  
+
   @override
-  Widget build(BuildContext context){
-    final categoryChipConfig =
-        AppCategoryChips.allCategories[collection.type] ??
-            AppCategoryChips.others;
+  Widget build(BuildContext context) {
+    final categoryChipConfig = collection.type.chip;
     final theme = Theme.of(context);
     return InkWell(
       onTap: () {},
@@ -42,7 +40,6 @@ class CollectionCard extends StatelessWidget{
                       ),
                     ),
                   ),
-                  
                 ),
 
                 Positioned(
@@ -62,10 +59,10 @@ class CollectionCard extends StatelessWidget{
                 spacing: 0,
                 children: [
                   Text(
-                      collection.title,
-                      maxLines: 2,
-                      overflow: TextOverflow.ellipsis,
-                      style: theme.textTheme.titleMedium
+                    collection.title,
+                    maxLines: 2,
+                    overflow: TextOverflow.ellipsis,
+                    style: theme.textTheme.titleMedium,
                   ),
                   Text(
                     collection.subtitle,
@@ -84,4 +81,3 @@ class CollectionCard extends StatelessWidget{
     );
   }
 }
-

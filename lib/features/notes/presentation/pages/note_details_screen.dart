@@ -1,5 +1,6 @@
 import 'package:clustranotes_mobile/features/comments/data/dummy_comment_data.dart';
 import 'package:clustranotes_mobile/features/comments/models/comment_model.dart';
+import 'package:clustranotes_mobile/features/notes/data/notecard_dummy_data.dart';
 import 'package:clustranotes_mobile/features/user/domain/models/user_summary.dart';
 import 'package:clustranotes_mobile/features/notes/data/note_details_dummy_data.dart';
 import 'package:clustranotes_mobile/features/notes/presentation/widgets/comment_input_bar/comment_input_bar.dart';
@@ -79,7 +80,7 @@ class _NoteDetailsScreenState extends State<NoteDetailsScreen> {
                       NoteActionSection(),
                       NoteDescriptionSection(description: note.note.description),
                       NoteTagsSection(tags: note.note.tags),
-                      RelatedNotesSection(notes: dummyNoteDetails),
+                      RelatedNotesSection(notes: dummyNoteCards),
                       CommentSection(comments: noteComments, onReply: _onReply,),
                     ],
                   ),

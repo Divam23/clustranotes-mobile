@@ -41,7 +41,7 @@ class SearchResultNoteCard extends StatelessWidget{
 
   @override
   Widget build(BuildContext context){
-    final categoryConfig = AppCategoryChips.allCategories[item.category] ?? AppCategoryChips.others;
+    final categoryConfig = item.category.chip;
     final fileTypeConfig = AppFileTypeChips.allFileTypes[item.contentType] ?? AppFileTypeChips.pdf;
     final theme = Theme.of(context);
     return GestureDetector(

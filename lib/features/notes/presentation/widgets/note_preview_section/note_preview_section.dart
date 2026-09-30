@@ -11,7 +11,7 @@ class NotePreviewSection extends StatelessWidget{
 
   @override
   Widget build(BuildContext context){
-    final categoryConfig = AppCategoryChips.allCategories[note.note.category] ?? AppCategoryChips.others;
+    final categoryConfig = note.note.category.chip;
     final fileTypeConfig = AppFileTypeChips.allFileTypes[note.note.contentType] ?? AppFileTypeChips.pdf;
     final theme = Theme.of(context);
     return Stack(

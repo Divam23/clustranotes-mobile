@@ -1,10 +1,8 @@
-import 'package:clustranotes_mobile/app/router/app_route_names.dart';
 import 'package:clustranotes_mobile/app/router/app_route_paths.dart';
 import 'package:clustranotes_mobile/app/router/auth_router_notifier.dart';
 import 'package:clustranotes_mobile/app/router/routes/app_routes.dart';
 import 'package:clustranotes_mobile/app/router/routes/auth_routes.dart';
 import 'package:clustranotes_mobile/app/router/routes/app_shell_routes.dart';
-import 'package:clustranotes_mobile/core/widgets/button/app_back_button.dart';
 import 'package:clustranotes_mobile/features/auth/domain/enum/auth_status_enum.dart';
 import 'package:clustranotes_mobile/features/auth/notifier/auth_state.dart';
 import 'package:clustranotes_mobile/features/auth/providers/auth_providers.dart';
@@ -175,19 +173,6 @@ final appRouterProvider = Provider<GoRouter>((ref) {
       ...appRoutes,
       ...authRoutes,
       ...homeRoutes,
-
-      GoRoute(
-        path: AppRoutePaths.noteDetails,
-        name: AppRouteNames.noteDetails,
-        builder: (context, state) {
-          final noteId = state.pathParameters['noteId']!;
-
-          return Scaffold(
-            appBar: AppBar(leading: const AppBackButton(), title: const Text('Note Details')),
-            body: Center(child: Text('Note ID: $noteId')),
-          );
-        },
-      ),
       
     ],
     errorBuilder: (_,_){

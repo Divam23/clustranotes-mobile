@@ -24,7 +24,7 @@ class MultiUtilityButton extends StatelessWidget {
     this.borderColor,
     this.fontWeight,
     this.fontSize,
-    this.elevation = 0,
+    this.elevation,
     super.key,
   });
 
@@ -34,7 +34,7 @@ class MultiUtilityButton extends StatelessWidget {
     return FilledButton.tonal(
       
       style: FilledButton.styleFrom(
-        elevation: elevation,
+        elevation: elevation ?? 0,
         overlayColor: Colors.transparent,
         backgroundColor: buttonColor ?? AppColors.primarySky.withValues(alpha: 0.2),
         shape: RoundedRectangleBorder(

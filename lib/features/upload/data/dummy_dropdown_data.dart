@@ -15,17 +15,7 @@ const universities = [
   'Delhi University',
   'VTU',
   'AKTU',
-  'Delhi University',
-  'VTU',
-  'AKTU',
-  'Delhi University',
-  'VTU',
-  'AKTU',
-  'Delhi University',
-  'VTU',
-  'AKTU',
-  'Delhi University',
-  'VTU',
+  
 ];
 
 const colleges = [

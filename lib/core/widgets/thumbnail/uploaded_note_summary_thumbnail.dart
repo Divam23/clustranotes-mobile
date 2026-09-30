@@ -12,8 +12,6 @@ class UploadedNoteSummaryThumbnail extends StatelessWidget{
   
   @override
   Widget build(BuildContext context){
-    final theme = Theme.of(context);
-    final color = _getColor(context); 
     
     return Container(
       height: height ?? 60,
@@ -46,19 +44,5 @@ class UploadedNoteSummaryThumbnail extends StatelessWidget{
     }
   }
 
-  Color _getColor(BuildContext context) {
-    switch (noteContentType) {
-      case NoteContentType.pdf:
-        return Colors.red;
-
-      case NoteContentType.docx:
-      case NoteContentType.doc:
-        return Colors.blue;
-
-      case NoteContentType.pptx:
-      case NoteContentType.ppt:
-        return Colors.orange;
-      
-    }
-  }
+  
 }
