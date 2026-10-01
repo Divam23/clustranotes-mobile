@@ -1,46 +1,28 @@
 import 'package:clustranotes_mobile/app/theme/theme.dart';
+import 'package:clustranotes_mobile/core/utils/formatters/formatter.dart';
 import 'package:clustranotes_mobile/core/widgets/button/bookmark_button.dart';
+import 'package:clustranotes_mobile/core/widgets/dot.dart';
+import 'package:clustranotes_mobile/core/widgets/resource_chips/chip_item.dart';
+import 'package:clustranotes_mobile/core/widgets/resource_chips/filetype_chip.dart';
+import 'package:clustranotes_mobile/core/widgets/resource_chips/resource_chip.dart';
+import 'package:clustranotes_mobile/core/widgets/thumbnail/note_thumbnail.dart';
+import 'package:clustranotes_mobile/features/notes/models/note_card_model.dart';
 import 'package:flutter/material.dart';
 
-class LatestUploadedItem {
-  final String title;
-  final String thumbnail;
-  final String semester;
-  final String course;
-  final String subject;
-  final String fileType;
-  final String category;
-  final String collegeName;
-  final num downloadCount;
-  final String uploadTime;
-  final String authorName;
-
-  const LatestUploadedItem({
-    required this.title,
-    required this.thumbnail,
-    required this.semester,
-    required this.course,
-    required this.subject,
-    required this.fileType,
-    required this.category,
-    required this.collegeName,
-    required this.downloadCount,
-    required this.uploadTime,
-    required this.authorName,
-  });
-}
-
 class LatestUploadCard extends StatelessWidget {
-  final LatestUploadedItem item;
-  const LatestUploadCard({required this.item, super.key});
+  final NoteCardModel card;
+  const LatestUploadCard({required this.card, super.key});
 
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
+
+    final categoryChipConfig = card.category.chip;
+    final fileTypeChipConfig =
+        AppFileTypeChips.allFileTypes[card.contentType] ?? AppFileTypeChips.pdf;
     return GestureDetector(
       child: Container(
-        height: 290,
-        width: double.infinity,
+        padding: const EdgeInsets.symmetric(horizontal: AppSpacing.sm, vertical: AppSpacing.sm),
         decoration: BoxDecoration(
           color: theme.colorScheme.surface,
           borderRadius: AppRadius.card,
@@ -50,187 +32,124 @@ class LatestUploadCard extends StatelessWidget {
           children: [
             Stack(
               children: [
-                Container(
-                  height: 170,
-                  width: double.infinity,
-                  padding: const EdgeInsets.all(AppSpacing.sm),
-                  child: Container(
-                    decoration: BoxDecoration(
-                      borderRadius: AppRadius.image,
-                      border: Border.all(
-                        color: Theme.of(context)
-                            .disabledColor
-                            .withValues(alpha: 0.1),
-                        width: 1,
-                      ),
-                    ),
-                    child: ClipRRect(
-                      borderRadius: AppRadius.image,
-                    
-                      child: Image.network(
-                        item.thumbnail,
-                        fit: BoxFit.cover,
-                        width: double.infinity,
-                        height: double.infinity,
-                      ),
+                AspectRatio(
+                  aspectRatio: 16 / 9,
+                  child: ClipRRect(
+                    borderRadius: AppRadius.image,
+                    child: NoteThumbnail(
+                      contentType: card.contentType,
+                      thumbnailUrl: card.thumbnailUrl,
                     ),
                   ),
                 ),
                 Positioned(
                   bottom: AppSpacing.lg,
                   right: AppSpacing.lg,
-                  child: AppBookmarkButton(onPressed: (){})
+                  child: AppBookmarkButton(onPressed: () {}),
                 ),
               ],
             ),
             const SizedBox(height: AppSpacing.xxs),
-            Container(
-              padding: EdgeInsets.symmetric(horizontal: AppSpacing.md),
-              child: Row(
-                spacing: AppSpacing.md,
-                children: [
-                  Column(
-                    spacing: AppSpacing.xxs,
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    children: [
-                      Text(item.title, style: theme.textTheme.titleLarge),
-                      Row(
-                        spacing: AppSpacing.xs,
-                        children: [
+            Row(
+              spacing: AppSpacing.md,
+              children: [
+                Column(
+                  spacing: AppSpacing.xxs,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: [
+                    Text(
+                      card.title,
+                      maxLines: 2,
+                      overflow: TextOverflow.ellipsis,
+                      style: theme.textTheme.titleLarge,
+                    ),
+                    Row(
+                      spacing: AppSpacing.xs,
+                      children: [
+                        if (card.semester != null) ...[
                           Text(
-                            item.semester,
+                            "Sem ${card.semester!}",
                             style: theme.textTheme.labelMedium?.copyWith(
                               color: theme.colorScheme.onSecondary,
                             ),
                           ),
-                          Container(
-                            height: 4,
-                            width: 4,
-                            decoration: BoxDecoration(
-                              shape: BoxShape.circle,
-                              color: theme.colorScheme.primary,
-                            ),  
-                          ),
-                          Text(
-                            item.subject,
-                            style: theme.textTheme.labelMedium?.copyWith(
-                              color: theme.colorScheme.onSecondary,
-                            ),
-                          ),
-                          Container(
-                            height: 4,
-                            width: 4,
-                            decoration: BoxDecoration(
-                              shape: BoxShape.circle,
-                              color: theme.colorScheme.primary,
-                            ),
-                          ),
-                          Text(
-                            item.collegeName,
-                            style: theme.textTheme.labelMedium?.copyWith(
-                              color: theme.colorScheme.onSecondary,
-                            ),
-                          ),
+                          Dot(radius: 4, color: theme.colorScheme.primary),
                         ],
-                      ),
-                      const SizedBox(height: AppSpacing.sm),
-                      Wrap(
-                        spacing: AppSpacing.md,
-                        crossAxisAlignment: WrapCrossAlignment.center,
-                        children: [
-                          Row(
-                            spacing: AppSpacing.md,
-                            children: [
-                              Row(
-                                spacing: AppSpacing.xs,
-                                children: [
-                                  Icon(
-                                    AppIcons.download,
-                                    color: theme.colorScheme.onSecondary,
-                                    size: 15,
-                                  ),
-                                  Text(
-                                    '${item.downloadCount}',
-                                    style: theme.textTheme.labelMedium
-                                        ?.copyWith(
-                                          color: theme.colorScheme.onSecondary,
-                                        ),
-                                  ),
-                                ],
-                              ),
-                              Row(
-                                spacing: AppSpacing.xs,
-                                children: [
-                                  Icon(
-                                    AppIcons.clock,
-                                    color: theme.colorScheme.onSecondary,
-                                    size: 15,
-                                  ),
-                                  Text(
-                                    '${item.uploadTime} by ${item.authorName}',
-                                    style: theme.textTheme.labelMedium
-                                        ?.copyWith(
-                                          color: theme.colorScheme.onSecondary,
-                                        ),
-                                  ),
-                                ],
-                              ),
-                            ],
+                        Text(
+                          card.subject,
+                          style: theme.textTheme.labelMedium?.copyWith(
+                            color: theme.colorScheme.onSecondary,
                           ),
-                        ],
-                      ),
-                      const SizedBox(height: AppSpacing.sm),
-                      Wrap(
-                        spacing: AppSpacing.md,
-                        crossAxisAlignment: WrapCrossAlignment.center,
-                        children: [
-                          Container(
-                            padding: EdgeInsets.all(AppSpacing.xxs),
-                            height: 25,
-                            width: 50,
-                            decoration: BoxDecoration(
-                              color: theme.colorScheme.primary.withValues(
-                                alpha: 0.1,
-                              ),
-                              borderRadius: AppRadius.chip,
-                            ),
-                            child: Center(
-                              child: Text(
-                                textAlign: TextAlign.center,
-                                item.category,
-                                style: theme.textTheme.labelSmall?.copyWith(
-                                  color: theme.colorScheme.primary,
-                                ),
-                              ),
-                            ),
-                          ),
-                          Container(
-                            padding: EdgeInsets.all(AppSpacing.xxs),
-                            height: 25,
-                            width: 50,
-                            decoration: BoxDecoration(
-                              color: theme.colorScheme.error.withValues(
-                                alpha: 0.1,
-                              ),
-                              borderRadius: AppRadius.chip,
-                            ),
-                            child: Center(
-                              child: Text(
-                                textAlign: TextAlign.center,
-                                item.fileType,
-                                style: theme.textTheme.labelSmall?.copyWith(
-                                  color: theme.colorScheme.error,
-                                ),
-                              ),
-                            ),
-                          ),
-                        ],
+                        ),
+                        
+                      ],
+                    ),
+                    if (card.collegeName != null) ...[
+                      Text(
+                        card.collegeName!,
+                        style: theme.textTheme.labelMedium?.copyWith(
+                          color: theme.colorScheme.onSecondary,
+                        ),
                       ),
                     ],
-                  ),
-                ],
-              ),
+                    const SizedBox(height: AppSpacing.sm),
+                    Wrap(
+                      spacing: AppSpacing.md,
+                      crossAxisAlignment: WrapCrossAlignment.center,
+                      children: [
+                        Row(
+                          spacing: AppSpacing.md,
+                          children: [
+                            Row(
+                              spacing: AppSpacing.xs,
+                              children: [
+                                Icon(
+                                  AppIcons.download,
+                                  color: theme.colorScheme.onSecondary,
+                                  size: 25,
+                                ),
+                                Text(
+                                  NumberFormatter.compact(card.downloadCount),
+                                  style: theme.textTheme.labelMedium
+                                      ?.copyWith(
+                                        color: theme.colorScheme.onSecondary,
+                                      ),
+                                ),
+                              ],
+                            ),
+                            Row(
+                              spacing: AppSpacing.xs,
+                              children: [
+                                Icon(
+                                  AppIcons.clock,
+                                  color: theme.colorScheme.onSecondary,
+                                  size: 25,
+                                ),
+                                Text(
+                                  DateTimeFormatter.timeAgo(card.publishedAt),
+                                  style: theme.textTheme.labelMedium
+                                      ?.copyWith(
+                                        color: theme.colorScheme.onSecondary,
+                                      ),
+                                ),
+                              ],
+                            ),
+                          ],
+                        ),
+                      ],
+                    ),
+                    const SizedBox(height: AppSpacing.sm),
+                    Row(
+                      spacing: AppSpacing.sm,
+                      children: [
+                        AppChip(item: categoryChipConfig),
+                        AppChip(item: fileTypeChipConfig),
+                      ],
+                    ),
+                  ],
+                ),
+              ],
             ),
           ],
         ),

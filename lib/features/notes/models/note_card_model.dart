@@ -24,6 +24,7 @@ class NoteCardModel{
   final bool isPublic;
   final NoteVerificationPublicStatus noteVerificationStatus;
   final DateTime createdAt;
+  final DateTime publishedAt;
   final String uploaderId;
   
   const NoteCardModel({
@@ -48,6 +49,7 @@ class NoteCardModel{
     required this.isPublic,
     required this.noteVerificationStatus,
     required this.createdAt,
+    required this.publishedAt,
     required this.uploaderId
   });
 }

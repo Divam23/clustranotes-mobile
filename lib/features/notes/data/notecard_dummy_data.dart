@@ -26,6 +26,7 @@ final List<NoteCardModel> dummyNoteCards = [
     isPublic: true,
     noteVerificationStatus: NoteVerificationPublicStatus.verified,
     createdAt: DateTime(2026, 3, 12),
+    publishedAt: DateTime(2026, 3, 12),
     uploaderId: 'u1001',
   ),
   NoteCardModel(
@@ -50,6 +51,7 @@ final List<NoteCardModel> dummyNoteCards = [
     isPublic: true,
     noteVerificationStatus: NoteVerificationPublicStatus.community,
     createdAt: DateTime(2026, 4, 2),
+    publishedAt: DateTime(2026, 4, 2),
     uploaderId: 'u1002',
   ),
   NoteCardModel(
@@ -74,6 +76,7 @@ final List<NoteCardModel> dummyNoteCards = [
     isPublic: true,
     noteVerificationStatus: NoteVerificationPublicStatus.verified,
     createdAt: DateTime(2026, 1, 20),
+    publishedAt: DateTime(2026, 1, 20),
     uploaderId: 'u1003',
   ),
   NoteCardModel(
@@ -98,6 +101,7 @@ final List<NoteCardModel> dummyNoteCards = [
     isPublic: true,
     noteVerificationStatus: NoteVerificationPublicStatus.verified,
     createdAt: DateTime(2025, 11, 15),
+    publishedAt: DateTime(2025, 11, 15),
     uploaderId: 'u1004',
   ),
   NoteCardModel(
@@ -122,6 +126,7 @@ final List<NoteCardModel> dummyNoteCards = [
     isPublic: true,
     noteVerificationStatus: NoteVerificationPublicStatus.community,
     createdAt: DateTime(2026, 5, 8),
+    publishedAt: DateTime(2026, 5, 8),
     uploaderId: 'u1005',
   ),
   NoteCardModel(
@@ -146,6 +151,7 @@ final List<NoteCardModel> dummyNoteCards = [
     isPublic: false,
     noteVerificationStatus: NoteVerificationPublicStatus.community,
     createdAt: DateTime(2026, 2, 27),
+    publishedAt: DateTime(2026, 2, 27),
     uploaderId: 'u1006',
   ),
   NoteCardModel(
@@ -170,6 +176,7 @@ final List<NoteCardModel> dummyNoteCards = [
     isPublic: true,
     noteVerificationStatus: NoteVerificationPublicStatus.verified,
     createdAt: DateTime(2026, 6, 1),
+    publishedAt: DateTime(2026, 6, 1),
     uploaderId: 'u1007',
   ),
   NoteCardModel(
@@ -194,6 +201,7 @@ final List<NoteCardModel> dummyNoteCards = [
     isPublic: true,
     noteVerificationStatus: NoteVerificationPublicStatus.verified,
     createdAt: DateTime(2025, 12, 10),
+    publishedAt: DateTime(2025, 12, 10),
     uploaderId: 'u1008',
   ),
   NoteCardModel(
@@ -218,6 +226,7 @@ final List<NoteCardModel> dummyNoteCards = [
     isPublic: true,
     noteVerificationStatus: NoteVerificationPublicStatus.community,
     createdAt: DateTime(2026, 6, 20),
+    publishedAt: DateTime(2026, 6, 20),
     uploaderId: 'u1009',
   ),
   NoteCardModel(
@@ -242,6 +251,7 @@ final List<NoteCardModel> dummyNoteCards = [
     isPublic: true,
     noteVerificationStatus: NoteVerificationPublicStatus.verified,
     createdAt: DateTime(2026, 3, 30),
+    publishedAt: DateTime(2026, 3, 30),
     uploaderId: 'u1010',
   ),
 ];
