@@ -14,6 +14,8 @@ class RelatedNotesSection extends StatelessWidget{
   @override
   Widget build(BuildContext context){
     final theme = Theme.of(context);
+    final textScaler = MediaQuery.textScalerOf(context);
+    final listHeight = textScaler.scale(300.0).clamp(300.0, 300.0);
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: AppSpacing.screenPadding, vertical: AppSpacing.md),
       child: Column(
@@ -27,7 +29,7 @@ class RelatedNotesSection extends StatelessWidget{
             ),
           ),
           SizedBox(
-            height: 230,
+            height: listHeight,
             child: ListView.separated(
               scrollDirection: Axis.horizontal,
               itemCount: notes.length,

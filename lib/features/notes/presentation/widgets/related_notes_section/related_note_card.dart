@@ -6,15 +6,12 @@ import 'package:clustranotes_mobile/core/widgets/thumbnail/note_thumbnail.dart';
 import 'package:clustranotes_mobile/features/notes/models/note_card_model.dart';
 import 'package:flutter/material.dart';
 
-class RelatedNoteCard extends StatelessWidget{
+class RelatedNoteCard extends StatelessWidget {
   final NoteCardModel note;
-  const RelatedNoteCard({
-    required this.note,
-    super.key
-  });
-  
+  const RelatedNoteCard({required this.note, super.key});
+
   @override
-  Widget build(BuildContext context){
+  Widget build(BuildContext context) {
     final categoryChipConfig = note.category.chip;
     final theme = Theme.of(context);
     return InkWell(
@@ -32,79 +29,111 @@ class RelatedNoteCard extends StatelessWidget{
             Stack(
               children: [
                 Container(
-                  height: 130,
-                  width: double.infinity,
                   decoration: BoxDecoration(
                     border: Border(
                       bottom: BorderSide(
                         color: theme.dividerColor.withValues(alpha: 0.3),
-
                       ),
                     ),
                   ),
-                  child: NoteThumbnail(contentType: note.contentType, thumbnailUrl: note.thumbnailUrl, borderRadius: AppRadius.card.copyWith(
-                    bottomLeft: Radius.zero,
-                    bottomRight: Radius.zero
-                  ),) 
+                  child: AspectRatio(
+                    aspectRatio: 16 / 9,
+                    child: ClipRRect(
+                      borderRadius: AppRadius.card.copyWith(
+                        bottomLeft: Radius.zero,
+                        bottomRight: Radius.zero,
+                      ),
+                      child: NoteThumbnail(
+                        contentType: note.contentType,
+                        thumbnailUrl: note.thumbnailUrl,
+                        borderRadius: AppRadius.card.copyWith(
+                          bottomLeft: Radius.zero,
+                          bottomRight: Radius.zero,
+                        ),
+                      ),
+                    ),
+                  ),
                 ),
                 Positioned(
-                    bottom: AppSpacing.sm,
-                    left: AppSpacing.sm,
-                    child: AppChip(item: categoryChipConfig)
+                  bottom: AppSpacing.sm,
+                  left: AppSpacing.sm,
+                  child: AppChip(item: categoryChipConfig),
                 ),
               ],
             ),
-            Container(
-              padding: const EdgeInsets.symmetric(
-                vertical: AppSpacing.xs,
-                horizontal: AppSpacing.sm,
-              ),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.stretch,
-                spacing: 0,
-                children: [
-                  Text(
-                    note.title, 
-                    style: theme.textTheme.titleMedium,
-                    maxLines: 1,
-                    overflow: TextOverflow.ellipsis,
-                  ),
-                  Row(
-                    spacing: AppSpacing.xs,
-                    children: [
-                      Text(
-                        'Sem ${note.semester}',
-                        style: theme.textTheme.labelMedium?.copyWith(
-                          color: theme.colorScheme.onSecondary,
+            Expanded(
+              child: Container(
+                padding: const EdgeInsets.symmetric(
+                  vertical: AppSpacing.xs,
+                  horizontal: AppSpacing.sm,
+                ),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  spacing: 0,
+                  children: [
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          note.title,
+                          style: theme.textTheme.titleMedium,
+                          maxLines: 2,
+                          overflow: TextOverflow.ellipsis,
                         ),
-                      ),
-                      Dot(radius: AppRadius.xxs, color: theme.colorScheme.primary),
-                      Text(
-                        note.subject,
-                        style: theme.textTheme.labelMedium?.copyWith(
-                          color: theme.colorScheme.onSecondary,
+                        SingleChildScrollView(
+                          scrollDirection: Axis.horizontal,
+                          child: Row(
+                            spacing: AppSpacing.xs,
+                            children: [
+                              Text(
+                                'Sem ${note.semester}',
+                                style: theme.textTheme.labelMedium?.copyWith(
+                                  color: theme.colorScheme.onSecondary,
+                                ),
+                              ),
+                              Dot(
+                                radius: AppRadius.xxs,
+                                color: theme.colorScheme.primary,
+                              ),
+                              Text(
+                                note.subject,
+                                style: theme.textTheme.labelMedium?.copyWith(
+                                  color: theme.colorScheme.onSecondary,
+                                ),
+                              ),
+                            ],
+                          ),
                         ),
-                      ),
-                    ],
-                  ),
-                  
-                  Text(
-                    note.collegeName!,
-                    maxLines: 2,
-                    overflow: TextOverflow.ellipsis,
-                    style: theme.textTheme.labelMedium?.copyWith(
-                      color: theme.disabledColor,
+                      ],
                     ),
-                  ),
-                  Text(
-                    note.university!,
-                    maxLines: 1,
-                    overflow: TextOverflow.ellipsis,
-                    style: theme.textTheme.labelMedium?.copyWith(
-                      color: theme.colorScheme.primary,
-                    ),
-                  ),
-                ],
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        if (note.collegeName != null) ...[
+                          Text(
+                            note.collegeName!,
+                            maxLines: 1,
+                            overflow: TextOverflow.ellipsis,
+                            style: theme.textTheme.labelMedium?.copyWith(
+                              color: theme.disabledColor,
+                            ),
+                          ),
+                        ],
+                        if (note.university != null) ...[
+                          Text(
+                            note.university!,
+                            maxLines: 1,
+                            overflow: TextOverflow.ellipsis,
+                            style: theme.textTheme.labelMedium?.copyWith(
+                              color: theme.colorScheme.primary,
+                            ),
+                          ),
+                        ],
+                      ],
+                    )
+                  ],
+                ),
               ),
             ),
           ],

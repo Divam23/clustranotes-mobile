@@ -69,7 +69,7 @@ final dummyComments = [
     parentCommentId: 'c1',
     user: dummyUsers[5],
     content: 'Excellent explanation.',
-    replyingToUser: divam,
+    replyingToUser: dummyUsers[1],
     likesCount: 8,
     isLiked: false,
     repliesCount: 0,

@@ -10,6 +10,8 @@ class RecommendedForYouSection extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
+    final textScaler = MediaQuery.textScalerOf(context);
+    final listHeight = textScaler.scale(240.0).clamp(240.0, 300.0);
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       spacing: AppSpacing.md,
@@ -29,15 +31,16 @@ class RecommendedForYouSection extends StatelessWidget {
             ),
           ],
         ),
-        SingleChildScrollView(
-          scrollDirection: Axis.horizontal,
-          child: Row(
-            spacing: AppSpacing.itemGap,
-            children: [
-              ...dummyNoteCards.map((item) {
-                return RecommendedSearchCard(item: item);
-              }),
-            ],
+        SizedBox(
+          height: listHeight,
+          child: ListView.separated(
+            scrollDirection: Axis.horizontal,
+            physics: const BouncingScrollPhysics(),
+            itemCount: dummyNoteCards.length,
+            separatorBuilder: (_, __)=> const SizedBox(width: AppSpacing.md,),
+            itemBuilder: (context, index){
+              return RecommendedSearchCard(item: dummyNoteCards[index]);
+            },
           ),
         ),
       ],

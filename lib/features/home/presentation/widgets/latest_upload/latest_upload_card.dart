@@ -49,14 +49,13 @@ class LatestUploadCard extends StatelessWidget {
                 ),
               ],
             ),
-            const SizedBox(height: AppSpacing.xxs),
-            Row(
-              spacing: AppSpacing.md,
+            const SizedBox(height: AppSpacing.xs),
+            Column(
+              spacing: AppSpacing.xs,
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Column(
-                  spacing: AppSpacing.xxs,
                   crossAxisAlignment: CrossAxisAlignment.start,
-                  mainAxisAlignment: MainAxisAlignment.start,
                   children: [
                     Text(
                       card.title,
@@ -64,26 +63,31 @@ class LatestUploadCard extends StatelessWidget {
                       overflow: TextOverflow.ellipsis,
                       style: theme.textTheme.titleLarge,
                     ),
-                    Row(
-                      spacing: AppSpacing.xs,
-                      children: [
-                        if (card.semester != null) ...[
+                    SingleChildScrollView(
+                      scrollDirection: Axis.horizontal,
+                      child: Row(
+                        spacing: AppSpacing.xs,
+                        children: [
+                          if (card.semester != null) ...[
+                            Text(
+                              "Sem ${card.semester!}",
+                              style: theme.textTheme.labelMedium?.copyWith(
+                                color: theme.colorScheme.onSecondary,
+                              ),
+                            ),
+                            Dot(radius: 4, color: theme.colorScheme.primary),
+                          ],
                           Text(
-                            "Sem ${card.semester!}",
+                            card.subject,
+                            maxLines: 2,
+                            overflow: TextOverflow.ellipsis,
                             style: theme.textTheme.labelMedium?.copyWith(
                               color: theme.colorScheme.onSecondary,
                             ),
                           ),
-                          Dot(radius: 4, color: theme.colorScheme.primary),
+
                         ],
-                        Text(
-                          card.subject,
-                          style: theme.textTheme.labelMedium?.copyWith(
-                            color: theme.colorScheme.onSecondary,
-                          ),
-                        ),
-                        
-                      ],
+                      ),
                     ),
                     if (card.collegeName != null) ...[
                       Text(
@@ -93,7 +97,11 @@ class LatestUploadCard extends StatelessWidget {
                         ),
                       ),
                     ],
-                    const SizedBox(height: AppSpacing.sm),
+                  ],
+                ),
+                const SizedBox(height: AppSpacing.sm,),
+                Column(
+                  children: [
                     Wrap(
                       spacing: AppSpacing.md,
                       crossAxisAlignment: WrapCrossAlignment.center,
@@ -113,8 +121,8 @@ class LatestUploadCard extends StatelessWidget {
                                   NumberFormatter.compact(card.downloadCount),
                                   style: theme.textTheme.labelMedium
                                       ?.copyWith(
-                                        color: theme.colorScheme.onSecondary,
-                                      ),
+                                    color: theme.colorScheme.onSecondary,
+                                  ),
                                 ),
                               ],
                             ),
@@ -130,8 +138,8 @@ class LatestUploadCard extends StatelessWidget {
                                   DateTimeFormatter.timeAgo(card.publishedAt),
                                   style: theme.textTheme.labelMedium
                                       ?.copyWith(
-                                        color: theme.colorScheme.onSecondary,
-                                      ),
+                                    color: theme.colorScheme.onSecondary,
+                                  ),
                                 ),
                               ],
                             ),
@@ -148,7 +156,8 @@ class LatestUploadCard extends StatelessWidget {
                       ],
                     ),
                   ],
-                ),
+                )
+                
               ],
             ),
           ],

@@ -18,7 +18,7 @@ class RecommendedSearchCard extends StatelessWidget {
       onTap: () {},
       borderRadius: AppRadius.card,
       child: Container(
-        width: 200,
+        width: 230,
         decoration: BoxDecoration(
           color: theme.colorScheme.surface,
           borderRadius: AppRadius.card,
@@ -29,8 +29,6 @@ class RecommendedSearchCard extends StatelessWidget {
             Stack(
               children: [
                 Container(
-                  height: 130,
-                  width: double.infinity,
                   decoration: BoxDecoration(
                     border: Border(
                       bottom: BorderSide(
@@ -38,18 +36,22 @@ class RecommendedSearchCard extends StatelessWidget {
                       ),
                     ),
                   ),
-                  child: ClipRRect(
-                    borderRadius: AppRadius.card.copyWith(
-                      bottomLeft: Radius.zero,
-                      bottomRight: Radius.zero,
-                    ),
-
-                    child: NoteThumbnail(
-                      contentType: item.contentType,
-                      thumbnailUrl: item.thumbnailUrl,
+                  child: AspectRatio(
+                    aspectRatio: 16/9,
+                    child: ClipRRect(
+                      
                       borderRadius: AppRadius.card.copyWith(
                         bottomLeft: Radius.zero,
                         bottomRight: Radius.zero,
+                      ),
+                    
+                      child: NoteThumbnail(
+                        contentType: item.contentType,
+                        thumbnailUrl: item.thumbnailUrl,
+                        borderRadius: AppRadius.card.copyWith(
+                          bottomLeft: Radius.zero,
+                          bottomRight: Radius.zero,
+                        ),
                       ),
                     ),
                   ),
@@ -66,50 +68,63 @@ class RecommendedSearchCard extends StatelessWidget {
                 ),
               ],
             ),
-            Container(
-              padding: const EdgeInsets.symmetric(
-                vertical: AppSpacing.xs,
-                horizontal: AppSpacing.sm,
-              ),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.stretch,
-                spacing: 0,
-                children: [
-                  Text(
-                    item.title,
-                    maxLines: 2,
-                    overflow: TextOverflow.ellipsis,
-                    style: theme.textTheme.titleMedium
-                  ),
-                  Text(
-                    item.subject,
-                    maxLines: 1,
-                    overflow: TextOverflow.ellipsis,
-                    style: theme.textTheme.labelMedium?.copyWith(
-                      color: theme.colorScheme.onSecondary,
+            Expanded(
+              child: Container(
+                padding: const EdgeInsets.symmetric(
+                  vertical: AppSpacing.xs,
+                  horizontal: AppSpacing.sm,
+                ),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
+                  spacing: 0,
+                  children: [
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.stretch,
+                      children: [
+                        Text(
+                            item.title,
+                            maxLines: 2,
+                            overflow: TextOverflow.ellipsis,
+                            style: theme.textTheme.titleMedium
+                        ),
+                        Text(
+                          item.subject,
+                          maxLines: 1,
+                          overflow: TextOverflow.ellipsis,
+                          style: theme.textTheme.labelMedium?.copyWith(
+                            color: theme.colorScheme.onSecondary,
+                          ),
+                        )
+                      ],
                     ),
-                  ),
-                  if (item.collegeName != null) ...[
-                    Text(
-                      item.collegeName!,
-                      maxLines: 1,
-                      overflow: TextOverflow.ellipsis,
-                      style: theme.textTheme.labelMedium?.copyWith(
-                        color: theme.colorScheme.primary,
-                      ),
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.stretch,
+                      children: [
+                        if (item.collegeName != null) ...[
+                          Text(
+                            item.collegeName!,
+                            maxLines: 1,
+                            overflow: TextOverflow.ellipsis,
+                            style: theme.textTheme.labelMedium?.copyWith(
+                              color: theme.colorScheme.primary,
+                            ),
+                          ),
+                        ],
+                        if (item.university != null) ...[
+                          Text(
+                            item.university!,
+                            maxLines: 1,
+                            overflow: TextOverflow.ellipsis,
+                            style: theme.textTheme.labelMedium?.copyWith(
+                              color: theme.colorScheme.primary,
+                            ),
+                          ),
+                        ],
+                      ],
                     ),
                   ],
-                  if (item.university != null) ...[
-                    Text(
-                      item.university!,
-                      maxLines: 1,
-                      overflow: TextOverflow.ellipsis,
-                      style: theme.textTheme.labelMedium?.copyWith(
-                        color: theme.colorScheme.primary,
-                      ),
-                    ),
-                  ],
-                ],
+                ),
               ),
             ),
           ],

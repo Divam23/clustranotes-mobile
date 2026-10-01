@@ -61,62 +61,73 @@ class RecommendedCard extends StatelessWidget{
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Text(
-                    card.title,
-                    maxLines: 2,
-                    overflow: TextOverflow.ellipsis,
-                    style: theme.textTheme.titleLarge,
-                  ),
-                  SingleChildScrollView(
-                    scrollDirection: Axis.horizontal,
-                    child: Row(
-                      spacing: AppSpacing.xs,
-                      children: [
-                        if(card.semester != null)...[
-                          Text(
-                              "Semester ${card.semester}",
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        card.title,
+                        maxLines: 2,
+                        overflow: TextOverflow.ellipsis,
+                        style: theme.textTheme.titleLarge,
+                      ),
+                      SingleChildScrollView(
+                        scrollDirection: Axis.horizontal,
+                        child: Row(
+                          spacing: AppSpacing.xs,
+                          children: [
+                            if(card.semester != null)...[
+                              Text(
+                                  "Semester ${card.semester}",
+                                  style: theme.textTheme.labelMedium?.copyWith(
+                                      color: theme.colorScheme.onSecondary
+                                  )
+                              ),
+                              Dot(radius: 4, color: theme.colorScheme.primary)
+                            ],
+                            Text(
+                              card.subject,
+                              maxLines: 2,
+                              overflow: TextOverflow.ellipsis,
                               style: theme.textTheme.labelMedium?.copyWith(
                                   color: theme.colorScheme.onSecondary
-                              )
-                          ),
-                          Dot(radius: 4, color: theme.colorScheme.primary)
-                        ],
+                              ),
+                            ),
+                          ],
+                        ),
+                      )
+                    ],
+                  ),
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      if(card.collegeName != null)...[
                         Text(
-                          card.subject,
-                          maxLines: 2,
-                          overflow: TextOverflow.ellipsis,
+                          card.collegeName!,
                           style: theme.textTheme.labelMedium?.copyWith(
                               color: theme.colorScheme.onSecondary
                           ),
                         ),
+
                       ],
-                    ),
-                  ),
-                  if(card.collegeName != null)...[
-                    Text(
-                      card.collegeName!,
-                      style: theme.textTheme.labelMedium?.copyWith(
-                          color: theme.colorScheme.onSecondary
-                      ),
-                    ),
-                    
-                  ],
-                  if(card.university != null)...[
-                    Text(
-                      card.university!,
-                      style: theme.textTheme.labelMedium?.copyWith(
-                          color: theme.colorScheme.primary
-                      ),
-                    ),
-                    
-                  ],
-                  Row(
-                    spacing: AppSpacing.sm, 
-                    children: [
-                      AppChip(item: categoryChipConfig),
-                      AppChip(item: fileTypeChipConfig),
+                      if(card.university != null)...[
+                        Text(
+                          card.university!,
+                          style: theme.textTheme.labelMedium?.copyWith(
+                              color: theme.colorScheme.primary
+                          ),
+                        ),
+                      ],
+                      const SizedBox(height: AppSpacing.sm,),
+                      Row(
+                        spacing: AppSpacing.sm,
+                        children: [
+                          AppChip(item: categoryChipConfig),
+                          AppChip(item: fileTypeChipConfig),
+                        ],
+                      )
                     ],
                   )
+                  
                 ],
               ),
             ),
