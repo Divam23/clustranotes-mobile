@@ -72,6 +72,7 @@ class RecentlyOpenedCard extends StatelessWidget {
                     ),
                     MultiUtilityButton(
                       text: "Continue",
+                      onPressed: (){},
                       buttonColor: theme.colorScheme.primary,
                       buttonTextColor: theme.colorScheme.onPrimary,
                       borderColor: theme.colorScheme.primary,

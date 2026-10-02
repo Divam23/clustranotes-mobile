@@ -29,19 +29,30 @@ class _CommentHeaderState extends State<CommentHeader> {
                   : FallbackUserAvatar(
                 firstName: widget.comment.user.firstName,
               ),
-              Text(
-                '@${widget.comment.user.userName}',
-                style: theme.textTheme.titleSmall?.copyWith(
-                  fontWeight: FontWeight.w700,
+              Expanded(
+                child: Row(
+                  spacing: AppSpacing.xs,
+                  children: [
+                    Flexible(
+                      child: Text(
+                        '@${widget.comment.user.userName}',
+                        maxLines: 1,
+                        style: theme.textTheme.labelLarge?.copyWith(
+                          fontWeight: FontWeight.w700,
+                        ),
+                        overflow: TextOverflow.ellipsis,
+                      ),
+                    ),
+                    if (widget.comment.user.isIdentityVerified) ...[
+                      VerifiedTick(),
+                    ],
+                  ],
                 ),
-                overflow: TextOverflow.ellipsis,
-              ),
-              if (widget.comment.user.isIdentityVerified) ...[
-                VerifiedTick(),
-              ],
+              )
             ],
           ),
         ),
+        const SizedBox(width: AppSpacing.xs,),
         Text(
           DateTimeFormatter.timeAgo(widget.comment.createdAt),
           style: theme.textTheme.titleSmall?.copyWith(

@@ -15,7 +15,7 @@ class TrendingSection extends StatelessWidget {
     // Dynamically scale height based on device font settings.
     // 230.0 is the base height for normal font size (scale 1.0).
     final textScaler = MediaQuery.textScalerOf(context);
-    final listHeight = textScaler.scale(210.0).clamp(210.0, 300.0);
+    final listHeight = textScaler.scale(230.0).clamp(230.0, 300.0);
     return Column(
       spacing: AppSpacing.itemGap,
       children: [

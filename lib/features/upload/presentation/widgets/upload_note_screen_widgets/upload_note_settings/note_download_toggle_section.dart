@@ -48,6 +48,7 @@ class NoteDownloadToggleSection extends ConsumerWidget {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Row(
+                            mainAxisSize: MainAxisSize.min,
                             children: [
                               Container(
                                 height: 36,
@@ -64,10 +65,14 @@ class NoteDownloadToggleSection extends ConsumerWidget {
                                 ),
                               ),
                               const SizedBox(width: AppSpacing.md),
-                              Text(
-                                "Download Allowed?",
-                                style: theme.textTheme.titleMedium?.copyWith(
-                                  fontWeight: FontWeight.w700,
+                              Flexible(
+                                child: Text(
+                                  "Download Allowed?",
+                                  maxLines: 2,
+                                  overflow: TextOverflow.ellipsis,
+                                  style: theme.textTheme.titleMedium?.copyWith(
+                                    fontWeight: FontWeight.w700,
+                                  ),
                                 ),
                               ),
                             ],

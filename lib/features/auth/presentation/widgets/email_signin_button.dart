@@ -19,25 +19,30 @@ class EmailSignInButton extends StatelessWidget{
       child: Padding(
         padding: const EdgeInsets.symmetric(
             vertical: AppSpacing.md,
-            horizontal: AppSpacing.lg
+            horizontal: AppSpacing.md
         ),
         child: Row(
+          mainAxisSize: MainAxisSize.min,
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Icon(
               AppIcons.email,
-              size: 25,
+              size: 22,
               color: theme.colorScheme.onPrimary,
               fontWeight: FontWeight.w600,
             ),
-            const SizedBox(width: 10),
-            Text(
-              "Continue with Email",
-              style: theme.textTheme.bodyLarge?.copyWith(
-                color: theme.colorScheme.onPrimary,
-                fontWeight: FontWeight.w600
+            const SizedBox(width: AppSpacing.md),
+            Flexible(
+              child: Text(
+                "Continue with Email",
+                maxLines: 1,
+                overflow: TextOverflow.ellipsis,
+                style: theme.textTheme.bodyLarge?.copyWith(
+                  color: theme.colorScheme.onSurface,
+                  fontWeight: FontWeight.w600,
+                ),
               ),
-            )
+            ),
           ],
         ),
       ),

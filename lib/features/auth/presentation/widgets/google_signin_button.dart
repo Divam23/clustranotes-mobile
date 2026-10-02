@@ -24,7 +24,7 @@ class GoogleSignInButton extends StatelessWidget{
       child: Padding(
         padding: const EdgeInsets.symmetric(
           vertical: AppSpacing.md,
-          horizontal: AppSpacing.lg
+          horizontal: AppSpacing.md
         ),
         child: isLoading ? Row(
           spacing: AppSpacing.md,
@@ -48,21 +48,26 @@ class GoogleSignInButton extends StatelessWidget{
             ),
           ],
         ) : Row(
+          mainAxisSize: MainAxisSize.min,
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Image.network(
               "https://developers.google.com/identity/images/g-logo.png",
-              width: 25,
-              height: 25,
+              width: 22,
+              height: 22,
             ),
-            const SizedBox(width: 10),
-            Text(
-              "Continue with Google",
-              style: theme.textTheme.bodyLarge?.copyWith(
-                color: theme.colorScheme.onSurface,
-                fontWeight: FontWeight.w600
+            const SizedBox(width: AppSpacing.md),
+            Flexible(
+              child: Text(
+                "Continue with Google",
+                maxLines: 1,
+                overflow: TextOverflow.ellipsis,
+                style: theme.textTheme.bodyLarge?.copyWith(
+                  color: theme.colorScheme.onSurface,
+                  fontWeight: FontWeight.w600,
+                ),
               ),
-            )
+            ),
           ],
         ),
       ),

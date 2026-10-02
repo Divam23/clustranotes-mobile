@@ -1,3 +1,5 @@
+import 'package:clustranotes_mobile/core/widgets/button/multi_utility_button.dart';
+import 'package:clustranotes_mobile/core/widgets/dot.dart';
 import 'package:flutter/material.dart';
 import 'package:clustranotes_mobile/app/theme/theme.dart';
 
@@ -20,14 +22,14 @@ class SemesterContextCard extends StatelessWidget {
             AppIcons.university,
             color: theme.colorScheme.primary,
           ),
-
           const SizedBox(width: AppSpacing.sm),
 
           Expanded(
             child: Row(
+              mainAxisSize: MainAxisSize.min,
               children: [
                 Text(
-                  "B.Tech CSE",
+                  "CSE",
                   style: theme.textTheme.bodyMedium?.copyWith(
                     color: theme.colorScheme.primary,
                     fontWeight: FontWeight.w700
@@ -35,38 +37,30 @@ class SemesterContextCard extends StatelessWidget {
                 ),
 
                 const SizedBox(width: AppSpacing.xs),
-
-                Container(
-                  height: 4,
-                  width: 4,
-                  decoration: BoxDecoration(
-                    shape: BoxShape.circle,
-                    color: theme.colorScheme.primary,
-                  ),
-                ),
-
+                Dot(color: theme.colorScheme.onPrimary,radius: AppRadius.xs,),
                 const SizedBox(width: AppSpacing.xs),
-
-                Text(
-                  "Semester 5",
-                  style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                    color: theme.colorScheme.primary,
-                    fontWeight: FontWeight.w700
+                Flexible(
+                  child: Text(
+                    "Sem 5",
+                    maxLines: 1,
+                    overflow: TextOverflow.ellipsis,
+                    style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                      color: theme.colorScheme.primary,
+                      fontWeight: FontWeight.w700
+                    ),
                   ),
                 ),
               ],
             ),
           ),
-
-          TextButton(
-              onPressed: () {}, 
-              child: Text(
-                "Change",
-                style: theme.textTheme.labelLarge?.copyWith(
-                  color: theme.colorScheme.primary,
-                  fontWeight: FontWeight.w600
-                ),
-              )),
+          MultiUtilityButton(
+            text: "Change",
+            borderColor: AppColors.transparent,
+            buttonColor: AppColors.transparent,
+            onPressed: (){
+              print("Semester change");
+            },
+          )
         ],
       ),
     );

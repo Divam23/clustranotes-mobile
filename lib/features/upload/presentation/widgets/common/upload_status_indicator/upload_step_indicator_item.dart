@@ -42,7 +42,7 @@ class UploadStepIndicatorItem extends StatelessWidget {
         width = 25;
         height = 25;
         circleChild = Center(
-          child: Text('$stepNumber', style: theme.textTheme.labelMedium?.copyWith(
+          child: Text('$stepNumber',textAlign: TextAlign.center, style: theme.textTheme.labelMedium?.copyWith(
             color: theme.colorScheme.onPrimary
           )),
         );
@@ -50,7 +50,7 @@ class UploadStepIndicatorItem extends StatelessWidget {
       case NoteUploadStepStatusEnum.upcoming:
         circleColor = theme.disabledColor;
         circleChild = Center(
-          child: Text('$stepNumber', style: theme.textTheme.labelLarge?.copyWith(
+          child: Text('$stepNumber', textAlign: TextAlign.center, style: theme.textTheme.labelLarge?.copyWith(
               color: theme.colorScheme.onPrimary
           )),
         );

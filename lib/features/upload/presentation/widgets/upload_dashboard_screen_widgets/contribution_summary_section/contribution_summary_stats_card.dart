@@ -40,22 +40,35 @@ class ContributionStatsCard extends StatelessWidget {
           vertical: AppSpacing.sm,
         ),
         child: Column(
-          spacing: AppSpacing.md,
+          mainAxisSize: MainAxisSize.min,
           mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
-            Center(
+            FittedBox(
+              fit: BoxFit.scaleDown,
+              alignment: Alignment.center,
               child: Text(
                 NumberFormatter.compact(card.stat),
+                maxLines: 1,
                 style: theme.textTheme.headlineLarge?.copyWith(
                   color: card.color,
+                  fontWeight: FontWeight.bold,
+                  height: 1
                 ),
               ),
             ),
-            Center(
+            const SizedBox(height: AppSpacing.xs),
+            FittedBox(
+              fit: BoxFit.scaleDown,
+              alignment: Alignment.center,
               child: Text(
                 card.label,
+                textAlign: TextAlign.center,
+                maxLines: 2,
+                overflow: TextOverflow.ellipsis,
                 style: theme.textTheme.labelMedium?.copyWith(
                   color: theme.hintColor,
+                  height: 1
                 ),
               ),
             ),

@@ -5,10 +5,12 @@ import 'package:flutter/material.dart';
 class AppComment extends StatelessWidget {
   final VoidCallback onTap;
   final int? count;
+  final double? size;
 
   const AppComment({
     required this.onTap,
     this.count,
+    this.size = 20,
     super.key,
   });
 
@@ -24,11 +26,16 @@ class AppComment extends StatelessWidget {
         children: [
           Icon(
             AppIcons.comment,
-            color: theme.colorScheme.onSecondary,
+            color: theme.colorScheme.onSurfaceVariant,
+            size: size,
           ),
-          if (count != null) ...[
-            Text(NumberFormatter.compact(count!)),
-          ],
+          if (count != null)
+            Text(
+              NumberFormatter.compact(count!),
+              style: theme.textTheme.labelMedium?.copyWith(
+                color: theme.colorScheme.onSurfaceVariant,
+              ),
+            ),
         ],
       ),
     );

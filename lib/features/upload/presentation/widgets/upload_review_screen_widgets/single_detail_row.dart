@@ -32,10 +32,11 @@ class SingleDetailRow extends StatelessWidget {
           vertical: AppSpacing.md,
         ),
         child: Row(
+          crossAxisAlignment: CrossAxisAlignment.start,
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             SizedBox(
-              width: 120,
+              width: 140,
               child: Row(
                 spacing: AppSpacing.xs,
                 children: [
@@ -43,10 +44,14 @@ class SingleDetailRow extends StatelessWidget {
                     item.icon,
                     color: AppColors.primarySky,
                   ),
-                  Text(
-                    item.label,
-                    style: theme.textTheme.bodyMedium?.copyWith(
-                      fontWeight: FontWeight.w600,
+                  Flexible(
+                    child: Text(
+                      item.label,
+                      maxLines: 1,
+                      overflow: TextOverflow.ellipsis,
+                      style: theme.textTheme.bodyMedium?.copyWith(
+                        fontWeight: FontWeight.w600,
+                      ),
                     ),
                   ),
                 ],

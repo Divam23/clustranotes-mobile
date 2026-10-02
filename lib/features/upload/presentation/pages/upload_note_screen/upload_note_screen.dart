@@ -24,17 +24,15 @@ class UploadNoteScreen extends ConsumerStatefulWidget {
 class _UploadNoteScreenState extends ConsumerState<UploadNoteScreen> {
   late final notifier = ref.read(uploadProvider.notifier);
 
-
   final _detailsFormKey = GlobalKey<FormState>();
   final _settingsFormKey = GlobalKey<FormState>();
   final _reviewFormKey = GlobalKey<FormState>();
-  
+
   final _scrollController = ScrollController(initialScrollOffset: 0);
-  
 
   void _handleContinue() {
     final currentScreen = ref.read(uploadProvider).currentScreen;
-    
+
     switch (currentScreen) {
       case UploadScreenEnum.details:
         if (!_detailsFormKey.currentState!.validate()) {
@@ -58,8 +56,8 @@ class _UploadNoteScreenState extends ConsumerState<UploadNoteScreen> {
     if (!notifier.validateCurrentStep()) {
       return;
     }
-    
-    if(currentScreen == UploadScreenEnum.review) {
+
+    if (currentScreen == UploadScreenEnum.review) {
       notifier.handlePublishNote();
       context.pushReplacement(AppRoutePaths.uploadProgress);
     }
@@ -81,7 +79,9 @@ class _UploadNoteScreenState extends ConsumerState<UploadNoteScreen> {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
-    final currentScreen = ref.watch(uploadProvider.select((s) => s.currentScreen));
+    final currentScreen = ref.watch(
+      uploadProvider.select((s) => s.currentScreen),
+    );
     final continueButtonText = switch (currentScreen) {
       UploadScreenEnum.details => "Continue",
       UploadScreenEnum.settings => "Review Note",
@@ -177,7 +177,9 @@ class _BottomActions extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final theme = Theme.of(context);
     final notifier = ref.read(uploadProvider.notifier);
-    final canContinue = ref.watch(uploadProvider.select((s) => notifier.validateCurrentStep(s)));
+    final canContinue = ref.watch(
+      uploadProvider.select((s) => notifier.validateCurrentStep(s)),
+    );
 
     return Padding(
       padding: const EdgeInsets.symmetric(
@@ -199,8 +201,17 @@ class _BottomActions extends ConsumerWidget {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Icon(AppIcons.leftArrow, size: 20, color: theme.colorScheme.primary),
-                    Text("Back", style: theme.textTheme.labelLarge?.copyWith(color: theme.colorScheme.primary)),
+                    Icon(
+                      AppIcons.leftArrow,
+                      size: 20,
+                      color: theme.colorScheme.primary,
+                    ),
+                    Text(
+                      "Back",
+                      style: theme.textTheme.labelLarge?.copyWith(
+                        color: theme.colorScheme.primary,
+                      ),
+                    ),
                   ],
                 ),
               ),
@@ -210,9 +221,15 @@ class _BottomActions extends ConsumerWidget {
               onPressed: onContinue,
               text: continueButtonText,
               borderRadius: AppRadius.searchBarRounded,
-              buttonColor: canContinue ? theme.colorScheme.primary : theme.disabledColor.withValues(alpha: 0.1),
-              buttonTextColor: canContinue ? theme.colorScheme.onPrimary : theme.colorScheme.inverseSurface.withValues(alpha: 0.2),
-              borderColor: canContinue ? theme.colorScheme.primary : theme.disabledColor.withValues(alpha: 0.1),
+              buttonColor: canContinue
+                  ? theme.colorScheme.primary
+                  : theme.disabledColor.withValues(alpha: 0.1),
+              buttonTextColor: canContinue
+                  ? theme.colorScheme.onPrimary
+                  : theme.colorScheme.inverseSurface.withValues(alpha: 0.2),
+              borderColor: canContinue
+                  ? theme.colorScheme.primary
+                  : theme.disabledColor.withValues(alpha: 0.1),
               elevation: 1,
             ),
           ),

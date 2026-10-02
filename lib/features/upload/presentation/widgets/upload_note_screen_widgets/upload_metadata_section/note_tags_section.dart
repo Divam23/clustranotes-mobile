@@ -58,6 +58,7 @@ class NoteTagsSection extends ConsumerWidget {
                       : notifier.addTags(tagController.text);
                   tagController.clear();
                 },
+                
                 text: "Add",
                 borderRadius: AppRadius.searchBarSharp.copyWith(
                   bottomLeft: Radius.zero,
@@ -66,6 +67,7 @@ class NoteTagsSection extends ConsumerWidget {
                 buttonColor: theme.colorScheme.primary,
                 buttonTextColor: theme.colorScheme.onPrimary,
               ),
+              
               label: "Add Tag",
             ),
           ],

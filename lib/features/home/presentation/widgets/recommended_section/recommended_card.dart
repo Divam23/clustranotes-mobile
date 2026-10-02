@@ -24,6 +24,7 @@ class RecommendedCard extends StatelessWidget{
   final fileTypeChipConfig =
       AppFileTypeChips.allFileTypes[card.contentType] ?? AppFileTypeChips.pdf;
     return InkWell(
+      enableFeedback: true,
       onTap: () {
         Navigator.push(context, MaterialPageRoute(builder: (context)=> const NoteDetailsScreen()));
       },
@@ -37,9 +38,6 @@ class RecommendedCard extends StatelessWidget{
         decoration: BoxDecoration(
           color: theme.colorScheme.surface,
           borderRadius: AppRadius.card,
-          border: Border.all(
-              color: theme.disabledColor.withValues(alpha: 0.1)
-          )
         ),
         
         child: Column(

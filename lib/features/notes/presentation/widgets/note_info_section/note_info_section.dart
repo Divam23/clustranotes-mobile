@@ -39,14 +39,14 @@ class NoteInfoSection extends StatelessWidget{
                     color: theme.colorScheme.onSecondary
                 ),
               ),
-              Dot(radius: 2, color: AppColors.primary),
+              Dot(radius: 4, color: AppColors.primary),
               Text(
                 note.note.subject,
                 style: theme.textTheme.bodyMedium?.copyWith(
                     color: theme.colorScheme.onSecondary
                 ),
               ),
-              Dot(radius: 2, color: AppColors.primary),
+              Dot(radius: 4, color: AppColors.primary),
               Text(
                 note.note.course,
                 style: theme.textTheme.bodyMedium?.copyWith(
@@ -67,14 +67,14 @@ class NoteInfoSection extends StatelessWidget{
                     color: theme.colorScheme.onSecondary
                 ),
               ),
-              Dot(radius: 2, color: AppColors.primary),
+              Dot(radius: 4, color: AppColors.primary),
               Text(
                 '${note.note.file.pageCount} page(s)',
                 style: theme.textTheme.bodyMedium?.copyWith(
                     color: theme.colorScheme.onSecondary
                 ),
               ),
-              Dot(radius: 2, color: AppColors.primary),
+              Dot(radius: 4, color: AppColors.primary),
               Text(
                 FileSizeFormatter.format(note.note.file.sizeInBytes),
                 style: theme.textTheme.bodyMedium?.copyWith(

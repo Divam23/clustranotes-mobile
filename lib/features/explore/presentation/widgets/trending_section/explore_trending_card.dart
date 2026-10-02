@@ -27,8 +27,7 @@ class TrendingCard extends StatelessWidget {
         decoration: BoxDecoration(
           color: theme.colorScheme.surface,
           borderRadius: AppRadius.card,
-          border: Border.all(color: theme.disabledColor.withValues(alpha: 0.1)),
-        ),
+          ),
         child: Column(
           spacing: AppSpacing.xs,
           mainAxisSize: MainAxisSize.min,
@@ -37,7 +36,7 @@ class TrendingCard extends StatelessWidget {
             Stack(
               children: [
                 AspectRatio(
-                  aspectRatio: 16/9,
+                  aspectRatio: 16 / 9,
                   child: Container(
                     decoration: BoxDecoration(
                       border: Border(
@@ -76,7 +75,7 @@ class TrendingCard extends StatelessWidget {
                 ),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.stretch,
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,                  
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Column(
                       crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -87,7 +86,7 @@ class TrendingCard extends StatelessWidget {
                           overflow: TextOverflow.ellipsis,
                           style: theme.textTheme.titleMedium,
                         ),
-                        
+
                         Text(
                           card.subject,
                           maxLines: 1,
@@ -96,7 +95,7 @@ class TrendingCard extends StatelessWidget {
                             color: theme.colorScheme.onSecondary,
                           ),
                         ),
-                        
+
                         if (card.collegeName != null) ...[
                           Text(
                             card.collegeName!,
