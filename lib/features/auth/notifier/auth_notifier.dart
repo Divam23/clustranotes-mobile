@@ -176,6 +176,7 @@ class AuthNotifier extends StateNotifier<AuthState> {
   }
   
   bool _isCheckingEmailVerification = false;
+
   Future<bool> checkEmailVerification() async {
     if (_isCheckingEmailVerification) return state.firebaseUser?.emailVerified ?? false;
     _isCheckingEmailVerification = true;
@@ -187,10 +188,12 @@ class AuthNotifier extends StateNotifier<AuthState> {
 
     try {
       final user = await _authRepository.reloadCurrentUser();
+      
       state = state.copyWith(firebaseUser: user, error: null);
       
       final isVerified = user?.emailVerified ?? false;
       if (isVerified && user != null) {
+        await user.getIdToken(true);
         await _authenticateWithBackend(user);
       }
       return isVerified;

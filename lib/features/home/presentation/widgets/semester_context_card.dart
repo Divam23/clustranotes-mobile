@@ -29,7 +29,7 @@ class SemesterContextCard extends StatelessWidget {
               mainAxisSize: MainAxisSize.min,
               children: [
                 Text(
-                  "CSE",
+                  "B.Tech CSE",
                   style: theme.textTheme.bodyMedium?.copyWith(
                     color: theme.colorScheme.primary,
                     fontWeight: FontWeight.w700
@@ -37,7 +37,7 @@ class SemesterContextCard extends StatelessWidget {
                 ),
 
                 const SizedBox(width: AppSpacing.xs),
-                Dot(color: theme.colorScheme.onPrimary,radius: AppRadius.xs,),
+                Dot(color: theme.colorScheme.surfaceTint,radius: AppRadius.xs,),
                 const SizedBox(width: AppSpacing.xs),
                 Flexible(
                   child: Text(

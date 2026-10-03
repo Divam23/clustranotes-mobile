@@ -22,7 +22,6 @@ class RecommendedSearchCard extends StatelessWidget {
         decoration: BoxDecoration(
           color: theme.colorScheme.surface,
           borderRadius: AppRadius.card,
-          border: Border.all(color: theme.disabledColor.withValues(alpha: 0.1)),
         ),
         child: Column(
           children: [

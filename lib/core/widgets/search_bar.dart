@@ -25,7 +25,7 @@ class AppSearchBar extends StatelessWidget {
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     return Container(
-      decoration: BoxDecoration(borderRadius: AppRadius.searchBar),
+      decoration: BoxDecoration(borderRadius: AppRadius.searchBarRounded),
       child: TextField(
         readOnly: readOnly,
         onTap: onTap,

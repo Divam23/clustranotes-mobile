@@ -27,7 +27,7 @@ class AppBottomNavigationBar extends StatelessWidget{
                 color: theme.dividerColor.withValues(
                   alpha: 0.3,
                 ),
-                width: 0.5,
+                width: 0.2,
               ),
             ),
         ),

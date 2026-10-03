@@ -26,7 +26,13 @@ class LatestUploadCard extends StatelessWidget {
         decoration: BoxDecoration(
           color: theme.colorScheme.surface,
           borderRadius: AppRadius.card,
-          border: Border.all(color: theme.disabledColor.withValues(alpha: 0.1)),
+          boxShadow: [
+            BoxShadow(
+              offset: Offset(0, 1),
+              color: theme.shadowColor.withValues(alpha: 0.2),
+              blurRadius: 1,
+            ),
+          ]
         ),
         child: Column(
           children: [
@@ -53,6 +59,7 @@ class LatestUploadCard extends StatelessWidget {
             Column(
               spacing: AppSpacing.xs,
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,

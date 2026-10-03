@@ -98,15 +98,21 @@ class AuthRemoteDataSource {
   
   Future<User?> reloadCurrentUser() async{
     final user = _firebaseAuth.currentUser;
-    
+
     if(user == null){
       return null;
     }
     
+    debugPrint("Before RELOADING:::::::::::: $user");
+    
     await user.reload();
-    print("EMAIL VERIFIED OR NOT: ${user.emailVerified}");
-    print("Reloaded User: $user");
-    return _firebaseAuth.currentUser;
+    final refreshedUser = _firebaseAuth.currentUser;
+
+    debugPrint(
+      'After reload: ${refreshedUser?.emailVerified}',
+    );
+
+    return refreshedUser;
   }
   
   Future<void> forgotPassword({

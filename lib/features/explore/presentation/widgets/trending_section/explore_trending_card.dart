@@ -27,7 +27,8 @@ class TrendingCard extends StatelessWidget {
         decoration: BoxDecoration(
           color: theme.colorScheme.surface,
           borderRadius: AppRadius.card,
-          ),
+          
+        ),
         child: Column(
           spacing: AppSpacing.xs,
           mainAxisSize: MainAxisSize.min,
