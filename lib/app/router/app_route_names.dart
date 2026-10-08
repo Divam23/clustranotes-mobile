@@ -24,6 +24,9 @@ abstract final class AppRouteNames {
   static const uploadFlow = 'uploadFlow';
   static const uploadProgress = 'uploadProgress';
   
+  //contributions
+  static const userUpload= 'userUploads';
+  
   //not found
   static const notFound = 'notFound';
 }

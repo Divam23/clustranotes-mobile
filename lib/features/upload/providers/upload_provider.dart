@@ -1,7 +1,7 @@
 import 'package:clustranotes_mobile/core/api/providers/api_client_provider.dart';
 import 'package:clustranotes_mobile/features/notes/providers/note_providers.dart';
 import 'package:clustranotes_mobile/features/upload/data/datasource/upload_remote_datasource.dart';
-import 'package:clustranotes_mobile/features/upload/data/repository/upload_repository_impl.dart';
+import 'package:clustranotes_mobile/features/upload/data/repositories/upload_repository_impl.dart';
 import 'package:clustranotes_mobile/features/upload/domain/repositories/upload_repository.dart';
 import 'package:clustranotes_mobile/features/upload/providers/upload_note/upload_notifier.dart';
 import 'package:clustranotes_mobile/features/upload/providers/upload_note/upload_state.dart';
@@ -19,8 +19,6 @@ final uploadRepositoryProvider = Provider<UploadRepository>((ref) {
   return UploadRepositoryImpl(remote);
 });
 
-final uploadProvider = StateNotifierProvider<UploadNotifier, UploadState>((
-    ref,
-    ) {
+final uploadProvider = StateNotifierProvider<UploadNotifier, UploadState>((ref) {
   return UploadNotifier(ref.read(noteRepositoryProvider));
 });

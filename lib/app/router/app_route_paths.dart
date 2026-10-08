@@ -23,6 +23,7 @@ abstract final class AppRoutePaths {
   //Upload
   static const uploadFlow = '/upload/upload-flow';
   static const uploadProgress = '/upload/progress';
+  static const userUploads = '/uploads/my-uploads';
   
   //Not Found
   static const notFound = '/404';

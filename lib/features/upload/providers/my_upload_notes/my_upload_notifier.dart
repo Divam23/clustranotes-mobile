@@ -13,7 +13,7 @@ class MyUploadNotifier extends StateNotifier<MyUploadState> {
   void changeFilter(NoteOwnerStatus? ownerStatus){
     state = state.copyWith(
       selectedStatus: ownerStatus,
-      
     );
   }
+  
 }

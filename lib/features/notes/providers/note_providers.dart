@@ -4,7 +4,6 @@ import 'package:clustranotes_mobile/features/notes/data/repositories/note_reposi
 import 'package:clustranotes_mobile/features/notes/domain/repositories/note_repository.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-
 final noteRemoteDataSourceProvider = Provider<NoteRemoteDataSource>((ref){
   return NoteRemoteDataSource(ref.read(apiClientProvider));
 });

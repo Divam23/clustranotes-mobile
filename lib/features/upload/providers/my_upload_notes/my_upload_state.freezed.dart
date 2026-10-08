@@ -14,7 +14,7 @@ T _$identity<T>(T value) => value;
 /// @nodoc
 mixin _$MyUploadState {
 
- List<UploadedNoteSummary> get notes; NoteOwnerStatus? get selectedStatus; bool get isLoading; String? get error; bool get isRefreshing; bool get hasReachedEnd; String? get nextCursor;
+ List<UploadedNoteSummary> get notes; NoteOwnerStatus? get selectedStatus; bool get isLoading; bool get isExpanded; String? get error; bool get isRefreshing; bool get hasReachedEnd; String? get nextCursor;
 /// Create a copy of MyUploadState
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -25,16 +25,16 @@ $MyUploadStateCopyWith<MyUploadState> get copyWith => _$MyUploadStateCopyWithImp
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is MyUploadState&&const DeepCollectionEquality().equals(other.notes, notes)&&(identical(other.selectedStatus, selectedStatus) || other.selectedStatus == selectedStatus)&&(identical(other.isLoading, isLoading) || other.isLoading == isLoading)&&(identical(other.error, error) || other.error == error)&&(identical(other.isRefreshing, isRefreshing) || other.isRefreshing == isRefreshing)&&(identical(other.hasReachedEnd, hasReachedEnd) || other.hasReachedEnd == hasReachedEnd)&&(identical(other.nextCursor, nextCursor) || other.nextCursor == nextCursor));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is MyUploadState&&const DeepCollectionEquality().equals(other.notes, notes)&&(identical(other.selectedStatus, selectedStatus) || other.selectedStatus == selectedStatus)&&(identical(other.isLoading, isLoading) || other.isLoading == isLoading)&&(identical(other.isExpanded, isExpanded) || other.isExpanded == isExpanded)&&(identical(other.error, error) || other.error == error)&&(identical(other.isRefreshing, isRefreshing) || other.isRefreshing == isRefreshing)&&(identical(other.hasReachedEnd, hasReachedEnd) || other.hasReachedEnd == hasReachedEnd)&&(identical(other.nextCursor, nextCursor) || other.nextCursor == nextCursor));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,const DeepCollectionEquality().hash(notes),selectedStatus,isLoading,error,isRefreshing,hasReachedEnd,nextCursor);
+int get hashCode => Object.hash(runtimeType,const DeepCollectionEquality().hash(notes),selectedStatus,isLoading,isExpanded,error,isRefreshing,hasReachedEnd,nextCursor);
 
 @override
 String toString() {
-  return 'MyUploadState(notes: $notes, selectedStatus: $selectedStatus, isLoading: $isLoading, error: $error, isRefreshing: $isRefreshing, hasReachedEnd: $hasReachedEnd, nextCursor: $nextCursor)';
+  return 'MyUploadState(notes: $notes, selectedStatus: $selectedStatus, isLoading: $isLoading, isExpanded: $isExpanded, error: $error, isRefreshing: $isRefreshing, hasReachedEnd: $hasReachedEnd, nextCursor: $nextCursor)';
 }
 
 
@@ -45,7 +45,7 @@ abstract mixin class $MyUploadStateCopyWith<$Res>  {
   factory $MyUploadStateCopyWith(MyUploadState value, $Res Function(MyUploadState) _then) = _$MyUploadStateCopyWithImpl;
 @useResult
 $Res call({
- List<UploadedNoteSummary> notes, NoteOwnerStatus? selectedStatus, bool isLoading, String? error, bool isRefreshing, bool hasReachedEnd, String? nextCursor
+ List<UploadedNoteSummary> notes, NoteOwnerStatus? selectedStatus, bool isLoading, bool isExpanded, String? error, bool isRefreshing, bool hasReachedEnd, String? nextCursor
 });
 
 
@@ -62,11 +62,12 @@ class _$MyUploadStateCopyWithImpl<$Res>
 
 /// Create a copy of MyUploadState
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? notes = null,Object? selectedStatus = freezed,Object? isLoading = null,Object? error = freezed,Object? isRefreshing = null,Object? hasReachedEnd = null,Object? nextCursor = freezed,}) {
+@pragma('vm:prefer-inline') @override $Res call({Object? notes = null,Object? selectedStatus = freezed,Object? isLoading = null,Object? isExpanded = null,Object? error = freezed,Object? isRefreshing = null,Object? hasReachedEnd = null,Object? nextCursor = freezed,}) {
   return _then(_self.copyWith(
 notes: null == notes ? _self.notes : notes // ignore: cast_nullable_to_non_nullable
 as List<UploadedNoteSummary>,selectedStatus: freezed == selectedStatus ? _self.selectedStatus : selectedStatus // ignore: cast_nullable_to_non_nullable
 as NoteOwnerStatus?,isLoading: null == isLoading ? _self.isLoading : isLoading // ignore: cast_nullable_to_non_nullable
+as bool,isExpanded: null == isExpanded ? _self.isExpanded : isExpanded // ignore: cast_nullable_to_non_nullable
 as bool,error: freezed == error ? _self.error : error // ignore: cast_nullable_to_non_nullable
 as String?,isRefreshing: null == isRefreshing ? _self.isRefreshing : isRefreshing // ignore: cast_nullable_to_non_nullable
 as bool,hasReachedEnd: null == hasReachedEnd ? _self.hasReachedEnd : hasReachedEnd // ignore: cast_nullable_to_non_nullable
@@ -156,10 +157,10 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( List<UploadedNoteSummary> notes,  NoteOwnerStatus? selectedStatus,  bool isLoading,  String? error,  bool isRefreshing,  bool hasReachedEnd,  String? nextCursor)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( List<UploadedNoteSummary> notes,  NoteOwnerStatus? selectedStatus,  bool isLoading,  bool isExpanded,  String? error,  bool isRefreshing,  bool hasReachedEnd,  String? nextCursor)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _MyUploadState() when $default != null:
-return $default(_that.notes,_that.selectedStatus,_that.isLoading,_that.error,_that.isRefreshing,_that.hasReachedEnd,_that.nextCursor);case _:
+return $default(_that.notes,_that.selectedStatus,_that.isLoading,_that.isExpanded,_that.error,_that.isRefreshing,_that.hasReachedEnd,_that.nextCursor);case _:
   return orElse();
 
 }
@@ -177,10 +178,10 @@ return $default(_that.notes,_that.selectedStatus,_that.isLoading,_that.error,_th
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( List<UploadedNoteSummary> notes,  NoteOwnerStatus? selectedStatus,  bool isLoading,  String? error,  bool isRefreshing,  bool hasReachedEnd,  String? nextCursor)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( List<UploadedNoteSummary> notes,  NoteOwnerStatus? selectedStatus,  bool isLoading,  bool isExpanded,  String? error,  bool isRefreshing,  bool hasReachedEnd,  String? nextCursor)  $default,) {final _that = this;
 switch (_that) {
 case _MyUploadState():
-return $default(_that.notes,_that.selectedStatus,_that.isLoading,_that.error,_that.isRefreshing,_that.hasReachedEnd,_that.nextCursor);case _:
+return $default(_that.notes,_that.selectedStatus,_that.isLoading,_that.isExpanded,_that.error,_that.isRefreshing,_that.hasReachedEnd,_that.nextCursor);case _:
   throw StateError('Unexpected subclass');
 
 }
@@ -197,10 +198,10 @@ return $default(_that.notes,_that.selectedStatus,_that.isLoading,_that.error,_th
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( List<UploadedNoteSummary> notes,  NoteOwnerStatus? selectedStatus,  bool isLoading,  String? error,  bool isRefreshing,  bool hasReachedEnd,  String? nextCursor)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( List<UploadedNoteSummary> notes,  NoteOwnerStatus? selectedStatus,  bool isLoading,  bool isExpanded,  String? error,  bool isRefreshing,  bool hasReachedEnd,  String? nextCursor)?  $default,) {final _that = this;
 switch (_that) {
 case _MyUploadState() when $default != null:
-return $default(_that.notes,_that.selectedStatus,_that.isLoading,_that.error,_that.isRefreshing,_that.hasReachedEnd,_that.nextCursor);case _:
+return $default(_that.notes,_that.selectedStatus,_that.isLoading,_that.isExpanded,_that.error,_that.isRefreshing,_that.hasReachedEnd,_that.nextCursor);case _:
   return null;
 
 }
@@ -212,7 +213,7 @@ return $default(_that.notes,_that.selectedStatus,_that.isLoading,_that.error,_th
 
 
 class _MyUploadState implements MyUploadState {
-  const _MyUploadState({final  List<UploadedNoteSummary> notes = const [], this.selectedStatus, this.isLoading = false, this.error, this.isRefreshing = false, this.hasReachedEnd = false, this.nextCursor}): _notes = notes;
+  const _MyUploadState({final  List<UploadedNoteSummary> notes = const [], this.selectedStatus, this.isLoading = false, this.isExpanded = false, this.error, this.isRefreshing = false, this.hasReachedEnd = false, this.nextCursor}): _notes = notes;
   
 
  final  List<UploadedNoteSummary> _notes;
@@ -224,6 +225,7 @@ class _MyUploadState implements MyUploadState {
 
 @override final  NoteOwnerStatus? selectedStatus;
 @override@JsonKey() final  bool isLoading;
+@override@JsonKey() final  bool isExpanded;
 @override final  String? error;
 @override@JsonKey() final  bool isRefreshing;
 @override@JsonKey() final  bool hasReachedEnd;
@@ -239,16 +241,16 @@ _$MyUploadStateCopyWith<_MyUploadState> get copyWith => __$MyUploadStateCopyWith
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _MyUploadState&&const DeepCollectionEquality().equals(other._notes, _notes)&&(identical(other.selectedStatus, selectedStatus) || other.selectedStatus == selectedStatus)&&(identical(other.isLoading, isLoading) || other.isLoading == isLoading)&&(identical(other.error, error) || other.error == error)&&(identical(other.isRefreshing, isRefreshing) || other.isRefreshing == isRefreshing)&&(identical(other.hasReachedEnd, hasReachedEnd) || other.hasReachedEnd == hasReachedEnd)&&(identical(other.nextCursor, nextCursor) || other.nextCursor == nextCursor));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _MyUploadState&&const DeepCollectionEquality().equals(other._notes, _notes)&&(identical(other.selectedStatus, selectedStatus) || other.selectedStatus == selectedStatus)&&(identical(other.isLoading, isLoading) || other.isLoading == isLoading)&&(identical(other.isExpanded, isExpanded) || other.isExpanded == isExpanded)&&(identical(other.error, error) || other.error == error)&&(identical(other.isRefreshing, isRefreshing) || other.isRefreshing == isRefreshing)&&(identical(other.hasReachedEnd, hasReachedEnd) || other.hasReachedEnd == hasReachedEnd)&&(identical(other.nextCursor, nextCursor) || other.nextCursor == nextCursor));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,const DeepCollectionEquality().hash(_notes),selectedStatus,isLoading,error,isRefreshing,hasReachedEnd,nextCursor);
+int get hashCode => Object.hash(runtimeType,const DeepCollectionEquality().hash(_notes),selectedStatus,isLoading,isExpanded,error,isRefreshing,hasReachedEnd,nextCursor);
 
 @override
 String toString() {
-  return 'MyUploadState(notes: $notes, selectedStatus: $selectedStatus, isLoading: $isLoading, error: $error, isRefreshing: $isRefreshing, hasReachedEnd: $hasReachedEnd, nextCursor: $nextCursor)';
+  return 'MyUploadState(notes: $notes, selectedStatus: $selectedStatus, isLoading: $isLoading, isExpanded: $isExpanded, error: $error, isRefreshing: $isRefreshing, hasReachedEnd: $hasReachedEnd, nextCursor: $nextCursor)';
 }
 
 
@@ -259,7 +261,7 @@ abstract mixin class _$MyUploadStateCopyWith<$Res> implements $MyUploadStateCopy
   factory _$MyUploadStateCopyWith(_MyUploadState value, $Res Function(_MyUploadState) _then) = __$MyUploadStateCopyWithImpl;
 @override @useResult
 $Res call({
- List<UploadedNoteSummary> notes, NoteOwnerStatus? selectedStatus, bool isLoading, String? error, bool isRefreshing, bool hasReachedEnd, String? nextCursor
+ List<UploadedNoteSummary> notes, NoteOwnerStatus? selectedStatus, bool isLoading, bool isExpanded, String? error, bool isRefreshing, bool hasReachedEnd, String? nextCursor
 });
 
 
@@ -276,11 +278,12 @@ class __$MyUploadStateCopyWithImpl<$Res>
 
 /// Create a copy of MyUploadState
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? notes = null,Object? selectedStatus = freezed,Object? isLoading = null,Object? error = freezed,Object? isRefreshing = null,Object? hasReachedEnd = null,Object? nextCursor = freezed,}) {
+@override @pragma('vm:prefer-inline') $Res call({Object? notes = null,Object? selectedStatus = freezed,Object? isLoading = null,Object? isExpanded = null,Object? error = freezed,Object? isRefreshing = null,Object? hasReachedEnd = null,Object? nextCursor = freezed,}) {
   return _then(_MyUploadState(
 notes: null == notes ? _self._notes : notes // ignore: cast_nullable_to_non_nullable
 as List<UploadedNoteSummary>,selectedStatus: freezed == selectedStatus ? _self.selectedStatus : selectedStatus // ignore: cast_nullable_to_non_nullable
 as NoteOwnerStatus?,isLoading: null == isLoading ? _self.isLoading : isLoading // ignore: cast_nullable_to_non_nullable
+as bool,isExpanded: null == isExpanded ? _self.isExpanded : isExpanded // ignore: cast_nullable_to_non_nullable
 as bool,error: freezed == error ? _self.error : error // ignore: cast_nullable_to_non_nullable
 as String?,isRefreshing: null == isRefreshing ? _self.isRefreshing : isRefreshing // ignore: cast_nullable_to_non_nullable
 as bool,hasReachedEnd: null == hasReachedEnd ? _self.hasReachedEnd : hasReachedEnd // ignore: cast_nullable_to_non_nullable

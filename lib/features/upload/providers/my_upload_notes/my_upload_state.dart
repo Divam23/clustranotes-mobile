@@ -9,6 +9,7 @@ abstract class MyUploadState with _$MyUploadState{
     @Default([]) List<UploadedNoteSummary> notes,
     NoteOwnerStatus? selectedStatus,
     @Default(false) bool isLoading,
+    @Default(false) bool isExpanded,
     String? error,
     @Default(false) bool isRefreshing,
     @Default(false) bool hasReachedEnd,
