@@ -13,23 +13,26 @@ class UploadedNoteSummaryThumbnail extends StatelessWidget{
   @override
   Widget build(BuildContext context){
     
-    return Container(
-      height: height ?? 60,
-      width: width ?? 50,
-      decoration: BoxDecoration(
-        borderRadius: borderRadius,
-        color: fillerColor,
-      ),
-      child: Center(
-        child: Image.asset(
-          _getImage(),
-          height: 50,
+    return ClipRRect(
+      borderRadius: borderRadius,
+      child: Container(
+        height: height ?? 60,
+        width: width ?? 50,
+        decoration: BoxDecoration(
+          borderRadius: borderRadius,
+          color: fillerColor,
+        ),
+        child: Center(
+          child: Image.asset(
+            _getIcon(),
+            height: 50,
+          ),
         ),
       ),
     );
   }
 
-  String _getImage() {
+  String _getIcon() {
     switch (noteContentType) {
       case NoteContentType.pdf:
         return AppIcons.pdfIcon;

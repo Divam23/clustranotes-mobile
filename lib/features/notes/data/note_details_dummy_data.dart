@@ -6,7 +6,7 @@ import 'package:clustranotes_mobile/features/notes/models/note_details.dart';
 import 'package:clustranotes_mobile/features/user/data/dummy_user_data.dart';
 import 'package:clustranotes_mobile/features/notes/models/note_model.dart';
 import 'package:clustranotes_mobile/features/notes/models/note_file_metadata.dart';
-import 'package:clustranotes_mobile/features/notes/models/note_stats.dart';
+import 'package:clustranotes_mobile/features/upload/domain/models/note_stats_model.dart';
 import 'package:clustranotes_mobile/features/notes/models/moderation_info.dart';
 
 final dummyNoteDetails = [
@@ -42,7 +42,7 @@ final dummyNoteDetails = [
       rejectedAt: null,
       rejectionReason: null,
       noteVerificationStatus: NoteVerificationPublicStatus.verified,
-      stats: NoteStats(
+      stats: NoteStatsModel(
         viewsCount: 5200,
         downloadCount: 1280,
         likesCount: 340,
@@ -94,7 +94,7 @@ final dummyNoteDetails = [
       rejectedAt: null,
       rejectionReason: null,
       noteVerificationStatus: NoteVerificationPublicStatus.community,
-      stats: NoteStats(
+      stats: NoteStatsModel(
         viewsCount: 890,
         downloadCount: 210,
         likesCount: 45,
@@ -148,7 +148,7 @@ final dummyNoteDetails = [
       rejectedAt: DateTime(2026, 6, 12),
       rejectionReason: 'Content overlaps significantly with an existing verified note.',
       noteVerificationStatus: NoteVerificationPublicStatus.community,
-      stats: NoteStats(
+      stats: NoteStatsModel(
         viewsCount: 1100,
         downloadCount: 320,
         likesCount: 78,

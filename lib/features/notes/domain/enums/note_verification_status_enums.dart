@@ -35,7 +35,6 @@ final NotePublishStatus publishStatus;
   unknownEnumValue: NoteVerificationPublicStatus.community,
   defaultValue: NoteVerificationPublicStatus.community,
 )
-
 final NoteVerificationPublicStatus publicStatus;
 
 @JsonKey(
@@ -50,8 +49,34 @@ const NoteVerificationStatus({
   this.publicStatus = NoteVerificationPublicStatus.community
 });
 
-factory NoteVerificationStatus.fromJson(Map<String, dynamic> json) =>
-    _$NoteVerificationStatusFromJson(json);
+factory NoteVerificationStatus.fromJson(dynamic json) {
+  if(json is String){
+    final status = _parsePrivateStatus(json);
+    return NoteVerificationStatus(
+      privateStatus: status,
+      publicStatus: status == NoteVerificationPrivateStatus.verified ? NoteVerificationPublicStatus.verified : NoteVerificationPublicStatus.community
+    );
+  }
+  if(json is Map<String, dynamic>){
+    return _$NoteVerificationStatusFromJson(json);
+  }
+  return const NoteVerificationStatus();
+}
+
+static NoteVerificationPrivateStatus _parsePrivateStatus(String value) {
+  switch (value) {
+    case 'verified':
+      return NoteVerificationPrivateStatus.verified;
+    case 'pending_review':
+    case 'pendingReview':
+      return NoteVerificationPrivateStatus.pendingReview;
+    case 'rejected':
+      return NoteVerificationPrivateStatus.rejected;
+    case 'unverified':
+    default:
+      return NoteVerificationPrivateStatus.unverified;
+  }
+}
 
 Map<String, dynamic> toJson() => _$NoteVerificationStatusToJson(this);
 

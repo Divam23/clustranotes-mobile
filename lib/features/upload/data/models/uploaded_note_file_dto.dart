@@ -4,13 +4,13 @@ part 'uploaded_note_file_dto.g.dart';
 @JsonSerializable()
 class UploadedNoteFileDto {
   final bool canDownload;
-  final int pageCount;
-  final String thumbnailUrl;
+  final int? pageCount;
+  final String? thumbnailUrl;
   
   const UploadedNoteFileDto({
     required this.canDownload,
-    required this.thumbnailUrl,
-    required this.pageCount
+    this.thumbnailUrl,
+    this.pageCount,
   });
   
   factory UploadedNoteFileDto.fromJson(Map<String, dynamic> json) => _$UploadedNoteFileDtoFromJson(json);

@@ -9,8 +9,8 @@ part of 'uploaded_note_file_dto.dart';
 UploadedNoteFileDto _$UploadedNoteFileDtoFromJson(Map<String, dynamic> json) =>
     UploadedNoteFileDto(
       canDownload: json['canDownload'] as bool,
-      thumbnailUrl: json['thumbnailUrl'] as String,
-      pageCount: (json['pageCount'] as num).toInt(),
+      thumbnailUrl: json['thumbnailUrl'] as String?,
+      pageCount: (json['pageCount'] as num?)?.toInt(),
     );
 
 Map<String, dynamic> _$UploadedNoteFileDtoToJson(

@@ -4,7 +4,7 @@ import 'package:clustranotes_mobile/features/notes/domain/enums/note_publish_sta
 import 'package:clustranotes_mobile/features/notes/domain/enums/note_verification_status_enums.dart';
 import 'package:clustranotes_mobile/features/notes/models/moderation_info.dart';
 import 'package:clustranotes_mobile/features/notes/models/note_file_metadata.dart';
-import 'package:clustranotes_mobile/features/notes/models/note_stats.dart';
+import 'package:clustranotes_mobile/features/upload/domain/models/note_stats_model.dart';
 import 'package:clustranotes_mobile/features/user/domain/models/user_summary.dart';
 
 class Note {
@@ -33,7 +33,7 @@ class Note {
   final String? rejectionReason;
   final NoteVerificationPublicStatus noteVerificationStatus;
 
-  final NoteStats stats;
+  final NoteStatsModel stats;
   final ModerationInfo? moderation;
   
   final DateTime createdAt;

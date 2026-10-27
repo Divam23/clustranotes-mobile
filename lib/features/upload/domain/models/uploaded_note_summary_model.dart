@@ -1,7 +1,7 @@
 import 'package:clustranotes_mobile/core/api/models/note_content_type_enum.dart';
 import 'package:clustranotes_mobile/features/notes/domain/enums/note_publish_status_enums.dart';
 import 'package:clustranotes_mobile/features/notes/domain/enums/note_verification_status_enums.dart';
-import 'package:clustranotes_mobile/features/notes/models/note_stats.dart';
+import 'package:clustranotes_mobile/features/upload/domain/models/note_stats_model.dart';
 
 class UploadedNoteSummary {
   final String id;
@@ -10,7 +10,7 @@ class UploadedNoteSummary {
   final NotePublishStatus publishStatus;
   final NoteVerificationPrivateStatus noteVerificationStatus;
   final NoteContentType? noteContentType;
-  final NoteStats? noteStats;
+  final NoteStatsModel? noteStats;
   final DateTime createdAt;
   final DateTime? publishedAt;
   final DateTime updatedAt;

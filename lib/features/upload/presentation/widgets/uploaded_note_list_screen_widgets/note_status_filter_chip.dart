@@ -5,14 +5,16 @@ import 'package:flutter/material.dart';
 
 class NoteStatusFilterChip extends StatelessWidget {
   final NoteOwnerStatus filter;
-  final int count;
+  final int? count;
   final VoidCallback? onTap;
   final bool isSelected;
+  final bool isLoading;
   const NoteStatusFilterChip({
     required this.filter,
     this.count = 0,
     this.onTap,
     this.isSelected = false,
+    this.isLoading = true,
     super.key,
   });
 
@@ -65,7 +67,11 @@ class NoteStatusFilterChip extends StatelessWidget {
                 horizontal: AppSpacing.md,
                 vertical: AppSpacing.xs,
               ),
-              child: Text(
+              child: isLoading ? const SizedBox(
+                width: 14,
+                height: 14,
+                child: CircularProgressIndicator(strokeWidth: 1,),
+              ) : Text(
                 "$count",
                 style: theme.textTheme.bodySmall?.copyWith(
                   color: AppColors.info,

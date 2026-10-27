@@ -6,35 +6,44 @@ part of 'uploaded_note_card_dto.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-UploadedNoteCardDto _$UploadedNoteCardDtoFromJson(
-  Map<String, dynamic> json,
-) => UploadedNoteCardDto(
-  id: json['id'] as String,
-  title: json['title'] as String,
-  subject: json['subject'] as String,
-  category: $enumDecode(_$NoteCategoryEnumEnumMap, json['category']),
-  isPublic: json['isPublic'] as bool,
-  noteContentType: $enumDecode(
-    _$NoteContentTypeEnumMap,
-    json['noteContentType'],
-  ),
-  file: UploadedNoteFileDto.fromJson(json['file'] as Map<String, dynamic>),
-  stats: UploadedNoteStatsDto.fromJson(json['stats'] as Map<String, dynamic>),
-  createdAt: DateTime.parse(json['createdAt'] as String),
-  updatedAt: DateTime.parse(json['updatedAt'] as String),
-  notePublishStatus: $enumDecode(
-    _$NotePublishStatusEnumMap,
-    json['notePublishStatus'],
-  ),
-  noteVerificationStatus: NoteVerificationStatus.fromJson(
-    json['noteVerificationStatus'] as Map<String, dynamic>,
-  ),
-  publishedAt: DateTime.parse(json['publishedAt'] as String),
-  submittedForReviewAt: DateTime.parse(json['submittedForReviewAt'] as String),
-  approvedAt: DateTime.parse(json['approvedAt'] as String),
-  rejectedAt: DateTime.parse(json['rejectedAt'] as String),
-  rejectionReason: json['rejectionReason'] as String,
-);
+UploadedNoteCardDto _$UploadedNoteCardDtoFromJson(Map<String, dynamic> json) =>
+    UploadedNoteCardDto(
+      id: json['id'] as String,
+      title: json['title'] as String,
+      subject: json['subject'] as String,
+      category: $enumDecode(_$NoteCategoryEnumEnumMap, json['category']),
+      isPublic: json['isPublic'] as bool,
+      noteContentType: $enumDecode(
+        _$NoteContentTypeEnumMap,
+        json['noteContentType'],
+      ),
+      file: UploadedNoteFileDto.fromJson(json['file'] as Map<String, dynamic>),
+      stats: UploadedNoteStatsDto.fromJson(
+        json['stats'] as Map<String, dynamic>,
+      ),
+      createdAt: DateTime.parse(json['createdAt'] as String),
+      updatedAt: DateTime.parse(json['updatedAt'] as String),
+      notePublishStatus: $enumDecode(
+        _$NotePublishStatusEnumMap,
+        json['notePublishStatus'],
+      ),
+      noteVerificationStatus: NoteVerificationStatus.fromJson(
+        json['noteVerificationStatus'],
+      ),
+      publishedAt: json['publishedAt'] == null
+          ? null
+          : DateTime.parse(json['publishedAt'] as String),
+      submittedForReviewAt: json['submittedForReviewAt'] == null
+          ? null
+          : DateTime.parse(json['submittedForReviewAt'] as String),
+      approvedAt: json['approvedAt'] == null
+          ? null
+          : DateTime.parse(json['approvedAt'] as String),
+      rejectedAt: json['rejectedAt'] == null
+          ? null
+          : DateTime.parse(json['rejectedAt'] as String),
+      rejectionReason: json['rejectionReason'] as String?,
+    );
 
 Map<String, dynamic> _$UploadedNoteCardDtoToJson(
   UploadedNoteCardDto instance,
@@ -51,10 +60,10 @@ Map<String, dynamic> _$UploadedNoteCardDtoToJson(
   'updatedAt': instance.updatedAt.toIso8601String(),
   'notePublishStatus': _$NotePublishStatusEnumMap[instance.notePublishStatus]!,
   'noteVerificationStatus': instance.noteVerificationStatus,
-  'publishedAt': instance.publishedAt.toIso8601String(),
-  'submittedForReviewAt': instance.submittedForReviewAt.toIso8601String(),
-  'approvedAt': instance.approvedAt.toIso8601String(),
-  'rejectedAt': instance.rejectedAt.toIso8601String(),
+  'publishedAt': instance.publishedAt?.toIso8601String(),
+  'submittedForReviewAt': instance.submittedForReviewAt?.toIso8601String(),
+  'approvedAt': instance.approvedAt?.toIso8601String(),
+  'rejectedAt': instance.rejectedAt?.toIso8601String(),
   'rejectionReason': instance.rejectionReason,
 };
 

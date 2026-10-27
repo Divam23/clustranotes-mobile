@@ -21,11 +21,11 @@ class UploadedNoteCardDto {
   final DateTime updatedAt;
   final NotePublishStatus notePublishStatus;
   final NoteVerificationStatus noteVerificationStatus;
-  final DateTime publishedAt;
-  final DateTime submittedForReviewAt;
-  final DateTime approvedAt;
-  final DateTime rejectedAt;
-  final String rejectionReason;
+  final DateTime? publishedAt;
+  final DateTime? submittedForReviewAt;
+  final DateTime? approvedAt;
+  final DateTime? rejectedAt;
+  final String? rejectionReason;
 
   const UploadedNoteCardDto({
     required this.id,
@@ -40,11 +40,11 @@ class UploadedNoteCardDto {
     required this.updatedAt,
     required this.notePublishStatus,
     required this.noteVerificationStatus,
-    required this.publishedAt,
-    required this.submittedForReviewAt,
-    required this.approvedAt,
-    required this.rejectedAt,
-    required this.rejectionReason,
+    this.publishedAt,
+    this.submittedForReviewAt,
+    this.approvedAt,
+    this.rejectedAt,
+    this.rejectionReason,
   });
   
   factory UploadedNoteCardDto.fromJson(Map<String, dynamic> json) => _$UploadedNoteCardDtoFromJson(json);
