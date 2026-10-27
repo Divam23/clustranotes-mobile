@@ -1,4 +1,4 @@
-class NoteStats {
+class NoteStatsModel {
   final int viewsCount;
   final int downloadCount;
   final int likesCount;
@@ -8,7 +8,7 @@ class NoteStats {
   final int ratingsCount;
   final DateTime? lastViewedAt;
 
-  const NoteStats({
+  const NoteStatsModel({
     required this.viewsCount,
     required this.downloadCount,
     required this.likesCount,

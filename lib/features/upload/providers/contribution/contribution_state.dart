@@ -4,8 +4,8 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 part 'my_upload_state.freezed.dart';
 
 @freezed
-abstract class MyUploadState with _$MyUploadState{
-  const factory MyUploadState({
+abstract class ContributionState with _$ContributionState{
+  const factory ContributionState({
     @Default([]) List<UploadedNoteSummary> notes,
     NoteOwnerStatus? selectedStatus,
     @Default(false) bool isLoading,
@@ -15,5 +15,5 @@ abstract class MyUploadState with _$MyUploadState{
     @Default(false) bool hasReachedEnd,
     String? nextCursor,
     
-  })= _MyUploadState;
+  })= _ContributionState;
 }
