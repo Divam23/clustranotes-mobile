@@ -1,4 +1,4 @@
-enum UploadLoadingAction {
+enum UploadLoadingActionStatus {
   idle,
   fetching,
   success,
