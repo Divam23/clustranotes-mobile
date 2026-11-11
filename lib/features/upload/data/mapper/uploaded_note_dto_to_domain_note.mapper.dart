@@ -16,8 +16,8 @@ class UploadedNoteMapper {
       category: dto.category,
       isPublic: dto.isPublic,
       noteContentType: dto.noteContentType,
-      file: uploadedNoteFile(dto.file),
-      stats: uploadedNoteStats(dto.stats),
+      file: uploadedNoteFileMapper(dto.file),
+      stats: uploadedNoteStatsMapper(dto.stats),
       createdAt: dto.createdAt,
       updatedAt: dto.updatedAt,
       notePublishStatus: dto.notePublishStatus,
@@ -30,7 +30,7 @@ class UploadedNoteMapper {
     );
   }
 
-  static UploadedNoteFile uploadedNoteFile(UploadedNoteFileDto dto) {
+  static UploadedNoteFile uploadedNoteFileMapper(UploadedNoteFileDto dto) {
     return UploadedNoteFile(
       canDownload: dto.canDownload,
       thumbnailUrl: dto.thumbnailUrl,
@@ -38,7 +38,7 @@ class UploadedNoteMapper {
     );
   }
 
-  static UploadedNoteStats uploadedNoteStats(UploadedNoteStatsDto dto) {
+  static UploadedNoteStats uploadedNoteStatsMapper(UploadedNoteStatsDto dto) {
     return UploadedNoteStats(
       viewsCount: dto.viewsCount,
       downloadCount: dto.downloadCount,

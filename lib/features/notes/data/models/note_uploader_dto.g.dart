@@ -12,7 +12,9 @@ NoteUploaderDto _$NoteUploaderDtoFromJson(Map<String, dynamic> json) =>
       firstName: json['firstName'] as String,
       lastName: json['lastName'] as String,
       userName: json['userName'] as String,
-      avatar: UserAvatarDto.fromJson(json['avatar'] as Map<String, dynamic>),
+      avatar: json['avatar'] == null
+          ? null
+          : UserAvatarDto.fromJson(json['avatar'] as Map<String, dynamic>),
       userVerificationStatus: $enumDecode(
         _$UserVerificationStatusEnumMap,
         json['userVerificationStatus'],

@@ -8,8 +8,8 @@ part of 'user_avatar_dto.dart';
 
 UserAvatarDto _$UserAvatarDtoFromJson(Map<String, dynamic> json) =>
     UserAvatarDto(
-      url: json['url'] as String,
-      storagePath: json['storagePath'] as String,
+      url: json['url'] as String?,
+      storagePath: json['storagePath'] as String?,
     );
 
 Map<String, dynamic> _$UserAvatarDtoToJson(UserAvatarDto instance) =>

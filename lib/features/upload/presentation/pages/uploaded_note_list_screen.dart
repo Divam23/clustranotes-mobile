@@ -1,8 +1,8 @@
 import 'package:clustranotes_mobile/app/theme/app_spacing.dart';
 import 'package:clustranotes_mobile/core/widgets/button/app_back_button.dart';
 import 'package:clustranotes_mobile/features/upload/domain/enums/note_owner_status_enum.dart';
-import 'package:clustranotes_mobile/features/upload/domain/enums/upload_loading_action.dart';
-import 'package:clustranotes_mobile/features/upload/domain/models/uploaded_note_card.dart';
+import 'package:clustranotes_mobile/features/upload/domain/enums/upload_loading_action_status.dart';
+import 'package:clustranotes_mobile/features/upload/domain/models/pagination_params.dart';
 import 'package:clustranotes_mobile/features/upload/presentation/extension/getStatusCount.dart';
 import 'package:clustranotes_mobile/features/upload/presentation/widgets/uploaded_note_list_screen_widgets/note_status_filter_chip.dart';
 import 'package:clustranotes_mobile/features/upload/presentation/widgets/uploaded_note_list_screen_widgets/uploaded_note_card_widget.dart';
@@ -32,7 +32,7 @@ class _UploadedNoteListScreenState
         ref.read(contributionProvider.notifier).getNoteStatusStats();
       }
 
-      ref.read(contributionProvider.notifier).getUserUploadedNotes(null);
+      ref.read(contributionProvider.notifier).getUserUploadedNotes(null, const PaginationParams());
     });
   }
 
@@ -43,7 +43,7 @@ class _UploadedNoteListScreenState
     final stats = contributionState.noteStatusStats;
     final isLoading =
         contributionState.isLoading == true &&
-        contributionState.uploadLoadingAction == UploadLoadingAction.fetching;
+        contributionState.uploadLoadingActionStatus == UploadLoadingActionStatus.fetching;
     return Scaffold(
       appBar: AppBar(
         leading: const AppBackButton(),
