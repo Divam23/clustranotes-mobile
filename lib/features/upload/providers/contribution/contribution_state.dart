@@ -1,4 +1,5 @@
 import 'package:clustranotes_mobile/core/errors/app_failure.dart';
+import 'package:clustranotes_mobile/features/upload/data/models/note_list_filter.dart';
 import 'package:clustranotes_mobile/features/upload/domain/enums/note_owner_status_enum.dart';
 import 'package:clustranotes_mobile/features/upload/domain/enums/upload_loading_action.dart';
 import 'package:clustranotes_mobile/features/upload/domain/enums/upload_loading_action_status.dart';
@@ -19,6 +20,7 @@ abstract class ContributionState with _$ContributionState{
     @Default(UploadLoadingAction.idle) loadingAction,
     @Default(false) bool isLoading,
     @Default(false) bool isExpanded,
+    NoteListFilters? filters,
     AppFailure? error,
     @Default(false) bool isRefreshing,
     @Default(1) int currentPage,

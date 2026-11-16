@@ -12,7 +12,7 @@ class RecommendedSection extends StatelessWidget {
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     final textScaler = MediaQuery.textScalerOf(context);
-    final listHeight = textScaler.scale(320.0).clamp(320.0, 430.0);
+    final listHeight = textScaler.scale(340.0) + (textScaler.scale(1.0) > 1.2 ? 60.0 : 0.0);
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [

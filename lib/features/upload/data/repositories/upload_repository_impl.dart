@@ -7,6 +7,7 @@ import 'package:clustranotes_mobile/features/upload/domain/models/note_status_st
 import 'package:clustranotes_mobile/features/upload/domain/models/pagination_params.dart';
 import 'package:clustranotes_mobile/features/upload/domain/models/uploaded_notes_list_response_model.dart';
 import 'package:clustranotes_mobile/features/upload/domain/repositories/upload_repository.dart';
+import 'package:dio/dio.dart';
 
 class UploadRepositoryImpl implements UploadRepository {
   final UploadRemoteDataSource _uploadRemoteDataSource;
@@ -14,8 +15,8 @@ class UploadRepositoryImpl implements UploadRepository {
   UploadRepositoryImpl(this._uploadRemoteDataSource);
 
   @override
-  Future<UploadedNotesListResponseModel> getUserUploadedNotes({NoteListFilters? filter, required PaginationParams pagination}) async {
-    final getUploadedNotes = await _uploadRemoteDataSource.getUserUploadedNotes(filter: filter, pagination: pagination);
+  Future<UploadedNotesListResponseModel> getUserUploadedNotes({NoteListFilters? filter, required PaginationParams pagination, CancelToken? cancelToken}) async {
+    final getUploadedNotes = await _uploadRemoteDataSource.getUserUploadedNotes(filter: filter, pagination: pagination, cancelToken: cancelToken);
     return UploadedNoteListDtoToDomainMapper.uploadedNoteListMapper(getUploadedNotes);
   }
   

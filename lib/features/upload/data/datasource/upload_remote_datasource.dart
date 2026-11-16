@@ -6,6 +6,7 @@ import 'package:clustranotes_mobile/features/upload/data/models/pagination_model
 import 'package:clustranotes_mobile/features/upload/data/models/uploaded_note_card_dto.dart';
 import 'package:clustranotes_mobile/features/upload/data/models/uploaded_notes_list_response_dto.dart';
 import 'package:clustranotes_mobile/features/upload/domain/models/pagination_params.dart';
+import 'package:dio/dio.dart';
 
 class UploadRemoteDataSource {
   final ApiClient _apiClient;
@@ -14,6 +15,7 @@ class UploadRemoteDataSource {
   Future<UploadedNotesListResponseDto> getUserUploadedNotes({
     NoteListFilters? filter,
     required PaginationParams pagination,
+    CancelToken? cancelToken
   }) 
   async {
     final queryParameters = <String, dynamic>{
@@ -28,6 +30,7 @@ class UploadRemoteDataSource {
     final response = await _apiClient.get<Map<String, dynamic>>(
       queryParameters: queryParameters,
       path: UploadApiEndpoints.myUploads,
+      cancelToken: cancelToken
     );
     final responseData = response.data?['data'] as Map<String, dynamic>?;
     final paginationData = responseData?['pagination'] as Map<String, dynamic>;

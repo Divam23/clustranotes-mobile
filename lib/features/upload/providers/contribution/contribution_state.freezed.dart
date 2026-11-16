@@ -14,7 +14,7 @@ T _$identity<T>(T value) => value;
 /// @nodoc
 mixin _$ContributionState {
 
- List<UploadedNoteSummary> get notesSummary; List<UploadedNoteCard> get notes; NoteStatusStats? get noteStatusStats; NoteOwnerStatus? get selectedStatus; dynamic get uploadLoadingActionStatus; dynamic get loadingAction; bool get isLoading; bool get isExpanded; AppFailure? get error; bool get isRefreshing; int get currentPage; int get pageSize; bool get isLoadingMore; bool get hasReachedEnd;
+ List<UploadedNoteSummary> get notesSummary; List<UploadedNoteCard> get notes; NoteStatusStats? get noteStatusStats; NoteOwnerStatus? get selectedStatus; dynamic get uploadLoadingActionStatus; dynamic get loadingAction; bool get isLoading; bool get isExpanded; NoteListFilters? get filters; AppFailure? get error; bool get isRefreshing; int get currentPage; int get pageSize; bool get isLoadingMore; bool get hasReachedEnd;
 /// Create a copy of ContributionState
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -25,16 +25,16 @@ $ContributionStateCopyWith<ContributionState> get copyWith => _$ContributionStat
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is ContributionState&&const DeepCollectionEquality().equals(other.notesSummary, notesSummary)&&const DeepCollectionEquality().equals(other.notes, notes)&&(identical(other.noteStatusStats, noteStatusStats) || other.noteStatusStats == noteStatusStats)&&(identical(other.selectedStatus, selectedStatus) || other.selectedStatus == selectedStatus)&&const DeepCollectionEquality().equals(other.uploadLoadingActionStatus, uploadLoadingActionStatus)&&const DeepCollectionEquality().equals(other.loadingAction, loadingAction)&&(identical(other.isLoading, isLoading) || other.isLoading == isLoading)&&(identical(other.isExpanded, isExpanded) || other.isExpanded == isExpanded)&&(identical(other.error, error) || other.error == error)&&(identical(other.isRefreshing, isRefreshing) || other.isRefreshing == isRefreshing)&&(identical(other.currentPage, currentPage) || other.currentPage == currentPage)&&(identical(other.pageSize, pageSize) || other.pageSize == pageSize)&&(identical(other.isLoadingMore, isLoadingMore) || other.isLoadingMore == isLoadingMore)&&(identical(other.hasReachedEnd, hasReachedEnd) || other.hasReachedEnd == hasReachedEnd));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is ContributionState&&const DeepCollectionEquality().equals(other.notesSummary, notesSummary)&&const DeepCollectionEquality().equals(other.notes, notes)&&(identical(other.noteStatusStats, noteStatusStats) || other.noteStatusStats == noteStatusStats)&&(identical(other.selectedStatus, selectedStatus) || other.selectedStatus == selectedStatus)&&const DeepCollectionEquality().equals(other.uploadLoadingActionStatus, uploadLoadingActionStatus)&&const DeepCollectionEquality().equals(other.loadingAction, loadingAction)&&(identical(other.isLoading, isLoading) || other.isLoading == isLoading)&&(identical(other.isExpanded, isExpanded) || other.isExpanded == isExpanded)&&(identical(other.filters, filters) || other.filters == filters)&&(identical(other.error, error) || other.error == error)&&(identical(other.isRefreshing, isRefreshing) || other.isRefreshing == isRefreshing)&&(identical(other.currentPage, currentPage) || other.currentPage == currentPage)&&(identical(other.pageSize, pageSize) || other.pageSize == pageSize)&&(identical(other.isLoadingMore, isLoadingMore) || other.isLoadingMore == isLoadingMore)&&(identical(other.hasReachedEnd, hasReachedEnd) || other.hasReachedEnd == hasReachedEnd));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,const DeepCollectionEquality().hash(notesSummary),const DeepCollectionEquality().hash(notes),noteStatusStats,selectedStatus,const DeepCollectionEquality().hash(uploadLoadingActionStatus),const DeepCollectionEquality().hash(loadingAction),isLoading,isExpanded,error,isRefreshing,currentPage,pageSize,isLoadingMore,hasReachedEnd);
+int get hashCode => Object.hash(runtimeType,const DeepCollectionEquality().hash(notesSummary),const DeepCollectionEquality().hash(notes),noteStatusStats,selectedStatus,const DeepCollectionEquality().hash(uploadLoadingActionStatus),const DeepCollectionEquality().hash(loadingAction),isLoading,isExpanded,filters,error,isRefreshing,currentPage,pageSize,isLoadingMore,hasReachedEnd);
 
 @override
 String toString() {
-  return 'ContributionState(notesSummary: $notesSummary, notes: $notes, noteStatusStats: $noteStatusStats, selectedStatus: $selectedStatus, uploadLoadingActionStatus: $uploadLoadingActionStatus, loadingAction: $loadingAction, isLoading: $isLoading, isExpanded: $isExpanded, error: $error, isRefreshing: $isRefreshing, currentPage: $currentPage, pageSize: $pageSize, isLoadingMore: $isLoadingMore, hasReachedEnd: $hasReachedEnd)';
+  return 'ContributionState(notesSummary: $notesSummary, notes: $notes, noteStatusStats: $noteStatusStats, selectedStatus: $selectedStatus, uploadLoadingActionStatus: $uploadLoadingActionStatus, loadingAction: $loadingAction, isLoading: $isLoading, isExpanded: $isExpanded, filters: $filters, error: $error, isRefreshing: $isRefreshing, currentPage: $currentPage, pageSize: $pageSize, isLoadingMore: $isLoadingMore, hasReachedEnd: $hasReachedEnd)';
 }
 
 
@@ -45,7 +45,7 @@ abstract mixin class $ContributionStateCopyWith<$Res>  {
   factory $ContributionStateCopyWith(ContributionState value, $Res Function(ContributionState) _then) = _$ContributionStateCopyWithImpl;
 @useResult
 $Res call({
- List<UploadedNoteSummary> notesSummary, List<UploadedNoteCard> notes, NoteStatusStats? noteStatusStats, NoteOwnerStatus? selectedStatus, dynamic uploadLoadingActionStatus, dynamic loadingAction, bool isLoading, bool isExpanded, AppFailure? error, bool isRefreshing, int currentPage, int pageSize, bool isLoadingMore, bool hasReachedEnd
+ List<UploadedNoteSummary> notesSummary, List<UploadedNoteCard> notes, NoteStatusStats? noteStatusStats, NoteOwnerStatus? selectedStatus, dynamic uploadLoadingActionStatus, dynamic loadingAction, bool isLoading, bool isExpanded, NoteListFilters? filters, AppFailure? error, bool isRefreshing, int currentPage, int pageSize, bool isLoadingMore, bool hasReachedEnd
 });
 
 
@@ -62,7 +62,7 @@ class _$ContributionStateCopyWithImpl<$Res>
 
 /// Create a copy of ContributionState
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? notesSummary = null,Object? notes = null,Object? noteStatusStats = freezed,Object? selectedStatus = freezed,Object? uploadLoadingActionStatus = freezed,Object? loadingAction = freezed,Object? isLoading = null,Object? isExpanded = null,Object? error = freezed,Object? isRefreshing = null,Object? currentPage = null,Object? pageSize = null,Object? isLoadingMore = null,Object? hasReachedEnd = null,}) {
+@pragma('vm:prefer-inline') @override $Res call({Object? notesSummary = null,Object? notes = null,Object? noteStatusStats = freezed,Object? selectedStatus = freezed,Object? uploadLoadingActionStatus = freezed,Object? loadingAction = freezed,Object? isLoading = null,Object? isExpanded = null,Object? filters = freezed,Object? error = freezed,Object? isRefreshing = null,Object? currentPage = null,Object? pageSize = null,Object? isLoadingMore = null,Object? hasReachedEnd = null,}) {
   return _then(_self.copyWith(
 notesSummary: null == notesSummary ? _self.notesSummary : notesSummary // ignore: cast_nullable_to_non_nullable
 as List<UploadedNoteSummary>,notes: null == notes ? _self.notes : notes // ignore: cast_nullable_to_non_nullable
@@ -72,7 +72,8 @@ as NoteOwnerStatus?,uploadLoadingActionStatus: freezed == uploadLoadingActionSta
 as dynamic,loadingAction: freezed == loadingAction ? _self.loadingAction : loadingAction // ignore: cast_nullable_to_non_nullable
 as dynamic,isLoading: null == isLoading ? _self.isLoading : isLoading // ignore: cast_nullable_to_non_nullable
 as bool,isExpanded: null == isExpanded ? _self.isExpanded : isExpanded // ignore: cast_nullable_to_non_nullable
-as bool,error: freezed == error ? _self.error : error // ignore: cast_nullable_to_non_nullable
+as bool,filters: freezed == filters ? _self.filters : filters // ignore: cast_nullable_to_non_nullable
+as NoteListFilters?,error: freezed == error ? _self.error : error // ignore: cast_nullable_to_non_nullable
 as AppFailure?,isRefreshing: null == isRefreshing ? _self.isRefreshing : isRefreshing // ignore: cast_nullable_to_non_nullable
 as bool,currentPage: null == currentPage ? _self.currentPage : currentPage // ignore: cast_nullable_to_non_nullable
 as int,pageSize: null == pageSize ? _self.pageSize : pageSize // ignore: cast_nullable_to_non_nullable
@@ -163,10 +164,10 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( List<UploadedNoteSummary> notesSummary,  List<UploadedNoteCard> notes,  NoteStatusStats? noteStatusStats,  NoteOwnerStatus? selectedStatus,  dynamic uploadLoadingActionStatus,  dynamic loadingAction,  bool isLoading,  bool isExpanded,  AppFailure? error,  bool isRefreshing,  int currentPage,  int pageSize,  bool isLoadingMore,  bool hasReachedEnd)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( List<UploadedNoteSummary> notesSummary,  List<UploadedNoteCard> notes,  NoteStatusStats? noteStatusStats,  NoteOwnerStatus? selectedStatus,  dynamic uploadLoadingActionStatus,  dynamic loadingAction,  bool isLoading,  bool isExpanded,  NoteListFilters? filters,  AppFailure? error,  bool isRefreshing,  int currentPage,  int pageSize,  bool isLoadingMore,  bool hasReachedEnd)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _ContributionState() when $default != null:
-return $default(_that.notesSummary,_that.notes,_that.noteStatusStats,_that.selectedStatus,_that.uploadLoadingActionStatus,_that.loadingAction,_that.isLoading,_that.isExpanded,_that.error,_that.isRefreshing,_that.currentPage,_that.pageSize,_that.isLoadingMore,_that.hasReachedEnd);case _:
+return $default(_that.notesSummary,_that.notes,_that.noteStatusStats,_that.selectedStatus,_that.uploadLoadingActionStatus,_that.loadingAction,_that.isLoading,_that.isExpanded,_that.filters,_that.error,_that.isRefreshing,_that.currentPage,_that.pageSize,_that.isLoadingMore,_that.hasReachedEnd);case _:
   return orElse();
 
 }
@@ -184,10 +185,10 @@ return $default(_that.notesSummary,_that.notes,_that.noteStatusStats,_that.selec
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( List<UploadedNoteSummary> notesSummary,  List<UploadedNoteCard> notes,  NoteStatusStats? noteStatusStats,  NoteOwnerStatus? selectedStatus,  dynamic uploadLoadingActionStatus,  dynamic loadingAction,  bool isLoading,  bool isExpanded,  AppFailure? error,  bool isRefreshing,  int currentPage,  int pageSize,  bool isLoadingMore,  bool hasReachedEnd)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( List<UploadedNoteSummary> notesSummary,  List<UploadedNoteCard> notes,  NoteStatusStats? noteStatusStats,  NoteOwnerStatus? selectedStatus,  dynamic uploadLoadingActionStatus,  dynamic loadingAction,  bool isLoading,  bool isExpanded,  NoteListFilters? filters,  AppFailure? error,  bool isRefreshing,  int currentPage,  int pageSize,  bool isLoadingMore,  bool hasReachedEnd)  $default,) {final _that = this;
 switch (_that) {
 case _ContributionState():
-return $default(_that.notesSummary,_that.notes,_that.noteStatusStats,_that.selectedStatus,_that.uploadLoadingActionStatus,_that.loadingAction,_that.isLoading,_that.isExpanded,_that.error,_that.isRefreshing,_that.currentPage,_that.pageSize,_that.isLoadingMore,_that.hasReachedEnd);case _:
+return $default(_that.notesSummary,_that.notes,_that.noteStatusStats,_that.selectedStatus,_that.uploadLoadingActionStatus,_that.loadingAction,_that.isLoading,_that.isExpanded,_that.filters,_that.error,_that.isRefreshing,_that.currentPage,_that.pageSize,_that.isLoadingMore,_that.hasReachedEnd);case _:
   throw StateError('Unexpected subclass');
 
 }
@@ -204,10 +205,10 @@ return $default(_that.notesSummary,_that.notes,_that.noteStatusStats,_that.selec
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( List<UploadedNoteSummary> notesSummary,  List<UploadedNoteCard> notes,  NoteStatusStats? noteStatusStats,  NoteOwnerStatus? selectedStatus,  dynamic uploadLoadingActionStatus,  dynamic loadingAction,  bool isLoading,  bool isExpanded,  AppFailure? error,  bool isRefreshing,  int currentPage,  int pageSize,  bool isLoadingMore,  bool hasReachedEnd)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( List<UploadedNoteSummary> notesSummary,  List<UploadedNoteCard> notes,  NoteStatusStats? noteStatusStats,  NoteOwnerStatus? selectedStatus,  dynamic uploadLoadingActionStatus,  dynamic loadingAction,  bool isLoading,  bool isExpanded,  NoteListFilters? filters,  AppFailure? error,  bool isRefreshing,  int currentPage,  int pageSize,  bool isLoadingMore,  bool hasReachedEnd)?  $default,) {final _that = this;
 switch (_that) {
 case _ContributionState() when $default != null:
-return $default(_that.notesSummary,_that.notes,_that.noteStatusStats,_that.selectedStatus,_that.uploadLoadingActionStatus,_that.loadingAction,_that.isLoading,_that.isExpanded,_that.error,_that.isRefreshing,_that.currentPage,_that.pageSize,_that.isLoadingMore,_that.hasReachedEnd);case _:
+return $default(_that.notesSummary,_that.notes,_that.noteStatusStats,_that.selectedStatus,_that.uploadLoadingActionStatus,_that.loadingAction,_that.isLoading,_that.isExpanded,_that.filters,_that.error,_that.isRefreshing,_that.currentPage,_that.pageSize,_that.isLoadingMore,_that.hasReachedEnd);case _:
   return null;
 
 }
@@ -219,7 +220,7 @@ return $default(_that.notesSummary,_that.notes,_that.noteStatusStats,_that.selec
 
 
 class _ContributionState implements ContributionState {
-  const _ContributionState({final  List<UploadedNoteSummary> notesSummary = const [], final  List<UploadedNoteCard> notes = const [], this.noteStatusStats, this.selectedStatus, this.uploadLoadingActionStatus = UploadLoadingActionStatus.idle, this.loadingAction = UploadLoadingAction.idle, this.isLoading = false, this.isExpanded = false, this.error, this.isRefreshing = false, this.currentPage = 1, this.pageSize = 15, this.isLoadingMore = false, this.hasReachedEnd = false}): _notesSummary = notesSummary,_notes = notes;
+  const _ContributionState({final  List<UploadedNoteSummary> notesSummary = const [], final  List<UploadedNoteCard> notes = const [], this.noteStatusStats, this.selectedStatus, this.uploadLoadingActionStatus = UploadLoadingActionStatus.idle, this.loadingAction = UploadLoadingAction.idle, this.isLoading = false, this.isExpanded = false, this.filters, this.error, this.isRefreshing = false, this.currentPage = 1, this.pageSize = 15, this.isLoadingMore = false, this.hasReachedEnd = false}): _notesSummary = notesSummary,_notes = notes;
   
 
  final  List<UploadedNoteSummary> _notesSummary;
@@ -242,6 +243,7 @@ class _ContributionState implements ContributionState {
 @override@JsonKey() final  dynamic loadingAction;
 @override@JsonKey() final  bool isLoading;
 @override@JsonKey() final  bool isExpanded;
+@override final  NoteListFilters? filters;
 @override final  AppFailure? error;
 @override@JsonKey() final  bool isRefreshing;
 @override@JsonKey() final  int currentPage;
@@ -259,16 +261,16 @@ _$ContributionStateCopyWith<_ContributionState> get copyWith => __$ContributionS
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _ContributionState&&const DeepCollectionEquality().equals(other._notesSummary, _notesSummary)&&const DeepCollectionEquality().equals(other._notes, _notes)&&(identical(other.noteStatusStats, noteStatusStats) || other.noteStatusStats == noteStatusStats)&&(identical(other.selectedStatus, selectedStatus) || other.selectedStatus == selectedStatus)&&const DeepCollectionEquality().equals(other.uploadLoadingActionStatus, uploadLoadingActionStatus)&&const DeepCollectionEquality().equals(other.loadingAction, loadingAction)&&(identical(other.isLoading, isLoading) || other.isLoading == isLoading)&&(identical(other.isExpanded, isExpanded) || other.isExpanded == isExpanded)&&(identical(other.error, error) || other.error == error)&&(identical(other.isRefreshing, isRefreshing) || other.isRefreshing == isRefreshing)&&(identical(other.currentPage, currentPage) || other.currentPage == currentPage)&&(identical(other.pageSize, pageSize) || other.pageSize == pageSize)&&(identical(other.isLoadingMore, isLoadingMore) || other.isLoadingMore == isLoadingMore)&&(identical(other.hasReachedEnd, hasReachedEnd) || other.hasReachedEnd == hasReachedEnd));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _ContributionState&&const DeepCollectionEquality().equals(other._notesSummary, _notesSummary)&&const DeepCollectionEquality().equals(other._notes, _notes)&&(identical(other.noteStatusStats, noteStatusStats) || other.noteStatusStats == noteStatusStats)&&(identical(other.selectedStatus, selectedStatus) || other.selectedStatus == selectedStatus)&&const DeepCollectionEquality().equals(other.uploadLoadingActionStatus, uploadLoadingActionStatus)&&const DeepCollectionEquality().equals(other.loadingAction, loadingAction)&&(identical(other.isLoading, isLoading) || other.isLoading == isLoading)&&(identical(other.isExpanded, isExpanded) || other.isExpanded == isExpanded)&&(identical(other.filters, filters) || other.filters == filters)&&(identical(other.error, error) || other.error == error)&&(identical(other.isRefreshing, isRefreshing) || other.isRefreshing == isRefreshing)&&(identical(other.currentPage, currentPage) || other.currentPage == currentPage)&&(identical(other.pageSize, pageSize) || other.pageSize == pageSize)&&(identical(other.isLoadingMore, isLoadingMore) || other.isLoadingMore == isLoadingMore)&&(identical(other.hasReachedEnd, hasReachedEnd) || other.hasReachedEnd == hasReachedEnd));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,const DeepCollectionEquality().hash(_notesSummary),const DeepCollectionEquality().hash(_notes),noteStatusStats,selectedStatus,const DeepCollectionEquality().hash(uploadLoadingActionStatus),const DeepCollectionEquality().hash(loadingAction),isLoading,isExpanded,error,isRefreshing,currentPage,pageSize,isLoadingMore,hasReachedEnd);
+int get hashCode => Object.hash(runtimeType,const DeepCollectionEquality().hash(_notesSummary),const DeepCollectionEquality().hash(_notes),noteStatusStats,selectedStatus,const DeepCollectionEquality().hash(uploadLoadingActionStatus),const DeepCollectionEquality().hash(loadingAction),isLoading,isExpanded,filters,error,isRefreshing,currentPage,pageSize,isLoadingMore,hasReachedEnd);
 
 @override
 String toString() {
-  return 'ContributionState(notesSummary: $notesSummary, notes: $notes, noteStatusStats: $noteStatusStats, selectedStatus: $selectedStatus, uploadLoadingActionStatus: $uploadLoadingActionStatus, loadingAction: $loadingAction, isLoading: $isLoading, isExpanded: $isExpanded, error: $error, isRefreshing: $isRefreshing, currentPage: $currentPage, pageSize: $pageSize, isLoadingMore: $isLoadingMore, hasReachedEnd: $hasReachedEnd)';
+  return 'ContributionState(notesSummary: $notesSummary, notes: $notes, noteStatusStats: $noteStatusStats, selectedStatus: $selectedStatus, uploadLoadingActionStatus: $uploadLoadingActionStatus, loadingAction: $loadingAction, isLoading: $isLoading, isExpanded: $isExpanded, filters: $filters, error: $error, isRefreshing: $isRefreshing, currentPage: $currentPage, pageSize: $pageSize, isLoadingMore: $isLoadingMore, hasReachedEnd: $hasReachedEnd)';
 }
 
 
@@ -279,7 +281,7 @@ abstract mixin class _$ContributionStateCopyWith<$Res> implements $ContributionS
   factory _$ContributionStateCopyWith(_ContributionState value, $Res Function(_ContributionState) _then) = __$ContributionStateCopyWithImpl;
 @override @useResult
 $Res call({
- List<UploadedNoteSummary> notesSummary, List<UploadedNoteCard> notes, NoteStatusStats? noteStatusStats, NoteOwnerStatus? selectedStatus, dynamic uploadLoadingActionStatus, dynamic loadingAction, bool isLoading, bool isExpanded, AppFailure? error, bool isRefreshing, int currentPage, int pageSize, bool isLoadingMore, bool hasReachedEnd
+ List<UploadedNoteSummary> notesSummary, List<UploadedNoteCard> notes, NoteStatusStats? noteStatusStats, NoteOwnerStatus? selectedStatus, dynamic uploadLoadingActionStatus, dynamic loadingAction, bool isLoading, bool isExpanded, NoteListFilters? filters, AppFailure? error, bool isRefreshing, int currentPage, int pageSize, bool isLoadingMore, bool hasReachedEnd
 });
 
 
@@ -296,7 +298,7 @@ class __$ContributionStateCopyWithImpl<$Res>
 
 /// Create a copy of ContributionState
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? notesSummary = null,Object? notes = null,Object? noteStatusStats = freezed,Object? selectedStatus = freezed,Object? uploadLoadingActionStatus = freezed,Object? loadingAction = freezed,Object? isLoading = null,Object? isExpanded = null,Object? error = freezed,Object? isRefreshing = null,Object? currentPage = null,Object? pageSize = null,Object? isLoadingMore = null,Object? hasReachedEnd = null,}) {
+@override @pragma('vm:prefer-inline') $Res call({Object? notesSummary = null,Object? notes = null,Object? noteStatusStats = freezed,Object? selectedStatus = freezed,Object? uploadLoadingActionStatus = freezed,Object? loadingAction = freezed,Object? isLoading = null,Object? isExpanded = null,Object? filters = freezed,Object? error = freezed,Object? isRefreshing = null,Object? currentPage = null,Object? pageSize = null,Object? isLoadingMore = null,Object? hasReachedEnd = null,}) {
   return _then(_ContributionState(
 notesSummary: null == notesSummary ? _self._notesSummary : notesSummary // ignore: cast_nullable_to_non_nullable
 as List<UploadedNoteSummary>,notes: null == notes ? _self._notes : notes // ignore: cast_nullable_to_non_nullable
@@ -306,7 +308,8 @@ as NoteOwnerStatus?,uploadLoadingActionStatus: freezed == uploadLoadingActionSta
 as dynamic,loadingAction: freezed == loadingAction ? _self.loadingAction : loadingAction // ignore: cast_nullable_to_non_nullable
 as dynamic,isLoading: null == isLoading ? _self.isLoading : isLoading // ignore: cast_nullable_to_non_nullable
 as bool,isExpanded: null == isExpanded ? _self.isExpanded : isExpanded // ignore: cast_nullable_to_non_nullable
-as bool,error: freezed == error ? _self.error : error // ignore: cast_nullable_to_non_nullable
+as bool,filters: freezed == filters ? _self.filters : filters // ignore: cast_nullable_to_non_nullable
+as NoteListFilters?,error: freezed == error ? _self.error : error // ignore: cast_nullable_to_non_nullable
 as AppFailure?,isRefreshing: null == isRefreshing ? _self.isRefreshing : isRefreshing // ignore: cast_nullable_to_non_nullable
 as bool,currentPage: null == currentPage ? _self.currentPage : currentPage // ignore: cast_nullable_to_non_nullable
 as int,pageSize: null == pageSize ? _self.pageSize : pageSize // ignore: cast_nullable_to_non_nullable

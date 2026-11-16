@@ -1,14 +1,18 @@
 import 'package:clustranotes_mobile/app/theme/app_spacing.dart';
+import 'package:clustranotes_mobile/core/errors/app_failure.dart';
 import 'package:clustranotes_mobile/core/widgets/button/app_back_button.dart';
 import 'package:clustranotes_mobile/features/upload/domain/enums/note_owner_status_enum.dart';
 import 'package:clustranotes_mobile/features/upload/domain/enums/upload_loading_action_status.dart';
 import 'package:clustranotes_mobile/features/upload/domain/models/pagination_params.dart';
+import 'package:clustranotes_mobile/features/upload/domain/models/uploaded_note_card.dart';
 import 'package:clustranotes_mobile/features/upload/presentation/extension/getStatusCount.dart';
 import 'package:clustranotes_mobile/features/upload/presentation/widgets/uploaded_note_list_screen_widgets/note_status_filter_chip.dart';
 import 'package:clustranotes_mobile/features/upload/presentation/widgets/uploaded_note_list_screen_widgets/uploaded_note_card_widget.dart';
 import 'package:clustranotes_mobile/features/upload/providers/contribution_provider.dart';
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 
 class UploadedNoteListScreen extends ConsumerStatefulWidget {
   const UploadedNoteListScreen({super.key});
@@ -20,9 +24,34 @@ class UploadedNoteListScreen extends ConsumerStatefulWidget {
 
 class _UploadedNoteListScreenState
     extends ConsumerState<UploadedNoteListScreen> {
+  late final PagingController<int, UploadedNoteCard> _pagingController;
+  int _totalPages = 0;
+  
+  CancelToken? _cancelToken;
+  int _filterGeneration=0; 
+
+  void _onFilterChange(NoteOwnerStatus status) {
+    _filterGeneration++;
+    _cancelToken?.cancel();
+    
+    _cancelToken = CancelToken();
+    
+    ref.read(contributionProvider.notifier).changeFilter(status);
+    _totalPages = 0;
+    _pagingController.refresh();
+  }
+
+  @override
+  void dispose() {
+    _cancelToken?.cancel();
+    _pagingController.dispose();
+    super.dispose();
+  }
+  
   @override
   void initState() {
     super.initState();
+
     Future.microtask(() {
       if (!mounted) return;
 
@@ -31,9 +60,36 @@ class _UploadedNoteListScreenState
       if (stats == null) {
         ref.read(contributionProvider.notifier).getNoteStatusStats();
       }
-
-      ref.read(contributionProvider.notifier).getUserUploadedNotes(null, const PaginationParams());
     });
+    
+    _pagingController = PagingController(
+      getNextPageKey: (state) {
+        if(state.pages?.isEmpty ?? true) return 1;
+        final nextPage = state.nextIntPageKey;
+        return nextPage <= _totalPages ? nextPage : null;
+      },
+      
+      fetchPage: (pageKey) async {
+        final generation = _filterGeneration;
+        final cancelToken = _cancelToken ??= CancelToken();
+        final filters = ref.read(contributionProvider.notifier).filters;
+        debugPrint('Filters received by fetchPage: $filters');
+        final response = await ref.read(contributionProvider.notifier)
+            .getUserUploadedNotes(
+              filters,
+              PaginationParams(page: pageKey),
+              cancelToken,
+            );
+
+        if (!mounted || generation != _filterGeneration) {
+          throw AppFailure(message: "Obsolete Pagination Request");
+        }
+
+        _totalPages = response.paginationInfo.totalPages;
+
+        return response.notes;
+      },
+    );
   }
 
   @override
@@ -41,9 +97,7 @@ class _UploadedNoteListScreenState
     final theme = Theme.of(context);
     final contributionState = ref.watch(contributionProvider);
     final stats = contributionState.noteStatusStats;
-    final isLoading =
-        contributionState.isLoading == true &&
-        contributionState.uploadLoadingActionStatus == UploadLoadingActionStatus.fetching;
+    
     return Scaffold(
       appBar: AppBar(
         leading: const AppBackButton(),
@@ -60,60 +114,73 @@ class _UploadedNoteListScreenState
           ],
         ),
       ),
-      body: SafeArea(
-        child: Column(
-          children: [
-            SingleChildScrollView(
-              scrollDirection: Axis.horizontal,
-              child: Padding(
-                padding: const EdgeInsets.symmetric(
-                  horizontal: AppSpacing.screenPadding,
-                  vertical: AppSpacing.md,
+      body: RefreshIndicator(
+        onRefresh: () async {
+          _pagingController.refresh();
+          await ref.read(contributionProvider.notifier).getNoteStatusStats();
+        },
+        triggerMode: RefreshIndicatorTriggerMode.onEdge,
+        child: SafeArea(
+          child: Column(
+            children: [
+              SingleChildScrollView(
+                scrollDirection: Axis.horizontal,
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: AppSpacing.screenPadding,
+                    vertical: AppSpacing.md,
+                  ),
+                  child: Row(
+                    spacing: AppSpacing.md,
+                    children: NoteOwnerStatus.values.map((status) {
+                      return NoteStatusFilterChip(
+                        filter: status,
+                        isLoading: stats == null,
+                        count: getStatusCount(status, stats),
+                        isSelected: contributionState.selectedStatus == status,
+                        onTap: () => _onFilterChange(status),
+                      );
+                    }).toList(),
+                  ),
                 ),
-                child: Row(
-                  spacing: AppSpacing.md,
-                  children: NoteOwnerStatus.values.map((status) {
-                    return NoteStatusFilterChip(
-                      filter: status,
-                      isLoading: stats == null,
-                      count: getStatusCount(status, stats),
-                      isSelected: contributionState.selectedStatus == status,
-                      onTap: () {
-                        ref
-                            .read(contributionProvider.notifier)
-                            .changeFilter(status);
+              ),
+              Expanded(
+                child: PagingListener<int, UploadedNoteCard>(
+                  controller: _pagingController,
+                  builder: (context, state, fetchNextPage){
+                    return PagedListView<int, UploadedNoteCard>.separated(
+                        state: state,
+                        fetchNextPage: fetchNextPage,
+                        padding: const EdgeInsets.symmetric(
+                          horizontal: AppSpacing.screenPadding,
+                          vertical: AppSpacing.md,
+                        ),
+                        physics: const AlwaysScrollableScrollPhysics(),
+                        builderDelegate: PagedChildBuilderDelegate<UploadedNoteCard>(
+                          itemBuilder: (context, note, index){
+                            return UploadedNoteCardWidget(note: note);
+                          },
+                          noItemsFoundIndicatorBuilder: (context){
+                              return const Center(
+                                child: Text("No Notes found"),
+                              );
+                          },
+                          firstPageProgressIndicatorBuilder: (context) {
+                            return const Center(
+                              child: CircularProgressIndicator(strokeWidth: 3),
+                            );
+                          },
+                        ),
+                      separatorBuilder: (context, index) {
+                        return const SizedBox(height: AppSpacing.md);
                       },
                     );
-                  }).toList(),
+                  },
+                  
                 ),
               ),
-            ),
-            isLoading
-                ? const Expanded(
-              child: Center(
-                child: CircularProgressIndicator(strokeWidth: 3),
-              ),
-            )
-                : Expanded(
-                    child: contributionState.notes.isEmpty ? const Center(
-                      child: Text("No uploads found"),
-                    ) : ListView.separated(
-                      padding: const EdgeInsets.symmetric(
-                        horizontal: AppSpacing.screenPadding,
-                        vertical: AppSpacing.md,
-                      ),
-                      physics: const BouncingScrollPhysics(),
-                      itemCount: contributionState.notes.length,
-                      separatorBuilder: (_, __) =>
-                          const SizedBox(height: AppSpacing.md),
-                      itemBuilder: (context, index) {
-                        return UploadedNoteCardWidget(
-                          note: contributionState.notes[index],
-                        );
-                      },
-                    ),
-                  ),
-          ],
+            ],
+          ),
         ),
       ),
     );

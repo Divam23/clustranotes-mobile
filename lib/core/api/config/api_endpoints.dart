@@ -1,6 +1,8 @@
+import 'package:flutter_dotenv/flutter_dotenv.dart';
+
 class ApiEndpoints {
   ApiEndpoints._();
   
-  static const String baseUrl = "https://hyperosmic-sylas-ideational.ngrok-free.dev/api/v1";
+  static final String baseUrl = dotenv.get('BASE_API_URI');
 
 }
