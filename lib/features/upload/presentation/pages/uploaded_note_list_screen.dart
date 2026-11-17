@@ -1,15 +1,11 @@
 import 'package:clustranotes_mobile/app/theme/app_spacing.dart';
-import 'package:clustranotes_mobile/core/errors/app_failure.dart';
 import 'package:clustranotes_mobile/core/widgets/button/app_back_button.dart';
 import 'package:clustranotes_mobile/features/upload/domain/enums/note_owner_status_enum.dart';
-import 'package:clustranotes_mobile/features/upload/domain/enums/upload_loading_action_status.dart';
-import 'package:clustranotes_mobile/features/upload/domain/models/pagination_params.dart';
 import 'package:clustranotes_mobile/features/upload/domain/models/uploaded_note_card.dart';
 import 'package:clustranotes_mobile/features/upload/presentation/extension/getStatusCount.dart';
 import 'package:clustranotes_mobile/features/upload/presentation/widgets/uploaded_note_list_screen_widgets/note_status_filter_chip.dart';
 import 'package:clustranotes_mobile/features/upload/presentation/widgets/uploaded_note_list_screen_widgets/uploaded_note_card_widget.dart';
 import 'package:clustranotes_mobile/features/upload/providers/contribution_provider.dart';
-import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
@@ -24,29 +20,6 @@ class UploadedNoteListScreen extends ConsumerStatefulWidget {
 
 class _UploadedNoteListScreenState
     extends ConsumerState<UploadedNoteListScreen> {
-  late final PagingController<int, UploadedNoteCard> _pagingController;
-  int _totalPages = 0;
-  
-  CancelToken? _cancelToken;
-  int _filterGeneration=0; 
-
-  void _onFilterChange(NoteOwnerStatus status) {
-    _filterGeneration++;
-    _cancelToken?.cancel();
-    
-    _cancelToken = CancelToken();
-    
-    ref.read(contributionProvider.notifier).changeFilter(status);
-    _totalPages = 0;
-    _pagingController.refresh();
-  }
-
-  @override
-  void dispose() {
-    _cancelToken?.cancel();
-    _pagingController.dispose();
-    super.dispose();
-  }
   
   @override
   void initState() {
@@ -62,34 +35,6 @@ class _UploadedNoteListScreenState
       }
     });
     
-    _pagingController = PagingController(
-      getNextPageKey: (state) {
-        if(state.pages?.isEmpty ?? true) return 1;
-        final nextPage = state.nextIntPageKey;
-        return nextPage <= _totalPages ? nextPage : null;
-      },
-      
-      fetchPage: (pageKey) async {
-        final generation = _filterGeneration;
-        final cancelToken = _cancelToken ??= CancelToken();
-        final filters = ref.read(contributionProvider.notifier).filters;
-        debugPrint('Filters received by fetchPage: $filters');
-        final response = await ref.read(contributionProvider.notifier)
-            .getUserUploadedNotes(
-              filters,
-              PaginationParams(page: pageKey),
-              cancelToken,
-            );
-
-        if (!mounted || generation != _filterGeneration) {
-          throw AppFailure(message: "Obsolete Pagination Request");
-        }
-
-        _totalPages = response.paginationInfo.totalPages;
-
-        return response.notes;
-      },
-    );
   }
 
   @override
@@ -116,7 +61,7 @@ class _UploadedNoteListScreenState
       ),
       body: RefreshIndicator(
         onRefresh: () async {
-          _pagingController.refresh();
+          ref.read(contributionProvider.notifier).pagingController.refresh();
           await ref.read(contributionProvider.notifier).getNoteStatusStats();
         },
         triggerMode: RefreshIndicatorTriggerMode.onEdge,
@@ -138,7 +83,7 @@ class _UploadedNoteListScreenState
                         isLoading: stats == null,
                         count: getStatusCount(status, stats),
                         isSelected: contributionState.selectedStatus == status,
-                        onTap: () => _onFilterChange(status),
+                        onTap: () => ref.read(contributionProvider.notifier).changeFilter(status),
                       );
                     }).toList(),
                   ),
@@ -146,7 +91,7 @@ class _UploadedNoteListScreenState
               ),
               Expanded(
                 child: PagingListener<int, UploadedNoteCard>(
-                  controller: _pagingController,
+                  controller: ref.read(contributionProvider.notifier).pagingController,
                   builder: (context, state, fetchNextPage){
                     return PagedListView<int, UploadedNoteCard>.separated(
                         state: state,

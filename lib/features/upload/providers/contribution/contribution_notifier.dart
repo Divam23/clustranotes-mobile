@@ -6,38 +6,69 @@ import 'package:clustranotes_mobile/features/upload/data/models/note_owner_statu
 import 'package:clustranotes_mobile/features/upload/domain/enums/note_owner_status_enum.dart';
 import 'package:clustranotes_mobile/features/upload/domain/enums/upload_loading_action.dart';
 import 'package:clustranotes_mobile/features/upload/domain/models/pagination_params.dart';
+import 'package:clustranotes_mobile/features/upload/domain/models/uploaded_note_card.dart';
 import 'package:clustranotes_mobile/features/upload/domain/models/uploaded_notes_list_response_model.dart';
 import 'package:clustranotes_mobile/features/upload/domain/repositories/upload_repository.dart';
 import 'package:clustranotes_mobile/features/upload/providers/contribution/contribution_state.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_riverpod/legacy.dart';
+import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 
 class ContributionNotifier extends StateNotifier<ContributionState> {
+  late final PagingController<int, UploadedNoteCard> _pagingController;
+  int _totalPages = 0;
+  int _filterGeneration = 0;
+  CancelToken? _cancelToken;
+  
   final UploadRepository _uploadRepository;
-  ContributionNotifier(this._uploadRepository)
-    : super(const ContributionState());
-
-
-  void changeFilter(NoteOwnerStatus? ownerStatus){
-      final selectedStatus = ownerStatus == state.selectedStatus
-          ? null
-          : ownerStatus;
-      state = state.copyWith(selectedStatus: selectedStatus);
+  ContributionNotifier(this._uploadRepository) : super(const ContributionState()) {
+    _pagingController = PagingController(getNextPageKey: (state){
+      if(state.pages?.isEmpty ?? true) return 1;
+      final nextPage = state.nextIntPageKey;
+      return nextPage <= _totalPages ? nextPage : null;
+    }, fetchPage: (pageKey) async {
+          final generation = _filterGeneration;
+          final cancelToken = _cancelToken ??= CancelToken();
+          final currentFilters = filters;
+          final response = await getUserUploadedNotes(currentFilters, PaginationParams(page: pageKey), cancelToken);
+          
+          if(!mounted || generation != _filterGeneration){
+            throw AppFailure(message: "Obsolete Pagination Request");
+          }
+          
+           _totalPages = response.paginationInfo.totalPages;
+          
+          return response.notes;
+    });
   }
   
-  NoteListFilters get filters{
+  PagingController<int, UploadedNoteCard> get pagingController => _pagingController;
+
+  void changeFilter(NoteOwnerStatus? ownerStatus) {
+    _filterGeneration++;
+    _cancelToken?.cancel();
+    _cancelToken = CancelToken();
+    final selectedStatus = ownerStatus == state.selectedStatus
+        ? null
+        : ownerStatus;
+    state = state.copyWith(selectedStatus: selectedStatus);
+    _totalPages = 0;
+    _pagingController.refresh();
+  }
+  
+
+  NoteListFilters get filters {
     final selectedStatus = state.selectedStatus;
-    if(selectedStatus == null) {
+    if (selectedStatus == null) {
       return const NoteListFilters(
-          notePublishStatus: null,
-          noteVerificationStatus: null
+        notePublishStatus: null,
+        noteVerificationStatus: null,
       );
     }
     return NoteOwnerStatusMapper.noteListFilterMapper(selectedStatus);
   }
-  
-  
+
   Future<UploadedNotesListResponseModel> getUserUploadedNotes(
     NoteListFilters? filters,
     PaginationParams pagination,
@@ -49,6 +80,7 @@ class ContributionNotifier extends StateNotifier<ContributionState> {
         pagination: pagination,
         cancelToken: cancelToken,
       );
+
       return response;
     } on AppException catch (exception) {
       throw AppFailureMapper.map(exception);
@@ -102,4 +134,13 @@ class ContributionNotifier extends StateNotifier<ContributionState> {
       if (mounted) state = state.copyWith(isLoading: false);
     }
   }
+
+  @override
+  void dispose(){
+    _cancelToken?.cancel();
+    _pagingController.dispose();
+    super.dispose();
+  }
 }
+
+
