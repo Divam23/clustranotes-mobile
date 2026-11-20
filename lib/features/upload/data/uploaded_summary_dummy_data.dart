@@ -8,7 +8,7 @@ final dummyUploadedNotes = [
   UploadedNoteSummary(
     id: 'note_101',
     title: 'Untitled Draft - Calculus Notes',
-    publishStatus: NotePublishStatus.draft,
+    notePublishStatus: NotePublishStatus.draft,
     noteVerificationStatus: NoteVerificationPrivateStatus.unverified,
     noteContentType: NoteContentType.pptx,
     updatedAt: DateTime(2026, 6, 24), 
@@ -19,7 +19,7 @@ final dummyUploadedNotes = [
   UploadedNoteSummary(
     id: 'note_102',
     title: 'DBMS Normalization Cheat Sheet',
-    publishStatus: NotePublishStatus.published,
+    notePublishStatus: NotePublishStatus.published,
     noteVerificationStatus: NoteVerificationPrivateStatus.unverified,
     noteContentType: NoteContentType.pdf,
     updatedAt: DateTime(2026, 5, 1),
@@ -30,7 +30,7 @@ final dummyUploadedNotes = [
   UploadedNoteSummary(
     id: 'note_103',
     title: 'Operating Systems Process Scheduling',
-    publishStatus: NotePublishStatus.published,
+    notePublishStatus: NotePublishStatus.published,
     noteVerificationStatus: NoteVerificationPrivateStatus.pendingReview,
     noteContentType: NoteContentType.doc,
     updatedAt: DateTime(2026, 6, 20),
@@ -42,8 +42,9 @@ final dummyUploadedNotes = [
   UploadedNoteSummary(
     id: 'note_104',
     title: 'Thermodynamics Complete Notes',
-    publishStatus: NotePublishStatus.published,
+    notePublishStatus: NotePublishStatus.published,
     noteVerificationStatus: NoteVerificationPrivateStatus.verified,
+    noteContentType: NoteContentType.doc,
     updatedAt: DateTime(2026, 2, 16),
     submittedForReviewAt: DateTime(2026, 2, 15),
     approvedAt: DateTime(2026, 2, 16),
@@ -55,7 +56,7 @@ final dummyUploadedNotes = [
   UploadedNoteSummary(
     id: 'note_105',
     title: 'Linear Algebra Assignment Solutions',
-    publishStatus: NotePublishStatus.published,
+    notePublishStatus: NotePublishStatus.published,
     noteVerificationStatus: NoteVerificationPrivateStatus.rejected,
     updatedAt: DateTime(2026, 6, 12),
     submittedForReviewAt: DateTime(2026, 6, 11),
@@ -71,7 +72,7 @@ final dummyUploadedNotes = [
   UploadedNoteSummary(
     id: 'note_106',
     title: 'Macroeconomics Unit 1-3 Summary',
-    publishStatus: NotePublishStatus.published,
+    notePublishStatus: NotePublishStatus.published,
     noteVerificationStatus: NoteVerificationPrivateStatus.pendingReview,
     createdAt: DateTime(2026, 6, 23),
     updatedAt: DateTime(2026, 6, 23),
@@ -87,7 +88,7 @@ final dummyUploadedNotes = [
   UploadedNoteSummary(
     id: 'note_107',
     title: 'Old Semester 2 Physics Notes (Outdated)',
-    publishStatus: NotePublishStatus.archived,
+    notePublishStatus: NotePublishStatus.archived,
     noteVerificationStatus: NoteVerificationPrivateStatus.verified,
     updatedAt: DateTime(2026, 4, 1),
     submittedForReviewAt: DateTime(2026, 1, 5),
@@ -101,7 +102,7 @@ final dummyUploadedNotes = [
   UploadedNoteSummary(
     id: 'note_108',
     title: 'Copied PYQ Set (Flagged Content)',
-    publishStatus: NotePublishStatus.removed,
+    notePublishStatus: NotePublishStatus.removed,
     noteVerificationStatus: NoteVerificationPrivateStatus.unverified,
     updatedAt: DateTime(2026, 6, 5),
     createdAt: DateTime(2026, 6, 23),

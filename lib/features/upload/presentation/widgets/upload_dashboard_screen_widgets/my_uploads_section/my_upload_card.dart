@@ -79,12 +79,14 @@ class MyUploadCard extends StatelessWidget {
                       fontWeight: FontWeight.w600,
                     ),
                   ),
-                  Text(
-                    '${status.timelineInfo} ${DateTimeFormatter.timeAgo(timestamp.timestamp)}',
-                    style: theme.textTheme.labelSmall?.copyWith(
-                      color: theme.colorScheme.onSecondary,
+                  if(timestamp.timestamp != null)...[
+                    Text(
+                      '${status.timelineInfo} ${DateTimeFormatter.timeAgo(timestamp.timestamp!)}',
+                      style: theme.textTheme.labelSmall?.copyWith(
+                        color: theme.colorScheme.onSecondary,
+                      ),
                     ),
-                  ),
+                  ]
                 ],
               ),
             ),

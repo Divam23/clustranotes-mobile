@@ -15,7 +15,9 @@ class AppChipItem {
 
 class AppChip extends StatelessWidget {
   final AppChipItem item;
+  final Color? color;
   const AppChip({
+    this.color,
     super.key,
     required this.item, 
   });
@@ -27,7 +29,7 @@ class AppChip extends StatelessWidget {
       padding: EdgeInsets.symmetric(vertical:AppSpacing.xxs,horizontal:AppSpacing.sm),
       constraints: const BoxConstraints(minHeight: 20),
       decoration: BoxDecoration(
-        color: item.color,
+        color: color ?? item.color,
         borderRadius: item.radius,
       ),
       child: Center(

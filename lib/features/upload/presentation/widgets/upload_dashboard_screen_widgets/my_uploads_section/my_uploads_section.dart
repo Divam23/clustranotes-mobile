@@ -10,7 +10,7 @@ class MyUploadSection extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final visibleUploadedNoteCards = uploadedNotecards.take(3).toList();
+    final visibleUploadedNoteCards = uploadedNotecards.take(5).toList();
     final theme = Theme.of(context);
     return Column(
       children: [

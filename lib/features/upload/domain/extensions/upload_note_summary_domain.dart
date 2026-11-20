@@ -5,7 +5,7 @@ import 'package:clustranotes_mobile/features/notes/domain/enums/note_verificatio
 
 extension UploadedNoteSummaryDomain on UploadedNoteSummary {
     NoteOwnerStatus get ownerStatus {
-    switch (publishStatus) {
+    switch (notePublishStatus) {
       case NotePublishStatus.draft:
         return NoteOwnerStatus.draft;
 
@@ -39,5 +39,4 @@ extension UploadedNoteSummaryDomain on UploadedNoteSummary {
         : 'Community';
   }
   
-
 }

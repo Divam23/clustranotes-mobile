@@ -1,6 +1,7 @@
 import 'package:clustranotes_mobile/core/errors/app_failure.dart';
 import 'package:clustranotes_mobile/core/errors/app_failure_mapper.dart';
 import 'package:clustranotes_mobile/core/errors/exceptions/app_exception.dart';
+import 'package:clustranotes_mobile/core/errors/exceptions/upload_cancelled_exception.dart';
 import 'package:clustranotes_mobile/features/upload/data/models/note_list_filter.dart';
 import 'package:clustranotes_mobile/features/upload/data/models/note_owner_status_mapper.dart';
 import 'package:clustranotes_mobile/features/upload/domain/enums/note_owner_status_enum.dart';
@@ -20,43 +21,55 @@ class ContributionNotifier extends StateNotifier<ContributionState> {
   int _totalPages = 0;
   int _filterGeneration = 0;
   CancelToken? _cancelToken;
-  
+
   final UploadRepository _uploadRepository;
-  ContributionNotifier(this._uploadRepository) : super(const ContributionState()) {
-    _pagingController = PagingController(getNextPageKey: (state){
-      if(state.pages?.isEmpty ?? true) return 1;
-      final nextPage = state.nextIntPageKey;
-      return nextPage <= _totalPages ? nextPage : null;
-    }, fetchPage: (pageKey) async {
-          final generation = _filterGeneration;
-          final cancelToken = _cancelToken ??= CancelToken();
-          final currentFilters = filters;
-          final response = await getUserUploadedNotes(currentFilters, PaginationParams(page: pageKey), cancelToken);
-          
-          if(!mounted || generation != _filterGeneration){
-            throw AppFailure(message: "Obsolete Pagination Request");
+  ContributionNotifier(this._uploadRepository)
+    : super(const ContributionState()) {
+    _pagingController = PagingController(
+      getNextPageKey: (state) {
+        if (state.pages?.isEmpty ?? true) return 1;
+        final nextPage = state.nextIntPageKey;
+        return nextPage <= _totalPages ? nextPage : null;
+      },
+      fetchPage: (pageKey) async {
+        final generation = _filterGeneration;
+        final cancelToken = _cancelToken ??= CancelToken();
+        final currentFilters = filters;
+          final response = await getUserUploadedNotes(
+            currentFilters,
+            PaginationParams(page: pageKey),
+            cancelToken,
+          );
+          if (!mounted || generation != _filterGeneration) {
+            throw DioException.requestCancelled(
+              requestOptions: RequestOptions(),
+              reason: 'Filter changed or notifier disposed',
+            );
           }
-          
-           _totalPages = response.paginationInfo.totalPages;
-          
+
+          _totalPages = response.paginationInfo.totalPages;
           return response.notes;
-    });
+      },
+    );
   }
-  
-  PagingController<int, UploadedNoteCard> get pagingController => _pagingController;
+
+  PagingController<int, UploadedNoteCard> get pagingController =>
+      _pagingController;
 
   void changeFilter(NoteOwnerStatus? ownerStatus) {
-    _filterGeneration++;
-    _cancelToken?.cancel();
-    _cancelToken = CancelToken();
     final selectedStatus = ownerStatus == state.selectedStatus
         ? null
         : ownerStatus;
-    state = state.copyWith(selectedStatus: selectedStatus);
+    _filterGeneration++;
     _totalPages = 0;
+
+    final oldToken = _cancelToken;
+    _cancelToken = CancelToken();
+    
+    state = state.copyWith(selectedStatus: selectedStatus);
     _pagingController.refresh();
+    oldToken?.cancel();
   }
-  
 
   NoteListFilters get filters {
     final selectedStatus = state.selectedStatus;
@@ -80,8 +93,16 @@ class ContributionNotifier extends StateNotifier<ContributionState> {
         pagination: pagination,
         cancelToken: cancelToken,
       );
-
       return response;
+    } on DioException catch (exception) {
+      if (exception.type == DioExceptionType.cancel) {
+        rethrow;
+      }
+
+      throw const AppFailure(
+        message: 'Something went wrong. Please try again.',
+        retryable: true,
+      );
     } on AppException catch (exception) {
       throw AppFailureMapper.map(exception);
     } catch (error, stackTrace) {
@@ -92,14 +113,6 @@ class ContributionNotifier extends StateNotifier<ContributionState> {
         message: 'Something went wrong. Please try again.',
         retryable: true,
       );
-    } finally {
-      if (mounted) {
-        state = state.copyWith(
-          isLoading: false,
-          isLoadingMore: false,
-          uploadLoadingActionStatus: null,
-        );
-      }
     }
   }
 
@@ -136,11 +149,9 @@ class ContributionNotifier extends StateNotifier<ContributionState> {
   }
 
   @override
-  void dispose(){
+  void dispose() {
     _cancelToken?.cancel();
     _pagingController.dispose();
     super.dispose();
   }
 }
-
-

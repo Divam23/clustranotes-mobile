@@ -7,7 +7,7 @@ class UploadedNoteSummary {
   final String id;
   final String title;
   final String? thumbnailUrl;
-  final NotePublishStatus publishStatus;
+  final NotePublishStatus notePublishStatus;
   final NoteVerificationPrivateStatus noteVerificationStatus;
   final NoteContentType? noteContentType;
   final NoteStatsModel? noteStats;
@@ -23,7 +23,7 @@ class UploadedNoteSummary {
     required this.id,
     required this.title,
     this.thumbnailUrl,
-    required this.publishStatus,
+    required this.notePublishStatus,
     required this.noteVerificationStatus,
     this.noteStats,
     required this.createdAt,

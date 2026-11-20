@@ -2,9 +2,9 @@ import 'package:clustranotes_mobile/features/upload/domain/enums/note_timestamps
 
 class NoteStatusTimestamps{
   final NoteTimestampsEvent event;
-  final DateTime timestamp;
+  final DateTime? timestamp;
   const NoteStatusTimestamps({
     required this.event,
-    required this.timestamp,
+    this.timestamp,
   });
 }
